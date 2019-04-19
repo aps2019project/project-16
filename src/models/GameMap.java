@@ -16,4 +16,12 @@ public class GameMap {
     public Cell getCell(int row, int column) {
         return cells[row][column];
     }
+
+    public static int getDistance(Cell firstCell, Cell secondCell) {
+        return Math.abs(firstCell.getRow() - secondCell.getRow()) + Math.abs(firstCell.getColumn() - secondCell.getColumn());
+    }
+
+    public static boolean isAdjacent(Cell firstCell, Cell secondCell) { //todo write it
+        return false;
+    }
 }
