@@ -1,5 +1,9 @@
 package view.commands;
 
+import controllers.AccountController;
+import view.CommandHandler;
+import view.views.AccountView;
+
 import java.util.regex.Pattern;
 
 public class CreateAccountCommand extends Command {
@@ -10,7 +14,9 @@ public class CreateAccountCommand extends Command {
 
     @Override
     public void doIt() {
-        String accountName = matcher.group(1);
-        // TODO: 4/19/19 call creating account and then getting password if doesn't exist
+        String username = matcher.group(1);
+        String password = CommandHandler.scanCommand("please set your password:");
+        AccountController controller = new AccountController();
+        controller.createAccount(username, password);
     }
 }

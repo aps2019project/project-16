@@ -1,5 +1,8 @@
 package view.commands;
 
+import controllers.AccountController;
+import view.CommandHandler;
+
 import java.util.regex.Pattern;
 
 public class LoginCommand extends Command {
@@ -10,7 +13,9 @@ public class LoginCommand extends Command {
 
     @Override
     public void doIt() {
-        String accountName = matcher.group(1);
-        // TODO: 4/19/19 if account exist get password and login
+        String username = matcher.group(1);
+        String password = CommandHandler.scanCommand("Please put your password:");
+        AccountController controller = new AccountController();
+        controller.loginAccount(username, password);
     }
 }
