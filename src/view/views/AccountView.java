@@ -3,6 +3,7 @@ package view.views;
 import contracts.AccountContract;
 import models.Leaderboard;
 import view.MenuHandler;
+import static view.menuItems.MenuConstants.*;
 
 public class AccountView implements AccountContract.View {
     private AccountContract.Controller controller;
@@ -25,7 +26,7 @@ public class AccountView implements AccountContract.View {
     @Override
     public void loginSuccessMSG(String username) {
         System.out.println("dear " + username + "!! you've logged in successfully.");
-        MenuHandler.goToSubMenu("main");
+        MenuHandler.goToSubMenu(MAIN_MENU);
     }
 
     @Override

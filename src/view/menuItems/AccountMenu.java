@@ -2,11 +2,13 @@ package view.menuItems;
 
 import view.commands.*;
 
+import static view.menuItems.MenuConstants.ACCOUNT_MENU;
+
 public class AccountMenu extends MenuItem {
 
     @Override
     protected void initMenuItem() {
-        name = "Account";
+        name = ACCOUNT_MENU;
         parentMenu = null;
 
         commands.add(new CreateAccountCommand());
@@ -15,7 +17,6 @@ public class AccountMenu extends MenuItem {
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
 
-        //doesn't have any subMenu
         subMenus.add(new MainMenu());
     }
 }
