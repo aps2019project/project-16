@@ -1,12 +1,25 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Hand {
-    //Hand
-    //--
-    //-CAPACITY: int
-    //-cards : Arraylist<Card>
-    //--
-    //+addCard(card: Card): void
-    //+removeCard(card: Card): void
-    //+getCards(): ArrayList<Card>
+    private static final int CAPACITY = 5;
+
+    private ArrayList<Card> cards = new ArrayList<>();
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public void removeCard(Card card) {  //cardID???
+
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    public boolean isFull() {
+        return cards.size() >= CAPACITY;
+    }
 }

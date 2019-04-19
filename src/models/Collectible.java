@@ -1,4 +1,4 @@
 package models;
 
-public class Collectible {
+public class Collectible extends Item{
 }
