@@ -1,5 +1,7 @@
 package contracts;
 
+import models.Leaderboard;
+
 public interface AccountContract {
 	interface View {
 		void setController(Controller controller);

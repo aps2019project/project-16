@@ -1,6 +1,7 @@
 package view.views;
 
 import contracts.AccountContract;
+import models.Leaderboard;
 
 public class AccountView implements AccountContract.View {
     private AccountContract.Controller controller;

@@ -8,7 +8,7 @@ public abstract class MenuItem {
     protected String menuName;
     protected MenuItem parentMenu;
     protected ArrayList<Command> commands = new ArrayList<>();
-    protected ArrayList<String> subMenuNames = new ArrayList<>();
+    protected ArrayList<MenuItem> subMenus = new ArrayList<>();
 
     {
         initMenuItem();
