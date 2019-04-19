@@ -1,6 +1,7 @@
 package view.commands.mainMenuCommands;
 
 import view.commands.Command;
+import view.commands.commonCommands.ExitCommand;
 
 import java.util.regex.Pattern;
 
@@ -12,6 +13,6 @@ public class LogoutCommand extends Command {
 
     @Override
     public void doIt() {
-        // TODO: 4/19/19 logout
+        new ExitCommand().doIt();
     }
 }

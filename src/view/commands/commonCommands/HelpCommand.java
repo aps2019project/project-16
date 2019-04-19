@@ -1,5 +1,6 @@
 package view.commands.commonCommands;
 
+import view.MenuHandler;
 import view.commands.Command;
 
 import java.util.regex.Pattern;
@@ -13,6 +14,8 @@ public class HelpCommand extends Command {
     @Override
     public void doIt() {
         System.out.println("Commands of this menu:");
-        // TODO: 4/19/19 foreach on commands of currentMenu and print names of them
+        for (Command command : MenuHandler.getCurrentMenu().getCommands()) {
+            System.out.println("* " + command.getName());
+        }
     }
 }

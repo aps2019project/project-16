@@ -8,6 +8,10 @@ public abstract class Command {
     protected Pattern pattern;
     protected Matcher matcher;
 
+    public String getName() {
+        return name;
+    }
+
     public Matcher getMatcher() {
         return matcher;
     }

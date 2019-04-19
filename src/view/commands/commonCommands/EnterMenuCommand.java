@@ -1,5 +1,6 @@
 package view.commands.commonCommands;
 
+import view.MenuHandler;
 import view.commands.Command;
 
 import java.util.regex.Pattern;
@@ -13,6 +14,6 @@ public class EnterMenuCommand extends Command {
     @Override
     public void doIt() {
         String menuName = matcher.group(1);
-        // TODO: 4/19/19 foreach on currentMenu subMenus
+        MenuHandler.goToSubMenu(menuName);
     }
 }

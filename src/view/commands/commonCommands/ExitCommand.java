@@ -1,5 +1,6 @@
 package view.commands.commonCommands;
 
+import view.MenuHandler;
 import view.commands.Command;
 
 import java.util.regex.Pattern;
@@ -12,6 +13,6 @@ public class ExitCommand extends Command {
 
     @Override
     public void doIt() {
-        // TODO: 4/19/19 goto parentMenu if != null
+        MenuHandler.goToParentMenu();
     }
 }
