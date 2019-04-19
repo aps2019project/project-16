@@ -1,4 +1,6 @@
-package view.commands;
+package view.commands.collectionCommands;
+
+import view.commands.Command;
 
 import java.util.regex.Pattern;
 

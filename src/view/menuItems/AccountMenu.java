@@ -1,6 +1,7 @@
 package view.menuItems;
 
-import view.commands.*;
+import view.commands.accountCommands.*;
+import view.commands.commonCommands.*;
 
 import static view.menuItems.MenuConstants.ACCOUNT_MENU;
 

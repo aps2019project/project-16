@@ -1,7 +1,8 @@
-package view.commands;
+package view.commands.accountCommands;
 
 import controllers.AccountController;
 import view.CommandHandler;
+import view.commands.Command;
 
 import java.util.regex.Pattern;
 

@@ -1,6 +1,5 @@
 package view;
 
-import view.menuItems.AccountMenu;
 import view.menuItems.MenuItem;
 
 public class MenuHandler {
@@ -13,7 +12,7 @@ public class MenuHandler {
 
         int i = 1;
         for (MenuItem subMenu : menuItem.getSubMenus()) {
-            System.out.println(i + "." + subMenu.getName());
+            System.out.println(i + ". " + subMenu.getName());
             i++;
         }
     }

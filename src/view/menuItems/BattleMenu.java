@@ -1,8 +1,6 @@
 package view.menuItems;
 
-import view.commands.EnterMenuCommand;
-import view.commands.ExitCommand;
-import view.commands.HelpCommand;
+import view.commands.commonCommands.*;
 
 import static view.menuItems.MenuConstants.BATTLE_MENU;
 

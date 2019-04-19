@@ -1,4 +1,6 @@
-package view.commands;
+package view.commands.accountCommands;
+
+import view.commands.Command;
 
 import java.util.regex.Pattern;
 
