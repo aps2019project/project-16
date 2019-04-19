@@ -2,6 +2,8 @@ package view;
 
 import view.menuItems.MenuItem;
 
+import static view.Notify.*;
+
 public class MenuHandler {
     private static MenuItem currentMenu = null;
 
@@ -12,7 +14,7 @@ public class MenuHandler {
 
         int i = 1;
         for (MenuItem subMenu : menuItem.getSubMenus()) {
-            System.out.println(i + ". " + subMenu.getName());
+            logMessage(i + ". " + subMenu.getName());
             i++;
         }
     }
@@ -28,7 +30,7 @@ public class MenuHandler {
                 return;
             }
         }
-        System.err.println("This subMenu doesn't exist.");
+        logError("This subMenu doesn't exist.");
     }
 
     public static void goToParentMenu() {

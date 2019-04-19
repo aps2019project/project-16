@@ -3,6 +3,8 @@ package view.views;
 import contracts.AccountContract;
 import models.Leaderboard;
 import view.MenuHandler;
+
+import static view.Notify.*;
 import static view.menuItems.MenuConstants.*;
 
 public class AccountView implements AccountContract.View {
@@ -14,18 +16,18 @@ public class AccountView implements AccountContract.View {
     }
 
     @Override
-    public void showUsernameProblemError(String message) {
-        System.err.println("There is a problem with username: " + message);
+    public void usernameProblemError(String message) {
+        logError("There is a problem with username: " + message);
     }
 
     @Override
-    public void showPasswordProblemError(String message) {
-        System.err.println("There is a problem with password: " + message);
+    public void passwordProblemError(String message) {
+        logError("There is a problem with password: " + message);
     }
 
     @Override
     public void loginSuccessMSG(String username) {
-        System.out.println("dear " + username + "!! you've logged in successfully.");
+        logMessage("dear " + username + "!! you've logged in successfully.");
         MenuHandler.goToSubMenu(MAIN_MENU);
     }
 

@@ -5,6 +5,8 @@ import view.commands.Command;
 
 import java.util.regex.Pattern;
 
+import static view.Notify.logMessage;
+
 public class HelpCommand extends Command {
     {
         name = "help";
@@ -13,9 +15,9 @@ public class HelpCommand extends Command {
 
     @Override
     public void doIt() {
-        System.out.println("Commands of this menu:");
+        logMessage("Commands of this menu:");
         for (Command command : MenuHandler.getCurrentMenu().getCommands()) {
-            System.out.println("* " + command.getName());
+            logMessage("* " + command.getName());
         }
     }
 }
