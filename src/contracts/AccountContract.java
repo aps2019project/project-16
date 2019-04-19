@@ -8,6 +8,7 @@ public interface AccountContract {
 
 		void showUsernameProblemError(String message);
 		void showPasswordProblemError(String message);
+		void loginSuccessMSG(String username);
 		void showLeaderboard(Leaderboard leaderboard);
 	}
 

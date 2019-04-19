@@ -2,6 +2,7 @@ package view.views;
 
 import contracts.AccountContract;
 import models.Leaderboard;
+import view.MenuHandler;
 
 public class AccountView implements AccountContract.View {
     private AccountContract.Controller controller;
@@ -19,6 +20,12 @@ public class AccountView implements AccountContract.View {
     @Override
     public void showPasswordProblemError(String message) {
         System.err.println("There is a problem with password: " + message);
+    }
+
+    @Override
+    public void loginSuccessMSG(String username) {
+        System.out.println("dear " + username + "!! you've logged in successfully.");
+        MenuHandler.goToSubMenu("main");
     }
 
     @Override

@@ -6,7 +6,7 @@ public class AccountMenu extends MenuItem {
 
     @Override
     protected void initMenuItem() {
-        menuName = "Account";
+        name = "Account";
         parentMenu = null;
 
         commands.add(new CreateAccountCommand());
@@ -16,5 +16,6 @@ public class AccountMenu extends MenuItem {
         commands.add(new HelpCommand());
 
         //doesn't have any subMenu
+        subMenus.add(new MainMenu());
     }
 }
