@@ -5,11 +5,14 @@ import view.commands.Command;
 import java.util.ArrayList;
 
 public abstract class MenuItem {
+    protected String menuName;
+    protected MenuItem parentMenu;
     protected ArrayList<Command> commands = new ArrayList<>();
+    protected ArrayList<String> subMenuNames = new ArrayList<>();
 
     {
-        initCommands();
+        initMenuItem();
     }
 
-    protected abstract void initCommands();
+    protected abstract void initMenuItem();
 }
