@@ -9,7 +9,6 @@ public class AccountMenu extends MenuItem {
     @Override
     protected void initMenuItem() {
         name = ACCOUNT_MENU;
-        parentMenu = null;
 
         commands.add(new CreateAccountCommand());
         commands.add(new LoginCommand());

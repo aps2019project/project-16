@@ -4,10 +4,13 @@ import view.menuItems.AccountMenu;
 import view.menuItems.MenuItem;
 
 public class MenuHandler {
-    private static MenuItem currentMenu = new AccountMenu();
+    private static MenuItem currentMenu = null;
 
     private static void startMenu(MenuItem menuItem) {
+        MenuItem parent = currentMenu;
         currentMenu = menuItem;
+        menuItem.setParentMenu(parent);
+
         int i = 1;
         for (MenuItem subMenu : menuItem.getSubMenus()) {
             System.out.println(i + "." + subMenu.getName());

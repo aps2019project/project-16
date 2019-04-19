@@ -11,7 +11,6 @@ public class BattleMenu extends MenuItem {
     @Override
     protected void initMenuItem() {
         name = BATTLE_MENU;
-        parentMenu = new MainMenu();
 
         commands.add(new EnterMenuCommand());
         commands.add(new ExitCommand());

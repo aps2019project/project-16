@@ -11,7 +11,6 @@ public class MainMenu extends MenuItem {
     @Override
     protected void initMenuItem() {
         name = MAIN_MENU;
-        parentMenu = new AccountMenu();
 
         commands.add(new EnterMenuCommand());
         commands.add(new ExitCommand());
