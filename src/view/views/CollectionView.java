@@ -1,7 +1,10 @@
 package view.views;
 
 import contracts.CollectionContract;
+import models.Card;
 import models.Deck;
+import models.Hero;
+import models.Item;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,16 @@ public class CollectionView implements CollectionContract.View {
 
     @Override
     public void showDeckProblemError(String message) {
+
+    }
+
+    @Override
+    public void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+
+    }
+
+    @Override
+    public void showSearchResult(ArrayList<Item> items, ArrayList<Card> cards) {
 
     }
 
