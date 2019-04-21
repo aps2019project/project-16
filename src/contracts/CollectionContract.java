@@ -36,8 +36,8 @@ public interface CollectionContract {
         void saveCollection();
         void createDeck(String deckName);
         void deleteDeck(String deckName);
-        void addCardToDeck(String cardNameOrID, String deckName);
-        void removeCardFromDeck(String cardNameOrID, String deckName);
+        void addCardToDeck(int cardID, String deckName);
+        void removeCardFromDeck(int cardID, String deckName);
         void validateDeck(String deckName);
         void selectDeck(String deckName);
     }

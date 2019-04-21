@@ -1,10 +1,11 @@
 package view.commands.collectionCommands;
 
+import controllers.CollectionController;
 import view.commands.Command;
 
 import java.util.regex.Pattern;
 
-public class ShowCommand extends Command {
+public class ShowCollectionCommand extends Command {
     {
         name = "show";
         pattern = Pattern.compile("show", Pattern.CASE_INSENSITIVE);
@@ -12,6 +13,7 @@ public class ShowCommand extends Command {
 
     @Override
     public void doIt() {
-        // TODO: 4/19/19 switch on currentMenuName collection or shop
+        CollectionController controller = new CollectionController();
+        controller.loadCollection();
     }
 }

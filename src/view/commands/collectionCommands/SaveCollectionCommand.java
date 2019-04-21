@@ -5,16 +5,17 @@ import view.commands.Command;
 
 import java.util.regex.Pattern;
 
-public class SearchCommand extends Command {
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
+
+public class SaveCollectionCommand extends Command {
     {
-        name = "search (card name | item name)";
-        pattern = Pattern.compile("search (\\w+)", Pattern.CASE_INSENSITIVE);
+        name = "save";
+        pattern = Pattern.compile("save", CASE_INSENSITIVE);
     }
 
     @Override
     public void doIt() {
-        String cardName = matcher.group(1);
         CollectionController controller = new CollectionController();
-        controller.searchCard(cardName);
+        controller.saveCollection();
     }
 }
