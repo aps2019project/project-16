@@ -1,8 +1,10 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
-public class Cell {
+public class Cell implements Buffable {
     private int row;
     private int column;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
@@ -22,8 +24,20 @@ public class Cell {
         return unit != null;
     }
 
+    @Override
     public void addBuff(Buff buff) {
         cellEffect.add(buff);
+    }
+
+    @Override
+    public void addBuffs(List<Buff> buffs) {
+        buffs.forEach(this::addBuff);
+    }
+
+    @Override
+    public void doBuffs() {
+        for (Buff buff : cellEffect)
+            buff.cast(this);
     }
 
     public int getRow() {

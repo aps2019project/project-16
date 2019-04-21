@@ -1,10 +1,9 @@
 package models;
 
-import sun.text.normalizer.UBiDiProps;
-
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Unit extends Card {
+public abstract class Unit extends Card implements Buffable{
     private int hp;
     private int ap;
     private Cell currentCell;
@@ -20,8 +19,20 @@ public abstract class Unit extends Card {
 
     }
 
+    @Override
     public void addBuff(Buff buff) {
         buffs.add(buff);
+    }
+
+    @Override
+    public void addBuffs(List<Buff> buffs) {
+        buffs.forEach(this::addBuff);
+    }
+
+    @Override
+    public void doBuffs() {
+        for (Buff buff : buffs)
+            buff.cast(this);
     }
 
     public void changeHP(int amount) {
@@ -44,6 +55,10 @@ public abstract class Unit extends Card {
             if (buff.hasDisarm())
                 return true;
         return false;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void attack(Unit opponent) { // same as counter attack?
