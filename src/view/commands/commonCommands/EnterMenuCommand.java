@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class EnterMenuCommand extends Command {
     {
         name = "Enter (menu name)";
-        pattern = Pattern.compile("enter (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("enter (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

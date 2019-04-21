@@ -6,8 +6,8 @@ public interface AccountContract {
 	interface View {
 		void setController(Controller controller);
 
-		void showUsernameProblemError(String message);
-		void showPasswordProblemError(String message);
+		void usernameProblemError(String message);
+		void passwordProblemError(String message);
 		void loginSuccessMSG(String username);
 		void showLeaderboard(Leaderboard leaderboard);
 	}

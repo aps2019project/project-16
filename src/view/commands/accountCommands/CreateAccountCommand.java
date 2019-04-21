@@ -15,7 +15,7 @@ public class CreateAccountCommand extends Command {
     @Override
     public void doIt() {
         String username = matcher.group(1);
-        String password = CommandHandler.scanCommand("please set your password:");
+        String password = CommandHandler.scanCommandByMessage("please set your password:");
         AccountController controller = new AccountController();
         controller.createAccount(username, password);
     }
