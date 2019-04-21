@@ -6,7 +6,7 @@ import models.Player;
 
 import java.util.ArrayList;
 
-public class SquareOfCells extends TargetSociety{
+public class SquareOfCells extends TargetSociety {
     private int size;
 
     public SquareOfCells(int size) {
@@ -20,8 +20,8 @@ public class SquareOfCells extends TargetSociety{
 
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
-            for (int i = 0; i < size; i++)
-                for (int j = 0; j < size; j++)
-                    cell.getMap().getCell(cell.getRow() + i, cell.getColumn() + j).addBuffs(buffs);
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
+                cell.getMap().getCell(cell.getRow() + i, cell.getColumn() + j).addBuffs(buffs);
     }
 }

@@ -1,8 +1,8 @@
 package models;
 
 public class GameMap {
-    private static final int WIDTH = 9;
-    private static final int HEIGHT = 5;
+    public static final int WIDTH = 9;
+    public static final int HEIGHT = 5;
     private Cell[][] cells = new Cell[HEIGHT][WIDTH];
 
     public void putUnit(Unit unit, Cell cell) {
@@ -11,6 +11,10 @@ public class GameMap {
 
     public void moveUnit(Unit unit, Cell cell) {
 
+    }
+
+    public Cell[][] getCells() {
+        return cells;
     }
 
     public Cell getCell(int row, int column) {
