@@ -19,12 +19,12 @@ public interface InGameContract {
 
     interface Controller {
         void loadGameInfo();
-        void laodMinions(boolean myMinions);
+        void loadMinions(boolean myMinions);
         void loadCardInfo(String cardID);
         void selectCard(String cardID);
         void moveToCell(int x, int y);
         void attack(String oppCardID);
-        void attackCombo(String oppCardID, String ... myCardIDs);
+        void attackCombo(String oppCardID, ArrayList<String> myCardIDs);
         void useSpecialPower(int x, int y);
         void loadHand();
         void insertCard(String cardName, int x, int y);
