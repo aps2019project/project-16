@@ -3,6 +3,7 @@ package contracts;
 import models.Card;
 import models.Deck;
 import models.Hero;
+import models.Item;
 
 import java.util.ArrayList;
 
@@ -13,8 +14,8 @@ public interface CollectionContract {
         void showAllDecks(ArrayList<Deck> decks);
         void showDeck(Deck deck);
         void showDeckProblemError(String message);
-//      todo  void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
-//        void showSearchResult(ArrayList<Item> items, ArrayList<Card> cards);
+        void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
+        void showSearchResult(ArrayList<Item> items, ArrayList<Card> cards);
         void deckCreationError(String message);
         void deckCreationSuccessMSG(String deckName);
         void deckDeletionError(String message);

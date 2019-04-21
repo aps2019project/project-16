@@ -11,19 +11,21 @@ public class AccountController implements AccountContract.Controller {
         view.setController(this);
     }
 
+    // TODO: 4/21/19  implement all of functions :)))
+
     @Override
     public void loadLeaderboard() {
-        // TODO: 4/19/19 loadLeaderboard
+
     }
 
     @Override
     public void createAccount(String username, String password) {
-        // TODO: 4/19/19 check that username not exist then create and success message
+
     }
 
     @Override
     public void loginAccount(String username, String password) {
-        // TODO: 4/19/19 check that account exist then login
+
     }
 
 }
