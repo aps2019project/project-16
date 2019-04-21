@@ -46,6 +46,10 @@ public abstract class Unit extends Card {
         return false;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void attack(Unit opponent) { // same as counter attack?
 
     }
