@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class MenuItem {
     protected String name;
-    protected MenuItem parentMenu = null;// TODO: 4/19/19 init when go to subMenu
+    protected MenuItem parentMenu = null;
     protected ArrayList<Command> commands = new ArrayList<>();
     protected ArrayList<MenuItem> subMenus = new ArrayList<>();
 

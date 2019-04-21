@@ -3,15 +3,14 @@ package view.menuItems;
 import view.commands.commonCommands.ExitCommand;
 import view.commands.commonCommands.HelpCommand;
 
-import static view.menuItems.MenuConstants.CUSTOM_GAME_MENU;
+import static view.menuItems.MenuConstants.IN_GRAVEYARD_MENU;
 
-public class CustomGameMenu extends MenuItem {
-
+public class InGraveyardMenu extends MenuItem {
     @Override
     protected void initMenuItem() {
-        name = CUSTOM_GAME_MENU;
+        name = IN_GRAVEYARD_MENU;
 
-        // TODO: 4/21/19
+        // TODO: 4/21/19 init commands
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
 
