@@ -26,6 +26,10 @@ public class Cell {
         cellEffect.add(buff);
     }
 
+    public void addBuffs(ArrayList<Buff> buffs) {
+        cellEffect.addAll(buffs);
+    }
+
     public int getRow() {
         return row;
     }

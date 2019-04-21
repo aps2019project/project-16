@@ -15,6 +15,6 @@ public class OneEnemy extends TargetSociety {
 
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
-        buffs.forEach(cell.getUnit()::addBuff);
+        cell.getUnit().addBuffs(buffs);
     }
 }

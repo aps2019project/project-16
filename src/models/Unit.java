@@ -24,6 +24,10 @@ public abstract class Unit extends Card {
         buffs.add(buff);
     }
 
+    public void addBuffs(ArrayList<Buff> buffs) {
+        this.buffs.addAll(buffs);
+    }
+
     public void changeHP(int amount) {
         hp += amount;
     }

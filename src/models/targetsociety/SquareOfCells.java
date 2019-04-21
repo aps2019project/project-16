@@ -20,11 +20,8 @@ public class SquareOfCells extends TargetSociety{
 
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
-        buffs.forEach(buff -> {
             for (int i = 0; i < size; i++)
                 for (int j = 0; j < size; j++)
-                    cell.getMap().getCell(cell.getRow() + i, cell.getColumn() + j).addBuff(buff);
-        });
-
+                    cell.getMap().getCell(cell.getRow() + i, cell.getColumn() + j).addBuffs(buffs);
     }
 }
