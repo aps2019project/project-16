@@ -3,6 +3,8 @@ package controllers;
 import contracts.InGameContract;
 import view.views.InGameView;
 
+import java.util.ArrayList;
+
 public class InGameController implements InGameContract.Controller {
     private InGameContract.View view;
 
@@ -19,7 +21,7 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void laodMinions(boolean myMinions) {
+    public void loadMinions(boolean myMinions) {
 
     }
 
@@ -44,7 +46,7 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void attackCombo(String oppCardID, String... myCardIDs) {
+    public void attackCombo(String oppCardID, ArrayList<String> myCardIDs) {
 
     }
 
