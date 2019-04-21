@@ -5,13 +5,13 @@ import view.views.CollectionView;
 
 public class CollectionController implements CollectionContract.Controller {
     private CollectionContract.View view;
-    // TODO: 4/21/19 implement all of functions :)))
-
 
     public CollectionController() {
         view = new CollectionView();
         view.setController(this);
     }
+
+    // TODO: 4/21/19 implement all of functions :)))
 
     @Override
     public void loadCollection() {
@@ -49,12 +49,12 @@ public class CollectionController implements CollectionContract.Controller {
     }
 
     @Override
-    public void addCardToDeck(String cardNameOrID, String deckName) {
+    public void addCardToDeck(int cardID, String deckName) {
 
     }
 
     @Override
-    public void removeCardFromDeck(String cardNameOrID, String deckName) {
+    public void removeCardFromDeck(int cardID, String deckName) {
 
     }
 
