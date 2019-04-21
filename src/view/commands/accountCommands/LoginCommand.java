@@ -15,7 +15,7 @@ public class LoginCommand extends Command {
     @Override
     public void doIt() {
         String username = matcher.group(1);
-        String password = CommandHandler.scanCommand("Please put your password:");
+        String password = CommandHandler.scanCommandByMessage("Please put your password:");
         AccountController controller = new AccountController();
         controller.loginAccount(username, password);
     }

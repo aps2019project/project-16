@@ -11,6 +11,7 @@ public class AccountMenu extends MenuItem {
     protected void initMenuItem() {
         name = ACCOUNT_MENU;
 
+        commands.add(new EnterMenuCommand());// delete it debugging
         commands.add(new CreateAccountCommand());
         commands.add(new LoginCommand());
         commands.add(new ShowLeaderboardCommand());
