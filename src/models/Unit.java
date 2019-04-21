@@ -24,6 +24,14 @@ public abstract class Unit extends Card {
         buffs.add(buff);
     }
 
+    public void changeHP(int amount) {
+        hp += amount;
+    }
+
+    public void changeAP(int amount) {
+        ap += amount;
+    }
+
     private boolean isStunned() {
         for (Buff buff : buffs)
             if (buff.hasStun())
@@ -38,7 +46,7 @@ public abstract class Unit extends Card {
         return false;
     }
 
-    public void attack(Unit opponent) { // same as counter attack
+    public void attack(Unit opponent) { // same as counter attack?
 
     }
 
