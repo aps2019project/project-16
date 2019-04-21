@@ -24,7 +24,7 @@ public interface ShopContract {
         void loadShop();
         void searchInShop(String cardName);
         void searchInCollection(String cardName);
-        void buyCard(String cardName);
-        void sellCard(String cardID);
+        void buyCard(int cardID);
+        void sellCard(int cardID);
     }
 }

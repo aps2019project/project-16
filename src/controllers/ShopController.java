@@ -34,12 +34,12 @@ public class ShopController implements ShopContract.Controller {
     }
 
     @Override
-    public void buyCard(String cardName) {
+    public void buyCard(int cardID) {
 
     }
 
     @Override
-    public void sellCard(String cardID) {
+    public void sellCard(int cardID) {
 
     }
 }
