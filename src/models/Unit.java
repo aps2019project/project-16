@@ -3,8 +3,9 @@ package models;
 import sun.text.normalizer.UBiDiProps;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Unit extends Card {
+public abstract class Unit extends Card implements Buffable{
     private int hp;
     private int ap;
     private Cell currentCell;
@@ -20,12 +21,20 @@ public abstract class Unit extends Card {
 
     }
 
+    @Override
     public void addBuff(Buff buff) {
         buffs.add(buff);
     }
 
-    public void addBuffs(ArrayList<Buff> buffs) {
-        this.buffs.addAll(buffs);
+    @Override
+    public void addBuffs(List<Buff> buffs) {
+        buffs.forEach(this::addBuff);
+    }
+
+    @Override
+    public void doBuffs() {
+        for (Buff buff : buffs)
+            buff.cast(this);
     }
 
     public void changeHP(int amount) {
