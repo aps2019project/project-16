@@ -10,8 +10,8 @@ public abstract class Unit extends Card implements Buffable{
     private ArrayList<Flag> flags;
     private Player player;
     private ArrayList<Buff> buffs = new ArrayList<>();
-    private boolean moved; // ???
-    private boolean attacked; // ???
+    private boolean moved; // todo should be checked
+    private boolean attacked; // todo should be checked
     private AttackType attackType;
 
     protected Unit(int manaCost, int buyPrice, int sellPrice, int hp, int ap) { //todo complete

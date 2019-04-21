@@ -1,6 +1,6 @@
 package models;
 
-public class GameMap {
+public class Table {
     public static final int WIDTH = 9;
     public static final int HEIGHT = 5;
     private Cell[][] cells = new Cell[HEIGHT][WIDTH];

@@ -5,6 +5,6 @@ public class Ranged extends AttackType {
 
     @Override
     public boolean canAttack(Cell myCell, Cell oppCell) {
-        return GameMap.getDistance(myCell,oppCell) <= range && ! GameMap.isAdjacent(myCell, oppCell);
+        return Table.getDistance(myCell,oppCell) <= range && ! Table.isAdjacent(myCell, oppCell);
     }
 }

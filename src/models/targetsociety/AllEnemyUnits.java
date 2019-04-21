@@ -2,7 +2,7 @@ package models.targetsociety;
 
 import models.Buff;
 import models.Cell;
-import models.GameMap;
+import models.Table;
 import models.Player;
 
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ public class AllEnemyUnits extends TargetSociety {
 
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
-        for (int i = 0; i < GameMap.HEIGHT; i++)
-            for (int j = 0; j < GameMap.WIDTH; j++)
+        for (int i = 0; i < Table.HEIGHT; i++)
+            for (int j = 0; j < Table.WIDTH; j++)
                 if (hasEnemy(player, cell.getMap().getCell(i, j)))
                     cell.getMap().getCell(i, j).addBuffs(buffs);
     }

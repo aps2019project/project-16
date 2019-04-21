@@ -5,6 +5,6 @@ public class Hybrid extends AttackType {
 
     @Override
     public boolean canAttack(Cell myCell, Cell oppCell) {
-        return GameMap.getDistance(myCell,oppCell) <= range;
+        return Table.getDistance(myCell,oppCell) <= range;
     }
 }

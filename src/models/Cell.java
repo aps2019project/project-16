@@ -2,14 +2,13 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Cell implements Buffable {
     private int row;
     private int column;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
     private Unit unit;
-    private GameMap map;
+    private Table map;
     private ArrayList<Buff> cellEffect = new ArrayList<>();
 
     public void setUnit(Unit unit) {
@@ -52,7 +51,7 @@ public class Cell implements Buffable {
         return unit;
     }
 
-    public GameMap getMap() {
+    public Table getMap() {
         return map;
     }
 }

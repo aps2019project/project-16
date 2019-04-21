@@ -4,7 +4,7 @@ public abstract class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
-    private GameMap map = new GameMap();
+    private Table map = new Table();
     private int turn = 0;
 
     protected Game(Account firstAccount, Account secondAccount, int reward) {
