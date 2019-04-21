@@ -3,6 +3,7 @@ package models;
 public class Buff {
     public static final int INFINITY = Integer.MAX_VALUE;
     private int remainingDuration;
+    private final int duration;
     private boolean holy;
     private int deltaHP;
     private int deltaAP;
@@ -10,12 +11,93 @@ public class Buff {
     private boolean stun;
     private boolean disarm;
 
+    private Buff(int duration, int deltaHP, int deltaAP, int poison, boolean holy, boolean stun, boolean disarm) {
+        this.duration = duration;
+        this.remainingDuration = duration;
+        this.deltaHP = deltaHP;
+        this.deltaAP = deltaAP;
+        this.poison = poison;
+        this.holy = holy;
+        this.stun = stun;
+        this.disarm = disarm;
+    }
+
+    private Buff(int duration, Buff buff) {
+        this.duration = duration;
+        this.remainingDuration = duration;
+        this.deltaHP = buff.deltaHP;
+        this.deltaAP = buff.deltaAP;
+        this.poison = buff.poison;
+        this.holy = buff.holy;
+        this.stun = buff.stun;
+        this.disarm = buff.disarm;
+    }
+
+    public static class BuffBuilder {
+        private static final int INFINITY = Integer.MAX_VALUE;
+        private int duration;
+        private boolean holy;
+        private int deltaHP;
+        private int deltaAP;
+        private int poison;
+        private boolean stun;
+        private boolean disarm;
+
+        public BuffBuilder setDuration(int duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public BuffBuilder setHoly(boolean holy) {
+            this.holy = holy;
+            return this;
+        }
+
+        public BuffBuilder setDeltaHP(int deltaHP) {
+            this.deltaHP = deltaHP;
+            return this;
+        }
+
+        public BuffBuilder setDeltaAP(int deltaAP) {
+            this.deltaAP = deltaAP;
+            return this;
+        }
+
+        public BuffBuilder setPoison(int poison) {
+            this.poison = poison;
+            return this;
+        }
+
+        public BuffBuilder setStun(boolean stun) {
+            this.stun = stun;
+            return this;
+        }
+
+        public BuffBuilder setDisarm(boolean disarm) {
+            this.disarm = disarm;
+            return this;
+        }
+
+        public Buff build() {
+            return new Buff(duration, deltaHP, deltaAP, poison, holy, stun, disarm);
+        }
+    }
+
     public void cast(Unit unit) {
+        if (remainingDuration == duration) {
+            unit.changeAP(deltaAP);
+            unit.changeHP(deltaHP);
+        }
+        unit.changeHP(-poison);
+        remainingDuration--;
+    }
+
+    public void cast(Cell cell) { //todo change it (maybe cell should have spell)
 
     }
 
-    public void cast(Cell cell) {
-
+    public boolean hasHoly() {
+        return holy;
     }
 
     public boolean hasStun() {
