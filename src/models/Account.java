@@ -1,24 +1,114 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.regex.MatchResult;
+
 public class Account {
-    //Account
-    //--
-    //-name: String
-    //-password: String
-    //-collection: Collection
-    //-matchHistory: Arraylist<MatchResult>
-    //-decks: Arraylist<Deck>
-    //-money: int
-    //--
-    //_+getAccount(accountName: String): Account_
-    //+getPlayer(): Player
-    //+getMainDeck(): Deck
-    //+addHistory(history: MatchResult): void
-    //+changeMainDeck(deckNumber: int): void
-    //+isMainDeckValid(): boolean
-    //+save(): void
-    //+addDeck(deck: Deck): void
-    //+getDeck(deckNumber: int): Deck
-    //+addCardtoDeck(deckNumber: int, card: Card): void
-    //-getWins(): int
+    private String name;
+    private String password;
+    private Collection collection;
+    private ArrayList<MatchResult> matchHistory;//todo must be initialize
+    private ArrayList<Deck> decks = new ArrayList<>();
+    private Deck mainDeck;
+    private int money;
+    private int wins;
+    private int numberOfItems;
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public void setMainDeck() {
+        this.mainDeck = this.collection.getMainDeck();
+    }
+
+    public int getNumberOfItems() {
+        return numberOfItems;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public ArrayList<MatchResult> getMatchHistory() {
+        return matchHistory;
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+    public int getWins() {
+        return this.wins;
+    }
+
+    public int getMoney() {
+        return this.money;
+    }
+
+
+    Account(String name) {
+        this.name = name;
+        //todo add this account to somewhere!!
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    public static Account getAccount(String name) {
+        return null;
+        //todo must be checked with save and load method for accounts
+    }
+
+    public Player getPlayer() {
+        return null;
+        //todo should be implemented at the end when the world and game has completed
+    }
+
+    public Deck getMainDeck() {
+        return this.collection.getMainDeck();
+    }
+
+    public void addHisytory(MatchResult history) {
+        this.matchHistory.add(history);
+    }
+
+    public void save() {
+        //todo must be implemented
+    }
+
+    public void addDeck(Deck deck) {
+        this.getDecks().add(deck);
+    }
+
+    public Deck getDeck(int deckID) {
+        return this.decks.get(deckID);
+    }
+
+    public void increaseMoney(int number) {
+        this.money += number;
+    }
+
+    public void decreaseMoney(int number) {
+        this.money -= number;
+    }
+
 }
