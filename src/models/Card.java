@@ -5,8 +5,8 @@ public abstract class Card {
     private int sellPrice;
     private int buyPrice;
     private String name;
-    private int cardID;
     private int price;
+    String cardID;
 
     public int getPrice() {
         return price;
@@ -33,8 +33,8 @@ public abstract class Card {
     public String getName() {
         return this.name;
     }
-    public int getCardID(){
-        return this.cardID;
-    }
 
+    public String getCardID() {
+        return cardID;
+    }
 }

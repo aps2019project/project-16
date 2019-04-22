@@ -8,11 +8,27 @@ public class Cell implements Buffable {
     private int column;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
     private Unit unit;
-    private Table map;
+    private Table table;
     private ArrayList<Buff> cellEffect = new ArrayList<>();
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public Table getTable() {
+        return this.table;
     }
 
     public void removeUnit() {
@@ -37,21 +53,5 @@ public class Cell implements Buffable {
     public void doBuffs() {
         for (Buff buff : cellEffect)
             buff.cast(this);
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public Table getMap() {
-        return map;
     }
 }

@@ -8,7 +8,6 @@ public class Account {
     private String password;
     private Collection collection;
     private ArrayList<MatchResult> matchHistory;//todo must be initialize
-    private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
     private int money;
     private int wins;
@@ -55,7 +54,7 @@ public class Account {
     }
 
     public ArrayList<Deck> getDecks() {
-        return decks;
+        return this.collection.getDecks();
     }
 
     public int getWins() {
@@ -95,12 +94,8 @@ public class Account {
         //todo must be implemented
     }
 
-    public void addDeck(Deck deck) {
-        this.getDecks().add(deck);
-    }
-
-    public Deck getDeck(int deckID) {
-        return this.decks.get(deckID);
+    public Deck getDeck(int deckNumber) {
+        return this.getDecks().get(deckNumber);
     }
 
     public void increaseMoney(int number) {

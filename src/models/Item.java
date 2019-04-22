@@ -1,12 +1,12 @@
 package models;
 
 public abstract class Item {
-    private int itemID;
     private Buff buff;
     private String name;
 //    private TargetSociety targetSociety;
     private int buyPrice;
     private int sellPrice;
+    String itemID ;
 
     public Buff getBuff() {
         return buff;
@@ -19,11 +19,6 @@ public abstract class Item {
     public String getName() {
         return name;
     }
-
-    public int getItemID() {
-        return itemID;
-    }
-
 //    public TargetSociety getTargetSociety() {
 //        return targetSociety;
 //    }
@@ -42,6 +37,10 @@ public abstract class Item {
 
     public int getSellPrice() {
         return sellPrice;
+    }
+
+    public String getItemID() {
+        return itemID;
     }
 
     public void setSellPrice(int sellPrice) {

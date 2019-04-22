@@ -11,6 +11,10 @@ public class Deck {
     private Item item;
     private String name;
 
+    public Deck(String name) {
+        this.name = name;
+    }
+
     public Card getTop() {
         return cards.get(0);
     }
@@ -32,6 +36,9 @@ public class Deck {
     public String getName() {
         return name;
     }
+    public ArrayList<Card> getCards(){
+        return cards;
+    }
 
     public boolean isValid() {
         return false;
@@ -41,8 +48,8 @@ public class Deck {
         cards.add(card);
     }
 
-    public void removeCard(int index) {
-        cards.remove(index);
+    public void removeCard(Card card) {
+        cards.removeIf(card1 -> card1.getCardID().equals(card.getCardID()));
     }
 
     public void setHero(Hero hero) {
@@ -61,6 +68,13 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    public boolean isExistingCard(String name ){
+        for (Card card : cards){
+            if (card.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
     public Deck copy() {
         return null;
     }
