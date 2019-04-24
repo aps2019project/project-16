@@ -15,6 +15,13 @@ public class Deck {
         this.name = name;
     }
 
+    public Deck(ArrayList<Card> cards, Hero hero, Item item, String name) {
+        this.cards = cards;
+        this.hero = hero;
+        this.item = item;
+        this.name = name;
+    }
+
     public Card getTop() {
         return cards.get(0);
     }
@@ -36,13 +43,16 @@ public class Deck {
     public String getName() {
         return name;
     }
-    public ArrayList<Card> getCards(){
+
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
     public boolean isValid() {
+        if (this.cards.size() == 20 && this.hero != null && this.item != null)
+            return true;
         return false;
-    }
+    }//todo should be moved to controller (sepehr)
 
     public void addCard(Card card) {
         cards.add(card);
@@ -68,14 +78,18 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public boolean isExistingCard(String name ){
-        for (Card card : cards){
+    public boolean isExistingCard(String name) {
+        for (Card card : cards) {
             if (card.getName().equals(name))
                 return true;
         }
         return false;
     }
+
     public Deck copy() {
-        return null;
+        Deck deck = new Deck(this.cards , this.hero ,this.item ,this.name);
+        return deck;
+        //todo copy constructor should be checked
     }
+
 }

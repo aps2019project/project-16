@@ -37,7 +37,7 @@ public class Cell implements Buffable {
 
     public boolean hasUnit() {
         return unit != null;
-    }
+    } //todo maybe it should moved to controller (sepehr)
 
     @Override
     public void addBuff(Buff buff) {
