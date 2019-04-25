@@ -40,7 +40,7 @@ public class Collection {
     }
 
     public void removecard(Card card) {
-        this.cards.removeIf(b -> b.equals(card)); // todo should be checked at end
+        this.cards.removeIf(card1 -> card1.equals(card)); // todo should be checked at end
     }
 
     public void addItem(Item item) {
@@ -106,7 +106,7 @@ public class Collection {
         deck.addCard(card);
     }
 
-    public void removeCard(String cardID, String deckName) {
+    public void removeCardFromDeck(String cardID, String deckName) {
         Card card = this.getCard(cardID);
         Deck deck = this.getDeck(deckName);
         deck.removeCard(card);
