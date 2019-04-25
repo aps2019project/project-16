@@ -6,7 +6,7 @@ public abstract class Item {
 //    private TargetSociety targetSociety;
     private int buyPrice;
     private int sellPrice;
-    String itemID ;
+    private String itemID ;
 
     public Buff getBuff() {
         return buff;

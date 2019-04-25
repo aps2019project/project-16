@@ -10,10 +10,16 @@ public class Leaderboard {
     }
 
     private void save() {
-
+        //todo must be implemented (sepehr)
     }
 
     public void incrementWins(String accountName) {
-
+        Account.getAccount(accountName).increaseWin();
+    }
+    public  void addScore(AccountScore accountScore){
+        scores.add(accountScore);
+    }
+    public  void removeScore(AccountScore accountScore){
+        scores.removeIf(accountScore1 -> accountScore1.equals(accountScore));
     }
 }

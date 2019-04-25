@@ -106,4 +106,8 @@ public class Account {
         this.money -= number;
     }
 
+    public void increaseWin() {
+        this.wins ++;
+    }
+
 }
