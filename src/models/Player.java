@@ -11,24 +11,51 @@ public class Player {
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Table table;
-    Player(Deck deck , Hand hand , Table table){
+
+    Player(Deck deck, Hand hand, Table table) {
         this.deck = deck;
         this.hand = hand;
         this.table = table;
     }
-    ///Player/
-    //--
-    //-deck: Deck
-    //-hand: Hand
-    //-graveYard: ArrayList<Card>
-    //-mana: int
-    //-collectables: ArrayList<Collectible>
-    //-units: Unit
-    //-selectedUnit: Unit
-    //-map: Map
-    //-collectables: ArrayList<Collectible>
-    //--
-    //+setMana(mana: int): void
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public ArrayList<Card> getGraveYard() {
+        return graveYard;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public ArrayList<Collectible> getCollectables() {
+        return collectables;
+    }
+
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
+
+    public Unit getSelectedUnit() {
+        return selectedUnit;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    public void setMana(int mana){
+        this.mana = mana;
+    }
+    public  void addToGraveYard(Card card){
+        this.graveYard.add(card);
+    }
     ///+move(): void/
     //+putUnit(cell: Cell, card: Card) : void
     //+useItem(item :Item):void
@@ -36,5 +63,4 @@ public class Player {
     //+moveUnit(cell: Cell) : void
     //+attack(opponent: Unit):void
     //+comboAttack(opponent: Unit, allies: ArratList<Unit>): void
-    //+addToGraveYard(card: Card): void
 }
