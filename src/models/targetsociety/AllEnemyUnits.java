@@ -17,8 +17,8 @@ public class AllEnemyUnits extends TargetSociety {
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
         for (int i = 0; i < Table.HEIGHT; i++)
             for (int j = 0; j < Table.WIDTH; j++)
-                if (hasEnemy(player, cell.getMap().getCell(i, j)))
-                    cell.getMap().getCell(i, j).addBuffs(buffs);
+                if (hasEnemy(player, cell.getTable().getCell(i, j)))
+                    cell.getTable().getCell(i, j).addBuffs(buffs);
     }
 
     private boolean hasEnemy(Player player, Cell cell) {

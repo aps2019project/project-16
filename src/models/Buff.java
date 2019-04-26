@@ -10,8 +10,15 @@ public class Buff {
     private int poison;
     private boolean stun;
     private boolean disarm;
+    private Effect effect;
 
-    private Buff(int duration, int deltaHP, int deltaAP, int poison, boolean holy, boolean stun, boolean disarm) {
+    public enum Effect {
+        POSITIVE,
+        NEGATIVE
+    }
+
+    private Buff(int duration, int deltaHP, int deltaAP, int poison, boolean holy,
+                 boolean stun, boolean disarm, Effect effect) {
         this.duration = duration;
         this.remainingDuration = duration;
         this.deltaHP = deltaHP;
@@ -20,6 +27,7 @@ public class Buff {
         this.holy = holy;
         this.stun = stun;
         this.disarm = disarm;
+        this.effect = effect;
     }
 
     private Buff(int duration, Buff buff) {
@@ -42,14 +50,15 @@ public class Buff {
         private int poison;
         private boolean stun;
         private boolean disarm;
+        private Effect effect;
 
         public BuffBuilder setDuration(int duration) {
             this.duration = duration;
             return this;
         }
 
-        public BuffBuilder setHoly(boolean holy) {
-            this.holy = holy;
+        public BuffBuilder setHoly() {
+            this.holy = true;
             return this;
         }
 
@@ -68,18 +77,23 @@ public class Buff {
             return this;
         }
 
-        public BuffBuilder setStun(boolean stun) {
-            this.stun = stun;
+        public BuffBuilder setStun() {
+            this.stun = true;
             return this;
         }
 
-        public BuffBuilder setDisarm(boolean disarm) {
-            this.disarm = disarm;
+        public BuffBuilder setDisarm() {
+            this.disarm = true;
+            return this;
+        }
+
+        public BuffBuilder setEffect(Effect effect) {
+            this.effect = effect;
             return this;
         }
 
         public Buff build() {
-            return new Buff(duration, deltaHP, deltaAP, poison, holy, stun, disarm);
+            return new Buff(duration, deltaHP, deltaAP, poison, holy, stun, disarm, effect);
         }
     }
 
@@ -93,7 +107,12 @@ public class Buff {
     }
 
     public void cast(Cell cell) { //todo change it (maybe cell should have spell)
+        if (cell.hasUnit())
+            cell.getUnit().changeHP(-poison);
+    }
 
+    public Effect getEffect() {
+        return effect;
     }
 
     public boolean hasHoly() {

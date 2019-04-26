@@ -27,14 +27,9 @@ public class Table {
     }
 
     public static boolean isAdjacent(Cell firstCell, Cell secondCell) {
-        if (firstCell.getColumn() == secondCell.getColumn()
-                && firstCell.getRow() == secondCell.getRow() + 1
-                || firstCell.getRow() == firstCell.getRow() - 1)
-            return true;
-        if (firstCell.getRow() == secondCell.getRow() &&
-                firstCell.getColumn() == secondCell.getColumn() + 1
-                || firstCell.getColumn() == secondCell.getColumn() - 1)
-            return true;
-        return false;
+        return (firstCell.getColumn() == secondCell.getColumn()
+                && Math.abs(firstCell.getRow() - secondCell.getRow()) == 1)
+                || (firstCell.getRow() == secondCell.getRow()
+                && Math.abs(firstCell.getColumn() - secondCell.getColumn()) == 1);
     }
 }

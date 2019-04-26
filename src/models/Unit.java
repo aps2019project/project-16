@@ -29,6 +29,10 @@ public abstract class Unit extends Card implements Buffable{
         buffs.forEach(this::addBuff);
     }
 
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
     @Override
     public void doBuffs() {
         for (Buff buff : buffs)
