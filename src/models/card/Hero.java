@@ -50,6 +50,10 @@ public class Hero extends Unit {
         }
     }
 
+    public Spell getSpell() {
+        return spell;
+    }
+
     public boolean canCastSpell(Cell cell) {
         return spell.canCast(getPlayer(), cell);
     }

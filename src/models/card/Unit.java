@@ -58,6 +58,18 @@ public abstract class Unit extends Card implements Buffable {
         }
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public int getAp() {
+        return ap;
+    }
+
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
     @Override
     public void addBuff(Buff buff) {
         buffs.add(buff);

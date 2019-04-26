@@ -1,5 +1,6 @@
 package contracts;
 
+import models.Usable;
 import models.card.Card;
 import models.card.Hero;
 import models.Item;
@@ -10,10 +11,10 @@ public interface ShopContract {
     interface View {
         void setController(Controller controller);
 
-        void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
+        void showCollection(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards);
         void showShopSearchResult(String cardName, String message);
-        void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
-        void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
+        void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards);
+        void showShop(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards);
         void showBuyResult(String cardName, String message);
         void showSellError(String cardID, String message);
         void showSellSuccessMSG(String cardName, String cardID);
