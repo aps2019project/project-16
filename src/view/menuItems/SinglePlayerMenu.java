@@ -11,6 +11,7 @@ public class SinglePlayerMenu extends MenuItem {
         name = SINGLE_PLAYER_MENU;
 
         commands.add(new EnterMenuCommand());
+        commands.add(new ShowMenuCommand());
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
 

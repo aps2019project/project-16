@@ -16,6 +16,7 @@ public class MainMenu extends MenuItem {
         commands.add(new LogoutCommand());
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
+        commands.add(new ShowMenuCommand());
 
         subMenus.add(new CollectionMenu());
         subMenus.add(new ShopMenu());

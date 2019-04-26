@@ -17,6 +17,6 @@ public class AccountMenu extends MenuItem {
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
 
-        subMenus.add(new MainMenu());
+        subMenus.add(new MainMenu());//virtual sub menu. user can't enter this
     }
 }

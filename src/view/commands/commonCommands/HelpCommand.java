@@ -15,9 +15,10 @@ public class HelpCommand extends Command {
 
     @Override
     public void doIt() {
+        logMessage("Current menu: " + "\"" + MenuHandler.getCurrentMenu().getName() + "\"");
         logMessage("Commands of this menu:");
         for (Command command : MenuHandler.getCurrentMenu().getCommands()) {
-            logMessage("* " + command.getName());
+            logMessage("\t* " + command.getName());
         }
     }
 }

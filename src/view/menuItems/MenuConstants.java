@@ -13,5 +13,5 @@ public class MenuConstants {
     public static final String CUSTOM_GAME_MENU = "Custom game";
 
     public static final String IN_GAME_MENU = "In game";
-    public static final String IN_GRAVEYARD_MENU = "In graveyard";
+    public static final String IN_GRAVEYARD_MENU = "Graveyard";
 }
