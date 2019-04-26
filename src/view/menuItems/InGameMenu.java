@@ -39,6 +39,6 @@ public class InGameMenu extends MenuItem {
         commands.add(new ShowMenuCommand());
 
 
-        subMenus.add(new InGraveyardMenu());
+        subMenus.add(new GraveyardMenu());
     }
 }
