@@ -1,6 +1,6 @@
 package contracts;
 
-import models.Card;
+import models.card.Card;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,11 @@
-package models;
+package models.card;
+
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Unit extends Card implements Buffable{
+public abstract class Unit extends Card implements Buffable {
     private int hp;
     private int ap;
     private Cell currentCell;
@@ -19,6 +21,41 @@ public abstract class Unit extends Card implements Buffable{
         this.hp = hp;
         this.ap = ap;
         this.attackType = attackType;
+    }
+
+    static class UnitBuilder extends CardBuilder {
+        private int hp;
+        private int ap;
+        private AttackType attackType;
+
+
+        public UnitBuilder setHp(int hp) {
+            this.hp = hp;
+            return this;
+        }
+
+        public UnitBuilder setAp(int ap) {
+            this.ap = ap;
+            return this;
+        }
+
+        public UnitBuilder setAttackType(AttackType attackType) {
+            this.attackType = attackType;
+            return this;
+        }
+
+
+        int getHp() {
+            return hp;
+        }
+
+        int getAp() {
+            return ap;
+        }
+
+        AttackType getAttackType() {
+            return attackType;
+        }
     }
 
     @Override

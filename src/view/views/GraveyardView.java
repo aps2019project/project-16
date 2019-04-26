@@ -1,7 +1,7 @@
 package view.views;
 
 import contracts.GraveyardContract;
-import models.Card;
+import models.card.Card;
 
 import java.util.ArrayList;
 

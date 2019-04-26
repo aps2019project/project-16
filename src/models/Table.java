@@ -1,5 +1,7 @@
 package models;
 
+import models.card.Unit;
+
 public class Table {
     public static final int WIDTH = 9;
     public static final int HEIGHT = 5;
