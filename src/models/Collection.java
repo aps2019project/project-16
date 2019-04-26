@@ -1,6 +1,5 @@
 package models;
-
-
+import models.card.*;
 import models.card.Card;
 
 import java.util.ArrayList;
@@ -49,33 +48,33 @@ public class Collection {
         this.items.removeIf(b -> b.equals(item));
     }
 
-    public String searchCard(String name) {
+    public int searchCard(String name) {
         for (Card card : cards) {
             if (card.getName().equals(name))
-                return card.getCardID();
+                return card.getShopCardID();
         }
-        return null;
+        return -1;
     }
 
-    public String searchItem(String name) {
+    public int searchItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name))
-                return item.getItemID();
+                return item.getShopItemID();
         }
-        return null;
+        return -1;
     }
 
-    public Item getItem(String itemID) {
+    public Item getItem(int itemID) {
         for (Item item : items) {
-            if (item.getItemID().equals(itemID))
+            if (item.getShopItemID() == itemID)
                 return item;
         }
         return null;
     }
 
-    public Card getCard(String cardID) {
+    public Card getCard(int cardID) {
         for (Card card : cards) {
-            if (card.getCardID().equals(cardID))
+            if (card.getShopCardID() == cardID )
                 return card;
         }
         return null;
@@ -106,13 +105,13 @@ public class Collection {
         deck.setHero(hero);
     }
 
-    public void removeCardFromDeck(String cardID, String deckName) {
+    public void removeCardFromDeck(int cardID, String deckName) {
         Card card = this.getCard(cardID);
         Deck deck = this.getDeck(deckName);
         deck.removeCard(card);
     }
 
-    public void removeItemFromDeck(String itemID, String deckName) {
+    public void removeItemFromDeck(int itemID, String deckName) {
         Item item = this.getItem(itemID);
         Deck deck = this.getDeck(deckName);
         deck.removeItem();

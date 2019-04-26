@@ -5,7 +5,12 @@ public abstract class Card {
     private int sellPrice;
     private int buyPrice;
     private String name;
-    private String cardID;
+    private int shopCardID;
+    private int gameCardID;
+
+    public int getGameCardID() {
+        return gameCardID;
+    }
 
     public int getPrice() {
         return buyPrice;
@@ -80,7 +85,7 @@ public abstract class Card {
         return this.name;
     }
 
-    public String getCardID() {
-        return cardID;
+    public int getShopCardID() {
+        return this.shopCardID;
     }
 }
