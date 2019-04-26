@@ -94,7 +94,7 @@ public class Buff {
             return this;
         }
 
-        public Buff build() {
+        public Buff create() {
             return new Buff(duration, deltaHP, deltaAP, poison, holy, stun, disarm, effect);
         }
     }
