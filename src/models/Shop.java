@@ -61,7 +61,7 @@ public class Shop {
     public void sellCard(Account account, String cardID) {
         Card card = getCard(cardID);
         account.increaseMoney(card.getPrice());
-        account.getCollection().removecard(card);
+        account.getCollection().removeCard(card);
     }
 
     public void buyItem(Account account, String name) {
