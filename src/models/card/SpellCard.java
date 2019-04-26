@@ -12,6 +12,19 @@ public class SpellCard extends Card {
         this.spell = spell;
     }
 
+    public static class SpellCardBuilder extends CardBuilder {
+        private Spell spell;
+
+        public SpellCardBuilder setSpell(Spell spell) {
+            this.spell = spell;
+            return this;
+        }
+
+        public SpellCard create() {
+            return new SpellCard(getName(), getManaCost(),getBuyPrice(), getSellPrice(), spell);
+        }
+    }
+
     public boolean canCast(Player player, Cell cell) {
         return spell.canCast(player, cell);
     }
