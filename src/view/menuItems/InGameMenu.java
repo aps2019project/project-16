@@ -13,17 +13,25 @@ public class InGameMenu extends MenuItem {
         name = IN_GAME_MENU;
 
         commands.add(new EnterMenuCommand());
-        // TODO: 4/21/19 init commands
 
         commands.add(new GameInfoCommand());
         commands.add(new ShowMinionsCommand());
         commands.add(new ShowCardInfoCommand());
-        commands.add(new SelectCardCommand());
+        commands.add(new SelectCommand());
         commands.add(new MoveCommand());
         commands.add(new AttackCommand());
         commands.add(new AttackComboCommand());
         commands.add(new UseSpecialPowerCommand());
         commands.add(new ShowHandCommand());
+        commands.add(new InsertCardCommmand());
+        commands.add(new EndTurnCommand());
+        commands.add(new ShowCollectablesCommand());
+        //select collectable command is merged to select command
+        commands.add(new ShowCollectableInfoCommand());
+        commands.add(new UseItemCommand());
+        commands.add(new ShowNextCardCommand());
+        commands.add(new HintCommand());
+        commands.add(new EndGameCommand());
 
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
