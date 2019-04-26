@@ -62,7 +62,7 @@ public class Deck {
     }
 
     public void removeCard(Card card) {
-        cards.removeIf(card1 -> card1.getCardID().equals(card.getCardID()));
+        cards.removeIf(card1 -> card1.equals(card));
     }
 
     public void removeItem() {

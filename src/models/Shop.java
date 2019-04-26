@@ -38,17 +38,17 @@ public class Shop {
         return null;
     }
 
-    public Card getCardByCardID(String cardID) {
+    public Card getCardByCardID(int cardID) {
         for (Card card : cards) {
-            if (card.getCardID().equals(cardID))
+            if (card.getShopCardID() == cardID)
                 return card;
         }
         return null;
     }
 
-    public Item getItemByItemID(String itemID) {
+    public Item getItemByItemID(int itemID) {
         for (Item item : items) {
-            if (item.getItemID().equals(itemID))
+            if (item.getShopItemID() == itemID)
                 return item;
         }
         return null;
@@ -97,9 +97,9 @@ public class Shop {
         return false;
     }//todo should go to controller part
 
-    private boolean isExistingCardID(String cardID) {
+    private boolean isExistingCardID(int cardID) {
         for (Card card : cards) {
-            if (card.getCardID().equals(cardID)) ;
+            if (card.getShopCardID() == cardID) ;
             return true;
         }
         return false;
@@ -113,17 +113,17 @@ public class Shop {
         return false;
     }//todo should go to controller part
 
-    private boolean isExistingItemID(String itemID) {
+    private boolean isExistingItemID(int  itemID) {
         for (Item item : items) {
-            if (item.getItemID().equals(itemID)) ;
+            if (item.getShopItemID() == itemID) ;
             return true;
         }
         return false;
     }//todo should go to controller part
 
-    public boolean accountHasCard(Account account, String cardID) {
+    public boolean accountHasCard(Account account, int cardID) {
         for (Card card : account.getCollection().getCards())
-            if (card.getCardID().equals(cardID))
+            if (card.getShopCardID() == cardID)
                 return true;
         return false;
     }//todo should go to controller part

@@ -23,7 +23,7 @@ public abstract class Unit extends Card implements Buffable {
         this.attackType = attackType;
     }
 
-    static class UnitBuilder extends CardBuilder {
+    public static abstract class UnitBuilder extends CardBuilder {
         private int hp;
         private int ap;
         private AttackType attackType;
