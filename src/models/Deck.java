@@ -65,6 +65,10 @@ public class Deck {
         cards.removeIf(card1 -> card1.getCardID().equals(card.getCardID()));
     }
 
+    public void removeItem() {
+        this.item = null;
+    }
+
     public void setHero(Hero hero) {
         this.hero = hero;
     }
@@ -90,7 +94,7 @@ public class Deck {
     }
 
     public Deck copy() {
-        Deck deck = new Deck(this.cards , this.hero ,this.item ,this.name);
+        Deck deck = new Deck(this.cards, this.hero, this.item, this.name);
         return deck;
         //todo copy constructor should be checked
     }

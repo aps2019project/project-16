@@ -31,17 +31,13 @@ public class Collection {
     public ArrayList<Deck> getDecks() {
         return decks;
     }
-    public void setMainDeck(String deckName){
-        Deck deck = this.getDeck(deckName);
-        this.setMainDeck(deck);
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void addCard(Card card) {
         this.cards.add(card);
     }
 
-    public void removecard(Card card) {
+    public void removeCard(Card card) {
         this.cards.removeIf(card1 -> card1.equals(card)); // todo should be checked at end
     }
 
@@ -98,8 +94,8 @@ public class Collection {
         this.decks.add(deck);
     }
 
-    public void deleteDeck(String name) {
-        this.decks.removeIf(deck -> deck.getName().equals(name));
+    public void deleteDeck(Deck deck) {
+        this.decks.removeIf(deck1 -> deck1.getName().equals(deck.getName()));
     }
 
     public void addCard(String cardID, String deckName) {
@@ -108,10 +104,22 @@ public class Collection {
         deck.addCard(card);
     }
 
+    public void addHero(String heroID, String deckName) {
+        Hero hero = (Hero) this.getCard(heroID);
+        Deck deck = this.getDeck(deckName);
+        deck.setHero(hero);
+    }
+
     public void removeCardFromDeck(String cardID, String deckName) {
         Card card = this.getCard(cardID);
         Deck deck = this.getDeck(deckName);
         deck.removeCard(card);
+    }
+
+    public void removeItemFromDeck(String itemID, String deckName) {
+        Item item = this.getItem(itemID);
+        Deck deck = this.getDeck(deckName);
+        deck.removeItem();
     }
 
     public boolean isExistingCardInCollectionError(Card card) {

@@ -8,7 +8,6 @@ public class Account {
     private String password;
     private Collection collection;
     private ArrayList<MatchResult> matchHistory;//todo must be initialize
-    private Deck mainDeck;
     private int money;
     private int wins;
     private int numberOfItems;
@@ -21,9 +20,6 @@ public class Account {
         this.wins = wins;
     }
 
-    public void setMainDeck() {
-        this.mainDeck = this.collection.getMainDeck();
-    }
 
     public int getNumberOfItems() {
         return numberOfItems;
@@ -71,8 +67,8 @@ public class Account {
         this.password = password;
         GameContents.addAccount(this);
     }
-
     //////////////////////////////////////////////////////////////////////////////////////////
+
     public static Account getAccount(String name) {
         return null;
         //todo must be checked with save and load method for accounts
@@ -81,10 +77,6 @@ public class Account {
     public Player getPlayer() {
         return null;
         //todo should be implemented at the end when the world and game has completed
-    }
-
-    public Deck getMainDeck() {
-        return this.collection.getMainDeck();
     }
 
     public void addHisytory(MatchResult history) {
