@@ -27,7 +27,7 @@ public class Spell {
         targetSociety.cast(player, cell, buffs);
     }
 
-    private void dispel(Player player, Cell cell) {
+    private void dispel(Player player, Cell cell) { // todo make it correct for different target societies.
         Table table = cell.getTable();
         for (int i = 0; i < Table.HEIGHT; i++)
             for (int j = 0; j < Table.WIDTH; j++)
