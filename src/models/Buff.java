@@ -1,5 +1,7 @@
 package models;
 
+import models.card.Unit;
+
 public class Buff {
     public static final int INFINITY = Integer.MAX_VALUE;
     private int remainingDuration;

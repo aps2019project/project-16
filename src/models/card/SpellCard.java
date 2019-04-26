@@ -1,4 +1,8 @@
-package models;
+package models.card;
+
+import models.Cell;
+import models.Player;
+import models.Spell;
 
 public class SpellCard extends Card {
     private Spell spell;
@@ -7,6 +11,7 @@ public class SpellCard extends Card {
         super(name, manaCost, buyPrice, sellPrice);
         this.spell = spell;
     }
+
     public boolean canCast(Player player, Cell cell) {
         return spell.canCast(player, cell);
     }

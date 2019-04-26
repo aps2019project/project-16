@@ -2,7 +2,7 @@ package models.targetsociety;
 
 import models.Buff;
 import models.Cell;
-import models.Hero;
+import models.card.Hero;
 import models.Player;
 
 import java.util.ArrayList;

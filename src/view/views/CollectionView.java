@@ -1,9 +1,9 @@
 package view.views;
 
 import contracts.CollectionContract;
-import models.Card;
+import models.card.Card;
 import models.Deck;
-import models.Hero;
+import models.card.Hero;
 import models.Item;
 
 import java.util.ArrayList;

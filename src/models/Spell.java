@@ -1,10 +1,10 @@
 package models;
 
+import models.card.Unit;
 import models.targetsociety.TargetSociety;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 public class Spell {
     private ArrayList<Buff> buffs;
