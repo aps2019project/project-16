@@ -51,7 +51,7 @@ public class ShopView implements ShopContract.View {
             switch (getCardType(card)) {
                 case "Minion":
                     Minion minion = (Minion) card;
-                    System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s"
+                    System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s\n"
                             , i
                             , getCardType(card)
                             , card.getName()
@@ -62,7 +62,7 @@ public class ShopView implements ShopContract.View {
                             , minion.getSpecialPower().toString());
                 case "Spell":
                     SpellCard spellCard = (SpellCard) card;
-                    System.out.printf("\t%d : Type: %s - Name: %s - MP: %d - Description: %s - Buy cost: %d"
+                    System.out.printf("\t%d : Type: %s - Name: %s - MP: %d - Description: %s - Buy cost: %d\n"
                             , i
                             , getCardType(card)
                             , card.getName()
@@ -88,7 +88,7 @@ public class ShopView implements ShopContract.View {
         logMessage("Items:");
         for (Usable usable : items) {
             i++;
-            System.out.printf("\t%d : Name: %s - Description: %s - Buy cost: %d"
+            System.out.printf("\t%d : Name: %s - Description: %s - Buy cost: %d\n"
                     , i
                     , usable.getName()
                     , usable.toString()
@@ -101,7 +101,7 @@ public class ShopView implements ShopContract.View {
         logMessage("Heroes:");
         for (Hero hero : heroes) {
             i++;
-            System.out.printf("\t%d :  Name: %s - AP: %d - HP: %d - Special Power : %s - Buy cost: %d"
+            System.out.printf("\t%d :  Name: %s - AP: %d - HP: %d - Special Power : %s - Buy cost: %d\n"
                     , i
                     , hero.getName()
                     , hero.getAp()
