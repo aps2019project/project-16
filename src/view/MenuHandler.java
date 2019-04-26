@@ -38,10 +38,16 @@ public class MenuHandler {
             menuItem.setParentMenu(tempParent);
         }
 
-        int i = 1;
-        for (MenuItem subMenu : menuItem.getSubMenus()) {
-            logMessage(i + ". " + subMenu.getName());
-            i++;
+        showCurrentMenu();
+    }
+
+    public static void showCurrentMenu() {
+        logMessage("Current menu: " + "\"" + currentMenu.getName() + "\"");
+        if (currentMenu.getSubMenus().size() != 0) {
+            logMessage("Sub menus:");
+        }
+        for (MenuItem subMenu : currentMenu.getSubMenus()) {
+            logMessage("\t* " + subMenu.getName());
         }
     }
 

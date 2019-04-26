@@ -3,6 +3,7 @@ package view.menuItems;
 import view.commands.commonCommands.EnterMenuCommand;
 import view.commands.commonCommands.ExitCommand;
 import view.commands.commonCommands.HelpCommand;
+import view.commands.commonCommands.ShowMenuCommand;
 import view.commands.inGameCommands.*;
 
 import static view.menuItems.MenuConstants.IN_GAME_MENU;
@@ -35,6 +36,7 @@ public class InGameMenu extends MenuItem {
 
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
+        commands.add(new ShowMenuCommand());
 
 
         subMenus.add(new InGraveyardMenu());

@@ -13,6 +13,7 @@ public class BattleMenu extends MenuItem {
         commands.add(new EnterMenuCommand());
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
+        commands.add(new ShowMenuCommand());
 
         subMenus.add(new SinglePlayerMenu());
         subMenus.add(new MultiPlayerMenu());
