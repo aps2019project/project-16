@@ -93,18 +93,14 @@ public class Collection {
     }
 
     public void deleteDeck(Deck deck) {
-        this.decks.removeIf(deck1 -> deck1.getName().equals(deck.getName()));
+        this.decks.removeIf(deck1 -> deck1.equals(deck));
     }
 
-    public void addCard(String cardID, String deckName) {
-        Card card = this.getCard(cardID);
-        Deck deck = this.getDeck(deckName);
+    public void addCard(Card card, Deck deck) {
         deck.addCard(card);
     }
 
-    public void addHero(String heroID, String deckName) {
-        Hero hero = (Hero) this.getCard(heroID);
-        Deck deck = this.getDeck(deckName);
+    public void setHero(Hero hero, Deck deck) {
         deck.setHero(hero);
     }
 
