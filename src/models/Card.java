@@ -5,17 +5,17 @@ public abstract class Card {
     private int sellPrice;
     private int buyPrice;
     private String name;
-    private int price;
     String cardID;
 
     public int getPrice() {
-        return price;
+        return buyPrice;
     }
 
-    protected Card(int manaCost, int buyPrice, int sellPrice) {
+    protected Card(String name, int manaCost, int buyPrice, int sellPrice) {
         this.manaCost = manaCost;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
+        this.name = name;
     }
 
     public int getManaCost() {
