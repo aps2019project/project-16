@@ -60,6 +60,7 @@ public class ShopView implements ShopContract.View {
                             , minion.getHp()
                             , card.getManaCost()
                             , minion.getSpecialPower().toString());
+                    break;
                 case "Spell":
                     SpellCard spellCard = (SpellCard) card;
                     System.out.printf("\t%d : Type: %s - Name: %s - MP: %d - Description: %s - Buy cost: %d\n"
@@ -69,6 +70,7 @@ public class ShopView implements ShopContract.View {
                             , card.getManaCost()
                             , spellCard.toString()
                             , card.getBuyPrice());
+                    break;
             }
         }
     }
