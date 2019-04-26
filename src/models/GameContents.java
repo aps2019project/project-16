@@ -7,6 +7,7 @@ import java.util.Comparator;
 public class GameContents {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static Account currentAccount;
+    private static Shop shop = new Shop();
 
     public static void setCurrentAccount(Account currentAccount) {
         GameContents.currentAccount = currentAccount;
