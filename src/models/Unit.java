@@ -14,9 +14,11 @@ public abstract class Unit extends Card implements Buffable{
     private boolean attacked; // todo should be checked
     private AttackType attackType;
 
-    protected Unit(int manaCost, int buyPrice, int sellPrice, int hp, int ap) { //todo complete
-        super(manaCost, buyPrice, sellPrice);
-
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, int hp, int ap, AttackType attackType) {
+        super(name, manaCost, buyPrice, sellPrice);
+        this.hp = hp;
+        this.ap = ap;
+        this.attackType = attackType;
     }
 
     @Override
@@ -65,11 +67,19 @@ public abstract class Unit extends Card implements Buffable{
         return player;
     }
 
-    public void attack(Unit opponent) { // same as counter attack?
+    public void attack(Unit opponent) { // todo check if is same as counter attack?
 
     }
 
     public boolean isDead() {
         return hp <= 0;
+    }
+
+    public Cell getCurrentCell() {
+        return currentCell;
+    }
+
+    public void setCurrentCell(Cell currentCell) {
+        this.currentCell = currentCell;
     }
 }

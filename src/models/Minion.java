@@ -4,11 +4,15 @@ public class Minion extends Unit{
     private Spell specialPower;
     private SpecialPowerCastTime specialPowerCastTime;
 
-    public Minion(int manaCost, int buyPrice, int sellPrice, int hp, int ap) { //todo correct
-        super(manaCost, buyPrice, sellPrice, hp, ap);
+    public Minion(String name, int manaCost, int buyPrice, int sellPrice, int hp, int ap, AttackType attackType,
+                  Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
+        super(name, manaCost, buyPrice, sellPrice, hp, ap, attackType);
+        this.specialPower = specialPower;
+        this.specialPowerCastTime = specialPowerCastTime;
     }
 
-    public void castSpecialPower(SpecialPowerCastTime time) {
-
+    public void castSpecialPower(SpecialPowerCastTime time, Cell cell) {
+        if (time == specialPowerCastTime)
+            specialPower.cast(getPlayer(), cell);
     }
 }
