@@ -5,7 +5,7 @@ public abstract class Card {
     private int sellPrice;
     private int buyPrice;
     private String name;
-    String cardID;
+    private String cardID;
 
     public int getPrice() {
         return buyPrice;
@@ -18,7 +18,7 @@ public abstract class Card {
         this.name = name;
     }
 
-    static class CardBuilder {
+    public static abstract class CardBuilder {
         private int manaCost;
         private int sellPrice;
         private int buyPrice;
@@ -60,6 +60,8 @@ public abstract class Card {
         String getName() {
             return name;
         }
+
+        public abstract Card create();
     }
 
     public int getManaCost() {
