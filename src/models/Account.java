@@ -66,9 +66,10 @@ public class Account {
     }
 
 
-    Account(String name) {
+    public Account(String name, String password) {
         this.name = name;
-        //todo add this account to somewhere!!
+        this.password = password;
+        GameContents.addAccount(this);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +108,12 @@ public class Account {
     }
 
     public void increaseWin() {
-        this.wins ++;
+        this.wins++;
+    }
+
+    @Override
+    public String toString() {
+        return "UserName : " + this.getName() + " - Wins : " + this.getWins();
     }
 
 }
