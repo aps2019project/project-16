@@ -1,15 +1,15 @@
 package contracts;
 
+import models.Account;
 import models.Leaderboard;
+
+import java.util.ArrayList;
 
 public interface AccountContract {
 	interface View {
 		void setController(Controller controller);
 
-		void usernameProblemError(String message);
-		void passwordProblemError(String message);
-		void loginSuccessMSG(String username);
-		void showLeaderboard(Leaderboard leaderboard);
+		void showLeaderboard(ArrayList<Account> accounts);
 	}
 
 	interface Controller {

@@ -65,7 +65,6 @@ public class Account {
     public Account(String name, String password) {
         this.name = name;
         this.password = password;
-        GameContents.addAccount(this);
     }
     //////////////////////////////////////////////////////////////////////////////////////////
 

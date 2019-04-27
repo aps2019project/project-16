@@ -1,11 +1,11 @@
 package view.views;
 
 import contracts.AccountContract;
-import models.Leaderboard;
-import view.MenuHandler;
+import models.Account;
+import view.Notify;
 
-import static view.Notify.*;
-import static view.menuItems.MenuConstants.*;
+import java.util.ArrayList;
+
 
 public class AccountView implements AccountContract.View {
     private AccountContract.Controller controller;
@@ -16,23 +16,12 @@ public class AccountView implements AccountContract.View {
     }
 
     @Override
-    public void usernameProblemError(String message) {
-        logError("There is a problem with username: " + message);
-    }
-
-    @Override
-    public void passwordProblemError(String message) {
-        logError("There is a problem with password: " + message);
-    }
-
-    @Override
-    public void loginSuccessMSG(String username) {
-        logMessage("dear " + username + "!! you've logged in successfully.");
-        MenuHandler.goToSubMenu(MAIN_MENU);
-    }
-
-    @Override
-    public void showLeaderboard(Leaderboard leaderboard) {
-        // TODO: 4/19/19 show leaderborad
+    public void showLeaderboard(ArrayList<Account> accounts) {
+        int i = 0;
+        Notify.logMessage("Leaderboard: ");
+        for (Account account : accounts) {
+            i++;
+            System.out.printf("\t%d : UserName: %s - Wins: %d\n", i, account.getName(), account.getWins());
+        }
     }
 }
