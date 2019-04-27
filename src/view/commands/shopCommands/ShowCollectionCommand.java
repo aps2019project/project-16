@@ -14,6 +14,6 @@ public class ShowCollectionCommand extends Command {
 
     @Override
     public void doIt() {
-        new CollectionController().loadCollection();//may change and call ShopController
+        new ShopController().loadCollection();
     }
 }

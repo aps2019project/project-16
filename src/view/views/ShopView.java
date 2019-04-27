@@ -21,11 +21,6 @@ public class ShopView implements ShopContract.View {
     }
 
     @Override
-    public void showCollection(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards) {
-
-    }
-
-    @Override
     public void showShopSearchResult(String cardName, String message) {
 
     }
@@ -39,7 +34,6 @@ public class ShopView implements ShopContract.View {
     public void showShop(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards) {
         printHeroes(heroes);
         printUsables(items);
-
         printCards(cards);
     }
 
@@ -118,13 +112,4 @@ public class ShopView implements ShopContract.View {
 
     }
 
-    @Override
-    public void showSellError(String cardID, String message) {
-
-    }
-
-    @Override
-    public void showSellSuccessMSG(String cardName, String cardID) {
-
-    }
 }

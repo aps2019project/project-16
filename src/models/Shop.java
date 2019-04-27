@@ -22,17 +22,17 @@ public class Shop {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    public Card getCard(String name) {
+    public Card getCard(String cardName) {
         for (Card card : cards) {
-            if (card.getName().equals(name))
+            if (card.getName().equals(cardName))
                 return card;
         }
         return null;
     }
 
-    public Item getItem(String name) {
+    public Item getItem(String itemName) {
         for (Item item : items) {
-            if (item.getName().equals(name))
+            if (item.getName().equals(itemName))
                 return item;
         }
         return null;
@@ -54,28 +54,40 @@ public class Shop {
         return null;
     }
 
-    public void buyCard(Account account, String name) {
-        Card card = getCard(name);
-        account.decreaseMoney(card.getPrice());
-        account.getCollection().addCard(card);
+    public void buyCard(String cardName) {
+        Account currentAccount = GameContents.getCurrentAccount();
+        Collection collection = currentAccount.getCollection();
+
+        Card card = getCard(cardName);
+        currentAccount.decreaseMoney(card.getBuyPrice());
+        collection.addCard(card);
     }
 
-    public void sellCard(Account account, String cardID) {
-        Card card = getCard(cardID);
-        account.increaseMoney(card.getPrice());
-        account.getCollection().removeCard(card);
+    public void sellCard(int cardID) {
+        Account currentAccount = GameContents.getCurrentAccount();
+        Collection collection = currentAccount.getCollection();
+
+        Card card = collection.getCard(cardID);
+        currentAccount.increaseMoney(card.getBuyPrice());
+        collection.removeCard(card);
     }
 
-    public void buyItem(Account account, String name) {
-        Item item = getItem(name);
-        account.decreaseMoney(item.getBuyPrice());
-        account.getCollection().addItem(item);
+    public void buyItem(String itemName) {
+        Account currentAccount = GameContents.getCurrentAccount();
+        Collection collection = currentAccount.getCollection();
+
+        Item item = getItem(itemName);
+        currentAccount.decreaseMoney(item.getBuyPrice());
+        collection.addItem(item);
     }
 
-    public void sellItem(Account account, String name) {
-        Item item = getItem(name);
-        account.increaseMoney(item.getSellPrice());
-        account.getCollection().removeItem(item);
+    public void sellItem(int itemID) {
+        Account currentAccount = GameContents.getCurrentAccount();
+        Collection collection = currentAccount.getCollection();
+
+        Item item = collection.getItem(itemID);
+        currentAccount.increaseMoney(item.getBuyPrice());
+        collection.removeItem(item);
     }
 
     public String getType(String name) {
@@ -87,45 +99,4 @@ public class Shop {
             return "item";
         return null;
     }
-
-
-    private boolean isExistingCard(String name) {
-        for (Card card : cards) {
-            if (card.getName().equals(name))
-                return true;
-        }
-        return false;
-    }//todo should go to controller part
-
-    private boolean isExistingCardID(int cardID) {
-        for (Card card : cards) {
-            if (card.getShopCardID() == cardID) ;
-            return true;
-        }
-        return false;
-    }//todo should go to controller part
-
-    private boolean isExistingItem(String name) {
-        for (Item item : items) {
-            if (item.getName().equals(name))
-                return true;
-        }
-        return false;
-    }//todo should go to controller part
-
-    private boolean isExistingItemID(int  itemID) {
-        for (Item item : items) {
-            if (item.getShopItemID() == itemID) ;
-            return true;
-        }
-        return false;
-    }//todo should go to controller part
-
-    public boolean accountHasCard(Account account, int cardID) {
-        for (Card card : account.getCollection().getCards())
-            if (card.getShopCardID() == cardID)
-                return true;
-        return false;
-    }//todo should go to controller part
-
 }
