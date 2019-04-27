@@ -9,9 +9,9 @@ public class Minion extends Unit {
     private Spell specialPower;
     private SpecialPowerCastTime specialPowerCastTime;
 
-    public Minion(String name, int manaCost, int buyPrice, int sellPrice, int hp, int ap, AttackType attackType,
+    public Minion(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType,
                   Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
-        super(name, manaCost, buyPrice, sellPrice, hp, ap, attackType);
+        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType);
         this.specialPower = specialPower;
         this.specialPowerCastTime = specialPowerCastTime;
     }
@@ -32,7 +32,7 @@ public class Minion extends Unit {
         }
 
         public Minion create() {
-            return new Minion(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getHp(),
+            return new Minion(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(),
                     getAp(), getAttackType(), specialPower, specialPowerCastTime);
         }
     }

@@ -7,8 +7,8 @@ import models.Spell;
 public class SpellCard extends Card {
     private Spell spell;
 
-    public SpellCard(String name, int manaCost, int buyPrice, int sellPrice, Spell spell) {
-        super(name, manaCost, buyPrice, sellPrice);
+    public SpellCard(String name, int manaCost, int buyPrice, int sellPrice, String description, Spell spell) {
+        super(name, manaCost, buyPrice, sellPrice, description);
         this.spell = spell;
     }
 
@@ -21,7 +21,7 @@ public class SpellCard extends Card {
         }
 
         public SpellCard create() {
-            return new SpellCard(getName(), getManaCost(),getBuyPrice(), getSellPrice(), spell);
+            return new SpellCard(getName(), getManaCost(),getBuyPrice(), getSellPrice(), getDescription(), spell);
         }
     }
 

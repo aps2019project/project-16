@@ -8,7 +8,7 @@ import models.Table;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RandomEnemyMinionAdjacentToHero extends TargetSociety { // todo must be corrected <Mostafa>
+public class EnemyMinionsAdjacentToCell extends TargetSociety {
     @Override
     public boolean canCast(Player player, Cell cell) {
         Table table = cell.getTable();
@@ -20,15 +20,13 @@ public class RandomEnemyMinionAdjacentToHero extends TargetSociety { // todo mus
         return false;
     }
 
+    @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
         int[][] cells = {{0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}};
-        Random random = new Random();
-        for (int i = random.nextInt(cells.length); true; i = (i + 1) % cells.length) {
-            Cell adjacentCell = cell.getTable().getCell(cell.getRow() + cells[i][0], cell.getColumn() + cells[i][1]);
-            if (adjacentCell.hasUnit() && adjacentCell.getUnit().getPlayer() != player) {
+        for (int[] coordinate : cells) {
+            Cell adjacentCell = cell.getTable().getCell(cell.getRow() + coordinate[0], cell.getColumn() + coordinate[1]);
+            if (adjacentCell.hasUnit() && adjacentCell.getUnit().getPlayer() != player)
                 adjacentCell.getUnit().addBuffs(buffs);
-                return;
-            }
         }
     }
 }

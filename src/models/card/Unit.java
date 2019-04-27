@@ -16,8 +16,8 @@ public abstract class Unit extends Card implements Buffable {
     private boolean attacked; // todo should be checked
     private AttackType attackType;
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, int hp, int ap, AttackType attackType) {
-        super(name, manaCost, buyPrice, sellPrice);
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType) {
+        super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
         this.attackType = attackType;

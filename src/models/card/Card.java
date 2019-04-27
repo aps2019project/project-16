@@ -5,6 +5,7 @@ public abstract class Card {
     private int sellPrice;
     private int buyPrice;
     private String name;
+    private String description;
     private int collectionID;
     private int gameCardID;
 
@@ -16,11 +17,12 @@ public abstract class Card {
         return buyPrice;
     }
 
-    protected Card(String name, int manaCost, int buyPrice, int sellPrice) {
+    protected Card(String name, int manaCost, int buyPrice, int sellPrice, String description) {
         this.manaCost = manaCost;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
         this.name = name;
+        this.description = description;
     }
 
     public static abstract class CardBuilder {
@@ -28,6 +30,7 @@ public abstract class Card {
         private int sellPrice;
         private int buyPrice;
         private String name;
+        private String description;
 
 
         public CardBuilder setManaCost(int manaCost) {
@@ -66,6 +69,10 @@ public abstract class Card {
             return name;
         }
 
+        String getDescription() {
+            return description;
+        }
+
         public abstract Card create();
     }
 
@@ -83,6 +90,10 @@ public abstract class Card {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getCollectionID() {

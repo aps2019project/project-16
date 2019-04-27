@@ -10,9 +10,9 @@ public class Hero extends Unit {
     private int spellRemainingCoolDown = 0;
     private int spellCoolDown;
 
-    public Hero(String name, int manaCost, int buyPrice, int sellPrice, int hp, int ap, AttackType attackType,
+    public Hero(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType,
                 Spell spell, int spellManaCost, int spellCoolDown) {
-        super(name, manaCost, buyPrice, sellPrice, hp, ap, attackType);
+        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType);
         this.spell = spell;
         this.spellManaCost = spellManaCost;
         this.spellCoolDown = spellCoolDown;
@@ -45,7 +45,7 @@ public class Hero extends Unit {
         }
 
         public Hero create() {
-            return new Hero(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getHp(), getAp(), getAttackType(),
+            return new Hero(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(), getAp(), getAttackType(),
                     spell, spellManaCost, spellCoolDown);
         }
     }
