@@ -5,7 +5,7 @@ public abstract class Card {
     private int sellPrice;
     private int buyPrice;
     private String name;
-    private int shopCardID;
+    private int collectionID;
     private int gameCardID;
 
     public int getGameCardID() {
@@ -85,7 +85,7 @@ public abstract class Card {
         return this.name;
     }
 
-    public int getShopCardID() {
-        return this.shopCardID;
+    public int getCollectionID() {
+        return this.collectionID;
     }
 }

@@ -13,6 +13,10 @@ public class GameContents {
         GameContents.currentAccount = currentAccount;
     }
 
+    public static Shop getShop() {
+        return shop;
+    }
+
     public static Account getCurrentAccount() {
         return currentAccount;
     }

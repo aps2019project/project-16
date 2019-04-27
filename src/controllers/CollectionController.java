@@ -1,7 +1,14 @@
 package controllers;
 
 import contracts.CollectionContract;
+import models.Collection;
+import models.GameContents;
+import models.Item;
+import models.card.Card;
+import models.card.Hero;
 import view.views.CollectionView;
+
+import java.util.ArrayList;
 
 public class CollectionController implements CollectionContract.Controller {
     private CollectionContract.View view;
@@ -15,7 +22,18 @@ public class CollectionController implements CollectionContract.Controller {
 
     @Override
     public void loadCollection() {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        ArrayList<Hero> heroes = new ArrayList<>();
+        ArrayList<Card> cards = new ArrayList<>();
+        ArrayList<Item> items = collection.getItems();
+        for (Card card : collection.getCards()) {
+            if (card.getClass().equals(Hero.class)) {
+                heroes.add((Hero) card);
+            } else {
+                cards.add(card);
+            }
+        }
+        view.showCollection(heroes, items, cards);
     }
 
     @Override

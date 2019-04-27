@@ -5,7 +5,7 @@ import models.card.Card;
 import java.util.ArrayList;
 
 public class Collection {
-    private static final int ITEM_CAPACITY = 3;
+    public static final int ITEM_CAPACITY = 3;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Collection {
     public int searchCard(String name) {
         for (Card card : cards) {
             if (card.getName().equals(name))
-                return card.getShopCardID();
+                return card.getCollectionID();
         }
         return -1;
     }
@@ -59,14 +59,14 @@ public class Collection {
     public int searchItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name))
-                return item.getShopItemID();
+                return item.getCollectionID();
         }
         return -1;
     }
 
     public Item getItem(int itemID) {
         for (Item item : items) {
-            if (item.getShopItemID() == itemID)
+            if (item.getCollectionID() == itemID)
                 return item;
         }
         return null;
@@ -74,7 +74,7 @@ public class Collection {
 
     public Card getCard(int cardID) {
         for (Card card : cards) {
-            if (card.getShopCardID() == cardID )
+            if (card.getCollectionID() == cardID )
                 return card;
         }
         return null;
@@ -116,39 +116,4 @@ public class Collection {
         Deck deck = this.getDeck(deckName);
         deck.removeItem();
     }
-
-    public boolean isExistingCardInCollectionError(Card card) {
-        if (this.isExistingCard(card.getName()))
-            return true;
-        return false;
-    } //todo maybe this method should go to CONTROL part
-
-    public boolean isExistingCardInDeckError(Card card, Deck deck) {
-        if (deck.isExistingCard(card.getName()))
-            return true;
-        return false;
-    } //todo maybe this method should go to CONTROL part
-
-
-    public boolean isExistingCard(String name) {
-        for (Card card : cards) {
-            if (card.getName().equals(name))
-                return true;
-        }
-        return false;
-    } //todo maybe this method should go to CONTROL part
-
-    public boolean isExistingItem(String name) {
-        for (Item item : items) {
-            if (item.getName().equals(name))
-                return true;
-        }
-        return false;
-    } //todo maybe this method should go to CONTROL part
-
-    public boolean canAddItem() {
-        if (this.items.size() < 3)
-            return true;
-        return false;
-    } //todo maybe this method should go to CONTROL part
 }

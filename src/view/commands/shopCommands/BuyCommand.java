@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 
 public class BuyCommand extends Command {
     {
-        name = "buy (card ID | Item ID)";
-        pattern = Pattern.compile("buy (\\d+)", Pattern.CASE_INSENSITIVE);
+        name = "buy (card name | Item name)";
+        pattern = Pattern.compile("buy (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
     public void doIt() {
-        int cardID = Integer.parseInt(matcher.group(1));
-        new ShopController().buyCard(cardID);
+        String cardName = matcher.group(1);
+        new ShopController().buyCard(cardName);
     }
 }

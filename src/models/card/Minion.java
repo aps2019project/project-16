@@ -37,6 +37,10 @@ public class Minion extends Unit {
         }
     }
 
+    public Spell getSpecialPower() {
+        return specialPower;
+    }
+
     public void castSpecialPower(SpecialPowerCastTime time, Cell cell) {
         if (time == specialPowerCastTime)
             specialPower.cast(getPlayer(), cell);
