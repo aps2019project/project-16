@@ -6,7 +6,7 @@ public abstract class Card {
     private int buyPrice;
     private String name;
     private String description;
-    private int shopCardID;
+    private int collectionID;
     private int gameCardID;
 
     public int getGameCardID() {
@@ -96,7 +96,7 @@ public abstract class Card {
         return description;
     }
 
-    public int getShopCardID() {
-        return this.shopCardID;
+    public int getCollectionID() {
+        return this.collectionID;
     }
 }

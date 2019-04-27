@@ -6,9 +6,12 @@ public abstract class Item {
 //    private TargetSociety targetSociety;
     private int buyPrice;
     private int sellPrice;
-    private int shopItemID;
+    private int collectionID;
     private int GameItemID;
 
+    public int getCollectionID() {
+        return collectionID;
+    }
 
     public Buff getBuff() {
         return buff;
@@ -39,10 +42,6 @@ public abstract class Item {
 
     public int getSellPrice() {
         return sellPrice;
-    }
-
-    public int getShopItemID() {
-        return shopItemID;
     }
 
     public void setSellPrice(int sellPrice) {
