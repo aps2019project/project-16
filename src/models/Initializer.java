@@ -130,10 +130,18 @@ public class Initializer {
                                 .setDuration(1)
                                 .create())
                         .addBuff(new Buff.BuffBuilder()
-                                .setPoison(0) //todo what is the argument in poison????!!!??
+                                .setPoison(1)
                                 .setDuration(4)
                                 .create())
+                        .setTargetSociety(new AllEnemyUnits())
                         .create())
+                .setAttackType(new Melee())
+                .setAp(6)
+                .setHp(6)
+                .setManaCost(4)
+                .setBuyPrice(700)
+                .setSellPrice(700)
+                .setName("jasoose toorani")
                 .create()
         );
         //11
@@ -175,7 +183,21 @@ public class Initializer {
         );
         //15
         shopCards.add(new Minion.MinionBuilder()
-                //todo PASIVE must be added by Mostafa
+                .setSpecialPowerCastTime(PASSIVE)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(10)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .setTargetSociety() // todo target society ke roo khodam cast she mikham
+                        .create())
+                .setAttackType(new Ranged())
+                .setAp(2)
+                .setHp(0)
+                .setManaCost(2)
+                .setSellPrice(200)
+                .setBuyPrice(200)
+                .setName("oghab")
                 .create()
         );
         //16
@@ -195,10 +217,11 @@ public class Initializer {
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-2)
+                                .setDuration(Buff.INFINITY)
                                 .create())
-                        .setTargetSociety()//todo 8Adjacent cells must be added to target society
+                        .setTargetSociety(new EnemyMinionsAdjacentToCell())
                         .create())
-                .setAttackType(new Hybrid)
+                .setAttackType(new Hybrid())
                 .setAp(11)
                 .setHp(12)
                 .setManaCost(7)
@@ -212,7 +235,7 @@ public class Initializer {
                 .setSpecialPowerCastTime(ON_ATTACK)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
-                                .setPoison()//todo what should i add to set poison
+                                .setPoison(1)
                                 .setDuration(3)
                                 .create())
                         .setTargetSociety(new OneEnemyUnit())
@@ -244,7 +267,6 @@ public class Initializer {
                         .addBuff(new Buff.BuffBuilder()
                                 .setHoly() // todo this is wrong and must be checked with the DOC and new buff should be add
                                 .create())
-                        .setTargetSociety(null) //todo what if some one has no target society
                         .create())
                 .setAttackType(new Melee())
                 .setAp(8)
@@ -279,12 +301,12 @@ public class Initializer {
                 .setSpecialPowerCastTime(ON_ATTACK)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
-                                .setDeltaHP(-6)
+                                .setDeltaHP(-2)
                                 .setDuration(1)
                                 .create())
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-4)
-                                .setDuration()//todo there is a problem when a buff should cast at turn = turn + X - checked with DOC
+                                .setDuration(2)//todo there is a problem when a buff should cast at turn = turn + X - checked with DOC
                                 .create())
                         .setTargetSociety() // todo this target society for one minion enemy is not available
                         .create())
@@ -303,7 +325,11 @@ public class Initializer {
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-8)
-                                //todo has PROBLEM in cst time!!!
+                                .setDuration(2)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(8)
+                                .setDuration(1)
                                 .create())
                         .setTargetSociety()//todo one minion enemy target society is not available
                         .create())
@@ -322,7 +348,11 @@ public class Initializer {
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-6)
-                                //todo duration has problem
+                                .setDuration(2)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(6)
+                                .setDuration(1)
                                 .create())
                         .setTargetSociety()//todo minion target society is not available
                         .create())
@@ -380,7 +410,7 @@ public class Initializer {
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(1)
-                                .setDuration(Buff.INFINITY)
+                                .setDuration()//todo continiuous buff NOT  implemented
                                 .create())
                         .setTargetSociety() //todo all enemy minion target society is not availalble
                         .create())
@@ -473,7 +503,7 @@ public class Initializer {
                 .setSpecialPowerCastTime(ON_DEFEND)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
-                                //todo implement at rthe end
+                                //todo implement at the end
                                 .create())
                         .setTargetSociety(new AllEnemyUnits())
                         .create())
@@ -532,7 +562,7 @@ public class Initializer {
                                 .setStun()
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety() //todo adjacent enemy cells target society not available
+                        .setTargetSociety(new EnemyMinionsAdjacentToCell())
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(4)
