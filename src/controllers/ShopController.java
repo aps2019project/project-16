@@ -12,7 +12,7 @@ import view.views.ShopView;
 
 import java.util.ArrayList;
 
-import static models.ProgramConstants.MAX_NUMBER_OF_ITEMS;
+import static models.Collection.ITEM_CAPACITY;
 
 public class ShopController implements ShopContract.Controller {
     private ShopContract.View view;
@@ -32,7 +32,7 @@ public class ShopController implements ShopContract.Controller {
     @Override
     public void loadShop() {
         Shop shop = GameContents.getShop();
-        ArrayList<Usable> items = shop.getItems();
+        ArrayList<Item> items = shop.getItems();
         ArrayList<Hero> heroes = new ArrayList<>();
         ArrayList<Card> cards = new ArrayList<>();
         for (Card card : shop.getCards()) {
@@ -78,8 +78,8 @@ public class ShopController implements ShopContract.Controller {
         Item item = shop.getItem(cardName);
         if (item.getBuyPrice() > GameContents.getCurrentAccount().getMoney()) {
             Notify.logError("You don't have enough money to buy this item!");
-        } else if (GameContents.getCurrentAccount().getCollection().getItems().size() >= MAX_NUMBER_OF_ITEMS) {
-            Notify.logError("You don't have capacity to buy item. maximum number of items:" + MAX_NUMBER_OF_ITEMS);
+        } else if (GameContents.getCurrentAccount().getCollection().getItems().size() >= ITEM_CAPACITY) {
+            Notify.logError("You don't have capacity to buy item. maximum number of items:" + ITEM_CAPACITY);
         } else {
             shop.buyItem(cardName);
             Notify.logMessage("You successfully bought item: \"" + cardName + "\"");

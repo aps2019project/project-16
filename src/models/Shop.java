@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
-    private ArrayList<Usable> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     public Shop() {
         Initializer.initShopCards(cards);
@@ -17,7 +17,7 @@ public class Shop {
         return cards;
     }
 
-    public ArrayList<Usable> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
@@ -40,7 +40,7 @@ public class Shop {
 
     public Card getCardByCardID(int cardID) {
         for (Card card : cards) {
-            if (card.getShopCardID() == cardID)
+            if (card.getCollectionID() == cardID)
                 return card;
         }
         return null;
@@ -48,7 +48,7 @@ public class Shop {
 
     public Item getItemByItemID(int itemID) {
         for (Item item : items) {
-            if (item.getShopItemID() == itemID)
+            if (item.getCollectionID() == itemID)
                 return item;
         }
         return null;

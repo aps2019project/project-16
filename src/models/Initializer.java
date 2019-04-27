@@ -70,7 +70,7 @@ public class Initializer {
         //todo must be implemented
     }
 
-    public static void initShopUsableItems(ArrayList<Usable> shopUsables) {
+    public static void initShopUsableItems(ArrayList<Item> shopItems) {
         //todo must be implemented
     }
 

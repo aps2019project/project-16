@@ -1,6 +1,7 @@
 package view.views;
 
 import contracts.ShopContract;
+import models.Item;
 import models.Usable;
 import models.card.Card;
 import models.card.Hero;
@@ -26,18 +27,18 @@ public class ShopView implements ShopContract.View {
     }
 
     @Override
-    public void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards) {
+    public void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
 
     }
 
     @Override
-    public void showShop(ArrayList<Hero> heroes, ArrayList<Usable> items, ArrayList<Card> cards) {
-        printHeroes(heroes);
-        printUsables(items);
-        printCards(cards);
+    public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+        printHeroes(heroes, 's');
+        printUsables(items, 's');
+        printCards(cards, 's');
     }
 
-    private void printCards(ArrayList<Card> cards) {
+    public static void printCards(ArrayList<Card> cards, char printingState) {
         int i = 0;
         logMessage("Cards:");
         for (Card card : cards) {
@@ -46,7 +47,7 @@ public class ShopView implements ShopContract.View {
                 case "Minion":
                     Minion minion = (Minion) card;
                     System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s\n"
-                            , i
+                            , (printingState == 's') ? (i) : (card.getCollectionID())
                             , getCardType(card)
                             , card.getName()
                             , minion.getAttackType().getClass().getName()
@@ -58,7 +59,7 @@ public class ShopView implements ShopContract.View {
                 case "Spell":
                     SpellCard spellCard = (SpellCard) card;
                     System.out.printf("\t%d : Type: %s - Name: %s - MP: %d - Description: %s - Buy cost: %d\n"
-                            , i
+                            , (printingState == 's') ? (i) : (card.getCollectionID())
                             , getCardType(card)
                             , card.getName()
                             , card.getManaCost()
@@ -69,7 +70,7 @@ public class ShopView implements ShopContract.View {
         }
     }
 
-    private String getCardType(Card card) {
+    private static String getCardType(Card card) {
         if (card.getClass().equals(Minion.class)) {
             return "Minion";
         }
@@ -79,26 +80,26 @@ public class ShopView implements ShopContract.View {
         return null;
     }
 
-    private void printUsables(ArrayList<Usable> items) {
+    public static void printUsables(ArrayList<Item> items, char printingState) {
         int i = 0;
         logMessage("Items:");
-        for (Usable usable : items) {
+        for (Item item : items) {
             i++;
             System.out.printf("\t%d : Name: %s - Description: %s - Buy cost: %d\n"
-                    , i
-                    , usable.getName()
-                    , usable.toString()
-                    , usable.getBuyPrice());
+                    , (printingState == 's') ? (i) : (item.getCollectionID())
+                    , item.getName()
+                    , item.toString()
+                    , item.getBuyPrice());
         }
     }
 
-    private void printHeroes(ArrayList<Hero> heroes) {
+    public static void printHeroes(ArrayList<Hero> heroes, char printingState) {
         int i = 0;
         logMessage("Heroes:");
         for (Hero hero : heroes) {
             i++;
             System.out.printf("\t%d :  Name: %s - AP: %d - HP: %d - Special Power : %s - Buy cost: %d\n"
-                    , i
+                    , (printingState == 's') ? (i) : (hero.getCollectionID())
                     , hero.getName()
                     , hero.getAp()
                     , hero.getHp()

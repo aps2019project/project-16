@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class BuyCommand extends Command {
     {
         name = "buy (card name | Item name)";
-        pattern = Pattern.compile("buy (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("buy (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
