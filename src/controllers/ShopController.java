@@ -1,10 +1,7 @@
 package controllers;
 
 import contracts.ShopContract;
-import models.GameContents;
-import models.Item;
-import models.Shop;
-import models.Usable;
+import models.*;
 import models.card.Card;
 import models.card.Hero;
 import view.Notify;
@@ -21,8 +18,6 @@ public class ShopController implements ShopContract.Controller {
         view = new ShopView();
         view.setController(this);
     }
-
-    // TODO: 4/21/19 implement all of functions :)))
 
     @Override
     public void loadCollection() {
@@ -47,12 +42,12 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void searchInShop(String cardName) {
-
+        // TODO: 4/27/19
     }
 
     @Override
     public void searchInCollection(String cardName) {
-
+        // TODO: 4/27/19
     }
 
     @Override
@@ -99,6 +94,22 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void sellCard(int cardID) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        Shop shop = GameContents.getShop();
+        String cardType = collection.getType(cardID);
+        if (cardType == null) {
+            Notify.logError("OOPS!! You don't have this card(item).");
+        } else {
+            switch (cardType) {
+                case "item":
+                    shop.sellItem(cardID);
+                    Notify.logMessage("You successfully sold item with ID: " + cardID);
+                    break;
+                case "card":
+                    shop.sellCard(cardID);
+                    Notify.logMessage("You successfully sold card with ID: " + cardID);
+                    break;
+            }
+        }
     }
 }
