@@ -4,6 +4,7 @@ import models.card.Unit;
 
 public class Buff {
     public static final int INFINITY = Integer.MAX_VALUE;
+    private int durationToStart;
     private int remainingDuration;
     private final int duration;
     private int holy;
@@ -19,10 +20,11 @@ public class Buff {
         NEGATIVE
     }
 
-    private Buff(int duration, int deltaHP, int deltaAP, int poison, int holy,
+    private Buff(int duration, int durationToStart, int deltaHP, int deltaAP, int poison, int holy,
                  boolean stun, boolean disarm, Effect effect) {
         this.duration = duration;
         this.remainingDuration = duration;
+        this.durationToStart = durationToStart;
         this.deltaHP = deltaHP;
         this.deltaAP = deltaAP;
         this.poison = poison;
@@ -35,6 +37,7 @@ public class Buff {
     private Buff(int duration, Buff buff) {
         this.duration = duration;
         this.remainingDuration = duration;
+        this.durationToStart = buff.durationToStart;
         this.deltaHP = buff.deltaHP;
         this.deltaAP = buff.deltaAP;
         this.poison = buff.poison;
@@ -46,6 +49,7 @@ public class Buff {
     public static class BuffBuilder {
         private static final int INFINITY = Integer.MAX_VALUE;
         private int duration;
+        private int durationToStart;
         private int holy;
         private int deltaHP;
         private int deltaAP;
@@ -55,7 +59,12 @@ public class Buff {
         private Effect effect;
 
         public BuffBuilder setDuration(int duration) {
-            this.duration = duration;
+            this.duration = 2 * duration;
+            return this;
+        }
+
+        public BuffBuilder setDurationToStart(int durationToStart) {
+            this.durationToStart = 2 * durationToStart;
             return this;
         }
 
@@ -95,11 +104,15 @@ public class Buff {
         }
 
         public Buff create() {
-            return new Buff(duration, deltaHP, deltaAP, poison, holy, stun, disarm, effect);
+            return new Buff(duration, durationToStart, deltaHP, deltaAP, poison, holy, stun, disarm, effect);
         }
     }
 
     public void cast(Unit unit) {
+        if (durationToStart > 0) {
+            durationToStart--;
+            return;
+        }
         if (remainingDuration == duration) {
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
@@ -113,10 +126,16 @@ public class Buff {
         remainingDuration--;
     } //todo delete from buffs??
 
-    public void cast(Cell cell) { //todo change it (maybe cell should have spell)
-        if (cell.hasUnit())
-            cell.getUnit().changeHP(-poison);
-    }
+    public void cast(Cell cell) {
+        if (cell.hasUnit()) {
+            if (poison == 1)
+                cell.getUnit().addBuff(new Buff(3, this));
+            if (poison == 2)
+                cell.getUnit().changeHP(-poison);
+            if (holy != 0)
+                cell.getUnit().addBuff(new Buff(1, this));
+        }
+    }// todo remember to cast on cells first.
 
     public Effect getEffect() {
         return effect;
@@ -138,5 +157,9 @@ public class Buff {
         if (remainingDuration > 0)
             return disarm;
         return false;
+    }
+
+    private boolean isActive() {
+        return remainingDuration > 0 && durationToStart <= 0;
     }
 }
