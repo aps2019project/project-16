@@ -17,6 +17,12 @@ public class UnitsInRange extends UnitTargetSociety {
 
     @Override
     public boolean canCast(Player player, Cell cell) {
+        Table table = cell.getTable();
+        for (int row = 0; row < Table.HEIGHT; row++)
+            for (int column = 0; column < Table.HEIGHT; column++)
+                if (Table.getDistance(table.getCell(row, column), cell) <= range && cell.hasUnit())
+                    if (doesEffect(cell.getUnit(), player))
+                        return true;
         return false;
     }
 
@@ -26,6 +32,7 @@ public class UnitsInRange extends UnitTargetSociety {
         for (int row = 0; row < Table.HEIGHT; row++)
             for (int column = 0; column < Table.HEIGHT; column++)
                 if (Table.getDistance(table.getCell(row, column), cell) <= range && cell.hasUnit())
-                    cell.getUnit().addBuffs(buffs);
+                    if (doesEffect(cell.getUnit(), player))
+                        cell.getUnit().addBuffs(buffs);
     }
 }
