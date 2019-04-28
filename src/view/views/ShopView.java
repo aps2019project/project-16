@@ -2,7 +2,6 @@ package view.views;
 
 import contracts.ShopContract;
 import models.Item;
-import models.Usable;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
@@ -46,7 +45,7 @@ public class ShopView implements ShopContract.View {
             switch (getCardType(card)) {
                 case "Minion":
                     Minion minion = (Minion) card;
-                    System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s\n"
+                    System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s - Buy cost: %d\n"
                             , (printingState == 's') ? (i) : (card.getCollectionID())
                             , getCardType(card)
                             , card.getName()
@@ -54,7 +53,8 @@ public class ShopView implements ShopContract.View {
                             , minion.getAp()
                             , minion.getHp()
                             , card.getManaCost()
-                            , minion.getSpecialPower().toString());
+                            , minion.getSpecialPower().toString()
+                            , card.getBuyPrice());
                     break;
                 case "Spell":
                     SpellCard spellCard = (SpellCard) card;

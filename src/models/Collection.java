@@ -116,4 +116,16 @@ public class Collection {
         Deck deck = this.getDeck(deckName);
         deck.removeItem();
     }
+
+    public String getType(int cardID) {
+        Item item = getItem(cardID);
+        Card card = getCard(cardID);
+        if (item != null) {
+            return "item";
+        }
+        if (card != null) {
+            return "card";
+        }
+        return null;
+    }
 }
