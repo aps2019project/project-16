@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 public class UnitsInRange extends UnitTargetSociety {
     private int range;
+    private boolean containsCenter;
 
-    public UnitsInRange(TargetType targetType, TargetTeam targetTeam, int range) {
+    public UnitsInRange(TargetType targetType, TargetTeam targetTeam, int range, boolean containsCenter) {
         super(targetType, targetTeam);
         this.range = range;
+        this.containsCenter = containsCenter;
     }
 
     @Override
@@ -20,9 +22,10 @@ public class UnitsInRange extends UnitTargetSociety {
         Table table = cell.getTable();
         for (int row = 0; row < Table.HEIGHT; row++)
             for (int column = 0; column < Table.HEIGHT; column++)
-                if (Table.getDistance(table.getCell(row, column), cell) <= range && cell.hasUnit())
-                    if (doesEffect(cell.getUnit(), player))
-                        return true;
+                if (Table.getDistance(table.getCell(row, column), cell) <= range && table.getCell(row, column).hasUnit())
+                    if (containsCenter || table.getCell(row, column) != cell)
+                        if (doesEffect(table.getCell(row, column).getUnit(), player))
+                            return true;
         return false;
     }
 
@@ -31,8 +34,9 @@ public class UnitsInRange extends UnitTargetSociety {
         Table table = cell.getTable();
         for (int row = 0; row < Table.HEIGHT; row++)
             for (int column = 0; column < Table.HEIGHT; column++)
-                if (Table.getDistance(table.getCell(row, column), cell) <= range && cell.hasUnit())
-                    if (doesEffect(cell.getUnit(), player))
-                        cell.getUnit().addBuffs(buffs);
+                if (Table.getDistance(table.getCell(row, column), cell) <= range && table.getCell(row, column).hasUnit())
+                    if (containsCenter || table.getCell(row, column) != cell)
+                        if (doesEffect(table.getCell(row, column).getUnit(), player))
+                            table.getCell(row, column).getUnit().addBuffs(buffs);
     }
 }
