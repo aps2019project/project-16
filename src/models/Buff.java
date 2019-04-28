@@ -6,7 +6,7 @@ public class Buff {
     public static final int INFINITY = Integer.MAX_VALUE;
     private int remainingDuration;
     private final int duration;
-    private boolean holy;
+    private int holy;
     private int deltaHP;
     private int deltaAP;
     private int poison;
@@ -19,7 +19,7 @@ public class Buff {
         NEGATIVE
     }
 
-    private Buff(int duration, int deltaHP, int deltaAP, int poison, boolean holy,
+    private Buff(int duration, int deltaHP, int deltaAP, int poison, int holy,
                  boolean stun, boolean disarm, Effect effect) {
         this.duration = duration;
         this.remainingDuration = duration;
@@ -46,7 +46,7 @@ public class Buff {
     public static class BuffBuilder {
         private static final int INFINITY = Integer.MAX_VALUE;
         private int duration;
-        private boolean holy;
+        private int holy;
         private int deltaHP;
         private int deltaAP;
         private int poison;
@@ -59,8 +59,8 @@ public class Buff {
             return this;
         }
 
-        public BuffBuilder setHoly() {
-            this.holy = true;
+        public BuffBuilder setHoly(int holy) {
+            this.holy = holy;
             return this;
         }
 
@@ -117,7 +117,7 @@ public class Buff {
         return effect;
     }
 
-    public boolean hasHoly() {
+    public int getHoly() {
         return holy;
     }
 

@@ -242,7 +242,7 @@ public class Initializer {
                 .setSpecialPowerCastTime(ON_ATTACK)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
-                                .setHoly() // todo this is wrong and must be checked with the DOC and new buff should be add
+                                .setHoly(1) // todo this is wrong and must be checked with the DOC and new buff should be add
                                 .create())
                         .setTargetSociety(null) //todo what if some one has no target society
                         .create())
@@ -361,7 +361,7 @@ public class Initializer {
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(2)
-                                .setHoly()
+                                .setHoly(1)
                                 .setDuration(Buff.INFINITY)
                                 .create())
                         .create())
@@ -548,7 +548,7 @@ public class Initializer {
                 .setSpecialPowerCastTime(PASSIVE)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
-                                .setHoly() //todo MOSTAFA ridi boro holy ro dorost kon
+                                .setHoly(1) //todo MOSTAFA ridi boro holy ro dorost kon
                                 //todo continious must be implemented
                                 .create())
                         .setTargetSociety()//todo must be checked
