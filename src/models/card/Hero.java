@@ -44,6 +44,7 @@ public class Hero extends Unit {
             return this;
         }
 
+        @Override
         public Hero create() {
             return new Hero(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(), getAp(), getAttackType(),
                     spell, spellManaCost, spellCoolDown);

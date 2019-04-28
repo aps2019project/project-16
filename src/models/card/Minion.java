@@ -36,6 +36,7 @@ public class Minion extends Unit {
             return this;
         }
 
+        @Override
         public Minion create() {
             return new Minion(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(),
                     getAp(), getAttackType(), combo, specialPower, specialPowerCastTime);
