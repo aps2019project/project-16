@@ -104,9 +104,14 @@ public class Buff {
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
         }
-        unit.changeHP(-poison);
+        if (remainingDuration % 2 == 0)
+            unit.changeHP(-poison);
+        if (remainingDuration == 0) {
+            unit.changeAP(-deltaAP);
+            unit.changeHP(-deltaHP);
+        }
         remainingDuration--;
-    }
+    } //todo delete from buffs??
 
     public void cast(Cell cell) { //todo change it (maybe cell should have spell)
         if (cell.hasUnit())
@@ -118,14 +123,20 @@ public class Buff {
     }
 
     public int getHoly() {
-        return holy;
+        if (remainingDuration > 0)
+            return holy;
+        return 0;
     }
 
     public boolean hasStun() {
-        return stun;
+        if (remainingDuration > 0)
+            return stun;
+        return false;
     }
 
     public boolean hasDisarm() {
-        return disarm;
+        if (remainingDuration > 0)
+            return disarm;
+        return false;
     }
 }
