@@ -15,12 +15,14 @@ public abstract class Unit extends Card implements Buffable {
     private boolean moved; // todo should be checked
     private boolean attacked; // todo should be checked
     private AttackType attackType;
+    private boolean combo; // todo implement combo attack func
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType) {
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo) {
         super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
         this.attackType = attackType;
+        this.combo = combo;
     }
 
     public static abstract class UnitBuilder extends CardBuilder {

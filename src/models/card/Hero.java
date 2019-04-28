@@ -12,7 +12,7 @@ public class Hero extends Unit {
 
     public Hero(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType,
                 Spell spell, int spellManaCost, int spellCoolDown) {
-        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType);
+        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, false);
         this.spell = spell;
         this.spellManaCost = spellManaCost;
         this.spellCoolDown = spellCoolDown;
