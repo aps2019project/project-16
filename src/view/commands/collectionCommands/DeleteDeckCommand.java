@@ -10,7 +10,7 @@ import static java.util.regex.Pattern.CASE_INSENSITIVE;
 public class DeleteDeckCommand extends Command {
     {
         name = "delete deck (deck name)";
-        pattern = Pattern.compile("delete deck (\\w+)", CASE_INSENSITIVE);
+        pattern = Pattern.compile("delete deck (\\w+( \\w+)*)", CASE_INSENSITIVE);
     }
 
     @Override

@@ -10,7 +10,7 @@ import static java.util.regex.Pattern.CASE_INSENSITIVE;
 public class CreateDeckCommand extends Command {
     {
         name = "create deck (deck name)";
-        pattern = Pattern.compile("create deck (\\w+)", CASE_INSENSITIVE);
+        pattern = Pattern.compile("create deck (\\w+( \\w+)*)", CASE_INSENSITIVE);
     }
 
     @Override

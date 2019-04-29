@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ShowDeckCommand extends Command {
     {
         name = "show deck (deck name)";
-        pattern = Pattern.compile("show deck (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("show deck (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

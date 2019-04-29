@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ValidateDeckCommand extends Command {
     {
         name = "validate deck (deck name)";
-        pattern = Pattern.compile("validate deck (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("validate deck (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

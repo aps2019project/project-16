@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class SearchInCollectionCommand extends Command {
     {
         name = "search collection (card name | item name)";
-        pattern = Pattern.compile("search collection (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("search collection (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

@@ -10,7 +10,7 @@ import static java.util.regex.Pattern.CASE_INSENSITIVE;
 public class AddCardToDeckCommand extends Command {
     {
         name = "add (card ID | hero ID) to deck (deck name)";
-        pattern = Pattern.compile("add (\\d+) to deck (\\w+)", CASE_INSENSITIVE);
+        pattern = Pattern.compile("add (\\d+) to deck (\\w+( \\w+)*)", CASE_INSENSITIVE);
     }
 
     @Override

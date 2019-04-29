@@ -46,25 +46,25 @@ public class ShopView implements ShopContract.View {
                 case "Minion":
                     Minion minion = (Minion) card;
                     System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s - Buy cost: %d\n"
-                            , (printingState == 's') ? (i) : (card.getCollectionID())
-                            , getCardType(card)
-                            , card.getName()
+                            , (printingState == 's') ? (i) : (minion.getCollectionID())
+                            , getCardType(minion)
+                            , minion.getName()
                             , minion.toString()
                             , minion.getAp()
                             , minion.getHp()
-                            , card.getManaCost()
+                            , minion.getManaCost()
                             , minion.toString()
-                            , card.getBuyPrice());
+                            , minion.getBuyPrice());
                     break;
                 case "Spell":
                     SpellCard spellCard = (SpellCard) card;
                     System.out.printf("\t%d : Type: %s - Name: %s - MP: %d - Description: %s - Buy cost: %d\n"
-                            , (printingState == 's') ? (i) : (card.getCollectionID())
-                            , getCardType(card)
-                            , card.getName()
-                            , card.getManaCost()
+                            , (printingState == 's') ? (i) : (spellCard.getCollectionID())
+                            , getCardType(spellCard)
+                            , spellCard.getName()
+                            , spellCard.getManaCost()
                             , spellCard.toString()
-                            , card.getBuyPrice());
+                            , spellCard.getBuyPrice());
                     break;
             }
         }
@@ -106,11 +106,6 @@ public class ShopView implements ShopContract.View {
                     , hero.getSpell().toString()
                     , hero.getBuyPrice());
         }
-    }
-
-    @Override
-    public void showBuyResult(String cardName, String message) {
-
     }
 
 }

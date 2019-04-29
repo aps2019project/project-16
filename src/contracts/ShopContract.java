@@ -14,7 +14,6 @@ public interface ShopContract {
         void showShopSearchResult(String cardName, String message);
         void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
         void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
-        void showBuyResult(String cardName, String message);
     }
 
     interface Controller {

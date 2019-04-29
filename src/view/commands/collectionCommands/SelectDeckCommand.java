@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class SelectDeckCommand extends Command {
     {
         name = "select deck (deck name)";
-        pattern = Pattern.compile("select deck (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("select deck (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

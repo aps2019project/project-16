@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class RemoveCardFromDeckCommand extends Command {
     {
         name = "remove (card ID | hero ID) from deck (deck name)";
-        pattern = Pattern.compile("remove (\\d+) from deck (\\w+)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("remove (\\d+) from deck (\\w+( \\w+)*)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

@@ -42,12 +42,17 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void searchInShop(String cardName) {
-        // TODO: 4/27/19
+        Shop shop = GameContents.getShop();
+        if (shop.getType(cardName) == null) {
+            Notify.logError("This card doesn't exist in shop!!!");
+        } else {
+            Notify.logMessage("Yes! We have this card in shop. You can buy it by its name.");
+        }
     }
 
     @Override
     public void searchInCollection(String cardName) {
-        // TODO: 4/27/19
+        new CollectionController().searchCard(cardName);
     }
 
     @Override
