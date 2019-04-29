@@ -19,10 +19,14 @@ public class CollectionView implements CollectionContract.View {
     }
 
     @Override
-    public void showAllDecks(ArrayList<Deck> decks) {
+    public void showAllDecks(Deck mainDeck, ArrayList<Deck> decks) {
+        if (mainDeck != null) {
+            showDeck(mainDeck);
+        }
         for (Deck deck : decks) {
-            Notify.logMessage("\nDeck with name: \"" + deck.getName() + "\":\n");
-            showDeck(deck);
+            if (deck != mainDeck) {
+                showDeck(deck);
+            }
         }
     }
 
@@ -37,6 +41,7 @@ public class CollectionView implements CollectionContract.View {
         if (deck.getItem() != null) {
             items.add(deck.getItem());
         }
+        Notify.logMessage("\nDeck with name: \"" + deck.getName() + "\":\n");
         ShopView.printHeroes(heroes, 'c');
         ShopView.printUsables(items, 'c');
         ShopView.printCards(cards, 'c');

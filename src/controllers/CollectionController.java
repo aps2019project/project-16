@@ -36,7 +36,7 @@ public class CollectionController implements CollectionContract.Controller {
     @Override
     public void loadAllDecks() {
         Collection collection = GameContents.getCurrentAccount().getCollection();
-        view.showAllDecks(collection.getDecks());
+        view.showAllDecks(collection.getMainDeck(), collection.getDecks());
     }
 
     @Override
