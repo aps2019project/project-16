@@ -48,4 +48,9 @@ public class AccountController implements AccountContract.Controller {
             MenuHandler.goToSubMenu(MAIN_MENU);
         }
     }
+
+    @Override
+    public void saveGameData() {
+        // TODO: 4/30/19  save data of accounts in files
+    }
 }

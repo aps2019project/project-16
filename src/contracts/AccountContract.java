@@ -16,5 +16,6 @@ public interface AccountContract {
 		void loadLeaderboard();
 		void createAccount(String username, String password);
 		void loginAccount(String username, String password);
+		void saveGameData();
 	}
 }
