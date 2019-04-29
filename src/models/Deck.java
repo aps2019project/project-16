@@ -51,12 +51,6 @@ public class Deck {
         return cards;
     }
 
-    public boolean isValid() {
-        if (this.cards.size() == 20 && this.hero != null && this.item != null)
-            return true;
-        return false;
-    }//todo should be moved to controller (sepehr)
-
     public void addCard(Card card) {
         cards.add(card);
     }
@@ -85,10 +79,16 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public boolean isExistingCard(String name) {
+    public boolean hasCard(int cardID) {
         for (Card card : cards) {
-            if (card.getName().equals(name))
+            if (card.getCollectionID() == cardID)
                 return true;
+        }
+        if (hero != null && hero.getCollectionID() == cardID) {
+            return true;
+        }
+        if (item != null && item.getCollectionID() == cardID) {
+            return true;
         }
         return false;
     }
@@ -96,7 +96,7 @@ public class Deck {
     public Deck copy() {
         Deck deck = new Deck(this.cards, this.hero, this.item, this.name);
         return deck;
-        //todo copy constructor should be checked
+        //todo copy constructor should be checked :| eshtebahe!! faghat refrence dare copy mishe!
     }
 
 

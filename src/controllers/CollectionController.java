@@ -1,11 +1,10 @@
 package controllers;
 
 import contracts.CollectionContract;
-import models.Collection;
-import models.GameContents;
-import models.Item;
+import models.*;
 import models.card.Card;
 import models.card.Hero;
+import view.Notify;
 import view.views.CollectionView;
 
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ public class CollectionController implements CollectionContract.Controller {
         view = new CollectionView();
         view.setController(this);
     }
-
-    // TODO: 4/21/19 implement all of functions :)))
 
     @Override
     public void loadCollection() {
@@ -38,51 +35,149 @@ public class CollectionController implements CollectionContract.Controller {
 
     @Override
     public void loadAllDecks() {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        view.showAllDecks(collection.getDecks());
     }
 
     @Override
     public void loadDeck(String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        Deck deck = collection.getDeck(deckName);
+        if (deck == null) {
+            Notify.logError("Sorry! This deck doesn't exist!");
+        } else {
+            view.showDeck(deck);
+        }
     }
 
     @Override
     public void searchCard(String name) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        int collectionID = collection.searchCard(name);
+        if (collectionID == -1) {
+            Notify.logError("No! This card doesn't exist in collection!");
+        } else {
+            Notify.logMessage("Yes! We have this card in collection. Its cardID: " + collectionID);
+        }
     }
 
     @Override
     public void saveCollection() {
-
+        // TODO: 4/30/19  save in file next phase
+        Notify.logMessage("All things about your collection is saved.");
     }
 
     @Override
     public void createDeck(String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        if (collection.getDeck(deckName) != null) {
+            Notify.logError("Sorry!! Deck with this name is already exist!");
+        } else {
+            collection.createDeck(deckName);
+        }
     }
 
     @Override
     public void deleteDeck(String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        Deck deck = collection.getDeck(deckName);
+        if (deck == null) {
+            Notify.logError("Oh!! This deck doesn't exist!");
+        } else {
+            collection.deleteDeck(deck);
+        }
     }
 
     @Override
     public void addCardToDeck(int cardID, String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        String type = collection.getType(cardID);
+        Deck deck = collection.getDeck(deckName);
+        if (type == null) {
+            Notify.logError("This card doesn't exist in collection!");
+        } else if (deck == null) {
+            Notify.logError("This deck doesn't exist in collection!");
+        } else if (deck.hasCard(cardID)) {
+            Notify.logError("Sorry! This card is already exist in collection!");
+        } else {
+            switch (type) {
+                case "item":
+                    if (deck.getItem() != null) {
+                        Notify.logError("Sorry! You have ONE item in this deck.");
+                    } else {
+                        deck.setItem(collection.getItem(cardID));
+                        Notify.logMessage("Good! you added this card to deck \"" + deckName + "\"");
+                    }
+                    break;
+                case "card":
+                    Card card = collection.getCard(cardID);
+                    if (card.getClass() == Hero.class) {
+                        if (deck.getHero() != null) {
+                            Notify.logError("Oh No! You have a hero in deck \"" + deckName + "\"");
+                        } else {
+                            deck.setHero((Hero) card);
+                            Notify.logMessage("Hero \"" + card.getName() + "\" added to deck \"" + deckName + "\"");
+                        }
+                    } else if (deck.getCards().size() >= 20) {
+                        Notify.logError("No free capacity in deck \"" + deckName + "\"! capacity of cards in deck is 20.");
+                    } else {
+                        deck.addCard(card);
+                        Notify.logMessage("Card \"" + card.getName() + "\" added to deck \"" + deckName + "\"");
+                    }
+                    break;
+            }
+        }
     }
 
     @Override
     public void removeCardFromDeck(int cardID, String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        Deck deck = collection.getDeck(deckName);
+        String type = collection.getType(cardID);
+        if (deck == null) {
+            Notify.logError("Sorry! This deck doesn't exist!");
+        } else if (!deck.hasCard(cardID)) {
+            Notify.logError("Sorry! This card doesn't exist exist in deck \"" + deckName + "\"");
+        } else {
+            switch (type) {
+                case "item":
+                    deck.setItem(null);
+                    break;
+                case "card":
+                    Card card = collection.getCard(cardID);
+                    if (card.getClass() == Hero.class) {
+                        deck.setHero(null);
+                    } else {
+                        deck.removeCard(card);
+                    }
+                    break;
+            }
+            Notify.logMessage("You removed card with cardID \"" + cardID + "\" from deck \"" + deckName + "\"");
+        }
     }
 
     @Override
     public void validateDeck(String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        Deck deck = collection.getDeck(deckName);
+        if (deck == null) {
+            Notify.logError("Sorry! This deck doesn't exist!");
+        } else if (deck.getCards().size() != 20 || deck.getHero() == null) {
+            Notify.logError("Deck with name \"" + deckName + "\" isn't valid. You must have 20 cards and 1 hero in your deck.");
+        } else {
+            Notify.logMessage("OK! Deck with name \"" + deckName + "\" is valid.");
+        }
     }
 
     @Override
     public void selectDeck(String deckName) {
-
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        Deck deck = collection.getDeck(deckName);
+        if (deck == null) {
+            Notify.logError("Sorry! This deck doesn't exist!");
+        } else {
+            collection.setMainDeck(deck);
+            Notify.logMessage("Good job! You set the main deck to \"" + deckName + "\".");
+        }
     }
 }

@@ -53,10 +53,6 @@ public class Collection {
             if (card.getName().equals(name))
                 return card.getCollectionID();
         }
-        return -1;
-    }
-
-    public int searchItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name))
                 return item.getCollectionID();
