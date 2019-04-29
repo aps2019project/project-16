@@ -5,6 +5,7 @@ import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
 import models.targetsociety.*;
+import models.targetsociety.UnitTargetSociety.*;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class Initializer {
         addMinions(shopCards);
         //spells
         shopCards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell(new OneEnemyUnit(), false, new Buff.BuffBuilder()
+                .setSpell(new Spell(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY), false, new Buff.BuffBuilder()
                         .setDuration(Buff.INFINITY).setDeltaHP(-4).create()))
                 .setBuyPrice(400)
                 .setManaCost(1)
@@ -76,7 +77,7 @@ public class Initializer {
                                 .setStun()
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety(new OneEnemyUnit())
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(4)
@@ -117,7 +118,7 @@ public class Initializer {
                                 .setDuration(Buff.INFINITY)
                                 .setDeltaHP(0)// todo this must change (sepehr)
                                 .create())
-                        .setTargetSociety(new AllEnemyUnits())
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(6)
@@ -177,7 +178,7 @@ public class Initializer {
                                 .setPoison(1)
                                 .setDuration(4)
                                 .create())
-                        .setTargetSociety(new AllEnemyUnits())
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(6)
@@ -233,7 +234,7 @@ public class Initializer {
                                 .setDeltaHP(10)
                                 .setDuration(Buff.INFINITY)
                                 .create())
-                        .setTargetSociety() // todo target society ke roo khodam cast she mikham
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(2)
@@ -263,7 +264,7 @@ public class Initializer {
                                 .setDeltaHP(-2)
                                 .setDuration(Buff.INFINITY)
                                 .create())
-                        .setTargetSociety(new EnemyMinionsAdjacentToCell())
+                        .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.ANY, false))
                         .create())
                 .setAttackType(new Hybrid())
                 .setAp(11)
@@ -282,7 +283,7 @@ public class Initializer {
                                 .setPoison(1)
                                 .setDuration(3)
                                 .create())
-                        .setTargetSociety(new OneEnemyUnit())
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(6)
@@ -329,7 +330,7 @@ public class Initializer {
                                 .setDuration(Buff.INFINITY)
                                 //todo new buff should be added  - revese of Holly buff
                                 .create())
-                        .setTargetSociety()//todo this kind of target society is not available
+                        .setTargetSociety(new UnitsInRange(TargetType.MINION, TargetTeam.ANY, 2, false))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(7)
@@ -352,7 +353,7 @@ public class Initializer {
                                 .setDeltaHP(-4)
                                 .setDuration(2)//todo there is a problem when a buff should cast at turn = turn + X - checked with DOC
                                 .create())
-                        .setTargetSociety() // todo this target society for one minion enemy is not available
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(2)
@@ -367,7 +368,7 @@ public class Initializer {
         cards.add(new Minion.MinionBuilder()
                 .setSpecialPowerCastTime(ON_ATTACK)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
+                        .addBuff(new Buff.BuffBuilder() //todo correct buff
                                 .setDeltaHP(-8)
                                 .setDuration(2)
                                 .create())
@@ -375,7 +376,7 @@ public class Initializer {
                                 .setDeltaHP(8)
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety()//todo one minion enemy target society is not available
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(2)
@@ -398,7 +399,7 @@ public class Initializer {
                                 .setDeltaHP(6)
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety()//todo minion target society is not available
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(1)
@@ -418,7 +419,7 @@ public class Initializer {
                                 .setDeltaHP(-1)
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety() // todo friendly minion target society is not available
+                        .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.FRIEND, true))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(4)
@@ -438,6 +439,7 @@ public class Initializer {
                                 .setHoly(1)
                                 .setDuration(Buff.INFINITY)
                                 .create())
+                        .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.FRIEND, true))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(6)
@@ -450,13 +452,13 @@ public class Initializer {
         );
         //27
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime()// todo ON_Turn is not available
+                .setSpecialPowerCastTime(CONTINUOUS)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(1)
-                                .setDuration()//todo continiuous buff NOT  implemented
+                                .setDuration(1) // todo check duration
                                 .create())
-                        .setTargetSociety() //todo all enemy minion target society is not availalble
+                        .setTargetSociety(new AnyUnit(TargetType.MINION, TargetTeam.FRIEND))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(4)
@@ -531,7 +533,7 @@ public class Initializer {
                                 .setDeltaHP(-16)
                                 .setDuration(Buff.INFINITY)
                                 .create())
-                        .setTargetSociety()//todo random enemy minion target society is not available
+                        .setTargetSociety(new OneRandomEnemyMinion())
                         .create())
                 .setAttackType(new Melee())
                 .setAp(9)
@@ -549,7 +551,7 @@ public class Initializer {
                         .addBuff(new Buff.BuffBuilder()
                                 //todo implement at the end
                                 .create())
-                        .setTargetSociety(new AllEnemyUnits())
+                        .setTargetSociety(new)
                         .create())
                 .setAttackType(new Melee())
                 .setAp(8)
@@ -586,7 +588,7 @@ public class Initializer {
         cards.add(new Minion.MinionBuilder()
                 .setSpecialPowerCastTime(ON_ATTACK)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneEnemyUnit())
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .setDispel()
                         .create())
                 .setAttackType(new Melee())
@@ -606,7 +608,7 @@ public class Initializer {
                                 .setStun()
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety(new EnemyMinionsAdjacentToCell())
+                        .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.ENEMY, false))
                         .create())
                 .setAttackType(new Ranged())
                 .setAp(4)
@@ -619,13 +621,13 @@ public class Initializer {
         );
         //37
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(PASSIVE)
+                .setSpecialPowerCastTime(CONTINUOUS)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .addBuff(new Buff.BuffBuilder()
-                                .setHoly(1) //todo MOSTAFA ridi boro holy ro dorost kon
+                                .setHoly(12)
                                 //todo continious must be implemented
                                 .create())
-                        .setTargetSociety()//todo must be checked
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(1)
@@ -644,6 +646,7 @@ public class Initializer {
                                 .setDeltaHP(-6)
                                 .setDuration(Buff.INFINITY)
                                 .create())
+                        .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(5)
@@ -688,7 +691,7 @@ public class Initializer {
                                 .setDisarm()
                                 .setDuration(Buff.INFINITY)
                                 .create())
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setManaCost(0)
                 .setBuyPrice(1000)
@@ -718,7 +721,7 @@ public class Initializer {
                                 .setDeltaAP(2)
                                 .setDuration(Buff.INFINITY)//todo must be checked
                                 .create())
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND))
                         .create())
                 .setManaCost(1)
                 .setBuyPrice(250)
@@ -733,7 +736,7 @@ public class Initializer {
                                 .setDeltaHP(-4)
                                 .setDuration(Buff.INFINITY)
                                 .create())
-                        .setTargetSociety(///todo must be implemented)
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setManaCost(1)
                 .setSellPrice(250)
@@ -744,7 +747,7 @@ public class Initializer {
         //5
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(4)
                                 .setDuration(Buff.INFINITY)
@@ -774,7 +777,7 @@ public class Initializer {
         //7
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.ENEMY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-8)
                                 .setDuration(Buff.INFINITY)
@@ -804,7 +807,7 @@ public class Initializer {
         //9
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(4)
                                 .setDisarm()
@@ -823,7 +826,7 @@ public class Initializer {
                                 .setDisarm()
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setManaCost(9)
                 .setBuyPrice(2000)
@@ -834,7 +837,7 @@ public class Initializer {
         //11
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDuration(4)
                                 .setPoison(1)
@@ -848,7 +851,7 @@ public class Initializer {
         //12
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 //todo must be implemented
                                 .create())
@@ -862,7 +865,7 @@ public class Initializer {
         //13
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-6)
                                 .setDuration(Buff.INFINITY)
@@ -881,7 +884,7 @@ public class Initializer {
         //14
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(6)
                                 .setDuration(Buff.INFINITY)
@@ -896,7 +899,7 @@ public class Initializer {
         //15
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(2)
                                 //todo what is "daem" in duration
@@ -910,7 +913,7 @@ public class Initializer {
         //16
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new EnemiesInColumn())
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(6)
                                 .setDuration(Buff.INFINITY)
@@ -924,7 +927,7 @@ public class Initializer {
         //17
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.ENEMY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(-4)
                                 .setDuration(Buff.INFINITY)
@@ -939,7 +942,7 @@ public class Initializer {
         //18
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(8)
                                 .setDuration(Buff.INFINITY)
@@ -957,10 +960,11 @@ public class Initializer {
         //19
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new RandomEnemyMinionAdjacentToHero())
                         .addBuff(new Buff.BuffBuilder()
                                 //todo what should i do ??? for buff
-                                .create()))
+                                .create())
+                        .create())
                 .setManaCost(9)
                 .setSellPrice(1750)
                 .setBuyPrice(1750)
@@ -969,7 +973,7 @@ public class Initializer {
         //20
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setStun()
                                 .setDuration(2)
@@ -1011,7 +1015,7 @@ public class Initializer {
                                 .setStun()
                                 .setDuration(1)
                                 .create())
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Melee())
                 .setAp(4)
@@ -1027,7 +1031,7 @@ public class Initializer {
                 .setSpellCoolDown(1)
                 .setSpellManaCost(0)
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDisarm()
                                 .setDuration()//todo there is EHBHAM !!!
@@ -1046,7 +1050,7 @@ public class Initializer {
                 .setSpellCoolDown(2)
                 .setSpellManaCost(1)
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDisarm()
                                 .setDuration(1)
@@ -1082,7 +1086,7 @@ public class Initializer {
                 .setSpellCoolDown(3)
                 .setSpellManaCost(1)
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new SquareOfCells(1))
                         .addBuff(new Buff.BuffBuilder()
                                 .setHoly(1)
                                 .setDuration(3)
@@ -1121,7 +1125,7 @@ public class Initializer {
                 .setSpellManaCost(1)
                 .setSpell(new Spell.SpellBuilder()
                         .setDispel()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
                 .setAttackType(new Ranged(3))
                 .setAp(3)
