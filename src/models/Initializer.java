@@ -12,7 +12,7 @@ import static models.SpecialPowerCastTime.*;
 
 public class Initializer {
     public static void initShopCards(ArrayList<Card> shopCards) {
-        addMimions(shopCards);
+        addMinions(shopCards);
         //spells
         shopCards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell(new OneEnemyUnit(), false, new Buff.BuffBuilder()
@@ -41,7 +41,7 @@ public class Initializer {
                 .setSpellManaCost(1)
                 .setSpellCoolDown(2)
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new FriendHero()) // todo must be corrected by Mostafa
+                        .setTargetSociety() // todo must be corrected by Mostafa
                         .create()
                 )
                 .setAp(4)
@@ -54,7 +54,8 @@ public class Initializer {
         );
         //todo must be implemented
     }
-    private static void addMimions(ArrayList<Card> cards) {
+
+    private static void addMinions(ArrayList<Card> cards) {
         //minions
         //1
         cards.add(new Minion.MinionBuilder()
@@ -677,6 +678,480 @@ public class Initializer {
                 .setName("arzhang div")
                 .create()
         );
+    }
+
+    private static void addSpells(ArrayList<Card> cards) {
+        //1
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .setTargetSociety()//todo must be implemented
+                        .create())
+                .setManaCost(0)
+                .setBuyPrice(1000)
+                .setSellPrice(1000)
+                .setName("total disarm")
+                .create()
+        );
+        //2
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(Buff.INFINITY)//todo must be checked
+                                //todo must be implemented
+                                .create())
+                        .setTargetSociety(new SquareOfCells(2))
+                        .create())
+                .setManaCost(2)
+                .setSellPrice(1500)
+                .setBuyPrice(1500)
+                .setName("Area Disepel")
+                .create()
+        );
+        //3
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(2)
+                                .setDuration(Buff.INFINITY)//todo must be checked
+                                .create())
+                        .setTargetSociety()//todo must be implemented
+                        .create())
+                .setManaCost(1)
+                .setBuyPrice(250)
+                .setSellPrice(250)
+                .setName("Empower")
+                .create()
+        );
+        //4
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(-4)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .setTargetSociety(///todo must be implemented)
+                        .create())
+                .setManaCost(1)
+                .setSellPrice(250)
+                .setBuyPrice(250)
+                .setName("Fireball")
+                .create()
+        );
+        //5
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(4)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(400)
+                .setSellPrice(400)
+                .setName("God Strength")
+                .create()
+        );
+        //6
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setPoison(2)
+                                .setDuration(2)
+                                .create())
+                        .setTargetSociety(new SquareOfCells(2))
+                        .create())
+                .setManaCost(3)
+                .setSellPrice(600)
+                .setBuyPrice(600)
+                .setName("HellFire")
+                .create()
+        );
+        //7
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(-8)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(1250)
+                .setSellPrice(1250)
+                .setName("Lightening Bolt")
+                .create()
+        );
+        //8
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setPoison(1)
+                                .setDuration(1)
+                                .create())
+                        .setTargetSociety(new SquareOfCells(3))
+                        .create())
+                .setManaCost(5)
+                .setSellPrice(900)
+                .setBuyPrice(900)
+                .setName("Poison Lake")
+                .create()
+        );
+        //9
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(4)
+                                .setDisarm()
+                                .setDuration(3)
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(650)
+                .setBuyPrice(650)
+                .setName("Madness")
+                .create());
+        //10
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration(1)
+                                .create())
+                        .setTargetSociety()//todo must be implemented
+                        .create())
+                .setManaCost(9)
+                .setBuyPrice(2000)
+                .setSellPrice(2000)
+                .setName("All Disarm")
+                .create()
+        );
+        //11
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(4)
+                                .setPoison(1)
+                                .create())
+                        .create())
+                .setManaCost(8)
+                .setSellPrice(1500)
+                .setBuyPrice(1500)
+                .setName("All Poison")
+                .create());
+        //12
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                //todo must be implemented
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(2100)
+                .setBuyPrice(2100)
+                .setName("Dispel")
+                .create()
+        );
+        //13
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(-6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(3)
+                                .setHoly(2)
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(2250)
+                .setBuyPrice(2250)
+                .setName("Health with profit")
+                .create()
+        );
+        //14
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(2500)
+                .setSellPrice(2500)
+                .setName("Power Up")
+                .create()
+        );
+        //15
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(2)
+                                //todo what is "daem" in duration
+                                .create())
+                        .create())
+                .setManaCost(4)
+                .setBuyPrice(2000)
+                .setSellPrice(2000)
+                .setName("All Power")
+                .create());
+        //16
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(4)
+                .setSellPrice(1500)
+                .setBuyPrice(1500)
+                .setName("All Attack")
+                .create());
+        //17
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(-4)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(1)
+                .setBuyPrice(1000)
+                .setBuyPrice(1000)
+                .setName("Weakening")
+                .create()
+        );
+        //18
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(8)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(Buff.INFINITY)
+                                .setDeltaHP(-6)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(1600)
+                .setSellPrice(1600)
+                .setName("Sacrifice ")
+                .create());
+        //19
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                //todo what should i do ??? for buff
+                                .create()))
+                .setManaCost(9)
+                .setSellPrice(1750)
+                .setBuyPrice(1750)
+                .setName("Kings Guard")
+                .create());
+        //20
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setStun()
+                                .setDuration(2)
+                                .create())
+                        .create())
+                .setManaCost(1)
+                .setSellPrice(1200)
+                .setBuyPrice(1200)
+                .setName("Shock")
+                .create());
+    }
+
+    private static void addHeroes(ArrayList<Card> cards) {
+        //1
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(2)
+                .setSpellManaCost(1)
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(4)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setAttackType(new Melee())
+                .setAp(4)
+                .setManaCost(0)
+                .setHp(50)
+                .setSellPrice(8000)
+                .setBuyPrice(8000)
+                .setName("dive sefid")
+                .create());
+        //2
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(8)
+                .setSpellManaCost(5)
+                .setSpell(new Spell.SpellBuilder()
+                        .addBuff(new Buff.BuffBuilder()
+                                .setStun()
+                                .setDuration(1)
+                                .create())
+                        .setTargetSociety()//todo must be implemented
+                        .create())
+                .setAttackType(new Melee())
+                .setAp(4)
+                .setHp(50)
+                .setManaCost(0)
+                .setBuyPrice(9000)
+                .setSellPrice(9000)
+                .setName("simorgh")
+                .create()
+        );
+        //3
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(1)
+                .setSpellManaCost(0)
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration()//todo there is EHBHAM !!!
+                                .create())
+                        .create())
+                .setAttackType(new Melee())
+                .setAp(4)
+                .setHp(50)
+                .setManaCost(0)
+                .setSellPrice(8000)
+                .setBuyPrice(8000)
+                .setName("ezhdehaye haft sar")
+                .create());
+        //4
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(2)
+                .setSpellManaCost(1)
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration(1)
+                                .create())
+                        .create())
+                .setAttackType(new Melee())
+                .setAp(4)
+                .setHp(50)
+                .setManaCost(0)
+                .setBuyPrice(8000)
+                .setSellPrice(8000)
+                .setName("rakhsh")
+                .create());
+        //5
+        cards.add(new Hero.HeroBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setPoison(1)
+                                .setDuration(3)
+                                .create())
+                        .create())
+                .setAttackType(new Melee())
+                .setAp(2)
+                .setHp(50)
+                .setManaCost(0)
+                .setSellPrice(10000)
+                .setBuyPrice(10000)
+                .setName("zahhak")
+                .create());
+        //6
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(3)
+                .setSpellManaCost(1)
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setHoly(1)
+                                .setDuration(3)
+                                .create())
+                        .create())
+                .setAttackType(new Melee())
+                .setAp(4)
+                .setHp(50)
+                .setManaCost(0)
+                .setBuyPrice(8000)
+                .setSellPrice(8000)
+                .setName("kave")
+                .create());
+        //7
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(2)
+                .setSpellManaCost(2)
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety()//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(-4)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setAttackType(new Ranged(6))
+                .setAp(2)
+                .setHp(30)
+                .setManaCost(0)
+                .setSellPrice(10000)
+                .setBuyPrice(10000)
+                .setName("arash")
+                .create());
+        //8
+        cards.add(new Hero.HeroBuilder()
+                .setSpellCoolDown(2)
+                .setSpellManaCost(1)
+                .setSpell(new Spell.SpellBuilder()
+                        .setDispel()
+                        .setTargetSociety()//todo must be implemented
+                        .create())
+                .setAttackType(new Ranged(3))
+                .setAp(3)
+                .setHp(40)
+                .setManaCost(0)
+                .setBuyPrice(11000)
+                .setSellPrice(11000)
+                .setName("afsane")
+                .create());
+        //9
+        cards.add(new Hero.HeroBuilder()
+                //todo must be hard coded
+                .setAttackType(new Hybrid(3))
+                .setAp(3)
+                .setHp(35)
+                .setManaCost(0)
+                .setSellPrice(12000)
+                .setBuyPrice(12000)
+                .setName("esfandiar")
+                .create());
+        //10
+        cards.add(new Hero.HeroBuilder()
+                .setAttackType(new Hybrid(4))
+                .setAp(7)
+                .setHp(55)
+                .setManaCost(0)
+                .setBuyPrice(8000)
+                .setSellPrice(8000)
+                .setName("rostam")
+                .create());
     }
 
     public static void initShopUsableItems(ArrayList<Item> shopItems) {
