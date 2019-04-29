@@ -74,6 +74,7 @@ public class CollectionController implements CollectionContract.Controller {
             Notify.logError("Sorry!! Deck with this name is already exist!");
         } else {
             collection.createDeck(deckName);
+            Notify.logMessage("Good job! You created deck \"" + deckName + "\"");
         }
     }
 
@@ -85,6 +86,7 @@ public class CollectionController implements CollectionContract.Controller {
             Notify.logError("Oh!! This deck doesn't exist!");
         } else {
             collection.deleteDeck(deck);
+            Notify.logMessage("Deck \"" + deckName + "\" deleted successfully.");
         }
     }
 

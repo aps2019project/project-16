@@ -21,7 +21,7 @@ public class CollectionView implements CollectionContract.View {
     @Override
     public void showAllDecks(ArrayList<Deck> decks) {
         for (Deck deck : decks) {
-            Notify.logMessage("\nDeck with name: \"" + deck.getName() + "\"\n");
+            Notify.logMessage("\nDeck with name: \"" + deck.getName() + "\":\n");
             showDeck(deck);
         }
     }
