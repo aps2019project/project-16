@@ -99,7 +99,6 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void sellCard(int cardID) {
-        // TODO: 4/30/19 when we sell a card it must be removed from our decks
         Collection collection = GameContents.getCurrentAccount().getCollection();
         Shop shop = GameContents.getShop();
         String cardType = collection.getType(cardID);

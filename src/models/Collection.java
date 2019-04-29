@@ -38,6 +38,15 @@ public class Collection {
 
     public void removeCard(Card card) {
         this.cards.removeIf(card1 -> card1.equals(card)); // todo should be checked at end
+        for (Deck deck : decks) {
+            if (deck.hasCard(card.getCollectionID())) {
+                if (card.getClass().equals(Hero.class)) {
+                    deck.setHero(null);
+                } else {
+                    deck.removeCard(card);
+                }
+            }
+        }
     }
 
     public void addItem(Item item) {
@@ -46,6 +55,11 @@ public class Collection {
 
     public void removeItem(Item item) {
         this.items.removeIf(b -> b.equals(item));
+        for (Deck deck : decks) {
+            if (deck.hasCard(item.getCollectionID())) {
+                deck.setItem(null);
+            }
+        }
     }
 
     public int searchCard(String name) {
