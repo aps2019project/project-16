@@ -59,8 +59,10 @@ public class Shop {
         Collection collection = currentAccount.getCollection();
 
         Card card = getCard(cardName);
-        currentAccount.decreaseMoney(card.getBuyPrice());
-        collection.addCard(card);
+
+        Card newCard = card.getCopy(true);
+        currentAccount.decreaseMoney(newCard.getBuyPrice());
+        collection.addCard(newCard);
     }
 
     public void sellCard(int cardID) {
@@ -77,8 +79,10 @@ public class Shop {
         Collection collection = currentAccount.getCollection();
 
         Item item = getItem(itemName);
-        currentAccount.decreaseMoney(item.getBuyPrice());
-        collection.addItem(item);
+
+        Item newItem = item.getCopy(true);
+        currentAccount.decreaseMoney(newItem.getBuyPrice());
+        collection.addItem(newItem);
     }
 
     public void sellItem(int itemID) {

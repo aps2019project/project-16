@@ -51,4 +51,13 @@ public abstract class Item {
     /////////////////////////////////////////////////////////////////////////////////
     public abstract void use();
 
+
+    public Item getCopy(boolean setCollectionID) {
+        // TODO: 4/29/19 copy by kind of Item
+        Item newItem = this;//this is chert and movaghat!!
+        if (setCollectionID) {
+            collectionID = CollectionUniqueIDGenerator.getUniqueID();
+        }
+        return newItem;
+    }
 }

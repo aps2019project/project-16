@@ -49,11 +49,11 @@ public class ShopView implements ShopContract.View {
                             , (printingState == 's') ? (i) : (card.getCollectionID())
                             , getCardType(card)
                             , card.getName()
-                            , minion.getAttackType().getClass().getName()
+                            , minion.toString()
                             , minion.getAp()
                             , minion.getHp()
                             , card.getManaCost()
-                            , minion.getSpecialPower().toString()
+                            , minion.toString()
                             , card.getBuyPrice());
                     break;
                 case "Spell":

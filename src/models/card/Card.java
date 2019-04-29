@@ -1,5 +1,7 @@
 package models.card;
 
+import models.CollectionUniqueIDGenerator;
+
 public abstract class Card {
     private int manaCost;
     private int sellPrice;
@@ -98,5 +100,38 @@ public abstract class Card {
 
     public int getCollectionID() {
         return this.collectionID;
+    }
+
+    public Card getCopy(boolean setCollectionID) {
+        // TODO: 4/29/19
+
+//        GameElement cardType;
+//        if (this.getClass().equals(Hero.class)) {
+//            cardType = HERO;
+//        } else if (this.getClass().equals(Minion.class)) {
+//            cardType = MINION;
+//        } else if (this.getClass().equals(SpellCard.class)) {
+//            cardType = SPELL_CARD;
+//        } else {
+//            cardType = UNDEFINED;
+//        }
+
+        Card newCard = this;//this is chert and movaghat
+
+//        switch (cardType) {
+//            case HERO:
+//
+//                break;
+//            case MINION:
+//
+//                break;
+//            case SPELL_CARD:
+//
+//                break;
+//        }
+        if (setCollectionID) {
+            newCard.collectionID = CollectionUniqueIDGenerator.getUniqueID();
+        }
+        return newCard;
     }
 }
