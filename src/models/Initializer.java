@@ -14,46 +14,8 @@ import static models.SpecialPowerCastTime.*;
 public class Initializer {
     public static void initShopCards(ArrayList<Card> shopCards) {
         addMinions(shopCards);
-        //spells
-        shopCards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY), false, new Buff.BuffBuilder()
-                        .setDuration(Buff.INFINITY).setDeltaHP(-4).create()))
-                .setBuyPrice(400)
-                .setManaCost(1)
-                .setName("Fireball")
-                .create()
-        );
-        //heroes
-//        shopCards.add(new SpellCard.SpellCardBuilder()
-//                .setSpell(new Spell.SpellBuilder()
-//                        .addBuff(new Buff.BuffBuilder()
-//                                .setDeltaHP(-8)
-//                                .setDuration(Buff.INFINITY)
-//                                .create())
-//                        .setTargetSociety(new EnemyHero())
-//                        .create())
-//                .setBuyPrice(1250)
-//                .setManaCost(2)
-//                .setName("Lightening Bolt")
-//                .create()
-//        );
-//
-//        shopCards.add(new Hero.HeroBuilder()
-//                .setSpellManaCost(1)
-//                .setSpellCoolDown(2)
-//                .setSpell(new Spell.SpellBuilder()
-//                        .setTargetSociety() // todo must be corrected by Mostafa
-//                        .create()
-//                )
-//                .setAp(4)
-//                .setHp(50)
-//                .setAttackType(new Melee())
-//                .setName("dive sefid")
-//                .setManaCost(1)
-//                .setBuyPrice(8000)
-//                .create()
-//        );
-        //todo must be implemented
+        addHeroes(shopCards);
+        addSpells(shopCards);
     }
 
     private static void addMinions(ArrayList<Card> cards) {
