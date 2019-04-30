@@ -1,9 +1,6 @@
 package models;
 
-import models.card.Card;
-import models.card.Unit;
-import models.card.UnitAttackedThisTurnException;
-import models.card.UnitStunnedException;
+import models.card.*;
 
 import java.util.ArrayList;
 
@@ -16,6 +13,9 @@ public class Player {
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Table table;
+    private Hero hero;
+    private int turnsFlagKeeped;
+    private int numberOfColectedFlags ;
 
     Player(Deck deck, Hand hand, Table table) {
         this.deck = deck;
@@ -23,8 +23,20 @@ public class Player {
         this.table = table;
     }
 
+    public int getNumberOfColectedFlags() {
+        return numberOfColectedFlags;
+    }
+
+    public int getTurnsFlagKeeped() {
+        return turnsFlagKeeped;
+    }
+
     public Deck getDeck() {
         return deck;
+    }
+
+    public Hero getHero() {
+        return hero;
     }
 
     public Hand getHand() {
