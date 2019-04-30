@@ -2,6 +2,8 @@ package models;
 
 import models.card.Card;
 import models.card.Unit;
+import models.card.UnitAttackedThisTurnException;
+import models.card.UnitStunnedException;
 
 import java.util.ArrayList;
 
@@ -52,10 +54,21 @@ public class Player {
     public Table getTable() {
         return table;
     }
+
+    public void attack(Unit opponent) throws UnitAttackedThisTurnException, UnitStunnedException {
+        selectedUnit.attack(opponent);
+        opponent.counterAttack(selectedUnit);
+    }
+
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) {
+        selectedUnit.comboAttack(opponent, allies);
+        opponent.counterAttack(selectedUnit);
+    }
     /////////////////////////////////////////////////////////////////////////////////////////////
     public void setMana(int mana){
         this.mana = mana;
     }
+
     public  void addToGraveYard(Card card){
         this.graveYard.add(card);
     }
