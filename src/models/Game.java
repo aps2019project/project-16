@@ -11,16 +11,15 @@ public abstract class Game {
     private Table table = new Table();
     private Player currentPlayer;
     private int turn;
-    private int maxMana;
     private int reward;
     private GameMode gameMode;
     private Player winner;
     private boolean endFlag;
 
-    private int numberOfFlags ;
+    private int numberOfFlags;
 
     public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode) {
-        this.maxMana = 4;
+        this.endFlag = false;
         this.turn = 0;
         this.reward = reward;
         this.gameMode = gameMode;
@@ -28,6 +27,10 @@ public abstract class Game {
 
     public int getNumberOfFlags() {
         return numberOfFlags;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public void setWinner(Player winner) {
@@ -38,27 +41,45 @@ public abstract class Game {
         return gameMode;
     }
 
-    public void startTurn() {
+    public void startTurn() throws GameIsEndException {
         setPlayerTurn();
         setMana();
+        for (int row = 0; row < Table.HEIGHT; row++) {
+            for (int column = 0; column < Table.WIDTH; column++) {
+                table.getCell(row, column).doBuffs();
+            }
+        }
+        gameIsEnd();
+        for (int row = 0; row < Table.HEIGHT; row++) {
+            for (int column = 0; column < Table.WIDTH; column++) {
+                if (table.getCell(row, column).hasUnit()) {
+                    table.getCell(row, column).getUnit().nextTurn();
+                }
+            }
+        }
 
     }
 
-    public void endTurn() {
-        if (checkWinningCondition()){
-            this.endFlag = true;
-            this.getRewardToWinner();
-        }
+    public void endTurn() throws GameIsEndException {
+        gameIsEnd();
+        this.turn++;
         ///decrement duration of spells
     }
 
-    private void setMana() {
-        this.maxMana++;
-        players[0].setMana(this.maxMana);
-        players[1].setMana(this.maxMana);
+    private void gameIsEnd() throws GameIsEndException {
+        if (checkWinningCondition()) {
+            this.endFlag = true;
+            this.getRewardToWinner();
+            throw new GameIsEndException();
+        }
     }
 
-    private void getRewardToWinner(){
+    private void setMana() {
+        players[0].setMana((turn + 1) / 2 + 2);
+        players[1].setMana((turn + 1) / 2 + 2);
+    }
+
+    private void getRewardToWinner() {
         if (this.winner.equals(players[0]))
             accounts[0].increaseMoney(this.reward);
         if (this.winner.equals(players[1]))
@@ -125,4 +146,7 @@ public abstract class Game {
         else
             this.currentPlayer = players[1];
     }
+}
+
+class GameIsEndException extends Exception {
 }
