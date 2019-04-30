@@ -166,7 +166,7 @@ public abstract class Unit extends Card implements Buffable {
         return currentCell;
     }
 
-    public void setCurrentCell(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException {
+    public void move(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException {
         if (isStunned())
             throw new UnitStunnedException();
         if (moved)
@@ -174,7 +174,8 @@ public abstract class Unit extends Card implements Buffable {
         this.currentCell = currentCell;
         moved = true;
     }
-    public  void move(Cell cell){
+
+    public void setCurrentCell(Cell cell){
         this.currentCell = cell;
     }
 }
