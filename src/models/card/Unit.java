@@ -174,4 +174,7 @@ public abstract class Unit extends Card implements Buffable {
         this.currentCell = currentCell;
         moved = true;
     }
+    public  void move(Cell cell){
+        this.currentCell = cell;
+    }
 }

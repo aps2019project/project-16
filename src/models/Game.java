@@ -49,6 +49,7 @@ public abstract class Game {
             this.endFlag = true;
             this.getRewardToWinner();
         }
+        ///decrement duration of spells
     }
 
     private void setMana() {
