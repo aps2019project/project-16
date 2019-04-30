@@ -34,6 +34,7 @@ public class Buff {
         this.stun = stun;
         this.disarm = disarm;
         this.dispel = dispel;
+        this.dispelable = dispelable;
     }
 
     private Buff(int duration, Buff buff) {
@@ -47,6 +48,7 @@ public class Buff {
         this.stun = buff.stun;
         this.disarm = buff.disarm;
         this.dispel = buff.dispel;
+        this.dispelable = buff.dispelable;
     }
 
     public static class BuffBuilder {
