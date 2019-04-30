@@ -93,7 +93,15 @@ public class Initializer {
         );
         //6
         cards.add(new Minion.MinionBuilder()
-                .create() // todo combe type must be iplemented and this minion must be completed
+                .setCombo()
+                .setAttackType(new Melee())
+                .setAp(4)
+                .setHp(12)
+                .setManaCost(7)
+                .setSellPrice(800)
+                .setBuyPrice(800)
+                .setName("sepah salare fars")
+                .create()
         );
         //7
         cards.add(new Minion.MinionBuilder()
@@ -163,7 +171,15 @@ public class Initializer {
                 .create()
         );
         //12
-        cards.add(new Minion.MinionBuilder()// todo COMBO must be added ny Mostafa
+        cards.add(new Minion.MinionBuilder()
+                .setCombo()
+                .setAttackType(new Melee())
+                .setAp(10)
+                .setHp(6)
+                .setManaCost(6)
+                .setSellPrice(800)
+                .setBuyPrice(800)
+                .setName("shahzadeye toorani")
                 .create()
         );
         //13
@@ -621,7 +637,7 @@ public class Initializer {
         );
         //39
         cards.add(new Minion.MinionBuilder()
-                //todo combo must be implemented
+                .setCombo()
                 .setAttackType(new Melee())
                 .setAp(4)
                 .setHp(10)
@@ -633,7 +649,7 @@ public class Initializer {
         );
         //40
         cards.add(new Minion.MinionBuilder()
-                //todo combo must be implemented
+                .setCombo()
                 .setAttackType(new Melee())
                 .setAp(6)
                 .setHp(6)
