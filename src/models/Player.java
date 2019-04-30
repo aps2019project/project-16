@@ -1,9 +1,6 @@
 package models;
 
-import models.card.Card;
-import models.card.Unit;
-import models.card.UnitAttackedThisTurnException;
-import models.card.UnitStunnedException;
+import models.card.*;
 
 import java.util.ArrayList;
 
@@ -12,10 +9,13 @@ public class Player {
     private Hand hand;
     private ArrayList<Card> graveYard = new ArrayList<>();
     private int mana;
-    private ArrayList<Collectible> collectables = new ArrayList<>();
+    private ArrayList<Collectible> collectibles = new ArrayList<>();
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Table table;
+    private Hero hero;
+    private int turnsFlagKeeped;
+    private int numberOfColectedFlags;
 
     Player(Deck deck, Hand hand, Table table) {
         this.deck = deck;
@@ -23,8 +23,20 @@ public class Player {
         this.table = table;
     }
 
+    public int getNumberOfColectedFlags() {
+        return numberOfColectedFlags;
+    }
+
+    public int getTurnsFlagKeeped() {
+        return turnsFlagKeeped;
+    }
+
     public Deck getDeck() {
         return deck;
+    }
+
+    public Hero getHero() {
+        return hero;
     }
 
     public Hand getHand() {
@@ -39,8 +51,8 @@ public class Player {
         return mana;
     }
 
-    public ArrayList<Collectible> getCollectables() {
-        return collectables;
+    public ArrayList<Collectible> getCollectibles() {
+        return collectibles;
     }
 
     public ArrayList<Unit> getUnits() {
@@ -64,15 +76,20 @@ public class Player {
         selectedUnit.comboAttack(opponent, allies);
         opponent.counterAttack(selectedUnit);
     }
+
     /////////////////////////////////////////////////////////////////////////////////////////////
-    public void setMana(int mana){
+    public void setMana(int mana) {
         this.mana = mana;
     }
 
-    public  void addToGraveYard(Card card){
+    public void addToGraveYard(Card card) {
         this.graveYard.add(card);
     }
-    ///+move(): void/
+
+    public void moveUnit(Cell cell) {
+        this.selectedUnit.move(cell);
+    }
+
     //+putUnit(cell: Cell, card: Card) : void
     //+useItem(item :Item):void
     //+castSpellCard(cell: Cell,spellCard: SpellCard):void
