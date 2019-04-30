@@ -1,5 +1,6 @@
 package models.card;
 
+import com.gilecode.yagson.YaGson;
 import models.CollectionUniqueIDGenerator;
 
 public abstract class Card {
@@ -103,32 +104,8 @@ public abstract class Card {
     }
 
     public Card getCopy(boolean setCollectionID) {
-        // TODO: 4/29/19
-
-//        GameElement cardType;
-//        if (this.getClass().equals(Hero.class)) {
-//            cardType = HERO;
-//        } else if (this.getClass().equals(Minion.class)) {
-//            cardType = MINION;
-//        } else if (this.getClass().equals(SpellCard.class)) {
-//            cardType = SPELL_CARD;
-//        } else {
-//            cardType = UNDEFINED;
-//        }
-
-        Card newCard = this;//this is chert and movaghat
-
-//        switch (cardType) {
-//            case HERO:
-//
-//                break;
-//            case MINION:
-//
-//                break;
-//            case SPELL_CARD:
-//
-//                break;
-//        }
+        String json = new YaGson().toJson(this);
+        Card newCard = new YaGson().fromJson(json, this.getClass());
         if (setCollectionID) {
             newCard.collectionID = CollectionUniqueIDGenerator.getUniqueID();
         }
