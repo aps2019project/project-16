@@ -7,7 +7,5 @@ public enum GameElement {
     USABLE_ITEM,
     FLAG,
     COLLECTIBLE,
-
-
     UNDEFINED
 }
