@@ -22,7 +22,8 @@ public abstract class UnitTargetSociety extends TargetSociety {
 
     public enum TargetTeam {
         FRIEND,
-        ENEMY
+        ENEMY,
+        ANY
     }
 
     boolean doesEffect(Unit unit, Player player) {
