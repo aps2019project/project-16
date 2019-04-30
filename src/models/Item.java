@@ -1,5 +1,7 @@
 package models;
 
+import com.gilecode.yagson.YaGson;
+
 public abstract class Item {
     private Buff buff;
     private String name;
@@ -53,10 +55,11 @@ public abstract class Item {
 
 
     public Item getCopy(boolean setCollectionID) {
-        // TODO: 4/29/19 copy by kind of Item
-        Item newItem = this;//this is chert and movaghat!!
+        YaGson yaGson = new YaGson();
+        String json = yaGson.toJson(this);
+        Item newItem = yaGson.fromJson(json, this.getClass());
         if (setCollectionID) {
-            collectionID = CollectionUniqueIDGenerator.getUniqueID();
+            newItem.collectionID = CollectionUniqueIDGenerator.getUniqueID();
         }
         return newItem;
     }
