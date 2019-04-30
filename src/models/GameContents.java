@@ -50,4 +50,22 @@ public class GameContents {
     public static ArrayList<GameLevel> getGameLevels() {
         return gameLevels;
     }
+
+    public static boolean hasOppDeck(String oppDeckName) {
+        for (GameLevel gameLevel : gameLevels) {
+            if (gameLevel.getDeck().getName().equals(oppDeckName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Deck getOpponentDeck(String oppDeckName) {
+        for (GameLevel gameLevel : gameLevels) {
+            if (gameLevel.getDeck().getName().equals(oppDeckName)) {
+                return gameLevel.getDeck();
+            }
+        }
+        return null;
+    }
 }

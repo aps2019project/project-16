@@ -7,13 +7,14 @@ import java.util.regex.Pattern;
 
 public class StartGameCollectFlagsCommand extends Command {
     {
-        name = "start game collect flags (number of flags)";
-        pattern = Pattern.compile("start game collect flags (\\d+)", Pattern.CASE_INSENSITIVE);
+        name = "start game (opponent deck name) collect flags (number of flags)";
+        pattern = Pattern.compile("start game (\\w+( \\w+)*) collect flags (\\d+)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
     public void doIt() {
-        int numberOfFlags = Integer.parseInt(matcher.group(1));
-        new CustomGameController().startGame(3, numberOfFlags);
+        String oppDeckName = matcher.group(1);
+        int numberOfFlags = Integer.parseInt(matcher.group(3));
+        new CustomGameController().startGame(oppDeckName, 3, numberOfFlags);
     }
 }

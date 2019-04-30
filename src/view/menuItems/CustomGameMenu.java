@@ -14,6 +14,7 @@ public class CustomGameMenu extends MenuItem {
 
         commands.add(new StartGameCommand());
         commands.add(new StartGameCollectFlagsCommand());
+        commands.add(new ShowOppDecks());
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
 

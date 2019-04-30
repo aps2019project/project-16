@@ -7,19 +7,20 @@ import java.util.regex.Pattern;
 
 public class StartGameCommand extends Command {
     {
-        name = "start game (kill hero | hold flag)";
-        pattern = Pattern.compile("start game ((kill hero)|(hold flag))", Pattern.CASE_INSENSITIVE);
+        name = "start game (opponent deck name) (kill hero | hold flag)";
+        pattern = Pattern.compile("start game (\\w+( \\w+)*) ((kill hero)|(hold flag))", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
     public void doIt() {
-        String type = matcher.group(1).toLowerCase();
+        String oppDeckName = matcher.group(1);
+        String type = matcher.group(3).toLowerCase();
         switch (type) {
             case "kill hero":
-                new CustomGameController().startGame(1, 0);
+                new CustomGameController().startGame(oppDeckName,1, 0);
                 break;
             case "hold flag":
-                new CustomGameController().startGame(2, 1);
+                new CustomGameController().startGame(oppDeckName,2, 1);
                 break;
         }
     }

@@ -103,7 +103,7 @@ public class ShopView implements ShopContract.View {
                     , hero.getName()
                     , hero.getAp()
                     , hero.getHp()
-                    , hero.getSpell().toString()
+                    , hero.toString()
                     , hero.getBuyPrice());
         }
     }
