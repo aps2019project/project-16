@@ -92,6 +92,12 @@ public abstract class Unit extends Card implements Buffable {
             buff.cast(this);
     }
 
+    public void nextTurn() {
+        doBuffs();
+        moved = false;
+        attacked = false;
+    }
+
     public void changeHP(int amount) {
         hp += amount;
     }
@@ -114,12 +120,42 @@ public abstract class Unit extends Card implements Buffable {
         return false;
     }
 
+    private int getHoly() {
+        int holy = 0;
+        for (Buff buff : buffs)
+            holy += buff.getHoly();
+        return holy;
+    }
+
     public Player getPlayer() {
         return player;
     }
 
-    public void attack(Unit opponent) { // todo check if is same as counter attack?
+    public void attack(Unit opponent) throws UnitAttackedThisTurnException, UnitStunnedException {
+        if (isStunned())
+            throw new UnitStunnedException();
+        if (attacked)
+            throw new UnitAttackedThisTurnException();
+        int damage = -ap + opponent.getHoly();
+        attacked = true;
+        moved = true;
+        if (damage < 0)
+            opponent.changeHP(damage);
+    }
 
+    public void counterAttack(Unit opponent) {
+        int damage = -ap + opponent.getHoly();
+        if (!isDisarmed() && damage < 0)
+            opponent.changeHP(damage);
+    }
+
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) { // todo add exceptions
+        int damage = -ap;
+        for (Unit unit : allies)
+            damage -= unit.getAp();
+        damage += opponent.getHoly();
+        if (damage < 0)
+            opponent.changeHP(damage);
     }
 
     public boolean isDead() {
@@ -130,7 +166,12 @@ public abstract class Unit extends Card implements Buffable {
         return currentCell;
     }
 
-    public void setCurrentCell(Cell currentCell) {
+    public void setCurrentCell(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException {
+        if (isStunned())
+            throw new UnitStunnedException();
+        if (moved)
+            throw new UnitMovedThisTurnException();
         this.currentCell = currentCell;
+        moved = true;
     }
 }

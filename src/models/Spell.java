@@ -9,21 +9,18 @@ import java.util.Arrays;
 public class Spell {
     private ArrayList<Buff> buffs;
     private TargetSociety targetSociety;
-    private boolean dispel;
 
-    public Spell(TargetSociety targetSociety, boolean dispel, Buff... buffs) {
+    public Spell(TargetSociety targetSociety, boolean dispel, Buff... buffs) { // todo remove dispel
         this.buffs = new ArrayList<>(Arrays.asList(buffs));
         this.targetSociety = targetSociety;
-        this.dispel = dispel;
     }
 
     public Spell(TargetSociety targetSociety, boolean dispel, ArrayList<Buff> buffs) {
         this.buffs = buffs;
         this.targetSociety = targetSociety;
-        this.dispel = dispel;
     }
 
-    public static class SpellBuilder {
+    public static class SpellBuilder { // todo remove setDispel
         private ArrayList<Buff> buffs = new ArrayList<>();
         private TargetSociety targetSociety;
         private boolean dispel;
@@ -53,21 +50,6 @@ public class Spell {
     }
 
     public void cast(Player player, Cell cell) {
-        if (dispel)
-            dispel(player, cell);
         targetSociety.cast(player, cell, buffs);
-    }
-
-    private void dispel(Player player, Cell cell) { // todo make it correct for different target societies.
-        Table table = cell.getTable();
-        for (int i = 0; i < Table.HEIGHT; i++)
-            for (int j = 0; j < Table.WIDTH; j++)
-                if (canCast(player, cell.getTable().getCell(i, j)) && table.getCell(i, j).hasUnit()) {
-                    Unit unit = table.getCell(i, j).getUnit();
-                    if (unit.getPlayer() == player)
-                        unit.getBuffs().removeIf(buff -> buff.getEffect() == Buff.Effect.NEGATIVE);
-                    else
-                        unit.getBuffs().removeIf(buff -> buff.getEffect() == Buff.Effect.POSITIVE);
-                }
     }
 }

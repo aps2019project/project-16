@@ -32,7 +32,7 @@ public class OneRandomEnemyMinion extends TargetSociety {
             int column = randomColumn;
             do {
                 if (table.getCell(row, column).hasUnit() && table.getCell(row, column).getUnit().getPlayer() != player) {
-                    table.getCell(row, column).getUnit().addBuffs(buffs);
+                    castOnUnit(player, table.getCell(row, column).getUnit(), buffs);
                     return;
                 }
                 column = (column + 1) % Table.WIDTH;

@@ -37,6 +37,6 @@ public class UnitsInRange extends UnitTargetSociety {
                 if (Table.getDistance(table.getCell(row, column), cell) <= range && table.getCell(row, column).hasUnit())
                     if (containsCenter || table.getCell(row, column) != cell)
                         if (doesEffect(table.getCell(row, column).getUnit(), player))
-                            table.getCell(row, column).getUnit().addBuffs(buffs);
+                            castOnUnit(player, table.getCell(row, column).getUnit(), buffs);
     }
 }

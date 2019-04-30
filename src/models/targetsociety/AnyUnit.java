@@ -25,9 +25,9 @@ public class AnyUnit extends  UnitTargetSociety {
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
         Table table = cell.getTable();
-        for (int i = 0; i < Table.HEIGHT; i++)
-            for (int j = 0; j < Table.WIDTH; j++)
-                if (table.getCell(i, j).hasUnit() && doesEffect(table.getCell(i,j).getUnit(), player))
-                    table.getCell(i, j).getUnit().addBuffs(buffs);
+        for (int row = 0; row < Table.HEIGHT; row++)
+            for (int column = 0; column < Table.WIDTH; column++)
+                if (table.getCell(row, column).hasUnit() && doesEffect(table.getCell(row,column).getUnit(), player))
+                    castOnUnit(player, table.getCell(row, column).getUnit(), buffs);
     }
 }
