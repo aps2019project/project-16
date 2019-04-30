@@ -86,11 +86,18 @@ public class Player {
         this.graveYard.add(card);
     }
 
-    public void moveUnit(Cell cell) {
+    public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException {
         this.selectedUnit.move(cell);
     }
+    public void putUnit(Cell cell , Unit unit){
+        for (Card card : this.hand.getCards()){
+            if (card.getName().equals(unit.getName())) {
+                unit.setCurrentCell(cell);
+                break;
+            }
+        }
+    }
 
-    //+putUnit(cell: Cell, card: Card) : void
     //+useItem(item :Item):void
     //+castSpellCard(cell: Cell,spellCard: SpellCard):void
     //+moveUnit(cell: Cell) : void
