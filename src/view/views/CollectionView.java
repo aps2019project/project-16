@@ -1,14 +1,16 @@
 package view.views;
 
 import contracts.CollectionContract;
-import models.Shop;
 import models.card.Card;
 import models.Deck;
 import models.card.Hero;
 import models.Item;
+import view.MenuHandler;
 import view.Notify;
 
 import java.util.ArrayList;
+
+import static view.menuItems.MenuConstants.BATTLE_MENU;
 
 public class CollectionView implements CollectionContract.View {
     private CollectionContract.Controller controller;
@@ -62,5 +64,10 @@ public class CollectionView implements CollectionContract.View {
     @Override
     public void showDeckValidationStatus(String deckName, String message) {
         //un use now
+    }
+
+    @Override
+    public void goToBattleMenu() {
+        MenuHandler.goToSubMenu(BATTLE_MENU);
     }
 }
