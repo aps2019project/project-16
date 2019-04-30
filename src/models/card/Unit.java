@@ -92,6 +92,12 @@ public abstract class Unit extends Card implements Buffable {
             buff.cast(this);
     }
 
+    public void nextTurn() {
+        doBuffs();
+        moved = false;
+        attacked = false;
+    }
+
     public void changeHP(int amount) {
         hp += amount;
     }
@@ -125,9 +131,9 @@ public abstract class Unit extends Card implements Buffable {
         return player;
     }
 
-    public void attack(Unit opponent) throws UnitAttackedThisTurnExeption {
+    public void attack(Unit opponent) throws UnitAttackedThisTurnException {
         if (attacked)
-            throw new UnitAttackedThisTurnExeption();
+            throw new UnitAttackedThisTurnException();
         int damage = -ap + opponent.getHoly();
         attacked = true;
         moved = true;
@@ -153,7 +159,10 @@ public abstract class Unit extends Card implements Buffable {
         return currentCell;
     }
 
-    public void setCurrentCell(Cell currentCell) {
+    public void setCurrentCell(Cell currentCell) throws UnitMovedThisTurnException {
+        if (moved)
+            throw new UnitMovedThisTurnException();
         this.currentCell = currentCell;
+        moved = true;
     }
 }
