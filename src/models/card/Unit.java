@@ -131,7 +131,9 @@ public abstract class Unit extends Card implements Buffable {
         return player;
     }
 
-    public void attack(Unit opponent) throws UnitAttackedThisTurnException {
+    public void attack(Unit opponent) throws UnitAttackedThisTurnException, UnitStunnedException {
+        if (isStunned())
+            throw new UnitStunnedException();
         if (attacked)
             throw new UnitAttackedThisTurnException();
         int damage = -ap + opponent.getHoly();
@@ -143,12 +145,17 @@ public abstract class Unit extends Card implements Buffable {
 
     public void counterAttack(Unit opponent) {
         int damage = -ap + opponent.getHoly();
-        if (damage < 0)
+        if (!isDisarmed() && damage < 0)
             opponent.changeHP(damage);
     }
 
-    public void comboAttack(Unit opponent, ArrayList<Unit> Allies) {
-
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) { // todo add exceptions
+        int damage = -ap;
+        for (Unit unit : allies)
+            damage -= unit.getAp();
+        damage += opponent.getHoly();
+        if (damage < 0)
+            opponent.changeHP(damage);
     }
 
     public boolean isDead() {
@@ -159,7 +166,9 @@ public abstract class Unit extends Card implements Buffable {
         return currentCell;
     }
 
-    public void setCurrentCell(Cell currentCell) throws UnitMovedThisTurnException {
+    public void setCurrentCell(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException {
+        if (isStunned())
+            throw new UnitStunnedException();
         if (moved)
             throw new UnitMovedThisTurnException();
         this.currentCell = currentCell;
