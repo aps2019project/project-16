@@ -24,35 +24,35 @@ public class Initializer {
                 .create()
         );
         //heroes
-        shopCards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaHP(-8)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .setTargetSociety(new EnemyHero())
-                        .create())
-                .setBuyPrice(1250)
-                .setManaCost(2)
-                .setName("Lightening Bolt")
-                .create()
-        );
-
-        shopCards.add(new Hero.HeroBuilder()
-                .setSpellManaCost(1)
-                .setSpellCoolDown(2)
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety() // todo must be corrected by Mostafa
-                        .create()
-                )
-                .setAp(4)
-                .setHp(50)
-                .setAttackType(new Melee())
-                .setName("dive sefid")
-                .setManaCost(1)
-                .setBuyPrice(8000)
-                .create()
-        );
+//        shopCards.add(new SpellCard.SpellCardBuilder()
+//                .setSpell(new Spell.SpellBuilder()
+//                        .addBuff(new Buff.BuffBuilder()
+//                                .setDeltaHP(-8)
+//                                .setDuration(Buff.INFINITY)
+//                                .create())
+//                        .setTargetSociety(new EnemyHero())
+//                        .create())
+//                .setBuyPrice(1250)
+//                .setManaCost(2)
+//                .setName("Lightening Bolt")
+//                .create()
+//        );
+//
+//        shopCards.add(new Hero.HeroBuilder()
+//                .setSpellManaCost(1)
+//                .setSpellCoolDown(2)
+//                .setSpell(new Spell.SpellBuilder()
+//                        .setTargetSociety() // todo must be corrected by Mostafa
+//                        .create()
+//                )
+//                .setAp(4)
+//                .setHp(50)
+//                .setAttackType(new Melee())
+//                .setName("dive sefid")
+//                .setManaCost(1)
+//                .setBuyPrice(8000)
+//                .create()
+//        );
         //todo must be implemented
     }
 
@@ -60,7 +60,7 @@ public class Initializer {
         //minions
         //1
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(7))
                 .setHp(6)
                 .setAp(4)
                 .setManaCost(2)
@@ -90,7 +90,7 @@ public class Initializer {
         );
         //3
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Hybrid())
+                .setAttackType(new Hybrid(3))
                 .setAp(3)
                 .setHp(5)
                 .setManaCost(1)
@@ -135,7 +135,7 @@ public class Initializer {
         );
         //7
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(5))
                 .setAp(4)
                 .setHp(3)
                 .setManaCost(1)
@@ -146,7 +146,7 @@ public class Initializer {
         );
         //8
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(7))
                 .setAp(2)
                 .setHp(4)
                 .setManaCost(1)
@@ -157,7 +157,7 @@ public class Initializer {
         );
         //9
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Hybrid())
+                .setAttackType(new Hybrid(3))
                 .setAp(4)
                 .setHp(4)
                 .setManaCost(1)
@@ -206,7 +206,7 @@ public class Initializer {
         );
         //13
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Hybrid())
+                .setAttackType(new Hybrid(7))
                 .setAp(10)
                 .setHp(14)
                 .setManaCost(9)
@@ -217,7 +217,7 @@ public class Initializer {
         );
         //14
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(7))
                 .setAp(12)
                 .setHp(12)
                 .setManaCost(9)
@@ -236,7 +236,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(3))
                 .setAp(2)
                 .setHp(0)
                 .setManaCost(2)
@@ -266,7 +266,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.ANY, false))
                         .create())
-                .setAttackType(new Hybrid())
+                .setAttackType(new Hybrid(3))
                 .setAp(11)
                 .setHp(12)
                 .setManaCost(7)
@@ -285,7 +285,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(4))
                 .setAp(6)
                 .setHp(5)
                 .setManaCost(4)
@@ -296,7 +296,7 @@ public class Initializer {
         );
         //19
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(4))
                 .setAp(5)
                 .setHp(9)
                 .setManaCost(5)
@@ -332,7 +332,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new UnitsInRange(TargetType.MINION, TargetTeam.ANY, 2, false))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(5))
                 .setAp(7)
                 .setHp(14)
                 .setManaCost(8)
@@ -421,7 +421,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.FRIEND, true))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(3))
                 .setAp(4)
                 .setHp(5)
                 .setManaCost(4)
@@ -441,7 +441,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.FRIEND, true))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(5))
                 .setAp(6)
                 .setHp(6)
                 .setManaCost(6)
@@ -460,7 +460,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new AnyUnit(TargetType.MINION, TargetTeam.FRIEND))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(4))
                 .setAp(4)
                 .setHp(10)
                 .setManaCost(5)
@@ -516,7 +516,7 @@ public class Initializer {
                                 .setDuration(Buff.INFINITY)
                                 .create())
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(5))
                 .setAp(7)
                 .setHp(5)
                 .setManaCost(4)
@@ -551,7 +551,7 @@ public class Initializer {
                         .addBuff(new Buff.BuffBuilder()
                                 //todo implement at the end
                                 .create())
-                        .setTargetSociety(new)
+                        //todo target society
                         .create())
                 .setAttackType(new Melee())
                 .setAp(8)
@@ -564,7 +564,7 @@ public class Initializer {
         );
         //33
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(3))
                 .setAp(20)
                 .setHp(6)
                 .setManaCost(4)
@@ -575,7 +575,7 @@ public class Initializer {
         );
         //34
         cards.add(new Minion.MinionBuilder()
-                .setAttackType(new Hybrid())
+                .setAttackType(new Hybrid(2))
                 .setAp(8)
                 .setHp(30)
                 .setManaCost(9)
@@ -610,7 +610,7 @@ public class Initializer {
                                 .create())
                         .setTargetSociety(new UnitsAdjacentToCell(TargetType.MINION, TargetTeam.ENEMY, false))
                         .create())
-                .setAttackType(new Ranged())
+                .setAttackType(new Ranged(5))
                 .setAp(4)
                 .setHp(3)
                 .setManaCost(3)
@@ -992,7 +992,7 @@ public class Initializer {
                 .setSpellCoolDown(2)
                 .setSpellManaCost(1)
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.FRIEND))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(4)
                                 .setDuration(Buff.INFINITY)
@@ -1000,8 +1000,8 @@ public class Initializer {
                         .create())
                 .setAttackType(new Melee())
                 .setAp(4)
-                .setManaCost(0)
                 .setHp(50)
+                .setManaCost(0)
                 .setSellPrice(8000)
                 .setBuyPrice(8000)
                 .setName("dive sefid")
@@ -1034,7 +1034,7 @@ public class Initializer {
                         .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDisarm()
-                                .setDuration()//todo there is EHBHAM !!!
+                                .setDuration(Buff.INFINITY)//todo there is EHBHAM !!!
                                 .create())
                         .create())
                 .setAttackType(new Melee())
@@ -1065,22 +1065,22 @@ public class Initializer {
                 .setName("rakhsh")
                 .create());
         //5
-        cards.add(new Hero.HeroBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
-                        .addBuff(new Buff.BuffBuilder()
-                                .setPoison(1)
-                                .setDuration(3)
-                                .create())
-                        .create())
-                .setAttackType(new Melee())
-                .setAp(2)
-                .setHp(50)
-                .setManaCost(0)
-                .setSellPrice(10000)
-                .setBuyPrice(10000)
-                .setName("zahhak")
-                .create());
+//        cards.add(new Hero.HeroBuilder()
+//                .setSpell(new Spell.SpellBuilder()
+//                        .setTargetSociety()//todo must be implemented
+//                        .addBuff(new Buff.BuffBuilder()
+//                                .setPoison(1)
+//                                .setDuration(3)
+//                                .create())
+//                        .create())
+//                .setAttackType(new Melee())
+//                .setAp(2)
+//                .setHp(50)
+//                .setManaCost(0)
+//                .setSellPrice(10000)
+//                .setBuyPrice(10000)
+//                .setName("zahhak")
+//                .create());
         //6
         cards.add(new Hero.HeroBuilder()
                 .setSpellCoolDown(3)
@@ -1105,7 +1105,7 @@ public class Initializer {
                 .setSpellCoolDown(2)
                 .setSpellManaCost(2)
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety()//todo must be implemented
+                        .setTargetSociety(new UnitsInHeroRow())//todo must be implemented
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(-4)
                                 .setDuration(Buff.INFINITY)
@@ -1136,16 +1136,16 @@ public class Initializer {
                 .setName("afsane")
                 .create());
         //9
-        cards.add(new Hero.HeroBuilder()
-                //todo must be hard coded
-                .setAttackType(new Hybrid(3))
-                .setAp(3)
-                .setHp(35)
-                .setManaCost(0)
-                .setSellPrice(12000)
-                .setBuyPrice(12000)
-                .setName("esfandiar")
-                .create());
+//        cards.add(new Hero.HeroBuilder()
+//                //todo must be hard coded
+//                .setAttackType(new Hybrid(3))
+//                .setAp(3)
+//                .setHp(35)
+//                .setManaCost(0)
+//                .setSellPrice(12000)
+//                .setBuyPrice(12000)
+//                .setName("esfandiar")
+//                .create());
         //10
         cards.add(new Hero.HeroBuilder()
                 .setAttackType(new Hybrid(4))
