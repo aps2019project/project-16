@@ -13,6 +13,7 @@ public class Buff {
     private int poison;
     private boolean stun;
     private boolean disarm;
+    private boolean casted = false;
     private Effect effect;
 
     public enum Effect {
@@ -108,12 +109,20 @@ public class Buff {
         }
     }
 
+    public void start(Unit unit, Player player) {
+        if (durationToStart == 0) {
+            unit.changeAP(deltaAP);
+            unit.changeHP(deltaHP);
+            casted = true;
+        }
+    }
+
     public void cast(Unit unit) {
         if (durationToStart > 0) {
             durationToStart--;
             return;
         }
-        if (remainingDuration == duration) {
+        if (!casted) {
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
         }
