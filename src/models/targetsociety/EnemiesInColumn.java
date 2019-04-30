@@ -23,7 +23,7 @@ public class EnemiesInColumn extends TargetSociety {
         for (int column = 0; column < Table.HEIGHT; column++) {
             Cell cellInColumn = cell.getTable().getCell(cell.getRow(), column);
             if (cellInColumn.hasUnit() && cellInColumn.getUnit().getPlayer() != player)
-                cellInColumn.getUnit().addBuffs(buffs);
+                castOnUnit(player, cellInColumn.getUnit(), buffs);
         }
     }
 }

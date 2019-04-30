@@ -13,8 +13,9 @@ public class Buff {
     private int poison;
     private boolean stun;
     private boolean disarm;
+    private boolean dispel;
     private boolean casted = false;
-    private Effect effect;
+    private boolean dispelable;
 
     public enum Effect {
         POSITIVE,
@@ -22,7 +23,7 @@ public class Buff {
     }
 
     private Buff(int duration, int durationToStart, int deltaHP, int deltaAP, int poison, int holy,
-                 boolean stun, boolean disarm, Effect effect) {
+                 boolean stun, boolean disarm, boolean dispel, boolean dispelable) {
         this.duration = duration;
         this.remainingDuration = duration;
         this.durationToStart = durationToStart;
@@ -32,7 +33,7 @@ public class Buff {
         this.holy = holy;
         this.stun = stun;
         this.disarm = disarm;
-        this.effect = effect;
+        this.dispel = dispel;
     }
 
     private Buff(int duration, Buff buff) {
@@ -45,6 +46,7 @@ public class Buff {
         this.holy = buff.holy;
         this.stun = buff.stun;
         this.disarm = buff.disarm;
+        this.dispel = buff.dispel;
     }
 
     public static class BuffBuilder {
@@ -57,7 +59,8 @@ public class Buff {
         private int poison;
         private boolean stun;
         private boolean disarm;
-        private Effect effect;
+        private boolean dispel;
+        private boolean dispelable = true;
 
         public BuffBuilder setDuration(int duration) {
             this.duration = 2 * duration;
@@ -99,22 +102,47 @@ public class Buff {
             return this;
         }
 
-        public BuffBuilder setEffect(Effect effect) {
-            this.effect = effect;
+        public BuffBuilder setDispel() {
+            this.dispel = true;
+            return this;
+        }
+
+        public BuffBuilder setNotDispelable() {
+            this.dispelable = false;
             return this;
         }
 
         public Buff create() {
-            return new Buff(duration, durationToStart, deltaHP, deltaAP, poison, holy, stun, disarm, effect);
+            return new Buff(duration, durationToStart, deltaHP, deltaAP, poison, holy, stun, disarm, dispel, dispelable);
         }
     }
 
+    /**
+     * disarm casted on first turn even if duration to start is not zero.
+     *
+     * @param unit
+     * @param player
+     */
     public void start(Unit unit, Player player) {
         if (durationToStart == 0) {
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
         }
+        if (disarm) {
+            if (unit.getPlayer() != player)
+                unit.getBuffs().removeIf(buff -> buff.isPositive() && buff.isDispelable());
+            else
+                unit.getBuffs().removeIf(buff -> !buff.isPositive() && buff.isDispelable());
+        }
+    }
+
+    public boolean isDispelable() {
+        return dispelable;
+    }
+
+    public boolean isPositive() {
+        return deltaAP > 0 || deltaHP > 0 || holy > 0;
     }
 
     public void cast(Unit unit) {
@@ -125,6 +153,7 @@ public class Buff {
         if (!casted) {
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
+            return;
         }
         if (remainingDuration % 2 == 0)
             unit.changeHP(-poison);
@@ -145,10 +174,6 @@ public class Buff {
                 cell.getUnit().addBuff(new Buff(1, this));
         }
     }// todo remember to cast on cells first.
-
-    public Effect getEffect() {
-        return effect;
-    }
 
     public int getHoly() {
         if (remainingDuration > 0)

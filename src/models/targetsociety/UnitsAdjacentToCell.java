@@ -33,7 +33,7 @@ public class UnitsAdjacentToCell extends UnitTargetSociety {
             Cell adjacentCell = cell.getTable().getCell(cell.getRow() + coordinate[0], cell.getColumn() + coordinate[1]);
             if (adjacentCell.hasUnit() && doesEffect(adjacentCell.getUnit(), player))
                 if (containsCenter || adjacentCell != cell)
-                    adjacentCell.getUnit().addBuffs(buffs);
+                    castOnUnit(player, adjacentCell.getUnit(), buffs);
         }
     }
 }

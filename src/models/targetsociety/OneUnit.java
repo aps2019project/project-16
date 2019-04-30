@@ -19,6 +19,6 @@ public class OneUnit extends UnitTargetSociety {
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
         if (canCast(player, cell))
-            cell.getUnit().addBuffs(buffs);
+            castOnUnit(player, cell.getUnit(), buffs);
     }
 }
