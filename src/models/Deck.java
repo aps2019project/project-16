@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-    private static final int CARD_CAPACITY = 20;
+    public static final int CARD_CAPACITY = 20;
 
     private ArrayList<Card> cards = new ArrayList<>();
     private Hero hero;

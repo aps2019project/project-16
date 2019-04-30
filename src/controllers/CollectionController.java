@@ -9,6 +9,8 @@ import view.views.CollectionView;
 
 import java.util.ArrayList;
 
+import static models.Deck.CARD_CAPACITY;
+
 public class CollectionController implements CollectionContract.Controller {
     private CollectionContract.View view;
 
@@ -36,7 +38,7 @@ public class CollectionController implements CollectionContract.Controller {
     @Override
     public void loadAllDecks() {
         Collection collection = GameContents.getCurrentAccount().getCollection();
-        view.showAllDecks(collection.getDecks());
+        view.showAllDecks(collection.getMainDeck(), collection.getDecks());
     }
 
     @Override
@@ -100,7 +102,7 @@ public class CollectionController implements CollectionContract.Controller {
         } else if (deck == null) {
             Notify.logError("This deck doesn't exist in collection!");
         } else if (deck.hasCard(cardID)) {
-            Notify.logError("Sorry! This card is already exist in collection!");
+            Notify.logError("Sorry! This card is already exist in deck!");
         } else {
             switch (type) {
                 case "item":
@@ -120,8 +122,8 @@ public class CollectionController implements CollectionContract.Controller {
                             deck.setHero((Hero) card);
                             Notify.logMessage("Hero \"" + card.getName() + "\" added to deck \"" + deckName + "\"");
                         }
-                    } else if (deck.getCards().size() >= 20) {
-                        Notify.logError("No free capacity in deck \"" + deckName + "\"! capacity of cards in deck is 20.");
+                    } else if (deck.getCards().size() >= CARD_CAPACITY) {
+                        Notify.logError("No free capacity in deck \"" + deckName + "\"! capacity of cards in deck is " + CARD_CAPACITY + ".");
                     } else {
                         deck.addCard(card);
                         Notify.logMessage("Card \"" + card.getName() + "\" added to deck \"" + deckName + "\"");
@@ -159,15 +161,18 @@ public class CollectionController implements CollectionContract.Controller {
     }
 
     @Override
-    public void validateDeck(String deckName) {
+    public boolean validateDeck(String deckName) {
         Collection collection = GameContents.getCurrentAccount().getCollection();
         Deck deck = collection.getDeck(deckName);
         if (deck == null) {
             Notify.logError("Sorry! This deck doesn't exist!");
-        } else if (deck.getCards().size() != 20 || deck.getHero() == null) {
-            Notify.logError("Deck with name \"" + deckName + "\" isn't valid. You must have 20 cards and 1 hero in your deck.");
+            return false;
+        } else if (deck.getCards().size() != CARD_CAPACITY || deck.getHero() == null) {
+            Notify.logError("Deck with name \"" + deckName + "\" isn't valid. You must have " + CARD_CAPACITY + " cards and 1 hero in your deck.");
+            return false;
         } else {
             Notify.logMessage("OK! Deck with name \"" + deckName + "\" is valid.");
+            return true;
         }
     }
 
@@ -180,6 +185,16 @@ public class CollectionController implements CollectionContract.Controller {
         } else {
             collection.setMainDeck(deck);
             Notify.logMessage("Good job! You set the main deck to \"" + deckName + "\".");
+        }
+    }
+
+    @Override
+    public void validateMainDeckForEnterBattle() {
+        Deck mainDeck = GameContents.getCurrentAccount().getCollection().getMainDeck();
+        if (mainDeck != null && validateDeck(mainDeck.getName())) {
+            view.goToBattleMenu();
+        } else {
+            Notify.logError("For entering battle, First complete and set your main deck.");
         }
     }
 }

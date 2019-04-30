@@ -1,14 +1,16 @@
 package view.views;
 
 import contracts.CollectionContract;
-import models.Shop;
 import models.card.Card;
 import models.Deck;
 import models.card.Hero;
 import models.Item;
+import view.MenuHandler;
 import view.Notify;
 
 import java.util.ArrayList;
+
+import static view.menuItems.MenuConstants.BATTLE_MENU;
 
 public class CollectionView implements CollectionContract.View {
     private CollectionContract.Controller controller;
@@ -19,10 +21,14 @@ public class CollectionView implements CollectionContract.View {
     }
 
     @Override
-    public void showAllDecks(ArrayList<Deck> decks) {
+    public void showAllDecks(Deck mainDeck, ArrayList<Deck> decks) {
+        if (mainDeck != null) {
+            showDeck(mainDeck);
+        }
         for (Deck deck : decks) {
-            Notify.logMessage("\nDeck with name: \"" + deck.getName() + "\":\n");
-            showDeck(deck);
+            if (deck != mainDeck) {
+                showDeck(deck);
+            }
         }
     }
 
@@ -37,6 +43,7 @@ public class CollectionView implements CollectionContract.View {
         if (deck.getItem() != null) {
             items.add(deck.getItem());
         }
+        Notify.logMessage("\nDeck with name: \"" + deck.getName() + "\":\n");
         ShopView.printHeroes(heroes, 'c');
         ShopView.printUsables(items, 'c');
         ShopView.printCards(cards, 'c');
@@ -57,5 +64,10 @@ public class CollectionView implements CollectionContract.View {
     @Override
     public void showDeckValidationStatus(String deckName, String message) {
         //un use now
+    }
+
+    @Override
+    public void goToBattleMenu() {
+        MenuHandler.goToSubMenu(BATTLE_MENU);
     }
 }
