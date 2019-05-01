@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unit extends Card implements Buffable {
-    protected Spell specialPower;
-    protected SpecialPowerCastTime specialPowerCastTime;
+    private Spell specialPower;
+    private SpecialPowerCastTime specialPowerCastTime;
     private int hp;
     private int ap;
     private Cell currentCell;
