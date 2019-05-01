@@ -1143,5 +1143,4 @@ public class Initializer {
     public static void initCollectibleItems() {
         //todo must be implemented
     }
-
 }

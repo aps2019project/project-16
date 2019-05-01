@@ -1,7 +1,7 @@
 package models.card;
 
 import com.gilecode.yagson.YaGson;
-import models.CollectionUniqueIDGenerator;
+import models.UniqueIDGenerator;
 
 public abstract class Card {
     private int manaCost;
@@ -14,6 +14,10 @@ public abstract class Card {
 
     public int getGameCardID() {
         return gameCardID;
+    }
+
+    public void setGameCardID(int gameCardID) {
+        this.gameCardID = gameCardID;
     }
 
     public int getPrice() {
@@ -107,7 +111,7 @@ public abstract class Card {
         String json = new YaGson().toJson(this);
         Card newCard = new YaGson().fromJson(json, this.getClass());
         if (setCollectionID) {
-            newCard.collectionID = CollectionUniqueIDGenerator.getUniqueID();
+            newCard.collectionID = UniqueIDGenerator.getCollectionUniqueID();
         }
         return newCard;
     }

@@ -59,7 +59,7 @@ public abstract class Item {
         String json = yaGson.toJson(this);
         Item newItem = yaGson.fromJson(json, this.getClass());
         if (setCollectionID) {
-            newItem.collectionID = CollectionUniqueIDGenerator.getUniqueID();
+            newItem.collectionID = UniqueIDGenerator.getCollectionUniqueID();
         }
         return newItem;
     }
