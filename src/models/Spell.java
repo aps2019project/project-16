@@ -19,7 +19,7 @@ public class Spell {
         this.targetSociety = targetSociety;
     }
 
-    public static class SpellBuilder { // todo remove setDispel
+    public static class SpellBuilder {
         private ArrayList<Buff> buffs = new ArrayList<>();
         private TargetSociety targetSociety;
 
