@@ -1,6 +1,5 @@
 package models;
 
-import models.card.Unit;
 import models.targetsociety.TargetSociety;
 
 import java.util.ArrayList;
@@ -10,12 +9,12 @@ public class Spell {
     private ArrayList<Buff> buffs;
     private TargetSociety targetSociety;
 
-    public Spell(TargetSociety targetSociety, boolean dispel, Buff... buffs) { // todo remove dispel
+    public Spell(TargetSociety targetSociety, Buff... buffs) { // todo remove dispel
         this.buffs = new ArrayList<>(Arrays.asList(buffs));
         this.targetSociety = targetSociety;
     }
 
-    public Spell(TargetSociety targetSociety, boolean dispel, ArrayList<Buff> buffs) {
+    public Spell(TargetSociety targetSociety, ArrayList<Buff> buffs) {
         this.buffs = buffs;
         this.targetSociety = targetSociety;
     }
@@ -23,15 +22,9 @@ public class Spell {
     public static class SpellBuilder { // todo remove setDispel
         private ArrayList<Buff> buffs = new ArrayList<>();
         private TargetSociety targetSociety;
-        private boolean dispel;
 
         public SpellBuilder setTargetSociety(TargetSociety targetSociety) {
             this.targetSociety = targetSociety;
-            return this;
-        }
-
-        public SpellBuilder setDispel() {
-            this.dispel = true;
             return this;
         }
 
@@ -41,7 +34,7 @@ public class Spell {
         }
 
         public Spell create() {
-            return new Spell(targetSociety, dispel, buffs);
+            return new Spell(targetSociety, buffs);
         }
     }
 
