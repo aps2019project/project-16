@@ -1,9 +1,5 @@
 package models;
 
-import models.GameMode;
-
-import java.lang.management.PlatformLoggingMXBean;
-
 public abstract class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
@@ -23,6 +19,10 @@ public abstract class Game {
         this.turn = 0;
         this.reward = reward;
         this.gameMode = gameMode;
+        this.players[0] = firstAccount.getPlayer();
+        this.players[1] = secondAccount.getPlayer();
+        this.accounts[0] = firstAccount;
+        this.accounts[1] = secondAccount;
     }
 
     public int getNumberOfFlags() {
@@ -42,14 +42,15 @@ public abstract class Game {
     }
 
     public void startTurn() throws GameIsEndException {
-        setPlayerTurn();
+        setCurrentPlayer();
         setMana();
-        for (int row = 0; row < Table.HEIGHT; row++) {
-            for (int column = 0; column < Table.WIDTH; column++) {
-                table.getCell(row, column).doBuffs();
-            }
-        }
+        doCellBuffs();
         gameIsEnd();
+        doUnitsBuffs();
+        gameIsEnd();
+    }
+
+    public void doUnitsBuffs() {
         for (int row = 0; row < Table.HEIGHT; row++) {
             for (int column = 0; column < Table.WIDTH; column++) {
                 if (table.getCell(row, column).hasUnit()) {
@@ -57,7 +58,14 @@ public abstract class Game {
                 }
             }
         }
+    }
 
+    public void doCellBuffs() {
+        for (int row = 0; row < Table.HEIGHT; row++) {
+            for (int column = 0; column < Table.WIDTH; column++) {
+                table.getCell(row, column).doBuffs();
+            }
+        }
     }
 
     public void endTurn() throws GameIsEndException {
@@ -140,13 +148,13 @@ public abstract class Game {
         return false;
     }
 
-    private void setPlayerTurn() {
+    private void setCurrentPlayer() {
         if (turn % 2 == 0)
             this.currentPlayer = players[0];
         else
             this.currentPlayer = players[1];
     }
-}
 
-class GameIsEndException extends Exception {
+    class GameIsEndException extends Exception {
+    }
 }

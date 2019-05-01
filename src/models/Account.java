@@ -74,6 +74,7 @@ public class Account {
     }
 
     public Player getPlayer() {
+        Collection collection = this.getCollection();
         return null;
         //todo should be implemented at the end when the world and game has completed
     }
