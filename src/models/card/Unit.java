@@ -85,11 +85,11 @@ public abstract class Unit extends Card implements Buffable {
         }
 
 
-        public Spell getSpecialPower() {
+        Spell getSpecialPower() {
             return specialPower;
         }
 
-        public SpecialPowerCastTime getSpecialPowerCastTime() {
+        SpecialPowerCastTime getSpecialPowerCastTime() {
             return specialPowerCastTime;
         }
     }
