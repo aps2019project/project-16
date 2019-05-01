@@ -17,7 +17,8 @@ public class Hand {
     }
 
     public void addCard(Card card) {
-        cards.add(card);
+        if (!isFull())
+            cards.add(card);
     }
 
     public boolean isFull() {

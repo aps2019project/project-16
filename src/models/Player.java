@@ -12,21 +12,22 @@ public class Player {
     private ArrayList<Collectible> collectibles = new ArrayList<>();
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
-    private Table table;
     private Hero hero;
     private int turnsFlagKeeped;
     private int numberOfColectedFlags;
     private Account account;
 
-    Player(Deck deck, Hand hand, Table table, Account account) {
+    Player(Deck deck , Account account) {
         this.deck = deck;
-        this.hand = hand;
-        this.table = table;
-        this.account = account;
+        setHand(deck);
     }
 
     public Account getAccount() {
         return account;
+    }
+
+    public void setSelectedUnit(Unit selectedUnit) {
+        this.selectedUnit = selectedUnit;
     }
 
     public int getNumberOfColectedFlags() {
@@ -69,10 +70,6 @@ public class Player {
         return selectedUnit;
     }
 
-    public Table getTable() {
-        return table;
-    }
-
     public void attack(Unit opponent) throws UnitAttackedThisTurnException, UnitStunnedException {
         selectedUnit.attack(opponent);
         opponent.counterAttack(selectedUnit);
@@ -86,6 +83,13 @@ public class Player {
     /////////////////////////////////////////////////////////////////////////////////////////////
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public void setHand(Deck deck) {
+        deck.shuffle();
+        for (int i = 0; i < 5; i++) {
+            this.hand.addCard(deck.pop());
+        }
     }
 
     public void addToGraveYard(Card card) {

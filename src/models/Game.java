@@ -11,7 +11,6 @@ public abstract class Game {
     private GameMode gameMode;
     private Player winner;
     private boolean endFlag;
-
     private int numberOfFlags;
 
     public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode) {
