@@ -16,11 +16,17 @@ public class Player {
     private Hero hero;
     private int turnsFlagKeeped;
     private int numberOfColectedFlags;
+    private Account account;
 
-    Player(Deck deck, Hand hand, Table table) {
+    Player(Deck deck, Hand hand, Table table, Account account) {
         this.deck = deck;
         this.hand = hand;
         this.table = table;
+        this.account = account;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     public int getNumberOfColectedFlags() {
@@ -89,8 +95,9 @@ public class Player {
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException {
         this.selectedUnit.move(cell);
     }
-    public void putUnit(Cell cell , Unit unit){
-        for (Card card : this.hand.getCards()){
+
+    public void putUnit(Cell cell, Unit unit) {
+        for (Card card : this.hand.getCards()) {
             if (card.getName().equals(unit.getName())) {
                 unit.setCurrentCell(cell);
                 break;
