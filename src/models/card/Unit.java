@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unit extends Card implements Buffable {
+    protected Spell specialPower;
+    protected SpecialPowerCastTime specialPowerCastTime;
     private int hp;
     private int ap;
     private Cell currentCell;
@@ -17,15 +19,28 @@ public abstract class Unit extends Card implements Buffable {
     private AttackType attackType;
     private boolean combo; // todo implement combo attack func
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo) {
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
         super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
         this.attackType = attackType;
         this.combo = combo;
+        this.specialPower = specialPower;
+        this.specialPowerCastTime = specialPowerCastTime;
+    }
+
+    public Spell getSpecialPower() {
+        return specialPower;
+    }
+
+    public void castSpecialPower(SpecialPowerCastTime time, Cell cell) {
+        if (time == specialPowerCastTime)
+            specialPower.cast(getPlayer(), cell);
     }
 
     public static abstract class UnitBuilder extends CardBuilder {
+        private Spell specialPower;
+        private SpecialPowerCastTime specialPowerCastTime;
         private int hp;
         private int ap;
         private AttackType attackType;
@@ -46,6 +61,16 @@ public abstract class Unit extends Card implements Buffable {
             return this;
         }
 
+        public UnitBuilder setSpecialPower(Spell specialPower) {
+            this.specialPower = specialPower;
+            return this;
+        }
+
+        public UnitBuilder setSpecialPowerCastTime(SpecialPowerCastTime specialPowerCastTime) {
+            this.specialPowerCastTime = specialPowerCastTime;
+            return this;
+        }
+
 
         int getHp() {
             return hp;
@@ -57,6 +82,15 @@ public abstract class Unit extends Card implements Buffable {
 
         AttackType getAttackType() {
             return attackType;
+        }
+
+
+        public Spell getSpecialPower() {
+            return specialPower;
+        }
+
+        public SpecialPowerCastTime getSpecialPowerCastTime() {
+            return specialPowerCastTime;
         }
     }
 
@@ -175,7 +209,7 @@ public abstract class Unit extends Card implements Buffable {
         moved = true;
     }
 
-    public void setCurrentCell(Cell cell){
+    public void setCurrentCell(Cell cell) {
         this.currentCell = cell;
     }
 }
