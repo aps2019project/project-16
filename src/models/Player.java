@@ -14,12 +14,12 @@ public class Player {
     private Unit selectedUnit;
     private Hero hero;
     private int turnsFlagKeeped;
-    private int numberOfColectedFlags;
+    private int numberOfCollectedFlags;//todo must be deleted TONIGHT
     private Account account;
 
-    Player(Deck deck , Account account) {
-        this.deck = deck;
-        setHand(deck);
+    Player(Deck deck, Account account) {
+        this.deck = deck; //todo this must be copy of deck
+        setHand(this.deck);
     }
 
     public Account getAccount() {
@@ -30,8 +30,8 @@ public class Player {
         this.selectedUnit = selectedUnit;
     }
 
-    public int getNumberOfColectedFlags() {
-        return numberOfColectedFlags;
+    public int getNumberOfCollectedFlags() {
+        return numberOfCollectedFlags;
     }
 
     public int getTurnsFlagKeeped() {
@@ -104,6 +104,8 @@ public class Player {
         for (Card card : this.hand.getCards()) {
             if (card.getName().equals(unit.getName())) {
                 unit.setCurrentCell(cell);
+                unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
+                this.hand.removeCard(unit);
                 break;
             }
         }

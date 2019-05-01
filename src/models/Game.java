@@ -6,6 +6,7 @@ public abstract class Game {
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
     private Table table = new Table();
     private Player currentPlayer;
+    private Player oponentPlayer;
     private int turn;
     private int reward;
     private GameMode gameMode;
@@ -47,6 +48,8 @@ public abstract class Game {
         gameIsEnd();
         doUnitsBuffs();
         gameIsEnd();
+        //todo merge start and end turn
+        //todo call AI to act then end turn for AI
     }
 
     public void doUnitsBuffs() {
@@ -136,11 +139,11 @@ public abstract class Game {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
         int number = this.getNumberOfFlags() / 2;
-        if (player1.getNumberOfColectedFlags() >= number) {
+        if (player1.getNumberOfCollectedFlags() >= number) {
             setWinner(player1);
             return true;
         }
-        if (player2.getNumberOfColectedFlags() >= number) {
+        if (player2.getNumberOfCollectedFlags() >= number) {
             setWinner(player2);
             return true;
         }
@@ -148,10 +151,13 @@ public abstract class Game {
     }
 
     private void setCurrentPlayer() {
-        if (turn % 2 == 0)
+        if (turn % 2 == 0) {
             this.currentPlayer = players[0];
-        else
+            this.oponentPlayer = players[1];
+        } else {
             this.currentPlayer = players[1];
+            this.oponentPlayer = players[0];
+        }
     }
 
     class GameIsEndException extends Exception {
