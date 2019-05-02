@@ -13,12 +13,6 @@ import java.util.ArrayList;
 import static view.menuItems.MenuConstants.BATTLE_MENU;
 
 public class CollectionView implements CollectionContract.View {
-    private CollectionContract.Controller controller;
-
-    @Override
-    public void setController(CollectionContract.Controller controller) {
-        this.controller = controller;
-    }
 
     @Override
     public void showAllDecks(Deck mainDeck, ArrayList<Deck> decks) {
@@ -54,16 +48,6 @@ public class CollectionView implements CollectionContract.View {
         ShopView.printHeroes(heroes, 'c');
         ShopView.printUsables(items, 'c');
         ShopView.printCards(cards, 'c');
-    }
-
-    @Override
-    public void showSearchResult(ArrayList<Item> items, ArrayList<Card> cards) {
-        //un use now
-    }
-
-    @Override
-    public void showDeckValidationStatus(String deckName, String message) {
-        //un use now
     }
 
     @Override

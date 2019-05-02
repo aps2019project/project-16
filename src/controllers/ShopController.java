@@ -16,7 +16,6 @@ public class ShopController implements ShopContract.Controller {
 
     public ShopController() {
         view = new ShopView();
-        view.setController(this);
     }
 
     @Override

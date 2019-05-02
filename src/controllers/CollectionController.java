@@ -16,7 +16,6 @@ public class CollectionController implements CollectionContract.Controller {
 
     public CollectionController() {
         view = new CollectionView();
-        view.setController(this);
     }
 
     @Override

@@ -9,13 +9,9 @@ import java.util.ArrayList;
 
 public interface CollectionContract {
     interface View {
-        void setController(Controller controller);
-
         void showAllDecks(Deck mainDeck, ArrayList<Deck> decks);
         void showDeck(Deck deck);
         void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
-        void showSearchResult(ArrayList<Item> items, ArrayList<Card> cards);
-        void showDeckValidationStatus(String deckName, String message);
 
         void goToBattleMenu();
     }
