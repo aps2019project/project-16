@@ -93,11 +93,7 @@ public class Deck {
         return false;
     }
 
-    public Deck copy() {
-        Deck deck = new Deck(this.cards, this.hero, this.item, this.name);
-        return deck;
-        //todo copy constructor should be checked :| eshtebahe!! faghat refrence dare copy mishe!
+    public boolean isValid() {
+        return this.cards.size() == CARD_CAPACITY && this.getHero() != null;
     }
-
-
 }

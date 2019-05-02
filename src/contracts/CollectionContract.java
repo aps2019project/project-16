@@ -26,7 +26,7 @@ public interface CollectionContract {
         void deleteDeck(String deckName);
         void addCardToDeck(int cardID, String deckName);
         void removeCardFromDeck(int cardID, String deckName);
-        boolean validateDeck(String deckName);
+        void validateDeck(String deckName);
         void selectDeck(String deckName);
 
         void validateMainDeckForEnterBattle();
