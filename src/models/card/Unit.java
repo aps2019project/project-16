@@ -136,6 +136,11 @@ public abstract class Unit extends Card implements Buffable {
         hp += amount;
     }
 
+    public void dealDamage(int amount) {
+        if (amount - getHoly() > 0)
+            hp -= amount - getHoly();
+    }
+
     public void changeAP(int amount) {
         ap += amount;
     }
@@ -170,26 +175,21 @@ public abstract class Unit extends Card implements Buffable {
             throw new UnitStunnedException();
         if (attacked)
             throw new UnitAttackedThisTurnException();
-        int damage = -ap + opponent.getHoly();
         attacked = true;
         moved = true;
-        if (damage < 0)
-            opponent.changeHP(damage);
+        opponent.changeHP(ap);
     }
 
     public void counterAttack(Unit opponent) {
-        int damage = -ap + opponent.getHoly();
-        if (!isDisarmed() && damage < 0)
-            opponent.changeHP(damage);
+        if (!isDisarmed())
+            opponent.dealDamage(ap);
     }
 
     public void comboAttack(Unit opponent, ArrayList<Unit> allies) { // todo add exceptions
         int damage = -ap;
         for (Unit unit : allies)
             damage -= unit.getAp();
-        damage += opponent.getHoly();
-        if (damage < 0)
-            opponent.changeHP(damage);
+        opponent.dealDamage(damage);
     }
 
     public boolean isDead() {

@@ -7,6 +7,7 @@ public class Buff {
     private int durationToStart;
     private int remainingDuration;
     private final int duration;
+    private int damage;
     private int holy;
     private int deltaHP;
     private int deltaAP;
@@ -17,16 +18,12 @@ public class Buff {
     private boolean casted = false;
     private boolean dispelable;
 
-    public enum Effect {
-        POSITIVE,
-        NEGATIVE
-    }
-
-    private Buff(int duration, int durationToStart, int deltaHP, int deltaAP, int poison, int holy,
+    private Buff(int duration, int durationToStart, int damage, int deltaHP, int deltaAP, int poison, int holy,
                  boolean stun, boolean disarm, boolean dispel, boolean dispelable) {
         this.duration = duration;
         this.remainingDuration = duration;
         this.durationToStart = durationToStart;
+        this.damage = damage;
         this.deltaHP = deltaHP;
         this.deltaAP = deltaAP;
         this.poison = poison;
@@ -41,6 +38,7 @@ public class Buff {
         this.duration = duration;
         this.remainingDuration = duration;
         this.durationToStart = buff.durationToStart;
+        this.damage = buff.damage;
         this.deltaHP = buff.deltaHP;
         this.deltaAP = buff.deltaAP;
         this.poison = buff.poison;
@@ -52,10 +50,10 @@ public class Buff {
     }
 
     public static class BuffBuilder {
-        private static final int INFINITY = Integer.MAX_VALUE;
         private int duration;
         private int durationToStart;
         private int holy;
+        private int damage;
         private int deltaHP;
         private int deltaAP;
         private int poison;
@@ -76,6 +74,11 @@ public class Buff {
 
         public BuffBuilder setHoly(int holy) {
             this.holy = holy;
+            return this;
+        }
+
+        public BuffBuilder setDamage(int damage) {
+            this.damage = damage;
             return this;
         }
 
@@ -115,7 +118,7 @@ public class Buff {
         }
 
         public Buff create() {
-            return new Buff(duration, durationToStart, deltaHP, deltaAP, poison, holy, stun, disarm, dispel, dispelable);
+            return new Buff(duration, durationToStart, damage, deltaHP, deltaAP, poison, holy, stun, disarm, dispel, dispelable);
         }
     }
 
@@ -127,6 +130,7 @@ public class Buff {
      */
     public void start(Unit unit, Player player) {
         if (durationToStart == 0) {
+            unit.dealDamage(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
@@ -153,6 +157,7 @@ public class Buff {
             return;
         }
         if (!casted) {
+            unit.dealDamage(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             return;
@@ -164,7 +169,7 @@ public class Buff {
             unit.changeHP(-deltaHP);
         }
         remainingDuration--;
-    } //todo delete from buffs??
+    } //todo delete buff from buffs??
 
     public void cast(Cell cell) {
         if (cell.hasUnit()) {
