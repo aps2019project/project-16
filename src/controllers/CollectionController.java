@@ -16,7 +16,6 @@ public class CollectionController implements CollectionContract.Controller {
 
     public CollectionController() {
         view = new CollectionView();
-        view.setController(this);
     }
 
     @Override
@@ -161,18 +160,15 @@ public class CollectionController implements CollectionContract.Controller {
     }
 
     @Override
-    public boolean validateDeck(String deckName) {
+    public void validateDeck(String deckName) {
         Collection collection = GameContents.getCurrentAccount().getCollection();
         Deck deck = collection.getDeck(deckName);
         if (deck == null) {
             Notify.logError("Sorry! This deck doesn't exist!");
-            return false;
-        } else if (deck.getCards().size() != CARD_CAPACITY || deck.getHero() == null) {
+        } else if (!deck.isValid()) {
             Notify.logError("Deck with name \"" + deckName + "\" isn't valid. You must have " + CARD_CAPACITY + " cards and 1 hero in your deck.");
-            return false;
         } else {
             Notify.logMessage("OK! Deck with name \"" + deckName + "\" is valid.");
-            return true;
         }
     }
 
@@ -190,8 +186,8 @@ public class CollectionController implements CollectionContract.Controller {
 
     @Override
     public void validateMainDeckForEnterBattle() {
-        Deck mainDeck = GameContents.getCurrentAccount().getCollection().getMainDeck();
-        if (mainDeck != null && validateDeck(mainDeck.getName())) {
+        Account currentAccount = GameContents.getCurrentAccount();
+        if (currentAccount.hasValidMainDeck()) {
             view.goToBattleMenu();
         } else {
             Notify.logError("For entering battle, First complete and set your main deck.");

@@ -8,12 +8,6 @@ import java.util.ArrayList;
 
 
 public class AccountView implements AccountContract.View {
-    private AccountContract.Controller controller;
-
-    @Override
-    public void setController(AccountContract.Controller controller) {
-        this.controller = controller;
-    }
 
     @Override
     public void showLeaderboard(ArrayList<Account> accounts) {
@@ -24,4 +18,5 @@ public class AccountView implements AccountContract.View {
             System.out.printf("\t%d : UserName: %s - Wins: %d\n", i, account.getName(), account.getWins());
         }
     }
+
 }

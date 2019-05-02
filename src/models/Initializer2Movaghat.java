@@ -55,7 +55,7 @@ public class Initializer2Movaghat {
         cards2.add(shop.getCard("neize dare fars").getCopy(false));
         cards2.add(shop.getCard("pahlevane fars").getCopy(false));
         cards2.add(shop.getCard("ghollab sang dare toorani").getCopy(false));
-//      todo  cards2.add(shop.getCard("").getCopy(false));//shahzade toorani
+        cards2.add(shop.getCard("shahzadeye toorani").getCopy(false));
         cards2.add(shop.getCard("oghab").getCopy(false));
         cards2.add(shop.getCard("oghab").getCopy(false));
         cards2.add(shop.getCard("ezhdehaye atash andaz").getCopy(false));
@@ -87,7 +87,7 @@ public class Initializer2Movaghat {
 
         ArrayList<Card> cards3 = new ArrayList<>();
         //minions
-//        todo cards3.add(shop.getCard("").getCopy(false));// sepah salar e fars
+        cards3.add(shop.getCard("sepah salare fars").getCopy(false));
         cards3.add(shop.getCard("kamandare toorani").getCopy(false));
         cards3.add(shop.getCard("jasoose toorani").getCopy(false));
         cards3.add(shop.getCard("ghool sang andaz").getCopy(false));

@@ -9,10 +9,6 @@ import java.util.ArrayList;
 
 public interface ShopContract {
     interface View {
-        void setController(Controller controller);
-
-        void showShopSearchResult(String cardName, String message);
-        void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
         void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
     }
 

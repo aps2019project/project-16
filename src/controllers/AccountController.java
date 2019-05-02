@@ -15,7 +15,6 @@ public class AccountController implements AccountContract.Controller {
 
     public AccountController() {
         view = new AccountView();
-        view.setController(this);
     }
 
     @Override

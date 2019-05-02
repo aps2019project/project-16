@@ -12,23 +12,6 @@ import java.util.ArrayList;
 import static view.Notify.*;
 
 public class ShopView implements ShopContract.View {
-    private ShopContract.Controller controller;
-
-
-    @Override
-    public void setController(ShopContract.Controller controller) {
-        this.controller = controller;
-    }
-
-    @Override
-    public void showShopSearchResult(String cardName, String message) {
-
-    }
-
-    @Override
-    public void showCollectionSearchResult(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
-
-    }
 
     @Override
     public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {

@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 public interface AccountContract {
 	interface View {
-		void setController(Controller controller);
-
 		void showLeaderboard(ArrayList<Account> accounts);
 	}
 

@@ -102,6 +102,15 @@ public class Account {
         this.wins++;
     }
 
+    public boolean hasValidMainDeck() {
+        Deck mainDeck = collection.getMainDeck();
+        if (mainDeck == null) {
+            return false;
+        } else {
+            return mainDeck.isValid();
+        }
+    }
+
     @Override
     public String toString() {
         return "UserName : " + this.getName() + " - Wins : " + this.getWins();
