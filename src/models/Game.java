@@ -44,8 +44,6 @@ public abstract class Game {
     public void startTurn() throws GameIsEndException {
         setCurrentPlayer();
         setMana();
-        doCellBuffs();
-        gameIsEnd();
         doUnitsBuffs();
         gameIsEnd();
         //todo merge start and end turn
@@ -71,6 +69,8 @@ public abstract class Game {
     }
 
     public void endTurn() throws GameIsEndException {
+        doCellBuffs();
+        gameIsEnd();
         gameIsEnd();
         this.turn++;
         ///decrement duration of spells
