@@ -2,6 +2,9 @@ package models;
 
 import models.card.Unit;
 
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 public class Buff {
     public static final int INFINITY = Integer.MAX_VALUE;
     private int durationToStart;
@@ -136,10 +139,20 @@ public class Buff {
             casted = true;
         }
         if (disarm) {
-            if (unit.getPlayer() != player)
-                unit.getBuffs().removeIf(buff -> buff.isPositive() && buff.isDispelable());
-            else
+            if (unit.getPlayer() != player) {
+                unit.getBuffs().forEach(buff -> {
+                    if (buff.isPositive() && buff.isDispelable())
+                        buff.finish(unit);
+                });
+                unit.getBuffs().removeIf(buff -> buff.isDispelable() && buff.isPositive());
+            }
+            else {
+                unit.getBuffs().forEach(buff -> {
+                    if (!buff.isPositive() && buff.isDispelable())
+                        buff.finish(unit);
+                });
                 unit.getBuffs().removeIf(buff -> !buff.isPositive() && buff.isDispelable());
+            }
         }
     }
 
@@ -165,11 +178,15 @@ public class Buff {
         if (remainingDuration % 2 == 0)
             unit.changeHP(-poison);
         if (remainingDuration == 0) {
-            unit.changeAP(-deltaAP);
-            unit.changeHP(-deltaHP);
+            finish(unit);
         }
         remainingDuration--;
     } //todo delete buff from buffs??
+
+    private void finish(Unit unit) {
+        unit.changeAP(-deltaAP);
+        unit.changeHP(-deltaHP);
+    }
 
     public void cast(Cell cell) {
         if (cell.hasUnit()) {
