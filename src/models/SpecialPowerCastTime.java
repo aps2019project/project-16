@@ -5,6 +5,5 @@ public enum SpecialPowerCastTime {
     PASSIVE,
     ON_ATTACK,
     ON_DEATH,
-    ON_DEFEND,
-    CONTINUOUS
+    ON_DEFEND
 }
