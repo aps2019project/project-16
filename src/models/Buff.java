@@ -160,7 +160,7 @@ public class Buff {
             unit.dealDamage(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
-            return;
+            casted = true;
         }
         if (remainingDuration % 2 == 0)
             unit.changeHP(-poison);
