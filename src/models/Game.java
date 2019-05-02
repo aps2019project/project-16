@@ -1,28 +1,27 @@
 package models;
 
-public abstract class Game {
+public class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
     private Table table = new Table();
     private Player currentPlayer;
     private Player oponentPlayer;
-    private int turn;
+    private int turn = 0;
     private int reward;
     private GameMode gameMode;
     private Player winner;
-    private boolean endFlag;
+    private boolean endFlag = false;
     private int numberOfFlags;
 
-    public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode) {
-        this.endFlag = false;
-        this.turn = 0;
+    public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode, int numberOfFlags) {
         this.reward = reward;
         this.gameMode = gameMode;
-        this.players[0] = firstAccount.getPlayer();
-        this.players[1] = secondAccount.getPlayer();
+        this.currentPlayer = this.players[0] = firstAccount.getPlayer();
+        this.oponentPlayer = this.players[1] = secondAccount.getPlayer();
         this.accounts[0] = firstAccount;
         this.accounts[1] = secondAccount;
+        this.numberOfFlags = numberOfFlags;
     }
 
     public int getNumberOfFlags() {
