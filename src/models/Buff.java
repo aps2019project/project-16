@@ -200,19 +200,19 @@ public class Buff {
     }// todo remember to cast on cells first.
 
     public int getHoly() {
-        if (remainingDuration > 0)
+        if (isActive())
             return holy;
         return 0;
     }
 
     public boolean hasStun() {
-        if (remainingDuration > 0)
+        if (isActive())
             return stun;
         return false;
     }
 
     public boolean hasDisarm() {
-        if (remainingDuration > 0)
+        if (isActive())
             return disarm;
         return false;
     }
