@@ -217,6 +217,10 @@ public class Buff {
         return false;
     }
 
+    public Buff copy() {
+        return new Buff(duration, this);
+    }
+
     private boolean isActive() {
         return remainingDuration > 0 && durationToStart <= 0;
     }

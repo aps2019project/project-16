@@ -43,7 +43,7 @@ public class Cell implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
-        cellEffect.add(buff);
+        cellEffect.add(buff.copy());
     }
 
     @Override

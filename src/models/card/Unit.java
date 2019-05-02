@@ -108,7 +108,7 @@ public abstract class Unit extends Card implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
-        buffs.add(buff);
+        buffs.add(buff.copy());
     }
 
     @Override
