@@ -11,8 +11,8 @@ public class EnemiesInColumn extends TargetSociety {
     @Override
     public boolean canCast(Player player, Cell cell) {
         for (int column = 0; column < Table.HEIGHT; column++) {
-            Cell cellInComlumn = cell.getTable().getCell(cell.getRow(), column);
-            if (cellInComlumn.hasUnit() && cellInComlumn.getUnit().getPlayer() != player)
+            Cell cellInColumn = cell.getTable().getCell(cell.getRow(), column);
+            if (cellInColumn.hasUnit() && cellInColumn.getUnit().getPlayer() != player)
                 return true;
         }
         return false;
