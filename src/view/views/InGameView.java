@@ -116,8 +116,12 @@ public class InGameView implements InGameContract.View {
 
     @Override
     public void showHand(Hand hand, Card nextCard) {
-        // TODO: 5/3/19
-
+        Notify.logMessage("* Next card:");
+        showCardInfo(nextCard);
+        Notify.logMessage("* Hand:");
+        for (Card card : hand.getCards()) {
+            showCardInfo(card);
+        }
     }
 
     @Override
