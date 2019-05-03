@@ -99,12 +99,12 @@ public class Player {
 
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
             DistanceException {
-        if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell)){
-            this.selectedUnit.getCurrentCell().setUnit(null);
+        if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell)) {
+            Cell tempCell = this.selectedUnit.getCurrentCell();
             this.selectedUnit.move(cell);
             cell.setUnit(this.selectedUnit);
-        }
-        else
+            tempCell.setUnit(null);
+        } else
             throw new DistanceException();
     }
 
