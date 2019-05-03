@@ -37,18 +37,13 @@ public class Table {
         return Math.abs(firstCell.getRow() - secondCell.getRow()) + Math.abs(firstCell.getColumn() - secondCell.getColumn());
     }
 
-    public static boolean checkDistance(int distance, Cell firstCell, Cell secondCell) {//todo why should be static ?
-        if (getDistance(firstCell, secondCell) > distance)
-            return false;
-        return true;
-    }
-
     public boolean checkPathIsBlocked(Cell firstCell, Cell secondCell) {
-        //we know that in this case distance is 2
-        if (this.getCell(firstCell.getRow(), secondCell.getColumn()).hasUnit() &&
-                this.getCell(secondCell.getRow(), firstCell.getColumn()).hasUnit())
-            return false;
-        return true;
+        if (Table.getDistance(firstCell, secondCell) == 2) {
+            if (this.getCell(firstCell.getRow(), secondCell.getColumn()).hasUnit() &&
+                    this.getCell(secondCell.getRow(), firstCell.getColumn()).hasUnit())
+                return true;
+        }
+        return false;
     }
 
     public static boolean isAdjacent(Cell firstCell, Cell secondCell) {

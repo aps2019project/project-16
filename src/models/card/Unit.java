@@ -206,14 +206,14 @@ public abstract class Unit extends Card implements Buffable {
         return currentCell;
     }
 
-    public void move(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException {
+    public void move(Cell newCell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException {
         if (isStunned())
             throw new UnitStunnedException();
         if (moved)
             throw new UnitMovedThisTurnException();
-        if (currentCell.hasUnit())
+        if (newCell.hasUnit())
             throw new CellIsNotFreeException();
-        this.currentCell = currentCell;
+        this.currentCell = newCell;
         moved = true;
     }
 

@@ -104,26 +104,25 @@ public class Player {
 
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
             DistanceException, PathIsBlockException {
-        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell))
-            throw new PathIsBlockException();
-        if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell)) {
-            Cell tempCell = this.selectedUnit.getCurrentCell();
-            this.selectedUnit.move(cell);
-            cell.setUnit(this.selectedUnit);
-            tempCell.setUnit(null);
-        } else
+        if (Table.getDistance(this.selectedUnit.getCurrentCell(), cell) > 2)
             throw new DistanceException();
+        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell)) {
+            throw new PathIsBlockException();
+        }
+        Cell tempCell = this.selectedUnit.getCurrentCell();
+        this.selectedUnit.move(cell);
+        cell.setUnit(this.selectedUnit);
+        tempCell.setUnit(null);
     }
 
-    public void putUnit(Cell cell, Unit unit) {
-        for (Card card : this.hand.getCards()) {
-            if (card.getName().equals(unit.getName())) {
-                unit.setCurrentCell(cell);
-                unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
-                this.hand.removeCard(unit);
-                break;
-            }
-        }
+    public void putUnit(Cell cell, Unit unit) throws CardNotInHandException, CellIsNotFreeException {
+        if (!hand.getCards().contains(unit))
+            throw new CardNotInHandException();
+        if (cell.hasUnit())
+            throw new CellIsNotFreeException();
+        unit.setCurrentCell(cell);
+        unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
+        this.hand.removeCard(unit);
     }
 
     public void castSpell() {
