@@ -115,21 +115,29 @@ public class Player {
         tempCell.setUnit(null);
     }
 
-    public void putUnit(Cell cell, Unit unit) throws CardNotInHandException, CellIsNotFreeException {
+    public void putUnit(Cell cell, Unit unit) throws CardNotInHandException, CellIsNotFreeException, NotEnoughManaException {
+        if (unit.getManaCost() > this.getMana())
+            throw new NotEnoughManaException();
         if (!hand.getCards().contains(unit))
             throw new CardNotInHandException();
         if (cell.hasUnit())
             throw new CellIsNotFreeException();
+        this.mana -= unit.getManaCost();
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
     }
 
-    public void castSpell() {
-
+    public void castSpellCard(SpellCard spellCard, Cell cell) throws InvalidTargetException, NotEnoughManaException {
+        if (!spellCard.canCast(this, cell))
+            throw new InvalidTargetException();
+        if (spellCard.getManaCost() > this.getMana())
+            throw new NotEnoughManaException();
+        this.mana -= spellCard.getManaCost();
+        spellCard.cast(this, cell);
     }
 
     //+useItem(item :Item):void
     //+castSpellCard(cell: Cell,spellCard: SpellCard):void
-    //+comboAttack(opponent: Unit, allies: ArratList<Unit>): void
+    //cast hero spell
 }
