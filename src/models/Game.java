@@ -21,6 +21,7 @@ public class Game {
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getPlayer();
         this.opponentPlayer = this.players[1] = secondAccount.getPlayer();
+
         this.accounts[0] = firstAccount;
         this.accounts[1] = secondAccount;
         this.numberOfFlags = numberOfFlags;

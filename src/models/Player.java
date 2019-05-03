@@ -16,11 +16,15 @@ public class Player {
     private int turnsFlagKeeped;
     private int numberOfCollectedFlags;//todo must be deleted TONIGHT
     private Account account;
+    private Table table;
 
-
-    Player(Deck deck, Account account) {
+    Player(Deck deck, Account account, Table table) {
         this.deck = deck;
         setHand(this.deck);
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public Account getAccount() {
@@ -95,8 +99,11 @@ public class Player {
 
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
             DistanceException {
-        if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell))
+        if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell)){
+            this.selectedUnit.getCurrentCell().setUnit(null);
             this.selectedUnit.move(cell);
+            cell.setUnit(this.selectedUnit);
+        }
         else
             throw new DistanceException();
     }
