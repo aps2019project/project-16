@@ -15,7 +15,7 @@ public class MenuHandler {
 
     public static void goToSubMenu(String subMenuName) {
         for (MenuItem subMenu : currentMenu.getSubMenus()) {
-            if (subMenu.getName().toLowerCase().equals(subMenuName.toLowerCase())) {
+            if (subMenu.getName().equalsIgnoreCase(subMenuName)) {
                 startMenu(subMenu, TOP_TO_DOWN);
                 return;
             }

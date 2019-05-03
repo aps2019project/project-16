@@ -64,11 +64,11 @@ public class Collection {
 
     public int searchCard(String name) {
         for (Card card : cards) {
-            if (card.getName().equals(name))
+            if (card.getName().equalsIgnoreCase(name))
                 return card.getCollectionID();
         }
         for (Item item : items) {
-            if (item.getName().equals(name))
+            if (item.getName().equalsIgnoreCase(name))
                 return item.getCollectionID();
         }
         return -1;
@@ -92,7 +92,7 @@ public class Collection {
 
     public Deck getDeck(String name) {
         for (Deck deck : decks) {
-            if (deck.getName().equals(name))
+            if (deck.getName().equalsIgnoreCase(name))
                 return deck;
         }
         return null;

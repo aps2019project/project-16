@@ -35,7 +35,7 @@ public class Initializer2Movaghat {
         cards1.add(shop.getCard("All Disarm").getCopy(false));
         cards1.add(shop.getCard("All Poison").getCopy(false));
         cards1.add(shop.getCard("Dispel").getCopy(false));
-        cards1.add(shop.getCard("Sacrifice ").getCopy(false));//todo change name in shop init and here
+        cards1.add(shop.getCard("Sacrifice").getCopy(false));
         cards1.add(shop.getCard("Shock").getCopy(false));
 
         //deck

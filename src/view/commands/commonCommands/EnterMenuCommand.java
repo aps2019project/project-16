@@ -19,7 +19,7 @@ public class EnterMenuCommand extends Command {
     @Override
     public void doIt() {
         String menuName = matcher.group(1);
-        if (MenuHandler.getCurrentMenu().getName().equals(MAIN_MENU) && menuName.toLowerCase().equals(BATTLE_MENU.toLowerCase())) {
+        if (MenuHandler.getCurrentMenu().getName().equalsIgnoreCase(MAIN_MENU) && menuName.equalsIgnoreCase(BATTLE_MENU)) {
             new CollectionController().validateMainDeckForEnterBattle();
             return;
         }

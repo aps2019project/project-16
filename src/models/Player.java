@@ -102,7 +102,7 @@ public class Player {
 
     public void putUnit(Cell cell, Unit unit) {
         for (Card card : this.hand.getCards()) {
-            if (card.getName().equals(unit.getName())) {
+            if (card.getName().equalsIgnoreCase(unit.getName())) {
                 unit.setCurrentCell(cell);
                 unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
                 this.hand.removeCard(unit);

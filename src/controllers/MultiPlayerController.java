@@ -20,7 +20,7 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
     public void selectOppUser(String secondUserName) {
         Account currentAccount = GameContents.getCurrentAccount();
         Account secondAccount = GameContents.findAccount(secondUserName);
-        if (currentAccount.getName().equals(secondUserName)) {
+        if (currentAccount.getName().equalsIgnoreCase(secondUserName)) {
             Notify.logError("You can't play with yourself :|");
         } else if (secondAccount == null) {
             Notify.logError("Account with this name doesn't exist!");

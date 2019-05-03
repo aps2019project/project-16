@@ -936,7 +936,7 @@ public class Initializer {
                 .setManaCost(2)
                 .setBuyPrice(1600)
                 .setSellPrice(1600)
-                .setName("Sacrifice ")
+                .setName("Sacrifice")
                 .create());
         //19
         cards.add(new SpellCard.SpellCardBuilder()

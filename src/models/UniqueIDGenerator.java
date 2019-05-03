@@ -38,7 +38,7 @@ public class UniqueIDGenerator {
         }
 
         public boolean equals(String playerName, String cardName) {
-            return playerName.equals(this.playerName) && cardName.equals(this.cardName);
+            return playerName.equalsIgnoreCase(this.playerName) && cardName.equalsIgnoreCase(this.cardName);
         }
     }
 

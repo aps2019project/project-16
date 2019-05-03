@@ -24,7 +24,7 @@ public class Shop {
     /////////////////////////////////////////////////////////////////////////////////////////////
     public Card getCard(String cardName) {
         for (Card card : cards) {
-            if (card.getName().equals(cardName))
+            if (card.getName().equalsIgnoreCase(cardName))
                 return card;
         }
         return null;
@@ -32,7 +32,7 @@ public class Shop {
 
     public Item getItem(String itemName) {
         for (Item item : items) {
-            if (item.getName().equals(itemName))
+            if (item.getName().equalsIgnoreCase(itemName))
                 return item;
         }
         return null;

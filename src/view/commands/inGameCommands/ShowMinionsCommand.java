@@ -13,8 +13,8 @@ public class ShowMinionsCommand extends Command {
 
     @Override
     public void doIt() {
-        String forWho = matcher.group(1).toLowerCase();
-        boolean myMinions = forWho.equals("my");
+        String forWho = matcher.group(1);
+        boolean myMinions = forWho.equalsIgnoreCase("my");
         new InGameController().loadMinions(myMinions);
     }
 }

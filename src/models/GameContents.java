@@ -50,7 +50,7 @@ public class GameContents {
 
     public static Account findAccount(String name) {
         for (Account account : accounts) {
-            if (account.getName().equals(name))
+            if (account.getName().equalsIgnoreCase(name))
                 return account;
         }
         return null;
@@ -71,7 +71,7 @@ public class GameContents {
 
     public static boolean hasOppDeck(String oppDeckName) {
         for (GameLevel gameLevel : gameLevels) {
-            if (gameLevel.getDeck().getName().equals(oppDeckName)) {
+            if (gameLevel.getDeck().getName().equalsIgnoreCase(oppDeckName)) {
                 return true;
             }
         }
@@ -80,7 +80,7 @@ public class GameContents {
 
     public static Deck getOpponentDeck(String oppDeckName) {
         for (GameLevel gameLevel : gameLevels) {
-            if (gameLevel.getDeck().getName().equals(oppDeckName)) {
+            if (gameLevel.getDeck().getName().equalsIgnoreCase(oppDeckName)) {
                 return gameLevel.getDeck();
             }
         }
