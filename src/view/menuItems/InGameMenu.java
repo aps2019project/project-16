@@ -31,10 +31,9 @@ public class InGameMenu extends MenuItem {
         commands.add(new ShowCollectableInfoCommand());
         commands.add(new UseItemCommand());
         commands.add(new ShowNextCardCommand());
-        commands.add(new HintCommand());
+        commands.add(new CancelGameCommand());
         commands.add(new EndGameCommand());
 
-        commands.add(new ExitCommand());
         commands.add(new HelpCommand());
         commands.add(new ShowMenuCommand());
 

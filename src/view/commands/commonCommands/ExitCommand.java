@@ -16,10 +16,6 @@ public class ExitCommand extends Command {
 
     @Override
     public void doIt() {
-        if (MenuHandler.getCurrentMenu().getName().equalsIgnoreCase(IN_GAME_MENU)) {
-            new InGameController().finishTheGame();
-        } else {
-            MenuHandler.goToParentMenu();
-        }
+        MenuHandler.goToParentMenu();
     }
 }
