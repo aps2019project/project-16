@@ -60,6 +60,11 @@ public abstract class Card {
             return this;
         }
 
+        public CardBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
         int getManaCost() {
             return manaCost;
         }
