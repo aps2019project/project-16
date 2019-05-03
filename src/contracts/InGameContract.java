@@ -4,6 +4,7 @@ import models.*;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
+import models.card.Unit;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public interface InGameContract {
         void setController(Controller controller);
 
         void showGameInfo(Game game);
-        void showMinions(String playerName, Hero hero, ArrayList<Minion> minions);
+        void showMinions(String playerName, ArrayList<Unit> units);
         void showCardInfo(Card card);
         void showHand(Hand hand, Card nextCard);
         void showCollectables(ArrayList<Collectible> collectibles);

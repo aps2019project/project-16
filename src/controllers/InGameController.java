@@ -1,6 +1,8 @@
 package controllers;
 
 import contracts.InGameContract;
+import models.GameContents;
+import models.Player;
 import view.views.InGameView;
 
 import java.util.ArrayList;
@@ -17,12 +19,18 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadGameInfo() {
-
+        view.showGameInfo(GameContents.getCurrentGame());
     }
 
     @Override
     public void loadMinions(boolean myMinions) {
-
+        Player player;
+        if (myMinions) {
+            player = GameContents.getCurrentGame().getCurrentPlayer();
+        } else {
+            player = GameContents.getCurrentGame().getOponentPlayer();
+        }
+        view.showMinions(player.getAccount().getName(), player.getUnits());
     }
 
     @Override
