@@ -17,20 +17,20 @@ public class Initializer2Movaghat {
         //minions
         cards1.add(shop.getCard("kamandare fars").getCopy(false));
         cards1.add(shop.getCard("neize dare toorani").getCopy(false));
-        cards1.add(shop.getCard("gor dare toorani").getCopy(false));
-        cards1.add(shop.getCard("gor dare toorani").getCopy(false));
+        cards1.add(shop.getCard("gorz dare toorani").getCopy(false));
+        cards1.add(shop.getCard("gorz dare toorani").getCopy(false));
         cards1.add(shop.getCard("dive siah").getCopy(false));
         cards1.add(shop.getCard("ghoole tak cheshm").getCopy(false));
         cards1.add(shop.getCard("mare sammi").getCopy(false));
         cards1.add(shop.getCard("mare ghool peykar").getCopy(false));
         cards1.add(shop.getCard("gorge sefid").getCopy(false));
         cards1.add(shop.getCard("jadoogare azam").getCopy(false));
-        cards1.add(shop.getCard("nanae sarma").getCopy(false));
+        cards1.add(shop.getCard("nane sarma").getCopy(false));
         cards1.add(shop.getCard("siavash").getCopy(false));
         cards1.add(shop.getCard("arzhang div").getCopy(false));
 
         //spellCards
-        cards1.add(shop.getCard("total disarm").getCopy(false));
+        cards1.add(shop.getCard("Total Disarm").getCopy(false));
         cards1.add(shop.getCard("Lightening Bolt").getCopy(false));
         cards1.add(shop.getCard("All Disarm").getCopy(false));
         cards1.add(shop.getCard("All Poison").getCopy(false));
@@ -41,7 +41,7 @@ public class Initializer2Movaghat {
         //deck
         Deck deck1 = new Deck(cards1
                 , (Hero) shop.getCard("dive sefid").getCopy(false)
-                , shop.getItem("taje danayi").getCopy(false) // TODO: 4/30/19 change name in shop init
+                , null // TODO: 4/30/19 change name in shop init
                 , "level1Deck");
 
         gameLevels.add(new GameLevel(1, deck1, 1, 0, 500));
@@ -77,7 +77,7 @@ public class Initializer2Movaghat {
         //deck
         Deck deck2 = new Deck(cards2
                 , (Hero) shop.getCard("zahhak").getCopy(false)
-                , shop.getItem("soul eater").getCopy(false) // TODO: 4/30/19 change name in shop init
+                , null // TODO: 4/30/19 change name in shop init
                 , "level2Deck");
 
         gameLevels.add(new GameLevel(2, deck2, 2, 1, 1000));
@@ -90,7 +90,7 @@ public class Initializer2Movaghat {
         cards3.add(shop.getCard("sepah salare fars").getCopy(false));
         cards3.add(shop.getCard("kamandare toorani").getCopy(false));
         cards3.add(shop.getCard("jasoose toorani").getCopy(false));
-        cards3.add(shop.getCard("ghool sang andaz").getCopy(false));
+        cards3.add(shop.getCard("ghoole sang andaz").getCopy(false));
         cards3.add(shop.getCard("dive goraz savar").getCopy(false));
         cards3.add(shop.getCard("dive goraz savar").getCopy(false));
         cards3.add(shop.getCard("shire darande").getCopy(false));
@@ -113,8 +113,9 @@ public class Initializer2Movaghat {
         //deck
         Deck deck3 = new Deck(cards3
                 , (Hero) shop.getCard("arash").getCopy(false)
-                , shop.getItem("terror hood").getCopy(false) // TODO: 4/30/19 change name in shop init
+                , null // TODO: 4/30/19 change name in shop init
                 , "level3Deck");
+        // shop.getItem("terror hood").getCopy(false)
 
         gameLevels.add(new GameLevel(3, deck3, 3, 8, 1500));
 
