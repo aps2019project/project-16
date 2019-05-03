@@ -43,6 +43,7 @@ public class AccountController implements AccountContract.Controller {
             Notify.logError("The password is incorrect!");
         } else {
             GameContents.setCurrentAccount(account);
+            GameContents.setSecondAccount(null);//phase 3: must change
             Notify.logMessage("Dear " + username + "!!! You logged in successfully!");
             MenuHandler.goToSubMenu(MAIN_MENU);
         }
