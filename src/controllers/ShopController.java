@@ -69,6 +69,7 @@ public class ShopController implements ShopContract.Controller {
                     buyThisItem(cardName);
                     break;
             }
+            Notify.logMessage("Your current money: " + GameContents.getCurrentAccount().getMoney());
         }
     }
 
@@ -114,6 +115,7 @@ public class ShopController implements ShopContract.Controller {
                     Notify.logMessage("You successfully sold card with ID: " + cardID);
                     break;
             }
+            Notify.logMessage("Your current money: " + GameContents.getCurrentAccount().getMoney());
         }
     }
 }
