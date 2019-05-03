@@ -28,6 +28,12 @@ public class Table {
         return Math.abs(firstCell.getRow() - secondCell.getRow()) + Math.abs(firstCell.getColumn() - secondCell.getColumn());
     }
 
+    public static boolean checkDistance(int distance, Cell firstCell, Cell secondCell) {
+        if (getDistance(firstCell , secondCell) > distance)
+            return false;
+        return true;
+    }
+
     public static boolean isAdjacent(Cell firstCell, Cell secondCell) {
         return (firstCell.getColumn() == secondCell.getColumn()
                 && Math.abs(firstCell.getRow() - secondCell.getRow()) == 1)
