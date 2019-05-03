@@ -17,6 +17,7 @@ public class Player {
     private int numberOfCollectedFlags;//todo must be deleted TONIGHT
     private Account account;
 
+
     Player(Deck deck, Account account) {
         this.deck = deck;
         setHand(this.deck);
@@ -92,13 +93,17 @@ public class Player {
         }
     }
 
-    public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException {
-        this.selectedUnit.move(cell);
+    public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
+            DistanceException {
+        if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell))
+            this.selectedUnit.move(cell);
+        else
+            throw new DistanceException();
     }
 
     public void putUnit(Cell cell, Unit unit) {
         for (Card card : this.hand.getCards()) {
-            if (card.getName().equalsIgnoreCase(unit.getName())) {
+            if (card.getName().equals(unit.getName())) {
                 unit.setCurrentCell(cell);
                 unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
                 this.hand.removeCard(unit);

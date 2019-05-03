@@ -13,12 +13,12 @@ public class Hand {
     }
 
     public void removeCard(Card card) {
-        cards.removeIf(card1 -> card1.equals(card));
+        cards.removeIf(card1 -> card1.getName().equals(card.getName()));
     }
 
     public void addCard(Card card) {
         if (!isFull())
-            cards.add(card);
+            cards.add(card); //todo i think it must be copy
     }
 
     public boolean isFull() {

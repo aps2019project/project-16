@@ -8,7 +8,7 @@ public class Game {
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
     private Table table = new Table();
     private Player currentPlayer;
-    private Player oponentPlayer;
+    private Player opponentPlayer;
     private int turn = 0;
     private int reward;
     private GameMode gameMode;
@@ -20,7 +20,7 @@ public class Game {
         this.reward = reward;
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getPlayer();
-        this.oponentPlayer = this.players[1] = secondAccount.getPlayer();
+        this.opponentPlayer = this.players[1] = secondAccount.getPlayer();
         this.accounts[0] = firstAccount;
         this.accounts[1] = secondAccount;
         this.numberOfFlags = numberOfFlags;
@@ -34,8 +34,8 @@ public class Game {
         return currentPlayer;
     }
 
-    public Player getOponentPlayer() {
-        return oponentPlayer;
+    public Player getOpponentPlayer() {
+        return opponentPlayer;
     }
 
     public Player[] getPlayers() {
@@ -162,10 +162,10 @@ public class Game {
     private void setCurrentPlayer() {
         if (turn % 2 == 0) {
             this.currentPlayer = players[0];
-            this.oponentPlayer = players[1];
+            this.opponentPlayer = players[1];
         } else {
             this.currentPlayer = players[1];
-            this.oponentPlayer = players[0];
+            this.opponentPlayer = players[0];
         }
     }
 
