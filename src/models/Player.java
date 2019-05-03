@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Player {
     private Deck deck;
     private Hand hand;
-    private ArrayList<Card> graveYard = new ArrayList<>();
+    private Graveyard graveYard = new Graveyard();
     private int mana;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
     private ArrayList<Unit> units = new ArrayList<>();
@@ -50,12 +50,12 @@ public class Player {
         return hand;
     }
 
-    public ArrayList<Card> getGraveYard() {
-        return graveYard;
-    }
-
     public int getMana() {
         return mana;
+    }
+
+    public Graveyard getGraveYard() {
+        return graveYard;
     }
 
     public ArrayList<Collectible> getCollectibles() {
@@ -90,10 +90,6 @@ public class Player {
         for (int i = 0; i < 5; i++) {
             this.hand.addCard(deck.pop());
         }
-    }
-
-    public void addToGraveYard(Card card) {
-        this.graveYard.add(card);
     }
 
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException {

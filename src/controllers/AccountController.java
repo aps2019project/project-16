@@ -51,6 +51,6 @@ public class AccountController implements AccountContract.Controller {
 
     @Override
     public void saveGameData() {
-        // TODO: 4/30/19  save data of accounts in files
+        // phase 2: 4/30/19  save data of accounts in files
     }
 }

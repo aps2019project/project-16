@@ -13,7 +13,7 @@ public interface GraveyardContract {
     }
 
     interface Controller {
-        void loadCard(String cardID);
+        void loadCard(String cardName, int gameID);
         void loadCards();
     }
 }

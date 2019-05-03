@@ -34,6 +34,10 @@ public class Game {
         return currentPlayer;
     }
 
+    public Player getOponentPlayer() {
+        return oponentPlayer;
+    }
+
     public Player[] getPlayers() {
         return players;
     }

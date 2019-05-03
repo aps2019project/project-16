@@ -9,13 +9,14 @@ import static view.commands.inGameCommands.CardIDRegex.CARD_ID_REGEX;
 
 public class ShowInfoCommand extends Command {
     {
-        name = "show info (card ID)";
-        pattern = Pattern.compile("show info " + CARD_ID_REGEX, Pattern.CASE_INSENSITIVE);
+        name = "show info (card name) (game card ID)";
+        pattern = Pattern.compile("show info (\\w+( \\w+)*) (\\d+)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
     public void doIt() {
-        String cardID = matcher.group(1);
-        new GraveyardController().loadCard(cardID);
+        String cardName = matcher.group(3);
+        int gameCardID = Integer.parseInt(matcher.group(4));
+        new GraveyardController().loadCard(cardName, gameCardID);
     }
 }

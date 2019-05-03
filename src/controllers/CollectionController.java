@@ -64,7 +64,7 @@ public class CollectionController implements CollectionContract.Controller {
 
     @Override
     public void saveCollection() {
-        // TODO: 4/30/19  save in file next phase
+        // phase 2: 4/30/19  save in file next phase
         Notify.logMessage("All things about your collection is saved.");
     }
 
