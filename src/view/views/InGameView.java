@@ -67,17 +67,57 @@ public class InGameView implements InGameContract.View {
 
     @Override
     public void showMinions(String playerName, Hero hero, ArrayList<Minion> minions) {
-        // TODO: 5/3/19
+        Notify.logMessage("** \"" + playerName + "\" units:");
+        Notify.logMessage("* Hero condition:");
+        if (hero == null) {
+            Notify.logMessage("Hero is killed.");
+        } else {
+            printUnitInfo(hero);
+        }
+        Notify.logMessage("* Minions condition:");
+        for (Minion minion : minions) {
+            printUnitInfo(minion);
+        }
+    }
+
+    private void printUnitInfo(Unit unit) {
+        Notify.logMessage("Name: " + unit.getName());
+        Notify.logMessage("Game ID: " + unit.getGameCardID());
+        Notify.logMessage("HP: " + unit.getHp());
+        Notify.logMessage("AP: " + unit.getAp());
+        Notify.logMessage("row: " + unit.getCurrentCell().getRow());
+        Notify.logMessage("column: " + unit.getCurrentCell().getColumn());
     }
 
     @Override
     public void showCardInfo(Card card) {
-        // TODO: 5/3/19
+        Class cardClass = card.getClass();
+
+        Notify.logMessage(cardClass.getName());
+        Notify.logMessage("Name: " + card.getName());
+        Notify.logMessage("Cost: " + card.getBuyPrice());
+        Notify.logMessage("Mana cost: " + card.getManaCost());
+        Notify.logMessage("Desc: " + card.getDescription());
+
+        if (cardClass == Hero.class || cardClass == Minion.class) {
+            Unit unit = (Unit) card;
+            Notify.logMessage("HP: " + unit.getHp());
+            Notify.logMessage("AP: " + unit.getAp());
+            Notify.logMessage("Range: " + unit.getAttackType().getClass().getName());
+        }
+
+        if (cardClass == Minion.class) {
+            Minion minion = (Minion) card;
+            Notify.logMessage("Combo-ability: " + minion.getComboDescription());
+        }
+
+        Notify.logMessage("");
     }
 
     @Override
     public void showHand(Hand hand, Card nextCard) {
         // TODO: 5/3/19
+
     }
 
     @Override
