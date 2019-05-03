@@ -2,6 +2,7 @@ package view.views;
 
 import contracts.GraveyardContract;
 import models.card.Card;
+import view.Notify;
 
 import java.util.ArrayList;
 
@@ -13,15 +14,17 @@ public class GraveyardView implements GraveyardContract.View {
         this.controller = controller;
     }
 
-    // TODO: 4/26/19 implement all of functions :)))
-
     @Override
     public void showCard(Card card) {
-
+        new InGameView().showCardInfo(card);
     }
 
     @Override
     public void showCards(ArrayList<Card> cards) {
-
+        Notify.logMessage("*Graveyard cards:");
+        InGameView inGameView = new InGameView();
+        for (Card card : cards) {
+            inGameView.showCardInfo(card);
+        }
     }
 }
