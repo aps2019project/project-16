@@ -1,7 +1,6 @@
 package contracts;
 
 import models.Account;
-import models.Leaderboard;
 
 import java.util.ArrayList;
 

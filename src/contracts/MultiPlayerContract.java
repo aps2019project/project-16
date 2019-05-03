@@ -11,7 +11,6 @@ public interface MultiPlayerContract {
     }
 
     interface Controller {
-        //todo when enter second player must be null
         void selectOppUser(String secondUserName);
         void loadSecondAccount();
         void startMultiGame(int mode, int numberOfFlags);

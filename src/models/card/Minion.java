@@ -26,4 +26,9 @@ public class Minion extends Unit {
         }
     }
 
+    public String getComboDescription() {
+        // TODO: 5/3/19
+        return null;
+    }
+
 }
