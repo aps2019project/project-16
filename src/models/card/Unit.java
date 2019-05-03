@@ -178,7 +178,7 @@ public abstract class Unit extends Card implements Buffable {
             throw new UnitAttackedThisTurnException();
         attacked = true;
         moved = true;
-        opponent.changeHP(ap);
+        opponent.dealDamage(ap);
     }
 
     public void counterAttack(Unit opponent) {
@@ -186,10 +186,16 @@ public abstract class Unit extends Card implements Buffable {
             opponent.dealDamage(ap);
     }
 
-    public void comboAttack(Unit opponent, ArrayList<Unit> allies) { // todo add exceptions
-        int damage = -ap;
-        for (Unit unit : allies)
-            damage -= unit.getAp();
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException,
+            OpponentNotInRangeException { // todo add exceptions
+        int damage = ap;
+        for (Unit unit : allies) {
+            if (!unit.hasCombo())
+                throw new UnitHasNotComboException();
+            if (unit.getAttackType().canAttack(unit.getCurrentCell(), opponent.getCurrentCell()))
+                throw new OpponentNotInRangeException();
+            damage += unit.getAp();
+        }
         opponent.dealDamage(damage);
     }
 
@@ -201,7 +207,7 @@ public abstract class Unit extends Card implements Buffable {
         return currentCell;
     }
 
-    public void move(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException , CellIsNotFreeException {
+    public void move(Cell currentCell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException {
         if (isStunned())
             throw new UnitStunnedException();
         if (moved)
@@ -214,5 +220,9 @@ public abstract class Unit extends Card implements Buffable {
 
     public void setCurrentCell(Cell cell) {
         this.currentCell = cell;
+    }
+
+    public boolean hasCombo() {
+        return combo;
     }
 }

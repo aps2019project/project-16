@@ -1,6 +1,7 @@
 package models;
 
 import models.card.*;
+import models.card.exception.*;
 
 import java.util.ArrayList;
 
@@ -80,7 +81,11 @@ public class Player {
         opponent.counterAttack(selectedUnit);
     }
 
-    public void comboAttack(Unit opponent, ArrayList<Unit> allies) {
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, OpponentNotInRangeException {
+        if (!this.selectedUnit.hasCombo())
+            throw new UnitHasNotComboException();
+        if (!this.selectedUnit.getAttackType().canAttack(selectedUnit.getCurrentCell(), opponent.getCurrentCell()))
+            throw new OpponentNotInRangeException();
         selectedUnit.comboAttack(opponent, allies);
         opponent.counterAttack(selectedUnit);
     }
@@ -98,7 +103,7 @@ public class Player {
     }
 
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
-            DistanceException , PathIsBlockException {
+            DistanceException, PathIsBlockException {
         if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell))
             throw new PathIsBlockException();
         if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell)) {
@@ -121,9 +126,11 @@ public class Player {
         }
     }
 
+    public void castSpell() {
+
+    }
+
     //+useItem(item :Item):void
     //+castSpellCard(cell: Cell,spellCard: SpellCard):void
-    //+moveUnit(cell: Cell) : void
-    //+attack(opponent: Unit):void
     //+comboAttack(opponent: Unit, allies: ArratList<Unit>): void
 }
