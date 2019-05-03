@@ -50,6 +50,11 @@ public abstract class Item {
         this.sellPrice = sellPrice;
     }
 
+    public String getDescription() {
+        // TODO: 5/3/19
+        return null;
+    }
+
     /////////////////////////////////////////////////////////////////////////////////
     public abstract void use();
 

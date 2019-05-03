@@ -116,8 +116,8 @@ public class InGameView implements InGameContract.View {
 
     @Override
     public void showHand(Hand hand, Card nextCard) {
-        Notify.logMessage("* Next card:");
-        showCardInfo(nextCard);
+        showNextCard(nextCard);
+
         Notify.logMessage("* Hand:");
         for (Card card : hand.getCards()) {
             showCardInfo(card);
@@ -126,16 +126,20 @@ public class InGameView implements InGameContract.View {
 
     @Override
     public void showCollectables(ArrayList<Collectible> collectibles) {
-        // TODO: 5/3/19
+        Notify.logMessage("List of collected collectibles:");
+        for (Collectible collectible : collectibles) {
+            Notify.logMessage(collectible.getName());
+        }
     }
 
     @Override
     public void showCollectableInfo(Collectible collectible) {
-        // TODO: 5/3/19
+        Notify.logMessage(collectible.getDescription());
     }
 
     @Override
-    public void showNextCard(Card card) {
-        // TODO: 5/3/19
+    public void showNextCard(Card nextCard) {
+        Notify.logMessage("* Next card:");
+        showCardInfo(nextCard);
     }
 }
