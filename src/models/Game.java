@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
@@ -30,6 +32,10 @@ public class Game {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 
     public void setWinner(Player winner) {
@@ -157,6 +163,12 @@ public class Game {
             this.currentPlayer = players[1];
             this.oponentPlayer = players[0];
         }
+    }
+
+    //for gameMode: "keep flag" and collect flags
+    public ArrayList<Flag> getFlags() {
+        // TODO: 5/3/19 must implement by sepehr
+        return null;
     }
 
     class GameIsEndException extends Exception {

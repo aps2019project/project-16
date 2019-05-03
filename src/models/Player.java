@@ -18,7 +18,7 @@ public class Player {
     private Account account;
 
     Player(Deck deck, Account account) {
-        this.deck = deck; //todo this must be copy of deck
+        this.deck = deck;
         setHand(this.deck);
     }
 

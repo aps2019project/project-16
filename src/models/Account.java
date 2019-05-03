@@ -75,7 +75,7 @@ public class Account {
 
     public Player getPlayer() {
         Collection collection = this.getCollection();
-        return new Player(collection.getMainDeck(), this);
+        return new Player(collection.getMainDeck().getCopy(), this);
     }
 
     public void addHisytory(MatchResult history) {
