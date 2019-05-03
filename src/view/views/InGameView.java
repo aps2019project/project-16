@@ -66,17 +66,10 @@ public class InGameView implements InGameContract.View {
     }
 
     @Override
-    public void showMinions(String playerName, Hero hero, ArrayList<Minion> minions) {
+    public void showMinions(String playerName, ArrayList<Unit> units) {
         Notify.logMessage("** \"" + playerName + "\" units:");
-        Notify.logMessage("* Hero condition:");
-        if (hero == null) {
-            Notify.logMessage("Hero is killed.");
-        } else {
-            printUnitInfo(hero);
-        }
-        Notify.logMessage("* Minions condition:");
-        for (Minion minion : minions) {
-            printUnitInfo(minion);
+        for (Unit unit : units) {
+            printUnitInfo(unit);
         }
     }
 
