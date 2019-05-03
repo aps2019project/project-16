@@ -18,7 +18,7 @@ public class Player {
     private Account account;
     private Table table;
 
-    Player(Deck deck, Account account, Table table) {
+    Player(Deck deck, Account account) {
         this.deck = deck;
         setHand(this.deck);
     }
@@ -98,7 +98,9 @@ public class Player {
     }
 
     public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
-            DistanceException {
+            DistanceException , PathIsBlockException {
+        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell))
+            throw new PathIsBlockException();
         if (Table.checkDistance(2, selectedUnit.getCurrentCell(), cell)) {
             Cell tempCell = this.selectedUnit.getCurrentCell();
             this.selectedUnit.move(cell);

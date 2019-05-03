@@ -19,17 +19,26 @@ public class Table {
         return cells;
     }
 
+
     public Cell getCell(int row, int column) {
         return cells[row][column];
         //todo shouldn't be row-1 and column -1
     }
 
-    public static int getDistance(Cell firstCell, Cell secondCell) {
+    public static int getDistance(Cell firstCell, Cell secondCell) {//todo why should be static ?
         return Math.abs(firstCell.getRow() - secondCell.getRow()) + Math.abs(firstCell.getColumn() - secondCell.getColumn());
     }
 
-    public static boolean checkDistance(int distance, Cell firstCell, Cell secondCell) {
-        if (getDistance(firstCell , secondCell) > distance)
+    public static boolean checkDistance(int distance, Cell firstCell, Cell secondCell) {//todo why should be static ?
+        if (getDistance(firstCell, secondCell) > distance)
+            return false;
+        return true;
+    }
+
+    public boolean checkPathIsBlocked(Cell firstCell, Cell secondCell) {
+        //we know that in this case distance is 2
+        if (this.getCell(firstCell.getRow(), secondCell.getColumn()).hasUnit() &&
+                this.getCell(secondCell.getRow(), firstCell.getColumn()).hasUnit())
             return false;
         return true;
     }
