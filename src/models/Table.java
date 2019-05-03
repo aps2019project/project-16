@@ -7,6 +7,14 @@ public class Table {
     public static final int HEIGHT = 5;
     private Cell[][] cells = new Cell[HEIGHT][WIDTH];
 
+    public Table() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                cells[i][j] = new Cell(this, i, j);
+            }
+        }
+    }
+
     public void putUnit(Unit unit, Cell cell) {
 
     }

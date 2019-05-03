@@ -13,6 +13,12 @@ public class Cell implements Buffable {
     private Table table;
     private ArrayList<Buff> cellEffect = new ArrayList<>();
 
+    public Cell(Table table, int row, int column) {
+        this.table = table;
+        this.row = row;
+        this.column = column;
+    }
+
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
