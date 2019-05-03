@@ -137,7 +137,17 @@ public class Player {
         spellCard.cast(this, cell);
     }
 
+    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException {
+        if (!hero.getSpell().canCast(this, cell))
+            throw new InvalidTargetException();
+        if (hero.getSpellManaCost() > this.getMana())
+            throw new NotEnoughManaException();
+        if (!hero.isSpellReady())
+            throw new SpellNotReadyException();
+        this.mana -= hero.getSpellManaCost();
+        hero.castSpell(cell);
+    }
+
+
     //+useItem(item :Item):void
-    //+castSpellCard(cell: Cell,spellCard: SpellCard):void
-    //cast hero spell
 }

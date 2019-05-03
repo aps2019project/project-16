@@ -56,11 +56,26 @@ public class Hero extends Unit {
         return spell;
     }
 
+    public int getSpellManaCost() {
+        return spellManaCost;
+    }
+
+    @Override
+    public void nextTurn() {
+        super.nextTurn();
+        spellRemainingCoolDown--;
+    }
+
+    public boolean isSpellReady() {
+        return spellRemainingCoolDown <= 0;
+    }
+
     public boolean canCastSpell(Cell cell) {
         return spell.canCast(getPlayer(), cell);
     }
 
     public void castSpell(Cell cell) {
-        spell.canCast(getPlayer(), cell);
+        spell.cast(getPlayer(), cell);
+        spellRemainingCoolDown = spellCoolDown;
     }
 }
