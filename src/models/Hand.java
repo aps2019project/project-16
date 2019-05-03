@@ -13,7 +13,7 @@ public class Hand {
     }
 
     public void removeCard(Card card) {
-        cards.removeIf(card1 -> card1.getName().equals(card.getName()));
+        cards.removeIf(card1 -> card1.equals(card));
     }
 
     public void addCard(Card card) {
