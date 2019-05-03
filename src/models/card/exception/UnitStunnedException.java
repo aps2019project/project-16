@@ -1,4 +1,4 @@
 package models.card.exception;
 
-public class UnitStunnedException extends Exception {
+public class UnitStunnedException extends AttackException {
 }

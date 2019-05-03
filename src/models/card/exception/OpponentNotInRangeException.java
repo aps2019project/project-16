@@ -1,4 +1,4 @@
 package models.card.exception;
 
-public class OpponentNotInRangeException extends Exception {
+public class OpponentNotInRangeException extends AttackException {
 }

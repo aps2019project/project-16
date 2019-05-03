@@ -3,6 +3,7 @@ package models.card;
 import models.*;
 import models.card.exception.*;
 
+import java.awt.font.TextHitInfo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,29 +172,27 @@ public abstract class Unit extends Card implements Buffable {
         return player;
     }
 
-    public void attack(Unit opponent) throws UnitAttackedThisTurnException, UnitStunnedException {
-        if (isStunned())
-            throw new UnitStunnedException();
-        if (attacked)
-            throw new UnitAttackedThisTurnException();
+    public void attack(Unit opponent) throws AttackException {
+        this.checkCanAttack(opponent);
         attacked = true;
         moved = true;
         opponent.dealDamage(ap);
     }
 
     public void counterAttack(Unit opponent) {
-        if (!isDisarmed())
-            opponent.dealDamage(ap);
+        if (!this.getAttackType().canAttack(this.getCurrentCell(), opponent.getCurrentCell()))
+            return;
+        if (isDisarmed() || isStunned())
+            return;
+        opponent.dealDamage(ap);
     }
 
-    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException,
-            OpponentNotInRangeException { // todo add exceptions
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException { // todo add exceptions
         int damage = ap;
         for (Unit unit : allies) {
             if (!unit.hasCombo())
                 throw new UnitHasNotComboException();
-            if (unit.getAttackType().canAttack(unit.getCurrentCell(), opponent.getCurrentCell()))
-                throw new OpponentNotInRangeException();
+            unit.checkCanAttack(opponent);
             damage += unit.getAp();
         }
         opponent.dealDamage(damage);
@@ -224,5 +223,14 @@ public abstract class Unit extends Card implements Buffable {
 
     public boolean hasCombo() {
         return combo;
+    }
+
+    public void checkCanAttack(Unit opponent) throws AttackException {
+        if (!this.getAttackType().canAttack(this.getCurrentCell(), opponent.getCurrentCell()))
+            throw new OpponentNotInRangeException();
+        if (isStunned())
+            throw new UnitStunnedException();
+        if (attacked)
+            throw new UnitAttackedThisTurnException();
     }
 }

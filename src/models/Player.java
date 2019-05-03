@@ -76,16 +76,16 @@ public class Player {
         return selectedUnit;
     }
 
-    public void attack(Unit opponent) throws UnitAttackedThisTurnException, UnitStunnedException {
+    public void attack(Unit opponent) throws AttackException {
         selectedUnit.attack(opponent);
         opponent.counterAttack(selectedUnit);
     }
 
-    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, OpponentNotInRangeException {
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
         if (!this.selectedUnit.hasCombo())
             throw new UnitHasNotComboException();
-        if (!this.selectedUnit.getAttackType().canAttack(selectedUnit.getCurrentCell(), opponent.getCurrentCell()))
-            throw new OpponentNotInRangeException();
+        this.selectedUnit.checkCanAttack(opponent);
+        //RECOM : move 2 above method in Unit.ComboAttack (below)
         selectedUnit.comboAttack(opponent, allies);
         opponent.counterAttack(selectedUnit);
     }
