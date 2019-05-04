@@ -98,9 +98,8 @@ public class Game {
         doCellBuffs();
         //todo chera do ta??
         gameIsEnd();
-        gameIsEnd();
         this.turn++;
-        ///decrement duration of spells
+        //todo cast especial power unit
     }
 
     private void gameIsEnd() throws GameIsEndException {
