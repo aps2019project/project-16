@@ -67,7 +67,7 @@ public class InGameController implements InGameContract.Controller {
     public void moveToCell(int x, int y) {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Cell cell = game.getTable().getCell(x, y);
+        Cell cell = game.getTable().getCell(x - 1, y - 1);
         try {
             if (currentPlayer.getSelectedUnit() == null) {
                 throw new UnitIsNotSelectedException();
@@ -175,7 +175,7 @@ public class InGameController implements InGameContract.Controller {
     public void useSpecialPower(int x, int y) {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Cell cellToUseSP = game.getTable().getCell(x, y);
+        Cell cellToUseSP = game.getTable().getCell(x - 1, y - 1);
         try {
             if (cellToUseSP == null) {
                 throw new CellIsNotInTableException();
@@ -207,7 +207,7 @@ public class InGameController implements InGameContract.Controller {
             Game game = GameContents.getCurrentGame();
             Player currentPlayer = game.getCurrentPlayer();
             Card cardToInsert = currentPlayer.getHand().getCard(cardName);
-            Cell cell = game.getTable().getCell(x, y);
+            Cell cell = game.getTable().getCell(x - 1, y - 1);
             if (cell == null) {
                 throw new CellIsNotInTableException();
             }
