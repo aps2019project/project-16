@@ -53,7 +53,16 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void selectCard(String cardName, int gameID) {
-
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Unit unit = currentPlayer.getUnit(cardName, gameID);
+        if (unit == null) {
+            Notify.logError("This card isn't in the game!");
+        } else {
+            currentPlayer.setSelectedUnit(unit);
+            Notify.logMessage("Unit \"" + cardName + "\" with game ID \"" + gameID + "\" is selected.");
+            Notify.logMessage("It's place: row: " + unit.getCurrentCell().getRow() + " column: " + unit.getCurrentCell().getColumn());
+        }
     }
 
     @Override

@@ -14,8 +14,8 @@ public class SelectCardCommand extends Command {
 
     @Override
     public void doIt() {
-        String cardNmae = matcher.group(1);
+        String cardName = matcher.group(1);
         int gameID = Integer.parseInt(matcher.group(3));
-        new InGameController().selectCard(cardNmae, gameID);
+        new InGameController().selectCard(cardName, gameID);
     }
 }
