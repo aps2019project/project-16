@@ -197,7 +197,7 @@ public class Game {
             for (Unit unit : player.getUnits()) {
                 if (unit.isDead()) {
                     unit.getCurrentCell().setUnit(null);
-                    // TODO: 5/4/19 flag drop down and flag set ownerUnit to null
+                    unit.dropFlags(unit.getCurrentCell(), unit);
                     // TODO: 5/4/19 check and do ON_DEATH
                     player.getUnits().removeIf(x -> x.equals(unit));
                     player.getGraveYard().addCard(unit);
@@ -212,8 +212,8 @@ public class Game {
         return null;
     }
 
-    public void incrementTurnFlagKeeped(){
-        if (this.getGameMode() == GameMode.KEEP_FLAG){
+    public void incrementTurnFlagKeeped() {
+        if (this.getGameMode() == GameMode.KEEP_FLAG) {
             if (this.players[0].hasFlag())
                 this.players[0].incrementTurnsFlagKeeped();
             if (this.players[1].hasFlag())

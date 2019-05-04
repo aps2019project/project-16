@@ -245,8 +245,15 @@ public abstract class Unit extends Card implements Buffable {
         flag.setOwnerUnit(this);
     }
 
-    public void removeFlag(Flag flag) {
+    public void removeFlag() {
         while (flags.size() > 0)
             flags.remove(0);
+    }
+    public void dropFlags(Cell cell, Unit unit) {
+        for (Flag flag : unit.getFlags()) {
+            flag.setOwnerUnit(null);
+            flag.setCurrentCell(cell);
+        }
+        unit.removeFlag();
     }
 }

@@ -136,7 +136,7 @@ public class Player {
         for (Flag flag : selectedUnit.getFlags())
             flag.setCurrentCell(cell);
 
-        pickUpFlags(cell , selectedUnit);
+        pickUpFlags(cell, selectedUnit);
         selectedUnit = null;
     }
 
@@ -149,7 +149,7 @@ public class Player {
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
-        pickUpFlags(cell , selectedUnit);
+        pickUpFlags(cell, selectedUnit);
         //todo if unit is on_spawn
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
@@ -195,7 +195,8 @@ public class Player {
     public void incrementTurnsFlagKeeped() {
         this.turnsFlagKeeped++;
     }
-    public void pickUpFlags(Cell cell , Unit unit){
+
+    public void pickUpFlags(Cell cell, Unit unit) {
         if (cell.getFlags().size() > 0) {
             for (Flag flag : cell.getFlags()) {
                 unit.addFlag(flag);
@@ -204,7 +205,6 @@ public class Player {
             cell.removeFlag();
         }
     }
-
 
     //+useItem(item :Item):void        //todo check is dead
 }
