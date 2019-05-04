@@ -14,7 +14,6 @@ public class Player {
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Collectible selectedCollectible;
-    private Hero hero;//todo must be deleted and search in units for getHero function
     private int turnsFlagKeeped;
     private boolean hasFlag;
     private Account account;
@@ -46,7 +45,11 @@ public class Player {
     }
 
     public Hero getHero() {
-        return hero;
+        for (Unit unit : units) {
+            if (unit instanceof Hero)
+                return (Hero) unit;
+        }
+        return null;
     }
 
     public Hand getHand() {
@@ -164,7 +167,11 @@ public class Player {
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
-    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException {
+    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException
+            , NoHeroException {
+        Hero hero = this.getHero();
+        if (hero == null)
+            throw new NoHeroException();
         if (!hero.getSpell().canCast(this, cell))
             throw new InvalidTargetException();
         if (hero.getSpellManaCost() > this.getMana())

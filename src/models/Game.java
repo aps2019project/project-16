@@ -1,5 +1,6 @@
 package models;
 
+import models.card.Hero;
 import models.card.Unit;
 import models.card.exception.GameIsEndException;
 
@@ -142,12 +143,13 @@ public class Game {
     private boolean checkKillingHero() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
-        // TODO: 5/4/19 if getHero == null
-        if (player1.getHero().getHp() <= 0) {
+        Hero hero1 = player1.getHero();
+        Hero hero2 = player2.getHero();
+        if (hero1 == null || hero1.getHp() <= 0) {
             setWinner(player1);
             return true;
         }
-        if (player2.getHero().getHp() <= 0) {
+        if (hero2 == null || hero2.getHp() <= 0) {
             setWinner(player2);
             return true;
         }
