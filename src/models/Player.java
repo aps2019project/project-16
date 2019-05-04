@@ -156,6 +156,7 @@ public class Player {
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
+        this.units.add(unit);
         pickUpFlags(cell, selectedUnit);
         //todo if unit is on_spawn
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
@@ -168,7 +169,9 @@ public class Player {
             throw new NotEnoughManaException();
         this.mana -= spellCard.getManaCost();
         spellCard.cast(this, cell);
-        //todo set uniqueGameID for spell + goToGraveYard
+        spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName() , spellCard.getName()));
+        graveYard.addCard(spellCard);
+        this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
