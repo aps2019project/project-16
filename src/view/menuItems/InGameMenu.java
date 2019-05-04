@@ -1,7 +1,6 @@
 package view.menuItems;
 
 import view.commands.commonCommands.EnterMenuCommand;
-import view.commands.commonCommands.ExitCommand;
 import view.commands.commonCommands.HelpCommand;
 import view.commands.commonCommands.ShowMenuCommand;
 import view.commands.inGameCommands.*;
@@ -18,7 +17,7 @@ public class InGameMenu extends MenuItem {
         commands.add(new GameInfoCommand());
         commands.add(new ShowMinionsCommand());
         commands.add(new ShowCardInfoCommand());
-        commands.add(new SelectCommand());
+        commands.add(new SelectCardCommand());
         commands.add(new MoveCommand());
         commands.add(new AttackCommand());
         commands.add(new AttackComboCommand());
@@ -27,7 +26,7 @@ public class InGameMenu extends MenuItem {
         commands.add(new InsertCardCommmand());
         commands.add(new EndTurnCommand());
         commands.add(new ShowCollectablesCommand());
-        //select collectable command is merged to select command
+        commands.add(new SelectCollectableCommand());
         commands.add(new ShowCollectableInfoCommand());
         commands.add(new UseItemCommand());
         commands.add(new ShowNextCardCommand());

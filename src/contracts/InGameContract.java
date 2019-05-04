@@ -25,7 +25,7 @@ public interface InGameContract {
         void loadGameInfo();
         void loadMinions(boolean myMinions);
         void loadCardInfo(String playerName, String cardName, int gameCardID);
-        void selectCard(String cardID);
+        void selectCard(String cardName, int gameID);
         void moveToCell(int x, int y);
         void attack(String oppCardID);
         void attackCombo(String oppCardID, ArrayList<String> myCardIDs);

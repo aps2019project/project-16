@@ -52,7 +52,7 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void selectCard(String cardID) {
+    public void selectCard(String cardName, int gameID) {
 
     }
 
