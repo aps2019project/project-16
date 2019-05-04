@@ -35,7 +35,7 @@ public class Table {
         return cells[row][column];
     }
 
-    public static int getDistance(Cell firstCell, Cell secondCell) {//todo why should be static ?
+    public static int getDistance(Cell firstCell, Cell secondCell) {
         return Math.abs(firstCell.getRow() - secondCell.getRow()) + Math.abs(firstCell.getColumn() - secondCell.getColumn());
     }
 

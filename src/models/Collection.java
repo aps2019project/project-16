@@ -37,7 +37,7 @@ public class Collection {
     }
 
     public void removeCard(Card card) {
-        this.cards.removeIf(card1 -> card1.equals(card)); // todo should be checked at end
+        this.cards.removeIf(card1 -> card1.equals(card));
         for (Deck deck : decks) {
             if (deck.hasCard(card.getCollectionID())) {
                 if (card.getClass().equals(Hero.class)) {
