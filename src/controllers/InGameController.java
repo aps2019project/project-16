@@ -36,8 +36,19 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void loadCardInfo(String cardID) {
-
+    public void loadCardInfo(String playerName, String cardName, int gameCardID) {
+        Game game = GameContents.getCurrentGame();
+        Player player = game.getPlayer(playerName);
+        if (player == null) {
+            Notify.logError("This player isn't in the game.");
+        } else {
+            Unit unit = player.getUnit(cardName, gameCardID);
+            if (unit == null) {
+                Notify.logError("This unit isn't in the game.");
+            } else {
+                view.showCardInfo(unit);
+            }
+        }
     }
 
     @Override
@@ -133,11 +144,6 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadNextCard() {
-
-    }
-
-    @Override
-    public void loadGameHint() {
 
     }
 

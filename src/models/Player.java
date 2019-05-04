@@ -56,6 +56,15 @@ public class Player {
         return hand;
     }
 
+    public Unit getUnit(String cardName, int gameID) {
+        for (Unit unit : units) {
+            if (unit.getName().equalsIgnoreCase(cardName) && unit.getGameCardID() == gameID) {
+                return unit;
+            }
+        }
+        return null;
+    }
+
     public int getMana() {
         return mana;
     }

@@ -50,6 +50,15 @@ public class Game {
         return table;
     }
 
+    public Player getPlayer(String playerName) {
+        for (Player player : players) {
+            if (player.getAccount().getName().equalsIgnoreCase(playerName)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
     public void setWinner(Player winner) {
         this.winner = winner;
     }

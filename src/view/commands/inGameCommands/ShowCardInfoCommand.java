@@ -9,13 +9,15 @@ import static view.commands.inGameCommands.CardIDRegex.CARD_ID_REGEX;
 
 public class ShowCardInfoCommand extends Command {
     {
-        name = "show card info (card ID)";
-        pattern = Pattern.compile("show card info " + CARD_ID_REGEX, Pattern.CASE_INSENSITIVE);
+        name = "show card info (player name)_(card name)_(game card ID)";
+        pattern = Pattern.compile("show card info (\\w+( \\w+)*)_(\\w+( \\w+)*)_(\\d+)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
     public void doIt() {
-        String cardID = matcher.group(1);
-        new InGameController().loadCardInfo(cardID);
+        String playerName = matcher.group(1);
+        String cardName = matcher.group(3);
+        int gameCardID = Integer.parseInt(matcher.group(5));
+        new InGameController().loadCardInfo(playerName, cardName, gameCardID);
     }
 }

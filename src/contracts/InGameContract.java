@@ -24,7 +24,7 @@ public interface InGameContract {
     interface Controller {
         void loadGameInfo();
         void loadMinions(boolean myMinions);
-        void loadCardInfo(String cardID);
+        void loadCardInfo(String playerName, String cardName, int gameCardID);
         void selectCard(String cardID);
         void moveToCell(int x, int y);
         void attack(String oppCardID);
@@ -38,7 +38,6 @@ public interface InGameContract {
         void loadSelectedCollectableInfo();
         void useSelectedCollectable(int x, int y);
         void loadNextCard();
-        void loadGameHint();
         void finishTheGame();
     }
 }
