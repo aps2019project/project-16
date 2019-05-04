@@ -17,8 +17,6 @@ public class InGameController implements InGameContract.Controller {
         view.setController(this);
     }
 
-    // TODO: 4/21/19 implement all of functions :)))
-
     @Override
     public void loadGameInfo() {
         view.showGameInfo(GameContents.getCurrentGame());
@@ -175,12 +173,14 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void useSpecialPower(int x, int y) {
-
+        // TODO: 5/4/19
     }
 
     @Override
     public void loadHand() {
-
+        Player player = GameContents.getCurrentGame().getCurrentPlayer();
+        Hand hand = player.getHand();
+        view.showHand(hand, player.getDeck().getTop());
     }
 
     @Override
@@ -219,6 +219,7 @@ public class InGameController implements InGameContract.Controller {
     public void endTurn() {
         try {
             GameContents.getCurrentGame().endTurn();
+            GameContents.getCurrentGame().startTurn();// TODO: 5/4/19 must be removed and merged to endTurn
         } catch (GameIsEndException E) {
             Notify.logError("Sorry! Game is finished!!");
         }
@@ -226,7 +227,7 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadCollectables() {
-
+        // TODO: 5/4/19
     }
 
     @Override
@@ -244,21 +245,21 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadSelectedCollectableInfo() {
-
+        // TODO: 5/4/19
     }
 
     @Override
     public void useSelectedCollectable(int x, int y) {
-
+        // TODO: 5/4/19
     }
 
     @Override
     public void loadNextCard() {
-
+        // TODO: 5/4/19
     }
 
     @Override
     public void finishTheGame() {
-
+        // TODO: 5/4/19
     }
 }
