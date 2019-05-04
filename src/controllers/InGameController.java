@@ -58,7 +58,32 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void moveToCell(int x, int y) {
-
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Cell cell = game.getTable().getCell(x, y);
+        try {
+            if (currentPlayer.getSelectedUnit() == null) {
+                throw new UnitIsNotSelectedException();
+            }
+            if (cell == null) {
+                throw new CellIsNotInTableException();
+            }
+            currentPlayer.moveUnit(cell);
+        } catch (UnitIsNotSelectedException E) {
+            Notify.logError("Sorry! First select a unit then move it!");
+        } catch (CellIsNotInTableException E) {
+            Notify.logError("Cell is not in table!");
+        } catch (CellIsNotFreeException E) {
+            Notify.logError("Cell is not free!");
+        } catch (UnitMovedThisTurnException E) {
+            Notify.logError("Unit has moved in this turn!");
+        } catch (UnitStunnedException E) {
+            Notify.logError("Unit is stunned and can't move!");
+        } catch (DistanceException E) {
+            Notify.logError("Distance is to far!");
+        } catch (PathIsBlockException E) {
+            Notify.logError("The path is blocked!");
+        }
     }
 
     @Override
