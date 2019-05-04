@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Hand {
     private static final int CAPACITY = 5;
-    private static ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Card> cards = new ArrayList<>();
 
     public ArrayList<Card> getCards() {
         return cards;
@@ -18,7 +18,7 @@ public class Hand {
 
     public void addCard(Card card) {
         if (!isFull())
-            cards.add(card); //todo i think it must be copy
+            cards.add(card);
     }
 
     public Card getCard(String cardName) {
@@ -32,5 +32,5 @@ public class Hand {
 
     public boolean isFull() {
         return cards.size() >= CAPACITY;
-    }///todo should be moved to controller
+    }
 }

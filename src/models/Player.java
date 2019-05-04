@@ -119,7 +119,7 @@ public class Player {
 
     public void setHand(Deck deck) {
         deck.shuffle();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             this.hand.addCard(deck.pop());
         }
     }
@@ -164,6 +164,7 @@ public class Player {
             throw new NotEnoughManaException();
         this.mana -= spellCard.getManaCost();
         spellCard.cast(this, cell);
+        //todo set uniqueGameID for spell + goToGraveYard
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 

@@ -1,5 +1,6 @@
 package models;
 
+import models.card.Card;
 import models.card.Hero;
 import models.card.Unit;
 import models.card.exception.GameIsEndException;
@@ -99,6 +100,7 @@ public class Game {
     }
 
     public void endTurn() throws GameIsEndException {
+        addNextCardToHands();
         doCellBuffs();
         checkIfAnyoneIsDead();
         gameIsEnd();
@@ -107,6 +109,13 @@ public class Game {
         incrementTurnFlagKeeped();
         gameIsEnd();
 
+    }
+
+    private void addNextCardToHands() {
+        for (Player player : players) {
+            Card nextCard = player.getDeck().pop();
+            player.getHand().addCard(nextCard);
+        }
     }
 
     private void gameIsEnd() throws GameIsEndException {
