@@ -96,13 +96,81 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void attack(String oppCardID) {
-
+    public void attack(String oppCardName, int gameID) {
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Player opponentPlayer = game.getOpponentPlayer();
+        Unit opponentUnit = opponentPlayer.getUnit(oppCardName, gameID);
+        try {
+            if (currentPlayer.getSelectedUnit() == null) {
+                throw new UnitIsNotSelectedException();
+            }
+            if (opponentUnit == null) {
+                throw new InvalidOpponentException();
+            }
+            currentPlayer.attack(opponentUnit);
+        } catch (UnitIsNotSelectedException E) {
+            Notify.logError("Sorry! First select a unit then attack!");
+        } catch (InvalidOpponentException E) {
+            Notify.logError("This opponent isn't in the game.");
+        } catch (AttackException E) {
+            Notify.logError(E.getMessage());
+        }
     }
 
     @Override
     public void attackCombo(String oppCardID, ArrayList<String> myCardIDs) {
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Player opponentPlayer = game.getOpponentPlayer();
+        Unit opponentUnit = opponentPlayer.getUnit(getCardName(oppCardID), getIDFromString(oppCardID));
+        ArrayList<Unit> myUnits = initMyUnitsFromStrings(currentPlayer, myCardIDs);
 
+        if (myUnits == null) {
+            Notify.logError("A unit of yours found that isn't in the game!");
+            return;
+        }
+
+        try {
+            if (currentPlayer.getSelectedUnit() == null) {
+                throw new UnitIsNotSelectedException();
+            }
+            if (opponentUnit == null) {
+                throw new InvalidOpponentException();
+            }
+            currentPlayer.comboAttack(opponentUnit, myUnits);
+        } catch (UnitIsNotSelectedException E) {
+            Notify.logError("Sorry! First select a unit then attack!");
+        } catch (InvalidOpponentException E) {
+            Notify.logError("This opponent isn't in the game.");
+        } catch (UnitHasNotComboException E) {
+            Notify.logError("Selected unit has not combo ability!");
+        } catch (AttackException E) {
+            Notify.logError(E.getMessage());
+        }
+    }
+
+    private ArrayList<Unit> initMyUnitsFromStrings(Player currentPlayer, ArrayList<String> myCardIDs) {
+        ArrayList<Unit> myUnits = new ArrayList<>();
+        for (String myCardID : myCardIDs) {
+            Unit myUnit = currentPlayer.getUnit(getCardName(myCardID), getIDFromString(myCardID));
+            if (myUnit == null) {
+                return null;
+            } else {
+                myUnits.add(myUnit);
+            }
+        }
+        return myUnits;
+    }
+
+    private String getCardName(String cardID) {
+        String[] strings = cardID.split("_");
+        return strings[0];
+    }
+
+    private int getIDFromString(String cardID) {
+        String[] strings = cardID.split("_");
+        return Integer.parseInt(strings[1]);
     }
 
     @Override
