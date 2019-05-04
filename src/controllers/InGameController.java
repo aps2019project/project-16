@@ -246,7 +246,14 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadSelectedCollectableInfo() {
-        // TODO: 5/4/19
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Collectible selectedCollectible = currentPlayer.getSelectedCollectible();
+        if (selectedCollectible == null) {
+            Notify.logError("You didn't select any collectible!");
+        } else {
+            view.showCollectableInfo(selectedCollectible);
+        }
     }
 
     @Override
