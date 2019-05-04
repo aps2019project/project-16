@@ -5,8 +5,6 @@ import view.commands.Command;
 
 import java.util.regex.Pattern;
 
-import static view.commands.inGameCommands.CardIDRegex.CARD_ID_REGEX;
-
 public class AttackCommand extends Command {
     {
         name = "attack (opponent card name) (game ID)";
