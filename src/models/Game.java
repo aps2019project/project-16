@@ -100,6 +100,9 @@ public class Game {
         gameIsEnd();
         this.turn++;
         //todo cast especial power unit
+        incrementTurnFlagKeeped();
+        gameIsEnd();
+
     }
 
     private void gameIsEnd() throws GameIsEndException {
@@ -188,7 +191,16 @@ public class Game {
 
     //for gameMode: "keep flag" and collect flags
     public ArrayList<Flag> getFlags() {
-        // TODO: 5/3/19 must implement by sepehr
+        // TODO: 5/3/19 must implement by Sepehr
         return null;
+    }
+
+    public void incrementTurnFlagKeeped(){
+        if (this.getGameMode() == GameMode.KEEP_FLAG){
+            if (this.players[0].hasFlag())
+                this.players[0].incrementTurnsFlagKeeped();
+            if (this.players[1].hasFlag())
+                this.players[1].incrementTurnsFlagKeeped();
+        }
     }
 }

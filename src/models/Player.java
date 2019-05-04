@@ -16,7 +16,7 @@ public class Player {
     private Collectible selectedCollectible;
     private Hero hero;
     private int turnsFlagKeeped;
-    private int numberOfCollectedFlags;//todo must be deleted TONIGHT
+    private boolean hasFlag;
     private Account account;
     private Table table;
 
@@ -35,10 +35,6 @@ public class Player {
 
     public void setSelectedUnit(Unit selectedUnit) {
         this.selectedUnit = selectedUnit;
-    }
-
-    public int getNumberOfCollectedFlags() {
-        return numberOfCollectedFlags;
     }
 
     public int getTurnsFlagKeeped() {
@@ -125,13 +121,17 @@ public class Player {
             DistanceException, PathIsBlockException {
         if (Table.getDistance(this.selectedUnit.getCurrentCell(), cell) > 2)
             throw new DistanceException();
-        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell)) {
+        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell))
             throw new PathIsBlockException();
-        }
         Cell tempCell = this.selectedUnit.getCurrentCell();
         this.selectedUnit.move(cell);
         cell.setUnit(this.selectedUnit);
         tempCell.setUnit(null);
+
+        for (Flag flag : selectedUnit.getFlags())
+            flag.setCurrentCell(cell);
+
+        pickUpFlags(cell , selectedUnit);
     }
 
     public void putUnit(Cell cell, Unit unit) throws CellIsNotFreeException, NotEnoughManaException {
@@ -143,6 +143,7 @@ public class Player {
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
+        pickUpFlags(cell , selectedUnit);
     }
 
     public void castSpellCard(SpellCard spellCard, Cell cell) throws InvalidTargetException, NotEnoughManaException {
@@ -163,6 +164,35 @@ public class Player {
             throw new SpellNotReadyException();
         this.mana -= hero.getSpellManaCost();
         hero.castSpell(cell);
+    }
+
+    public int getNumberOfCollectedFlags() {
+        int sum = 0;
+        for (Unit unit : units) {
+            sum += unit.getFlags().size();
+        }
+        return sum;
+    }
+
+    public boolean hasFlag() {
+        for (Unit unit : units) {
+            if (unit.getFlags().size() > 0)
+                return true;
+        }
+        return false;
+    }
+
+    public void incrementTurnsFlagKeeped() {
+        this.turnsFlagKeeped++;
+    }
+    public void pickUpFlags(Cell cell , Unit unit){
+        if (cell.getFlags().size() > 0) {
+            for (Flag flag : cell.getFlags()) {
+                unit.addFlag(flag);
+                flag.setOwnerUnit(unit);
+            }
+            cell.removeFlag();
+        }
     }
 
 

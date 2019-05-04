@@ -13,13 +13,15 @@ public abstract class Unit extends Card implements Buffable {
     private int hp;
     private int ap;
     private Cell currentCell;
-    private ArrayList<Flag> flags;
+    private ArrayList<Flag> flags = new ArrayList<>();
     private Player player;
     private ArrayList<Buff> buffs = new ArrayList<>();
-    private boolean moved; // todo should be checked
-    private boolean attacked; // todo should be checked
+    private boolean moved;
+    private boolean attacked;
     private AttackType attackType;
-    private boolean combo; // todo implement combo attack func
+    private boolean combo;
+    boolean hasFlag = false;
+
 
     protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
         super(name, manaCost, buyPrice, sellPrice, description);
@@ -232,5 +234,19 @@ public abstract class Unit extends Card implements Buffable {
             throw new UnitStunnedException();
         if (attacked)
             throw new UnitAttackedThisTurnException();
+    }
+
+    public ArrayList<Flag> getFlags() {
+        return flags;
+    }
+
+    public void addFlag(Flag flag) {
+        flags.add(flag);
+        flag.setOwnerUnit(this);
+    }
+
+    public void removeFlag(Flag flag) {
+        while (flags.size() > 0)
+            flags.remove(0);
     }
 }

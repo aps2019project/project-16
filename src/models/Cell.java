@@ -12,6 +12,7 @@ public class Cell implements Buffable {
     private Unit unit;
     private Table table;
     private ArrayList<Buff> cellEffect = new ArrayList<>();
+    private ArrayList<Flag> flags = new ArrayList<>();
 
     public Cell(Table table, int row, int column) {
         this.table = table;
@@ -61,5 +62,19 @@ public class Cell implements Buffable {
     public void doBuffs() {
         for (Buff buff : cellEffect)
             buff.cast(this);
+    }
+
+    public ArrayList<Flag> getFlags() {
+        return flags;
+    }
+
+    public void addFlag(Flag flag) {
+        flags.add(flag);
+        flag.setCurrentCell(this);
+    }
+
+    public void removeFlag() {
+        while (flags.size() > 0)
+            flags.remove(0);
     }
 }
