@@ -6,6 +6,7 @@ import models.card.Unit;
 import models.card.exception.GameIsEndException;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
@@ -32,6 +33,8 @@ public class Game {
         this.accounts[0] = firstAccount;
         this.accounts[1] = secondAccount;
         this.numberOfFlags = numberOfFlags;
+        if (gameMode != GameMode.KILLING_HERO)
+            generateFlags(numberOfFlags);
     }
 
     public int getNumberOfFlags() {
@@ -244,6 +247,20 @@ public class Game {
                 this.players[0].incrementTurnsFlagKeeped();
             if (this.players[1].hasFlag())
                 this.players[1].incrementTurnsFlagKeeped();
+        }
+    }
+
+    public void generateFlags(int numberOfFlags) {
+        if (numberOfFlags % 2 == 1) {
+            new Flag(table.getCell(2, 4));
+            numberOfFlags--;
+        }
+        numberOfFlags = numberOfFlags / 2;
+        for (int i = 0; i < numberOfFlags; i++) {
+            int a = new Random().nextInt() % 5;
+            int b = new Random().nextInt() % 4;
+            new Flag(table.getCell(a, b));
+            new Flag(table.getCell(a, 8 - b));
         }
     }
 }
