@@ -29,8 +29,12 @@ public class Table {
 
 
     public Cell getCell(int row, int column) {
+        row--;
+        column--;
+        if (row >= HEIGHT || row < 0 || column >= WIDTH || column < 0) {
+            return null;
+        }
         return cells[row][column];
-        //todo shouldn't be row-1 and column -1
     }
 
     public static int getDistance(Cell firstCell, Cell secondCell) {//todo why should be static ?

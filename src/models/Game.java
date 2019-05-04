@@ -44,6 +44,10 @@ public class Game {
         return players;
     }
 
+    public Table getTable() {
+        return table;
+    }
+
     public void setWinner(Player winner) {
         this.winner = winner;
     }

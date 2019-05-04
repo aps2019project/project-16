@@ -21,6 +21,15 @@ public class Hand {
             cards.add(card); //todo i think it must be copy
     }
 
+    public Card getCard(String cardName) {
+        for (Card card : cards) {
+            if (card.getName().equalsIgnoreCase(cardName)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
     public boolean isFull() {
         return cards.size() >= CAPACITY;
     }///todo should be moved to controller

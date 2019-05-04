@@ -115,11 +115,9 @@ public class Player {
         tempCell.setUnit(null);
     }
 
-    public void putUnit(Cell cell, Unit unit) throws CardNotInHandException, CellIsNotFreeException, NotEnoughManaException {
+    public void putUnit(Cell cell, Unit unit) throws CellIsNotFreeException, NotEnoughManaException {
         if (unit.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
-        if (!hand.getCards().contains(unit))
-            throw new CardNotInHandException();
         if (cell.hasUnit())
             throw new CellIsNotFreeException();
         this.mana -= unit.getManaCost();

@@ -1,8 +1,10 @@
 package controllers;
 
 import contracts.InGameContract;
-import models.GameContents;
-import models.Player;
+import models.*;
+import models.card.*;
+import models.card.exception.*;
+import view.Notify;
 import view.views.InGameView;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class InGameController implements InGameContract.Controller {
         if (myMinions) {
             player = GameContents.getCurrentGame().getCurrentPlayer();
         } else {
-            player = GameContents.getCurrentGame().getOponentPlayer();
+            player = GameContents.getCurrentGame().getOpponentPlayer();
         }
         view.showMinions(player.getAccount().getName(), player.getUnits());
     }
@@ -70,7 +72,34 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void insertCard(String cardName, int x, int y) {
-
+        try {
+            Game game = GameContents.getCurrentGame();
+            Player currentPlayer = game.getCurrentPlayer();
+            Card cardToInsert = currentPlayer.getHand().getCard(cardName);
+            Cell cell = game.getTable().getCell(x, y);
+            if (cell == null) {
+                throw new CellIsNotInTableException();
+            }
+            if (cardToInsert == null) {
+                throw new CardNotInHandException();
+            } else {
+                if (cardToInsert.getClass() == Hero.class || cardToInsert.getClass() == Minion.class) {
+                    currentPlayer.putUnit(cell, (Unit) cardToInsert);
+                } else {
+                    currentPlayer.castSpellCard((SpellCard) cardToInsert, cell);
+                }
+            }
+        } catch (CardNotInHandException E) {
+            Notify.logError("This card doesn't exist in your hand.");
+        } catch (CellIsNotInTableException E) {
+            Notify.logError("The cell is not in the table!");
+        } catch (CellIsNotFreeException E) {
+            Notify.logError("Cell is not free!");
+        } catch (NotEnoughManaException E) {
+            Notify.logError("You don't have enough mana.");
+        } catch (InvalidTargetException E) {
+            Notify.logError("Invalid target for spell!");
+        }
     }
 
     @Override
