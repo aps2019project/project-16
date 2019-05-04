@@ -14,7 +14,6 @@ public class Player {
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Collectible selectedCollectible;
-    private Hero hero;//todo must be deleted and search in units for getHero function
     private int turnsFlagKeeped;
     private boolean hasFlag;
     private Account account;
@@ -46,7 +45,11 @@ public class Player {
     }
 
     public Hero getHero() {
-        return hero;
+        for (Unit unit : units) {
+            if (unit instanceof Hero)
+                return (Hero) unit;
+        }
+        return null;
     }
 
     public Hand getHand() {
@@ -65,6 +68,10 @@ public class Player {
     public Collectible getCollectible(int collectibleID) {
         // TODO: 5/4/19
         return null;
+    }
+
+    public Collectible getSelectedCollectible() {
+        return selectedCollectible;
     }
 
     public void setSelectedCollectible(Collectible selectedCollectible) {
@@ -116,7 +123,7 @@ public class Player {
 
     public void setHand(Deck deck) {
         deck.shuffle();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             this.hand.addCard(deck.pop());
         }
     }
@@ -136,7 +143,7 @@ public class Player {
         for (Flag flag : selectedUnit.getFlags())
             flag.setCurrentCell(cell);
 
-        pickUpFlags(cell , selectedUnit);
+        pickUpFlags(cell, selectedUnit);
         selectedUnit = null;
     }
 
@@ -149,7 +156,8 @@ public class Player {
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
-        pickUpFlags(cell , selectedUnit);
+        this.units.add(unit);
+        pickUpFlags(cell, selectedUnit);
         //todo if unit is on_spawn
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
@@ -161,10 +169,17 @@ public class Player {
             throw new NotEnoughManaException();
         this.mana -= spellCard.getManaCost();
         spellCard.cast(this, cell);
+        spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName() , spellCard.getName()));
+        graveYard.addCard(spellCard);
+        this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
-    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException {
+    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException
+            , NoHeroException {
+        Hero hero = this.getHero();
+        if (hero == null)
+            throw new NoHeroException();
         if (!hero.getSpell().canCast(this, cell))
             throw new InvalidTargetException();
         if (hero.getSpellManaCost() > this.getMana())
@@ -195,7 +210,8 @@ public class Player {
     public void incrementTurnsFlagKeeped() {
         this.turnsFlagKeeped++;
     }
-    public void pickUpFlags(Cell cell , Unit unit){
+
+    public void pickUpFlags(Cell cell, Unit unit) {
         if (cell.getFlags().size() > 0) {
             for (Flag flag : cell.getFlags()) {
                 unit.addFlag(flag);
@@ -205,6 +221,5 @@ public class Player {
         }
     }
 
-
-    //+useItem(item :Item):void        //todo check is dead
+    //+useItem(item :Item):void        //todo check is dead for item
 }

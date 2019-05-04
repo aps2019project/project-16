@@ -5,8 +5,6 @@ import view.commands.Command;
 
 import java.util.regex.Pattern;
 
-import static view.commands.inGameCommands.CardIDRegex.CARD_ID_REGEX;
-
 public class ShowCardInfoCommand extends Command {
     {
         name = "show card info (player name)_(card name)_(game card ID)";

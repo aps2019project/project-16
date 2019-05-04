@@ -1,12 +1,16 @@
 package models;
 
+import models.card.Card;
+import models.card.Hero;
 import models.card.Unit;
 import models.card.exception.GameIsEndException;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
+    private static final int KEEPING_TURNS = 6;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
     private Table table = new Table();
@@ -29,6 +33,8 @@ public class Game {
         this.accounts[0] = firstAccount;
         this.accounts[1] = secondAccount;
         this.numberOfFlags = numberOfFlags;
+        if (gameMode != GameMode.KILLING_HERO)
+            generateFlags(numberOfFlags);
     }
 
     public int getNumberOfFlags() {
@@ -97,6 +103,7 @@ public class Game {
     }
 
     public void endTurn() throws GameIsEndException {
+        addNextCardToHands();
         doCellBuffs();
         checkIfAnyoneIsDead();
         gameIsEnd();
@@ -105,6 +112,13 @@ public class Game {
         incrementTurnFlagKeeped();
         gameIsEnd();
 
+    }
+
+    private void addNextCardToHands() {
+        for (Player player : players) {
+            Card nextCard = player.getDeck().pop();
+            player.getHand().addCard(nextCard);
+        }
     }
 
     private void gameIsEnd() throws GameIsEndException {
@@ -141,12 +155,13 @@ public class Game {
     private boolean checkKillingHero() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
-        // TODO: 5/4/19 if getHero == null
-        if (player1.getHero().getHp() <= 0) {
+        Hero hero1 = player1.getHero();
+        Hero hero2 = player2.getHero();
+        if (hero1 == null || hero1.getHp() <= 0) {
             setWinner(player1);
             return true;
         }
-        if (player2.getHero().getHp() <= 0) {
+        if (hero2 == null || hero2.getHp() <= 0) {
             setWinner(player2);
             return true;
         }
@@ -156,11 +171,11 @@ public class Game {
     private boolean checkKeepFlag() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
-        if (player1.getTurnsFlagKeeped() == 6) {
+        if (player1.getTurnsFlagKeeped() == KEEPING_TURNS) {
             setWinner(player1);
             return true;
         }
-        if (player2.getTurnsFlagKeeped() == 6) {
+        if (player2.getTurnsFlagKeeped() == KEEPING_TURNS) {
             setWinner(player2);
             return true;
         }
@@ -197,7 +212,7 @@ public class Game {
             for (Unit unit : player.getUnits()) {
                 if (unit.isDead()) {
                     unit.getCurrentCell().setUnit(null);
-                    // TODO: 5/4/19 flag drop down and flag set ownerUnit to null
+                    unit.dropFlags(unit.getCurrentCell(), unit);
                     // TODO: 5/4/19 check and do ON_DEATH
                     player.getUnits().removeIf(x -> x.equals(unit));
                     player.getGraveYard().addCard(unit);
@@ -208,16 +223,44 @@ public class Game {
 
     //for gameMode: "keep flag" and collect flags
     public ArrayList<Flag> getFlags() {
-        // TODO: 5/3/19 must implement by Sepehr
-        return null;
+        ArrayList<Flag> flags = new ArrayList<>();
+        for (Player player : players) {
+            for (Unit unit : player.getUnits()) {
+                for (Flag flag : unit.getFlags()) {
+                    flags.add(flag);
+                }
+            }
+        }
+        for (int i = 0; i < Table.HEIGHT; i++) {
+            for (int j = 0; j < Table.WIDTH; j++) {
+                Cell cell = table.getCell(i, j);
+                for (Flag flag : cell.getFlags())
+                    flags.add(flag);
+            }
+        }
+        return flags;
     }
 
-    public void incrementTurnFlagKeeped(){
-        if (this.getGameMode() == GameMode.KEEP_FLAG){
+    public void incrementTurnFlagKeeped() {
+        if (this.getGameMode() == GameMode.KEEP_FLAG) {
             if (this.players[0].hasFlag())
                 this.players[0].incrementTurnsFlagKeeped();
             if (this.players[1].hasFlag())
                 this.players[1].incrementTurnsFlagKeeped();
+        }
+    }
+
+    public void generateFlags(int numberOfFlags) {
+        if (numberOfFlags % 2 == 1) {
+            new Flag(table.getCell(2, 4));
+            numberOfFlags--;
+        }
+        numberOfFlags = numberOfFlags / 2;
+        for (int i = 0; i < numberOfFlags; i++) {
+            int a = new Random().nextInt() % 5;
+            int b = new Random().nextInt() % 4;
+            new Flag(table.getCell(a, b));
+            new Flag(table.getCell(a, 8 - b));
         }
     }
 }

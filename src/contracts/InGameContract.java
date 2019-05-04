@@ -27,7 +27,7 @@ public interface InGameContract {
         void loadCardInfo(String playerName, String cardName, int gameCardID);
         void selectCard(String cardName, int gameID);
         void moveToCell(int x, int y);
-        void attack(String oppCardID);
+        void attack(String oppCardName, int gameID);
         void attackCombo(String oppCardID, ArrayList<String> myCardIDs);
         void useSpecialPower(int x, int y);
         void loadHand();
