@@ -1,5 +1,6 @@
 package models;
 
+import models.card.Unit;
 import models.card.exception.GameIsEndException;
 
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class Game {
         setCurrentPlayer();
         setMana();
         doUnitsBuffs();
+        checkIfAnyoneIsDead();
         gameIsEnd();
         //todo merge start and end turn
         //todo call AI to act then end turn for AI
@@ -96,7 +98,7 @@ public class Game {
 
     public void endTurn() throws GameIsEndException {
         doCellBuffs();
-        //todo chera do ta??
+        checkIfAnyoneIsDead();
         gameIsEnd();
         this.turn++;
         //todo cast especial power unit
@@ -136,6 +138,7 @@ public class Game {
     private boolean checkKillingHero() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
+        // TODO: 5/4/19 if getHero == null
         if (player1.getHero().getHp() <= 0) {
             setWinner(player1);
             return true;
@@ -183,6 +186,20 @@ public class Game {
         } else {
             this.currentPlayer = players[1];
             this.opponentPlayer = players[0];
+        }
+    }
+
+    public void checkIfAnyoneIsDead() {
+        for (Player player : players) {
+            for (Unit unit : player.getUnits()) {
+                if (unit.isDead()) {
+                    unit.getCurrentCell().setUnit(null);
+                    // TODO: 5/4/19 flag drop down and flag set ownerUnit to null
+                    // TODO: 5/4/19 check and do ON_DEATH
+                    player.getUnits().removeIf(x -> x.equals(unit));
+                    player.getGraveYard().addCard(unit);
+                }
+            }
         }
     }
 
