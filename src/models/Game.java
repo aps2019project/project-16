@@ -220,8 +220,22 @@ public class Game {
 
     //for gameMode: "keep flag" and collect flags
     public ArrayList<Flag> getFlags() {
-        // TODO: 5/3/19 must implement by Sepehr
-        return null;
+        ArrayList<Flag> flags = new ArrayList<>();
+        for (Player player : players) {
+            for (Unit unit : player.getUnits()) {
+                for (Flag flag : unit.getFlags()) {
+                    flags.add(flag);
+                }
+            }
+        }
+        for (int i = 0; i < Table.HEIGHT; i++) {
+            for (int j = 0; j < Table.WIDTH; j++) {
+                Cell cell = table.getCell(i, j);
+                for (Flag flag : cell.getFlags())
+                    flags.add(flag);
+            }
+        }
+        return flags;
     }
 
     public void incrementTurnFlagKeeped() {
