@@ -163,7 +163,15 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void selectCollectable(int collectableID) {
-
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Collectible collectible = currentPlayer.getCollectible(collectableID);
+        if (collectible == null) {
+            Notify.logError("You don't have this collectible!");
+        } else {
+            currentPlayer.setSelectedCollectible(collectible);
+            Notify.logMessage("You selected the collectible \"" + collectableID + "\"");
+        }
     }
 
     @Override

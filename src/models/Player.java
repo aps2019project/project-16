@@ -13,6 +13,7 @@ public class Player {
     private ArrayList<Collectible> collectibles = new ArrayList<>();
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
+    private Collectible selectedCollectible;
     private Hero hero;
     private int turnsFlagKeeped;
     private int numberOfCollectedFlags;//todo must be deleted TONIGHT
@@ -63,6 +64,15 @@ public class Player {
             }
         }
         return null;
+    }
+
+    public Collectible getCollectible(int collectibleID) {
+        // TODO: 5/4/19
+        return null;
+    }
+
+    public void setSelectedCollectible(Collectible selectedCollectible) {
+        this.selectedCollectible = selectedCollectible;
     }
 
     public int getMana() {
