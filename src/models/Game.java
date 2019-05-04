@@ -1,5 +1,6 @@
 package models;
 
+import models.card.Hero;
 import models.card.Unit;
 import models.card.exception.GameIsEndException;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 
 public class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
+    private static final int KEEPING_TURNS = 6;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
     private Table table = new Table();
@@ -102,6 +104,9 @@ public class Game {
         gameIsEnd();
         this.turn++;
         //todo cast especial power unit
+        incrementTurnFlagKeeped();
+        gameIsEnd();
+
     }
 
     private void gameIsEnd() throws GameIsEndException {
@@ -138,12 +143,13 @@ public class Game {
     private boolean checkKillingHero() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
-        // TODO: 5/4/19 if getHero == null
-        if (player1.getHero().getHp() <= 0) {
+        Hero hero1 = player1.getHero();
+        Hero hero2 = player2.getHero();
+        if (hero1 == null || hero1.getHp() <= 0) {
             setWinner(player1);
             return true;
         }
-        if (player2.getHero().getHp() <= 0) {
+        if (hero2 == null || hero2.getHp() <= 0) {
             setWinner(player2);
             return true;
         }
@@ -153,11 +159,11 @@ public class Game {
     private boolean checkKeepFlag() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
-        if (player1.getTurnsFlagKeeped() == 6) {
+        if (player1.getTurnsFlagKeeped() == KEEPING_TURNS) {
             setWinner(player1);
             return true;
         }
-        if (player2.getTurnsFlagKeeped() == 6) {
+        if (player2.getTurnsFlagKeeped() == KEEPING_TURNS) {
             setWinner(player2);
             return true;
         }
@@ -194,7 +200,7 @@ public class Game {
             for (Unit unit : player.getUnits()) {
                 if (unit.isDead()) {
                     unit.getCurrentCell().setUnit(null);
-                    // TODO: 5/4/19 flag drop down and flag set ownerUnit to null
+                    unit.dropFlags(unit.getCurrentCell(), unit);
                     // TODO: 5/4/19 check and do ON_DEATH
                     player.getUnits().removeIf(x -> x.equals(unit));
                     player.getGraveYard().addCard(unit);
@@ -205,7 +211,16 @@ public class Game {
 
     //for gameMode: "keep flag" and collect flags
     public ArrayList<Flag> getFlags() {
-        // TODO: 5/3/19 must implement by sepehr
+        // TODO: 5/3/19 must implement by Sepehr
         return null;
+    }
+
+    public void incrementTurnFlagKeeped() {
+        if (this.getGameMode() == GameMode.KEEP_FLAG) {
+            if (this.players[0].hasFlag())
+                this.players[0].incrementTurnsFlagKeeped();
+            if (this.players[1].hasFlag())
+                this.players[1].incrementTurnsFlagKeeped();
+        }
     }
 }

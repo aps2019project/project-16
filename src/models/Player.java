@@ -14,9 +14,8 @@ public class Player {
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Collectible selectedCollectible;
-    private Hero hero;//todo must be deleted and search in units for getHero function
     private int turnsFlagKeeped;
-    private int numberOfCollectedFlags;//todo must be deleted TONIGHT
+    private boolean hasFlag;
     private Account account;
     private Table table;
 
@@ -37,10 +36,6 @@ public class Player {
         this.selectedUnit = selectedUnit;
     }
 
-    public int getNumberOfCollectedFlags() {
-        return numberOfCollectedFlags;
-    }
-
     public int getTurnsFlagKeeped() {
         return turnsFlagKeeped;
     }
@@ -50,7 +45,11 @@ public class Player {
     }
 
     public Hero getHero() {
-        return hero;
+        for (Unit unit : units) {
+            if (unit instanceof Hero)
+                return (Hero) unit;
+        }
+        return null;
     }
 
     public Hand getHand() {
@@ -136,6 +135,11 @@ public class Player {
         this.selectedUnit.move(cell);
         cell.setUnit(this.selectedUnit);
         tempCell.setUnit(null);
+
+        for (Flag flag : selectedUnit.getFlags())
+            flag.setCurrentCell(cell);
+
+        pickUpFlags(cell, selectedUnit);
         selectedUnit = null;
     }
 
@@ -148,6 +152,7 @@ public class Player {
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
+        pickUpFlags(cell, selectedUnit);
         //todo if unit is on_spawn
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
@@ -162,7 +167,11 @@ public class Player {
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
-    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException {
+    public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException
+            , NoHeroException {
+        Hero hero = this.getHero();
+        if (hero == null)
+            throw new NoHeroException();
         if (!hero.getSpell().canCast(this, cell))
             throw new InvalidTargetException();
         if (hero.getSpellManaCost() > this.getMana())
@@ -174,6 +183,35 @@ public class Player {
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
+    public int getNumberOfCollectedFlags() {
+        int sum = 0;
+        for (Unit unit : units) {
+            sum += unit.getFlags().size();
+        }
+        return sum;
+    }
 
-    //+useItem(item :Item):void        //todo check is dead
+    public boolean hasFlag() {
+        for (Unit unit : units) {
+            if (unit.getFlags().size() > 0)
+                return true;
+        }
+        return false;
+    }
+
+    public void incrementTurnsFlagKeeped() {
+        this.turnsFlagKeeped++;
+    }
+
+    public void pickUpFlags(Cell cell, Unit unit) {
+        if (cell.getFlags().size() > 0) {
+            for (Flag flag : cell.getFlags()) {
+                unit.addFlag(flag);
+                flag.setOwnerUnit(unit);
+            }
+            cell.removeFlag();
+        }
+    }
+
+    //+useItem(item :Item):void        //todo check is dead for item
 }
