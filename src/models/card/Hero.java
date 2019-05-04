@@ -22,7 +22,6 @@ public class Hero extends Unit {
     public static class HeroBuilder extends UnitBuilder {
         private Spell spell;
         private int spellManaCost;
-        private int spellRemainingCoolDown = 0;
         private int spellCoolDown;
 
         public HeroBuilder setSpell(Spell spell) {
@@ -32,11 +31,6 @@ public class Hero extends Unit {
 
         public HeroBuilder setSpellManaCost(int spellManaCost) {
             this.spellManaCost = spellManaCost;
-            return this;
-        }
-
-        public HeroBuilder setSpellRemainingCoolDown(int spellRemainingCoolDown) {
-            this.spellRemainingCoolDown = spellRemainingCoolDown;
             return this;
         }
 
@@ -68,10 +62,6 @@ public class Hero extends Unit {
 
     public boolean isSpellReady() {
         return spellRemainingCoolDown <= 0;
-    }
-
-    public boolean canCastSpell(Cell cell) {
-        return spell.canCast(getPlayer(), cell);
     }
 
     public void castSpell(Cell cell) {

@@ -20,10 +20,6 @@ public abstract class Card {
         this.gameCardID = gameCardID;
     }
 
-    public int getPrice() {
-        return buyPrice;
-    }
-
     protected Card(String name, int manaCost, int buyPrice, int sellPrice, String description) {
         this.manaCost = manaCost;
         this.buyPrice = buyPrice;
