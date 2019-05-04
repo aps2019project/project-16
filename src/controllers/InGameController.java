@@ -96,8 +96,32 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void attack(String oppCardID) {
-
+    public void attack(String oppCardName, int gameID) {
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Player opponentPlayer = game.getOpponentPlayer();
+        Unit opponentUnit = opponentPlayer.getUnit(oppCardName, gameID);
+        try {
+            if (currentPlayer.getSelectedUnit() == null) {
+                throw new UnitIsNotSelectedException();
+            }
+            if (opponentUnit == null) {
+                throw new InvalidOpponentException();
+            }
+            currentPlayer.attack(opponentUnit);
+        } catch (UnitIsNotSelectedException E) {
+            Notify.logError("Sorry! First select a unit then attack!");
+        } catch (InvalidOpponentException E) {
+            Notify.logError("This opponent isn't in the game.");
+        } catch (OpponentNotInRangeException E) {
+            Notify.logError("Opponent unit is unavailable for attack.");
+        } catch (UnitStunnedException E) {
+            Notify.logError("Unit is stunned.");
+        } catch (UnitAttackedThisTurnException E) {
+            Notify.logError("Selected unit has attacked in this turn.");
+        } catch (AttackException E) {
+            Notify.logError("Attack exception!!");//may change it is ZAYE!!
+        }
     }
 
     @Override
