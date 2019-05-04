@@ -227,7 +227,8 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadCollectables() {
-        // TODO: 5/4/19
+        ArrayList<Collectible> collectibles = GameContents.getCurrentGame().getCurrentPlayer().getCollectibles();
+        view.showCollectables(collectibles);
     }
 
     @Override
