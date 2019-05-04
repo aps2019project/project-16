@@ -17,8 +17,6 @@ public class InGameController implements InGameContract.Controller {
         view.setController(this);
     }
 
-    // TODO: 4/21/19 implement all of functions :)))
-
     @Override
     public void loadGameInfo() {
         view.showGameInfo(GameContents.getCurrentGame());
@@ -69,7 +67,7 @@ public class InGameController implements InGameContract.Controller {
     public void moveToCell(int x, int y) {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Cell cell = game.getTable().getCell(x, y);
+        Cell cell = game.getTable().getCell(x - 1, y - 1);
         try {
             if (currentPlayer.getSelectedUnit() == null) {
                 throw new UnitIsNotSelectedException();
@@ -175,12 +173,32 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void useSpecialPower(int x, int y) {
-
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Cell cellToUseSP = game.getTable().getCell(x - 1, y - 1);
+        try {
+            if (cellToUseSP == null) {
+                throw new CellIsNotInTableException();
+            }
+            currentPlayer.castHeroSpell(cellToUseSP);
+        } catch (CellIsNotInTableException E) {
+            Notify.logError("The cell is not in the table!");
+        } catch (NoHeroException E) {
+            Notify.logError("Your hero is killed!");
+        } catch (NotEnoughManaException E) {
+            Notify.logError("You don't have enough mana!");
+        } catch (SpellNotReadyException E) {
+            Notify.logError("Special power isn't ready!");
+        } catch (InvalidTargetException E) {
+            Notify.logError("Invalid target!");
+        }
     }
 
     @Override
     public void loadHand() {
-
+        Player player = GameContents.getCurrentGame().getCurrentPlayer();
+        Hand hand = player.getHand();
+        view.showHand(hand, player.getDeck().getTop());
     }
 
     @Override
@@ -189,7 +207,7 @@ public class InGameController implements InGameContract.Controller {
             Game game = GameContents.getCurrentGame();
             Player currentPlayer = game.getCurrentPlayer();
             Card cardToInsert = currentPlayer.getHand().getCard(cardName);
-            Cell cell = game.getTable().getCell(x, y);
+            Cell cell = game.getTable().getCell(x - 1, y - 1);
             if (cell == null) {
                 throw new CellIsNotInTableException();
             }
@@ -219,6 +237,7 @@ public class InGameController implements InGameContract.Controller {
     public void endTurn() {
         try {
             GameContents.getCurrentGame().endTurn();
+            GameContents.getCurrentGame().startTurn();// TODO: 5/4/19 must be removed and merged to endTurn
         } catch (GameIsEndException E) {
             Notify.logError("Sorry! Game is finished!!");
         }
@@ -226,7 +245,8 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadCollectables() {
-
+        ArrayList<Collectible> collectibles = GameContents.getCurrentGame().getCurrentPlayer().getCollectibles();
+        view.showCollectables(collectibles);
     }
 
     @Override
@@ -244,21 +264,29 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadSelectedCollectableInfo() {
-
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Collectible selectedCollectible = currentPlayer.getSelectedCollectible();
+        if (selectedCollectible == null) {
+            Notify.logError("You didn't select any collectible!");
+        } else {
+            view.showCollectableInfo(selectedCollectible);
+        }
     }
 
     @Override
     public void useSelectedCollectable(int x, int y) {
-
+        // TODO: 5/4/19
     }
 
     @Override
     public void loadNextCard() {
-
+        Player player = GameContents.getCurrentGame().getCurrentPlayer();
+        view.showNextCard(player.getDeck().getTop());
     }
 
     @Override
     public void finishTheGame() {
-
+        // TODO: 5/4/19
     }
 }

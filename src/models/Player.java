@@ -70,6 +70,10 @@ public class Player {
         return null;
     }
 
+    public Collectible getSelectedCollectible() {
+        return selectedCollectible;
+    }
+
     public void setSelectedCollectible(Collectible selectedCollectible) {
         this.selectedCollectible = selectedCollectible;
     }

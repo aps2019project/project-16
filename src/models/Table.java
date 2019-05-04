@@ -29,8 +29,6 @@ public class Table {
 
 
     public Cell getCell(int row, int column) {
-        row--;
-        column--;
         if (row >= HEIGHT || row < 0 || column >= WIDTH || column < 0) {
             return null;
         }
