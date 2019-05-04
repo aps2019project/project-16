@@ -263,7 +263,8 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadNextCard() {
-        // TODO: 5/4/19
+        Player player = GameContents.getCurrentGame().getCurrentPlayer();
+        view.showNextCard(player.getDeck().getTop());
     }
 
     @Override
