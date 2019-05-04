@@ -1,5 +1,6 @@
 package models;
 
+import models.card.Hero;
 import models.card.Unit;
 
 public class Table {
@@ -8,8 +9,8 @@ public class Table {
     private Cell[][] cells = new Cell[HEIGHT][WIDTH];
 
     public Table() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
                 cells[i][j] = new Cell(this, i, j);
             }
         }
