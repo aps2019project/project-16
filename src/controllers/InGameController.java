@@ -173,7 +173,25 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void useSpecialPower(int x, int y) {
-        // TODO: 5/4/19
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Cell cellToUseSP = game.getTable().getCell(x, y);
+        try {
+            if (cellToUseSP == null) {
+                throw new CellIsNotInTableException();
+            }
+            currentPlayer.castHeroSpell(cellToUseSP);
+        } catch (CellIsNotInTableException E) {
+            Notify.logError("The cell is not in the table!");
+        } catch (NoHeroException E) {
+            Notify.logError("Your hero is killed!");
+        } catch (NotEnoughManaException E) {
+            Notify.logError("You don't have enough mana!");
+        } catch (SpellNotReadyException E) {
+            Notify.logError("Special power isn't ready!");
+        } catch (InvalidTargetException E) {
+            Notify.logError("Invalid target!");
+        }
     }
 
     @Override
