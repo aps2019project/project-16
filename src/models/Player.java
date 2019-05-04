@@ -14,7 +14,7 @@ public class Player {
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
     private Collectible selectedCollectible;
-    private Hero hero;
+    private Hero hero;//todo must be deleted and search in units for getHero function
     private int turnsFlagKeeped;
     private boolean hasFlag;
     private Account account;
@@ -94,6 +94,8 @@ public class Player {
     public void attack(Unit opponent) throws AttackException {
         selectedUnit.attack(opponent);
         opponent.counterAttack(selectedUnit);
+        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        selectedUnit = null;
     }
 
     public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
@@ -103,6 +105,8 @@ public class Player {
         //RECOM : move 2 above method in Unit.ComboAttack (below)
         selectedUnit.comboAttack(opponent, allies);
         opponent.counterAttack(selectedUnit);
+        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        selectedUnit = null;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,8 +125,9 @@ public class Player {
             DistanceException, PathIsBlockException {
         if (Table.getDistance(this.selectedUnit.getCurrentCell(), cell) > 2)
             throw new DistanceException();
-        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell))
+        if (this.table.checkPathIsBlocked(this.selectedUnit.getCurrentCell(), cell)) {
             throw new PathIsBlockException();
+        }
         Cell tempCell = this.selectedUnit.getCurrentCell();
         this.selectedUnit.move(cell);
         cell.setUnit(this.selectedUnit);
@@ -132,6 +137,7 @@ public class Player {
             flag.setCurrentCell(cell);
 
         pickUpFlags(cell , selectedUnit);
+        selectedUnit = null;
     }
 
     public void putUnit(Cell cell, Unit unit) throws CellIsNotFreeException, NotEnoughManaException {
@@ -144,6 +150,8 @@ public class Player {
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         this.hand.removeCard(unit);
         pickUpFlags(cell , selectedUnit);
+        //todo if unit is on_spawn
+        GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
     public void castSpellCard(SpellCard spellCard, Cell cell) throws InvalidTargetException, NotEnoughManaException {
@@ -153,6 +161,7 @@ public class Player {
             throw new NotEnoughManaException();
         this.mana -= spellCard.getManaCost();
         spellCard.cast(this, cell);
+        GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
     public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException {
@@ -164,6 +173,7 @@ public class Player {
             throw new SpellNotReadyException();
         this.mana -= hero.getSpellManaCost();
         hero.castSpell(cell);
+        GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
     public int getNumberOfCollectedFlags() {
@@ -196,5 +206,5 @@ public class Player {
     }
 
 
-    //+useItem(item :Item):void
+    //+useItem(item :Item):void        //todo check is dead
 }
