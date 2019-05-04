@@ -70,6 +70,11 @@ public class Buff {
             return this;
         }
 
+        public BuffBuilder setHalfTurnDuration() {
+            this.duration = 1;
+            return this;
+        }
+
         public BuffBuilder setDurationToStart(int durationToStart) {
             this.durationToStart = 2 * durationToStart;
             return this;

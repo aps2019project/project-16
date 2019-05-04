@@ -158,7 +158,8 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
         pickUpFlags(cell, selectedUnit);
-        //todo if unit is on_spawn
+        unit.castSpecialPower(SpecialPowerCastTime.ON_SPAWN, cell);
+        unit.castSpecialPower(SpecialPowerCastTime.PASSIVE, cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 

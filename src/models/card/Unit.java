@@ -1,5 +1,6 @@
 package models.card;
 
+import javafx.util.Pair;
 import models.*;
 import models.card.exception.*;
 
@@ -8,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unit extends Card implements Buffable {
-    private Spell specialPower;
-    private SpecialPowerCastTime specialPowerCastTime;
+    private ArrayList<Pair<SpecialPowerCastTime, Spell>> specialPowers = new ArrayList<>();
     private int hp;
     private int ap;
     private Cell currentCell;
@@ -29,17 +29,14 @@ public abstract class Unit extends Card implements Buffable {
         this.ap = ap;
         this.attackType = attackType;
         this.combo = combo;
-        this.specialPower = specialPower;
-        this.specialPowerCastTime = specialPowerCastTime;
-    }
-
-    public Spell getSpecialPower() {
-        return specialPower;
+        if (specialPower != null)
+            this.specialPowers.add(new Pair<>(specialPowerCastTime, specialPower));
     }
 
     public void castSpecialPower(SpecialPowerCastTime time, Cell cell) {
-        if (time == specialPowerCastTime)
-            specialPower.cast(getPlayer(), cell);
+        for (Pair<SpecialPowerCastTime, Spell> specialPower : specialPowers)
+            if (time == specialPower.getKey())
+                specialPower.getValue().cast(getPlayer(), cell);
     }
 
     public static abstract class UnitBuilder extends CardBuilder {
@@ -120,6 +117,10 @@ public abstract class Unit extends Card implements Buffable {
         buffs.forEach(this::addBuff);
     }
 
+    public void addSpecialPower(SpecialPowerCastTime specialPowerCastTime, Spell spell) {
+        specialPowers.add(new Pair<>(specialPowerCastTime, spell));
+    }
+
     public ArrayList<Buff> getBuffs() {
         return buffs;
     }
@@ -134,6 +135,7 @@ public abstract class Unit extends Card implements Buffable {
         doBuffs();
         moved = false;
         attacked = false;
+        castSpecialPower(SpecialPowerCastTime.PASSIVE, getCurrentCell());
     }
 
     public void changeHP(int amount) {
@@ -179,6 +181,7 @@ public abstract class Unit extends Card implements Buffable {
         attacked = true;
         moved = true;
         opponent.dealDamage(ap);
+        castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
     }
 
     public void counterAttack(Unit opponent) {

@@ -216,7 +216,7 @@ public class Game {
                 if (unit.isDead()) {
                     unit.getCurrentCell().setUnit(null);
                     unit.dropFlags(unit.getCurrentCell(), unit);
-                    // TODO: 5/4/19 check and do ON_DEATH
+                    unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, unit.getCurrentCell());
                     player.getUnits().removeIf(x -> x.equals(unit));
                     player.getGraveYard().addCard(unit);
                 }
