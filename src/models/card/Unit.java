@@ -135,6 +135,7 @@ public abstract class Unit extends Card implements Buffable {
         doBuffs();
         moved = false;
         attacked = false;
+        castSpecialPower(SpecialPowerCastTime.PASSIVE, getCurrentCell());
     }
 
     public void changeHP(int amount) {
@@ -180,6 +181,7 @@ public abstract class Unit extends Card implements Buffable {
         attacked = true;
         moved = true;
         opponent.dealDamage(ap);
+        castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
     }
 
     public void counterAttack(Unit opponent) {
