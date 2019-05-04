@@ -1,5 +1,7 @@
 package models;
 
+import models.card.exception.GameIsEndException;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -85,6 +87,7 @@ public class Game {
 
     public void endTurn() throws GameIsEndException {
         doCellBuffs();
+        //todo chera do ta??
         gameIsEnd();
         gameIsEnd();
         this.turn++;
@@ -179,8 +182,5 @@ public class Game {
     public ArrayList<Flag> getFlags() {
         // TODO: 5/3/19 must implement by sepehr
         return null;
-    }
-
-    class GameIsEndException extends Exception {
     }
 }

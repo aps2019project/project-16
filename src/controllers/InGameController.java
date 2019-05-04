@@ -104,7 +104,11 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void endTurn() {
-
+        try {
+            GameContents.getCurrentGame().endTurn();
+        } catch (GameIsEndException E) {
+            Notify.logError("Sorry! Game is finished!!");
+        }
     }
 
     @Override

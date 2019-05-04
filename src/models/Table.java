@@ -42,6 +42,7 @@ public class Table {
     }
 
     public boolean checkPathIsBlocked(Cell firstCell, Cell secondCell) {
+        // TODO: 5/4/19  handle a bug
         if (Table.getDistance(firstCell, secondCell) == 2) {
             if (this.getCell(firstCell.getRow(), secondCell.getColumn()).hasUnit() &&
                     this.getCell(secondCell.getRow(), firstCell.getColumn()).hasUnit())
