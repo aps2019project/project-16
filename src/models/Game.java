@@ -35,6 +35,7 @@ public class Game {
         this.numberOfFlags = numberOfFlags;
         if (gameMode != GameMode.KILLING_HERO)
             generateFlags(numberOfFlags);
+        initHeroPlaces();
     }
 
     public int getNumberOfFlags() {
@@ -261,6 +262,19 @@ public class Game {
             int b = new Random().nextInt() % 4;
             new Flag(table.getCell(a, b));
             new Flag(table.getCell(a, 8 - b));
+        }
+    }
+
+    private void initHeroPlaces() {
+        for (int i = 0; i < 2; i++) {
+            Hero hero = players[i].getDeck().getHero();
+
+            Cell cell = table.getCell(2, 8 * i);
+
+            hero.setCurrentCell(cell);
+            hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
+            players[i].getUnits().add(hero);
+            players[i].pickUpFlags(cell, hero);
         }
     }
 }

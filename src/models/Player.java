@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Player {
     private Deck deck;
-    private Hand hand;
+    private Hand hand =  new Hand();
     private Graveyard graveYard = new Graveyard();
     private int mana;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
@@ -15,11 +15,11 @@ public class Player {
     private Unit selectedUnit;
     private Collectible selectedCollectible;
     private int turnsFlagKeeped;
-    private boolean hasFlag;
     private Account account;
     private Table table;
 
     Player(Deck deck, Account account) {
+        this.account = account;
         this.deck = deck;
         setHand(this.deck);
     }
@@ -170,7 +170,7 @@ public class Player {
             throw new NotEnoughManaException();
         this.mana -= spellCard.getManaCost();
         spellCard.cast(this, cell);
-        spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName() , spellCard.getName()));
+        spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
         graveYard.addCard(spellCard);
         this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
