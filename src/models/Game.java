@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Game {
     private static final int NUMBER_OF_PLAYERS = 2;
+    private static final int KEEPING_TURNS = 6;
     private Account[] accounts = new Account[NUMBER_OF_PLAYERS];
     private Player[] players = new Player[NUMBER_OF_PLAYERS];
     private Table table = new Table();
@@ -156,11 +157,11 @@ public class Game {
     private boolean checkKeepFlag() {
         Player player1 = this.players[0];
         Player player2 = this.players[1];
-        if (player1.getTurnsFlagKeeped() == 6) {
+        if (player1.getTurnsFlagKeeped() == KEEPING_TURNS) {
             setWinner(player1);
             return true;
         }
-        if (player2.getTurnsFlagKeeped() == 6) {
+        if (player2.getTurnsFlagKeeped() == KEEPING_TURNS) {
             setWinner(player2);
             return true;
         }

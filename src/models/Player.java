@@ -206,5 +206,5 @@ public class Player {
         }
     }
 
-    //+useItem(item :Item):void        //todo check is dead
+    //+useItem(item :Item):void        //todo check is dead for item
 }
