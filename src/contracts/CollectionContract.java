@@ -3,7 +3,7 @@ package contracts;
 import models.card.Card;
 import models.Deck;
 import models.card.Hero;
-import models.Item;
+import models.item.Item;
 
 import java.util.ArrayList;
 

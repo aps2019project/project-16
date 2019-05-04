@@ -3,6 +3,7 @@ package models;
 import com.gilecode.yagson.YaGson;
 import models.card.Card;
 import models.card.Hero;
+import models.item.Item;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -4,6 +4,7 @@ import contracts.CollectionContract;
 import models.*;
 import models.card.Card;
 import models.card.Hero;
+import models.item.Item;
 import view.Notify;
 import view.views.CollectionView;
 

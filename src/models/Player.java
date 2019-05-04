@@ -2,6 +2,7 @@ package models;
 
 import models.card.*;
 import models.card.exception.*;
+import models.item.Collectible;
 
 import java.util.ArrayList;
 

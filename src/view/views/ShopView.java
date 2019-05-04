@@ -1,7 +1,7 @@
 package view.views;
 
 import contracts.ShopContract;
-import models.Item;
+import models.item.Item;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;

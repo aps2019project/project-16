@@ -1,9 +1,8 @@
 package contracts;
 
-import models.Usable;
 import models.card.Card;
 import models.card.Hero;
-import models.Item;
+import models.item.Item;
 
 import java.util.ArrayList;
 

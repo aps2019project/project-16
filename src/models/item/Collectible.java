@@ -1,7 +1,6 @@
-package models;
+package models.item;
 
 public class Collectible extends Item{
-    @Override
     public void use() {
 
     }

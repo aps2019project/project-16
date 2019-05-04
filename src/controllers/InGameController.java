@@ -4,6 +4,7 @@ import contracts.InGameContract;
 import models.*;
 import models.card.*;
 import models.card.exception.*;
+import models.item.Collectible;
 import view.Notify;
 import view.views.InGameView;
 

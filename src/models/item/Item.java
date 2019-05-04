@@ -1,6 +1,9 @@
-package models;
+package models.item;
 
 import com.gilecode.yagson.YaGson;
+import models.Cell;
+import models.Player;
+import models.UniqueIDGenerator;
 import models.magic.Buff;
 
 public abstract class Item {
@@ -57,8 +60,10 @@ public abstract class Item {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    public abstract void use();
 
+    public void use(Player player, Cell cell) {
+
+    }
 
     public Item getCopy(boolean setCollectionID) {
         YaGson yaGson = new YaGson();

@@ -1,6 +1,7 @@
 package models;
 
 import models.card.Unit;
+import models.item.Collectible;
 import models.magic.Buff;
 import models.magic.Buffable;
 

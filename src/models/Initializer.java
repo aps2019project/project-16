@@ -7,6 +7,7 @@ import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
+import models.item.Item;
 import models.magic.Buff;
 import models.magic.Spell;
 import models.targetsociety.*;
