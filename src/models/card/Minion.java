@@ -1,8 +1,8 @@
 package models.card;
 
-import models.AttackType;
+import models.attackType.AttackType;
 import models.SpecialPowerCastTime;
-import models.Spell;
+import models.magic.Spell;
 
 public class Minion extends Unit {
 

@@ -2,9 +2,12 @@ package models.card;
 
 import javafx.util.Pair;
 import models.*;
+import models.attackType.AttackType;
 import models.card.exception.*;
+import models.magic.Buff;
+import models.magic.Buffable;
+import models.magic.Spell;
 
-import java.awt.font.TextHitInfo;
 import java.util.ArrayList;
 import java.util.List;
 

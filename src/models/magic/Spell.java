@@ -1,5 +1,7 @@
-package models;
+package models.magic;
 
+import models.Cell;
+import models.Player;
 import models.targetsociety.TargetSociety;
 
 import java.util.ArrayList;

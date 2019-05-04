@@ -1,6 +1,8 @@
 package models;
 
 import models.card.Unit;
+import models.magic.Buff;
+import models.magic.Buffable;
 
 import java.util.ArrayList;
 import java.util.List;

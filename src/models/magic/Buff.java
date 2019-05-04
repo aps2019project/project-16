@@ -1,9 +1,8 @@
-package models;
+package models.magic;
 
+import models.Cell;
+import models.Player;
 import models.card.Unit;
-
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class Buff {
     public static final int INFINITY = Integer.MAX_VALUE;

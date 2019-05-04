@@ -1,4 +1,4 @@
-package models;
+package models.magic;
 
 import java.util.List;
 

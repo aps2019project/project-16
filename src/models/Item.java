@@ -1,6 +1,7 @@
 package models;
 
 import com.gilecode.yagson.YaGson;
+import models.magic.Buff;
 
 public abstract class Item {
     private Buff buff;

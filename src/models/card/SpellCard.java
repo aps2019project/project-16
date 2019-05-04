@@ -2,7 +2,7 @@ package models.card;
 
 import models.Cell;
 import models.Player;
-import models.Spell;
+import models.magic.Spell;
 
 public class SpellCard extends Card {
     private Spell spell;

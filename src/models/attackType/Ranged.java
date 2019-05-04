@@ -1,4 +1,7 @@
-package models;
+package models.attackType;
+
+import models.Cell;
+import models.Table;
 
 public class Ranged extends AttackType {
     private int range;

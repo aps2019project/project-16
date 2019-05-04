@@ -1,6 +1,6 @@
 package models.targetsociety;
 
-import models.Buff;
+import models.magic.Buff;
 import models.Cell;
 import models.Player;
 

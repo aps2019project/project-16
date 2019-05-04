@@ -1,9 +1,14 @@
 package models;
 
+import models.attackType.Hybrid;
+import models.attackType.Melee;
+import models.attackType.Ranged;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
+import models.magic.Buff;
+import models.magic.Spell;
 import models.targetsociety.*;
 import models.targetsociety.UnitTargetSociety.*;
 

@@ -1,9 +1,9 @@
 package models.card;
 
-import models.AttackType;
+import models.attackType.AttackType;
 import models.Cell;
 import models.SpecialPowerCastTime;
-import models.Spell;
+import models.magic.Spell;
 
 public class Hero extends Unit {
     private Spell spell;
