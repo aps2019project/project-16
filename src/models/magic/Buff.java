@@ -192,6 +192,10 @@ public class Buff {
         unit.changeHP(-deltaHP);
     }
 
+    /**
+     * it should be casted before unit buffs casting.
+     * @param cell
+     */
     public void cast(Cell cell) {
         if (cell.hasUnit()) {
             if (poison == 1)
@@ -201,7 +205,7 @@ public class Buff {
             if (holy != 0)
                 cell.getUnit().addBuff(new Buff(1, this));
         }
-    }// todo remember to cast on cells first.
+    }
 
     public int getHoly() {
         if (isActive())

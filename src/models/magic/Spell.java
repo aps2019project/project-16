@@ -11,7 +11,7 @@ public class Spell {
     private ArrayList<Buff> buffs;
     private TargetSociety targetSociety;
 
-    public Spell(TargetSociety targetSociety, Buff... buffs) { // todo remove dispel
+    public Spell(TargetSociety targetSociety, Buff... buffs) {
         this.buffs = new ArrayList<>(Arrays.asList(buffs));
         this.targetSociety = targetSociety;
     }
