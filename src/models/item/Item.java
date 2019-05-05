@@ -7,36 +7,60 @@ import models.UniqueIDGenerator;
 import models.magic.Buff;
 
 public abstract class Item {
-    private Buff buff;
     private String name;
-//    private TargetSociety targetSociety;
     private int buyPrice;
     private int sellPrice;
     private int collectionID;
     private int GameItemID;
 
+    public Item(String name, int buyPrice, int sellPrice) {
+        this.name = name;
+        this.buyPrice = buyPrice;
+        this.sellPrice = sellPrice;
+    }
+
+    public static abstract class Builder {
+        private String name;
+        private int buyPrice;
+        private int sellPrice;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setBuyPrice(int buyPrice) {
+            this.buyPrice = buyPrice;
+            return this;
+        }
+
+        public Builder setSellPrice(int sellPrice) {
+            this.sellPrice = sellPrice;
+            return this;
+        }
+
+        public abstract Item create();
+
+        String getName() {
+            return name;
+        }
+
+        int getBuyPrice() {
+            return buyPrice;
+        }
+
+        int getSellPrice() {
+            return sellPrice;
+        }
+    }
+
     public int getCollectionID() {
         return collectionID;
-    }
-
-    public Buff getBuff() {
-        return buff;
-    }
-
-    public void setBuff(Buff buff) {
-        this.buff = buff;
     }
 
     public String getName() {
         return name;
     }
-//    public TargetSociety getTargetSociety() {
-//        return targetSociety;
-//    }
-
-//    public void setTargetSociety(TargetSociety targetSociety) {
-//        this.targetSociety = targetSociety;
-//    }
 
     public int getBuyPrice() {
         return buyPrice;
@@ -61,9 +85,7 @@ public abstract class Item {
 
     /////////////////////////////////////////////////////////////////////////////////
 
-    public void use(Player player, Cell cell) {
-
-    }
+    public abstract void use(Player player, Cell cell);
 
     public Item getCopy(boolean setCollectionID) {
         YaGson yaGson = new YaGson();
