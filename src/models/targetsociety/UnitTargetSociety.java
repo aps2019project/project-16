@@ -16,6 +16,7 @@ public abstract class UnitTargetSociety extends TargetSociety {
     public UnitTargetSociety(TargetType targetType, TargetTeam targetTeam, TargetAttackType targetAttackType) {
         this.targetType = targetType;
         this.targetTeam = targetTeam;
+        this.targetAttackType = targetAttackType;
     }
 
     public enum TargetType {
@@ -32,8 +33,7 @@ public abstract class UnitTargetSociety extends TargetSociety {
 
     public enum TargetAttackType {
         MELEE,
-        RANGED,
-        HYBRID,
+        RANGED_HYBRID,
         ANY
     }
 
@@ -48,9 +48,8 @@ public abstract class UnitTargetSociety extends TargetSociety {
             return false;
         if (targetAttackType == TargetAttackType.MELEE && !(unit.getAttackType() instanceof Melee))
             return false;
-        if (targetAttackType == TargetAttackType.RANGED && !(unit.getAttackType() instanceof Ranged))
-            return false;
-        if (targetAttackType == TargetAttackType.HYBRID && !(unit.getAttackType() instanceof Hybrid))
+        if (targetAttackType == TargetAttackType.RANGED_HYBRID && !(unit.getAttackType() instanceof Ranged) &&
+                !(unit.getAttackType() instanceof Hybrid))
             return false;
         return true;
     }
