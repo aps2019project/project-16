@@ -1,5 +1,8 @@
 package models;
 
+import com.gilecode.yagson.YaGson;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.MatchResult;
 
@@ -69,8 +72,10 @@ public class Account {
     //////////////////////////////////////////////////////////////////////////////////////////
 
     public static Account getAccount(String name) {
+
         return null;
         //todo must be checked with save and load method for accounts
+        //todo must be called from some where !! maybe initializer or in game contents
     }
 
     public Player getPlayer() {
@@ -80,10 +85,6 @@ public class Account {
 
     public void addHisytory(MatchResult history) {
         this.matchHistory.add(history);
-    }
-
-    public void save() {
-        //todo must be implemented
     }
 
     public Deck getDeck(int deckNumber) {

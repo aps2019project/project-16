@@ -8,6 +8,9 @@ import view.MenuHandler;
 import view.Notify;
 import view.views.AccountView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static view.menuItems.MenuConstants.MAIN_MENU;
 
 public class AccountController implements AccountContract.Controller {
@@ -51,6 +54,19 @@ public class AccountController implements AccountContract.Controller {
 
     @Override
     public void saveGameData() {
-        // phase 2: 4/30/19  save data of accounts in files
+        try {
+            GameContents.saveAccount(GameContents.getCurrentAccount());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void loadAccounts() {
+        try {
+            GameContents.loadAccounts();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,8 @@
 package models;
 
+import com.gilecode.yagson.YaGson;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -85,5 +88,32 @@ public class GameContents {
             }
         }
         return null;
+    }
+
+    public static void saveAccount(Account account) throws IOException {
+        YaGson yaGson = new YaGson();
+        String json = yaGson.toJson(account);
+
+        FileWriter writer = new FileWriter("accounts/" + account.getName() + ".json");
+
+        writer.write(json);
+        writer.close();
+        //todo must be called from some where !! after battle
+        //todo maybe NOT  overwrite!!!
+    }
+
+    public static void loadAccounts() throws FileNotFoundException {
+        File dir = new File("accounts");
+        File[] files = dir.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+
+                Account account = new YaGson().fromJson(reader, Account.class);
+
+                GameContents.addAccount(account);
+            }
+        }
     }
 }
