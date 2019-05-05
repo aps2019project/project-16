@@ -54,6 +54,10 @@ public class Game {
         return players;
     }
 
+    public Player getWinner() {
+        return winner;
+    }
+
     public Table getTable() {
         return table;
     }
