@@ -11,6 +11,10 @@ public class UniqueIDGenerator {
         return lastUsedID;
     }
 
+    public static void setLastUsedID(int lastUsedID) {
+        UniqueIDGenerator.lastUsedID = lastUsedID;
+    }
+
     public static int getGameUniqueID(String playerName, String cardName) {
         for (Wrapper wrapper : wrappers) {
             if (wrapper.equals(playerName, cardName)) {

@@ -1,6 +1,8 @@
 package models;
 
 import com.gilecode.yagson.YaGson;
+import models.card.Card;
+import models.item.Item;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -112,15 +114,38 @@ public class GameContents {
     public static void loadAccounts() throws FileNotFoundException {
         File dir = new File("accounts");
         File[] files = dir.listFiles();
+        int maxOfCollectionIDGenerator = 0;
 
         if (files != null) {
             for (File file : files) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
 
                 Account account = new YaGson().fromJson(reader, Account.class);
+                int maxOfCollectionIDs = getMaxOfCollectionIDs(account);
+                if (maxOfCollectionIDs > maxOfCollectionIDGenerator) {
+                    maxOfCollectionIDGenerator = maxOfCollectionIDs;
+                }
 
                 GameContents.addAccount(account);
             }
         }
+
+        UniqueIDGenerator.setLastUsedID(maxOfCollectionIDGenerator);
+    }
+
+    private static int getMaxOfCollectionIDs(Account account) {
+        Collection collection = account.getCollection();
+        int max = 0;
+        for (Card card : collection.getCards()) {
+            if (card.getCollectionID() > max) {
+                max = card.getCollectionID();
+            }
+        }
+        for (Item item : collection.getItems()) {
+            if (item.getCollectionID() > max) {
+                max = item.getCollectionID();
+            }
+        }
+        return max;
     }
 }

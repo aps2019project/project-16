@@ -60,7 +60,9 @@ public class InGameController implements InGameContract.Controller {
         } else {
             currentPlayer.setSelectedUnit(unit);
             Notify.logMessage("Unit \"" + cardName + "\" with game ID \"" + gameID + "\" is selected.");
-            Notify.logMessage("It's place: row: " + unit.getCurrentCell().getRow() + " column: " + unit.getCurrentCell().getColumn());
+            int row = unit.getCurrentCell().getRow() + 1;
+            int column = unit.getCurrentCell().getColumn() + 1;
+            Notify.logMessage("It's place: row: " + row + " column: " + column);
         }
     }
 
@@ -77,6 +79,9 @@ public class InGameController implements InGameContract.Controller {
                 throw new CellIsNotInTableException();
             }
             currentPlayer.moveUnit(cell);
+            Notify.logMessage("Unit \"" + currentPlayer.getSelectedUnit().getName() + "\" moved to"
+                    + "\n\trow: " + x
+                    + "\n\tcolumn: " + y);
         } catch (UnitIsNotSelectedException E) {
             Notify.logError("Sorry! First select a unit then move it!");
         } catch (CellIsNotInTableException E) {
@@ -108,6 +113,7 @@ public class InGameController implements InGameContract.Controller {
                 throw new InvalidOpponentException();
             }
             currentPlayer.attack(opponentUnit);
+            Notify.logMessage("You attacked to \"" + opponentUnit.getName() + "\"");
         } catch (UnitIsNotSelectedException E) {
             Notify.logError("Sorry! First select a unit then attack!");
         } catch (InvalidOpponentException E) {
@@ -138,6 +144,7 @@ public class InGameController implements InGameContract.Controller {
                 throw new InvalidOpponentException();
             }
             currentPlayer.comboAttack(opponentUnit, myUnits);
+            Notify.logMessage("You used combo attack on \"" + opponentUnit.getName() + "\"");
         } catch (UnitIsNotSelectedException E) {
             Notify.logError("Sorry! First select a unit then attack!");
         } catch (InvalidOpponentException E) {
@@ -182,6 +189,7 @@ public class InGameController implements InGameContract.Controller {
                 throw new CellIsNotInTableException();
             }
             currentPlayer.castHeroSpell(cellToUseSP);
+            Notify.logMessage("You used special power of hero on row: " + x + " column: " + y);
         } catch (CellIsNotInTableException E) {
             Notify.logError("The cell is not in the table!");
         } catch (NoHeroException E) {
@@ -217,8 +225,14 @@ public class InGameController implements InGameContract.Controller {
             } else {
                 if (cardToInsert.getClass() == Hero.class || cardToInsert.getClass() == Minion.class) {
                     currentPlayer.putUnit(cell, (Unit) cardToInsert);
+                    Notify.logMessage("You inserted the unit \"" + cardToInsert.getName() + "\""
+                            + " in row: " + x
+                            + " in column: " + y);
                 } else {
                     currentPlayer.castSpellCard((SpellCard) cardToInsert, cell);
+                    Notify.logMessage("You cast the spell \"" + cardToInsert.getName() + "\""
+                            + " in row: " + x
+                            + " in column: " + y);
                 }
             }
         } catch (CardNotInHandException E) {
