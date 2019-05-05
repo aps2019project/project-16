@@ -200,6 +200,8 @@ public class InGameController implements InGameContract.Controller {
             Notify.logError("Special power isn't ready!");
         } catch (InvalidTargetException E) {
             Notify.logError("Invalid target!");
+        } catch (NoSpecialPowerException e) {
+            Notify.logError("Hero doesn't have special power!");
         }
     }
 

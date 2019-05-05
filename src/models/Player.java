@@ -187,10 +187,12 @@ public class Player {
     }
 
     public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException
-            , NoHeroException {
+            , NoHeroException, NoSpecialPowerException {
         Hero hero = this.getHero();
         if (hero == null)
             throw new NoHeroException();
+        if (hero.getSpell() == null)
+            throw new NoSpecialPowerException();
         if (!hero.getSpell().canCast(this, cell))
             throw new InvalidTargetException();
         if (hero.getSpellManaCost() > this.getMana())
