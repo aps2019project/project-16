@@ -7,8 +7,8 @@ import models.Player;
 import java.util.ArrayList;
 
 public class OneUnit extends UnitTargetSociety {
-    public OneUnit(TargetType targetType, TargetTeam targetTeam) {
-        super(targetType, targetTeam);
+    public OneUnit(TargetType targetType, TargetTeam targetTeam, TargetAttackType targetAttackType) {
+        super(targetType, targetTeam, targetAttackType);
     }
 
     @Override

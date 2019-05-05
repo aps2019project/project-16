@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class UnitsAdjacentToCell extends UnitTargetSociety {
     private boolean containsCenter;
 
-    public UnitsAdjacentToCell(TargetType targetType, TargetTeam targetTeam, boolean containsCenter) {
-        super(targetType, targetTeam);
+    public UnitsAdjacentToCell(TargetType targetType, TargetTeam targetTeam, TargetAttackType targetAttackType, boolean containsCenter) {
+        super(targetType, targetTeam, targetAttackType);
         this.containsCenter = containsCenter;
     }
 

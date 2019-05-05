@@ -11,8 +11,8 @@ public class UnitsInRange extends UnitTargetSociety {
     private int range;
     private boolean containsCenter;
 
-    public UnitsInRange(TargetType targetType, TargetTeam targetTeam, int range, boolean containsCenter) {
-        super(targetType, targetTeam);
+    public UnitsInRange(TargetType targetType, TargetTeam targetTeam, TargetAttackType targetAttackType, int range, boolean containsCenter) {
+        super(targetType, targetTeam, targetAttackType);
         this.range = range;
         this.containsCenter = containsCenter;
     }

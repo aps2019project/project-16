@@ -8,8 +8,8 @@ import models.Table;
 import java.util.ArrayList;
 
 public class AnyUnit extends  UnitTargetSociety {
-    public AnyUnit(TargetType targetType, TargetTeam targetTeam) {
-        super(targetType, targetTeam);
+    public AnyUnit(TargetType targetType, TargetTeam targetTeam, TargetAttackType targetAttackType) {
+        super(targetType, targetTeam, targetAttackType);
     }
 
     @Override
