@@ -117,8 +117,10 @@ public class Game {
 
     private void addNextCardToHands() {
         for (Player player : players) {
-            Card nextCard = player.getDeck().pop();
-            player.getHand().addCard(nextCard);
+            if (player.getDeck().getCards().size() > 0) {
+                Card nextCard = player.getDeck().pop();
+                player.getHand().addCard(nextCard);
+            }
         }
     }
 

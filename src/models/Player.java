@@ -10,7 +10,7 @@ public class Player {
     private Deck deck;
     private Hand hand =  new Hand();
     private Graveyard graveYard = new Graveyard();
-    private int mana;
+    private int mana = 2;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;

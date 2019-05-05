@@ -52,15 +52,17 @@ public class InGameView implements InGameContract.View {
     private void printFlagState(int i, Flag flag) {
         Cell flagCell = flag.getCurrentCell();
         Unit ownerUnit = flagCell.getUnit();
+        int row = flagCell.getRow() + 1;
+        int column = flagCell.getColumn() + 1;
         if (ownerUnit == null) {
             Notify.logMessage(i + ": Flag is in"
-                    + " row: " + flagCell.getRow()
-                    + " column: " + flagCell.getColumn()
+                    + " row: " + row
+                    + " column: " + column
                     + " and don't have any owner.");
         } else {
             Notify.logMessage(i + ": Flag is in"
-                    + " row: " + flagCell.getRow()
-                    + " column: " + flagCell.getColumn()
+                    + " row: " + row
+                    + " column: " + column
                     + " owner player: " + ownerUnit.getPlayer().getAccount().getName()
                     + " owner unit: " + ownerUnit.getName() + "_" + ownerUnit.getGameCardID());
         }
@@ -75,12 +77,14 @@ public class InGameView implements InGameContract.View {
     }
 
     private void printUnitInfo(Unit unit) {
+        int row = unit.getCurrentCell().getRow() + 1;
+        int column = unit.getCurrentCell().getColumn() + 1;
         Notify.logMessage("Name: " + unit.getName());
         Notify.logMessage("Game ID: " + unit.getGameCardID());
         Notify.logMessage("HP: " + unit.getHp());
         Notify.logMessage("AP: " + unit.getAp());
-        Notify.logMessage("row: " + unit.getCurrentCell().getRow());
-        Notify.logMessage("column: " + unit.getCurrentCell().getColumn());
+        Notify.logMessage("row: " + row);
+        Notify.logMessage("column: " + column);
     }
 
     @Override
