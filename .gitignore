@@ -3,6 +3,8 @@
 # Compiled class file
 *.class
 
+*.json
+
 # Log file
 *.log
 
