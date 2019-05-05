@@ -1,5 +1,8 @@
 package models;
 
+import com.gilecode.yagson.YaGson;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.MatchResult;
 
@@ -69,8 +72,10 @@ public class Account {
     //////////////////////////////////////////////////////////////////////////////////////////
 
     public static Account getAccount(String name) {
+
         return null;
         //todo must be checked with save and load method for accounts
+        //todo must be called from some where !! maybe initializer or in game contents
     }
 
     public Player getPlayer() {
@@ -83,7 +88,39 @@ public class Account {
     }
 
     public void save() {
+        YaGson yaGson = new YaGson();
+        String json = yaGson.toJson(this);
+
+        try {
+            FileWriter writer = new FileWriter("accounts/" + this.getName() + ".json");
+
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //todo must be implemented
+        //todo must be called from some where !! maybe initializer or in game contents
+    }
+
+    public static void load() {
+        File dir = new File("accounts");
+        File[] files = dir.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+
+                    Account account = new YaGson().fromJson(reader, Account.class);
+
+                    GameContents.addAccount(account);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public Deck getDeck(int deckNumber) {
