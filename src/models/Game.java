@@ -225,14 +225,18 @@ public class Game {
 
     public void checkIfAnyoneIsDead() {
         for (Player player : players) {
+            ArrayList<Unit> unitsToRemove = new ArrayList<>();
             for (Unit unit : player.getUnits()) {
                 if (unit.isDead()) {
                     unit.getCurrentCell().setUnit(null);
                     unit.dropFlags(unit.getCurrentCell(), unit);
                     unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, unit.getCurrentCell());
-                    player.getUnits().removeIf(x -> x.equals(unit));
-                    player.getGraveYard().addCard(unit);
+                    unitsToRemove.add(unit);
                 }
+            }
+            for (Unit unit : unitsToRemove) {
+                player.getUnits().removeIf(x -> x.equals(unit));
+                player.getGraveYard().addCard(unit);
             }
         }
     }
