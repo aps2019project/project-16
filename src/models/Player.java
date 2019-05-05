@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Player {
     private Deck deck;
-    private Hand hand =  new Hand();
+    private Hand hand = new Hand();
     private Graveyard graveYard = new Graveyard();
     private int mana = 2;
     private ArrayList<Collectible> collectibles = new ArrayList<>();
@@ -23,6 +23,11 @@ public class Player {
         this.account = account;
         this.deck = deck;
         setHand(this.deck);
+        for (Card card : deck.getCards()) {
+            if (card instanceof Unit) {
+                ((Unit) card).setPlayer(this);
+            }
+        }
     }
 
     public void setTable(Table table) {

@@ -17,7 +17,7 @@ public abstract class Unit extends Card implements Buffable {
     private int ap;
     private Cell currentCell;
     private ArrayList<Flag> flags = new ArrayList<>();
-    private Player player; // todo set this field in game construction
+    private Player player;
     private ArrayList<Buff> buffs = new ArrayList<>();
     private boolean moved;
     private boolean attacked;
@@ -104,6 +104,10 @@ public abstract class Unit extends Card implements Buffable {
 
     public int getAp() {
         return ap;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public AttackType getAttackType() {
