@@ -7,8 +7,8 @@ public class ManaItem extends Item {
     private int mana;
     private int duration;
 
-    private ManaItem(String name, int buyPrice, int sellPrice, int mana, int duration) {
-        super(name, buyPrice, sellPrice);
+    private ManaItem(String name, int buyPrice, int sellPrice, Type type, int mana, int duration) {
+        super(name, buyPrice, sellPrice, type);
         this.mana = mana;
         this.duration = duration;
     }
@@ -29,7 +29,7 @@ public class ManaItem extends Item {
 
         @Override
         public ManaItem create() {
-            return new ManaItem(getName(), getBuyPrice(), getSellPrice(), mana, duration);
+            return new ManaItem(getName(), getBuyPrice(), getSellPrice(), getType(), mana, duration);
         }
     }
 

@@ -1159,16 +1159,7 @@ public class Initializer {
     }
 
     public static void initShopUsableItems(ArrayList<Item> items) {
-        //1
-        items.add(new ManaItem(1, 3));
-        //2
-        items.add(new SpellItem(new Spell.SpellBuilder()
-                .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.FRIEND))
-                .addBuff(new Buff.BuffBuilder()
-                        .setHoly(12)
-                        .setDuration(Buff.INFINITY)
-                        .create())
-                .create()));
+
     }
 
     public static void initCollectibleItems(ArrayList<Item> items) {

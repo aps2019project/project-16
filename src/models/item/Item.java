@@ -4,25 +4,32 @@ import com.gilecode.yagson.YaGson;
 import models.Cell;
 import models.Player;
 import models.UniqueIDGenerator;
-import models.magic.Buff;
 
 public abstract class Item {
     private String name;
     private int buyPrice;
     private int sellPrice;
     private int collectionID;
+    private Type type;
     private int GameItemID;
 
-    public Item(String name, int buyPrice, int sellPrice) {
+    public Item(String name, int buyPrice, int sellPrice, Type type) {
         this.name = name;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
+        this.type = type;
+    }
+
+    public enum Type {
+        USABLE,
+        COLLECTIBLE
     }
 
     public static abstract class Builder {
         private String name;
         private int buyPrice;
         private int sellPrice;
+        private Type type;
 
         public Builder setName(String name) {
             this.name = name;
@@ -39,6 +46,11 @@ public abstract class Item {
             return this;
         }
 
+        public Builder setType(Type type) {
+            this.type = type;
+            return this;
+        }
+
         public abstract Item create();
 
         String getName() {
@@ -51,6 +63,10 @@ public abstract class Item {
 
         int getSellPrice() {
             return sellPrice;
+        }
+
+        Type getType() {
+            return type;
         }
     }
 
