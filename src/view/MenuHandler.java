@@ -1,5 +1,6 @@
 package view;
 
+import controllers.AccountController;
 import view.menuItems.AccountMenu;
 import view.menuItems.MenuItem;
 
@@ -52,6 +53,7 @@ public class MenuHandler {
     }
 
     public static void startFirstMenu() {
+        new AccountController().loadAccounts();
         startMenu(new AccountMenu(), TOP_TO_DOWN);
     }
 }
