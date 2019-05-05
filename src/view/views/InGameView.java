@@ -140,4 +140,9 @@ public class InGameView implements InGameContract.View {
         Notify.logMessage("* Next card:");
         showCardInfo(nextCard);
     }
+
+    @Override
+    public void showTable(Table table) {
+        // TODO: 5/5/19
+    }
 }

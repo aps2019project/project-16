@@ -241,6 +241,7 @@ public class InGameController implements InGameContract.Controller {
             GameContents.getCurrentGame().startTurn();// TODO: 5/4/19 must be removed and merged to endTurn
         } catch (GameIsEndException E) {
             Notify.logError("Sorry! Game is finished!!");
+            // TODO: 5/5/19 go to main menu and notify winner
         }
     }
 
@@ -289,5 +290,10 @@ public class InGameController implements InGameContract.Controller {
     @Override
     public void finishTheGame() {
         // TODO: 5/4/19
+    }
+
+    @Override
+    public void loadGameTable() {
+        // TODO: 5/5/19
     }
 }
