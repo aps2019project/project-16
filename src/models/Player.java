@@ -19,7 +19,7 @@ public class Player {
     private Account account;
     private Table table;
 
-    Player(Deck deck, Account account) {
+    public Player(Deck deck, Account account) {
         this.account = account;
         this.deck = deck;
         setHand(this.deck);
@@ -130,7 +130,11 @@ public class Player {
     public void setHand(Deck deck) {
         deck.shuffle();
         for (int i = 0; i < 3; i++) {
-            this.hand.addCard(deck.pop());
+            try {
+                this.hand.addCard(deck.pop());
+            } catch (ArrayIsEmptyException e) {
+
+            }
         }
     }
 

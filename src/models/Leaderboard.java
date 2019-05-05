@@ -13,9 +13,6 @@ public class Leaderboard {
         //todo must be implemented (sepehr)
     }
 
-    public void incrementWins(String accountName) {
-        Account.getAccount(accountName).increaseWin();
-    }
     public  void addScore(AccountScore accountScore){
         scores.add(accountScore);
     }

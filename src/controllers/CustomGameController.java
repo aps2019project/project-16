@@ -1,9 +1,8 @@
 package controllers;
 
 import contracts.CustomGameContract;
-import models.Deck;
-import models.GameContents;
-import models.GameLevel;
+import models.*;
+import models.artificialIntelligence.AIAccount;
 import view.Notify;
 import view.views.CustomGameView;
 
@@ -19,23 +18,22 @@ public class CustomGameController implements CustomGameContract.Controller {
 
     @Override
     public void startGame(String oppDeckName, int mode, int flags) {
+
         if (!GameContents.hasOppDeck(oppDeckName)) {
             Notify.logError("Oh No! Opponent doesn't have this deck.");
             return;
         }
+
         Deck oppDeck = GameContents.getOpponentDeck(oppDeckName);
-        // TODO: 4/30/19
-        switch (mode) {
-            case 1:
-                //kill hero
-                break;
-            case 2:
-                //hold flag
-                break;
-            case 3:
-                //collect flags
-                break;
-        }
+
+        GameMode gameMode = MultiPlayerController.getGameMode(mode);
+
+        Account currentAccount = GameContents.getCurrentAccount();
+        Account AIAccount = new AIAccount("AI", "123", oppDeck);
+
+        Game newGame = new Game(currentAccount, AIAccount, 1000, gameMode, flags);
+        GameContents.setCurrentGame(newGame);
+        view.goToInGameMenu();
     }
 
     @Override

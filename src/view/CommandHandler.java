@@ -20,8 +20,12 @@ public class CommandHandler {
 
     public static void scanAndRunCommands() {
         while (scanner.hasNextLine()) {
-            String string = scanner.nextLine();
-            runCommand(string);
+            try {
+                String string = scanner.nextLine();
+                runCommand(string);
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         }
     }
 

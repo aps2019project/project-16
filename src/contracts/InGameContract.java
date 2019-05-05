@@ -18,6 +18,8 @@ public interface InGameContract {
         void showCollectables(ArrayList<Collectible> collectibles);
         void showCollectableInfo(Collectible collectible);
         void showNextCard(Card card);
+        void showTable(Table table);
+        void goToPrevMenu();
     }
 
     interface Controller {
@@ -38,5 +40,6 @@ public interface InGameContract {
         void useSelectedCollectable(int x, int y);
         void loadNextCard();
         void finishTheGame();
+        void loadGameTable();
     }
 }

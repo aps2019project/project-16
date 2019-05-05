@@ -4,7 +4,6 @@ import com.gilecode.yagson.YaGson;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class GameContents {
@@ -90,6 +89,15 @@ public class GameContents {
         return null;
     }
 
+    public static GameLevel getGameLevel(int levelNumber) {
+        for (GameLevel gameLevel : gameLevels) {
+            if (gameLevel.getLevelNumber() == levelNumber) {
+                return gameLevel;
+            }
+        }
+        return null;
+    }
+
     public static void saveAccount(Account account) throws IOException {
         YaGson yaGson = new YaGson();
         String json = yaGson.toJson(account);
@@ -99,7 +107,6 @@ public class GameContents {
         writer.write(json);
         writer.close();
         //todo must be called from some where !! after battle
-        //todo maybe NOT  overwrite!!!
     }
 
     public static void loadAccounts() throws FileNotFoundException {
