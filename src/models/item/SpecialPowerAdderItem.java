@@ -23,9 +23,10 @@ public class SpecialPowerAdderItem extends Item {
     private SpecialPowerCastTime specialPowerCastTime;
     private Spell specialPower;
 
-    private SpecialPowerAdderItem(ArrayList<TargetAttackType> targetAttackTypes, TargetType targetType,
-                                  TargetSelection targetSelection, SpecialPowerCastTime specialPowerCastTime,
-                                  Spell specialPower) {
+    private SpecialPowerAdderItem(String name, int buyPrice, int sellPrice, ArrayList<TargetAttackType> targetAttackTypes,
+                                  TargetType targetType, TargetSelection targetSelection,
+                                  SpecialPowerCastTime specialPowerCastTime, Spell specialPower) {
+        super(name, buyPrice, sellPrice);
         this.targetAttackTypes = targetAttackTypes;
         this.targetType = targetType;
         this.targetSelection = targetSelection;
@@ -33,7 +34,7 @@ public class SpecialPowerAdderItem extends Item {
         this.specialPower = specialPower;
     }
 
-    public static class Builder {
+    public static class Builder extends Item.Builder {
         private ArrayList<TargetAttackType> targetAttackTypes = new ArrayList<>();
         private TargetType targetType;
         private TargetSelection targetSelection;
@@ -72,8 +73,10 @@ public class SpecialPowerAdderItem extends Item {
             return this;
         }
 
+        @Override
         public SpecialPowerAdderItem create() {
-            return new SpecialPowerAdderItem(targetAttackTypes, targetType, targetSelection, specialPowerCastTime, specialPower);
+            return new SpecialPowerAdderItem(getName(), getBuyPrice(), getSellPrice(), targetAttackTypes, targetType,
+                    targetSelection, specialPowerCastTime, specialPower);
         }
     }
 
