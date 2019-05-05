@@ -145,10 +145,14 @@ public class Game {
     }
 
     private void getRewardToWinner() {
-        if (this.winner.equals(players[0]))
+        if (this.winner.equals(players[0])) {
             accounts[0].increaseMoney(this.reward);
-        if (this.winner.equals(players[1]))
+            accounts[0].increaseWins();
+        }
+        if (this.winner.equals(players[1])) {
             accounts[1].increaseMoney(this.reward);
+            accounts[1].increaseWins();
+        }
     }
 
     public boolean checkWinningCondition() {

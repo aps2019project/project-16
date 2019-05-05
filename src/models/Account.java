@@ -1,8 +1,5 @@
 package models;
 
-import com.gilecode.yagson.YaGson;
-
-import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.MatchResult;
 
@@ -18,11 +15,6 @@ public class Account {
     public void setMoney(int money) {
         this.money = money;
     }
-
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
-
 
     public int getNumberOfItems() {
         return numberOfItems;
@@ -99,7 +91,7 @@ public class Account {
         this.money -= number;
     }
 
-    public void increaseWin() {
+    public void increaseWins() {
         this.wins++;
     }
 
