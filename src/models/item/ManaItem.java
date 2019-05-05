@@ -13,16 +13,16 @@ public class ManaItem extends Item {
         this.duration = duration;
     }
 
-    public static class Builder extends Item.Builder {
+    public static class ManaItemBuilder extends ItemBuilder {
         private int mana;
         private int duration;
 
-        public Builder setMana(int mana) {
+        public ManaItemBuilder setMana(int mana) {
             this.mana = mana;
             return this;
         }
 
-        public Builder setDuration(int duration) {
+        public ManaItemBuilder setDuration(int duration) {
             this.duration = duration;
             return this;
         }

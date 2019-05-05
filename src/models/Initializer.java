@@ -1155,7 +1155,7 @@ public class Initializer {
 
     public static void initShopUsableItems(ArrayList<Item> items) {
         //1
-        items.add(new ManaItem.Builder()
+        items.add(new ManaItem.ManaItemBuilder()
                 .setMana(1)
                 .setDuration(3)
                 .setType(Item.Type.USABLE)
@@ -1164,7 +1164,7 @@ public class Initializer {
                 .setName("taje Danaii")
                 .create());
         //2
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
@@ -1178,7 +1178,7 @@ public class Initializer {
                 .setName("namoose Separ")
                 .create());
         //3
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .addTargetAttackType(SpecialPowerAdderItem.TargetAttackType.RANGED)
                 .addTargetAttackType(SpecialPowerAdderItem.TargetAttackType.HYBRID)
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
@@ -1197,7 +1197,7 @@ public class Initializer {
                 .setName("kamane Damol")
                 .create());
         //6
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) //todo sag too target society
                         .addBuff(new Buff.BuffBuilder()
@@ -1210,7 +1210,7 @@ public class Initializer {
                 .setSellPrice(3500)
                 .create());
         //12
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
@@ -1228,7 +1228,7 @@ public class Initializer {
                 .setBuyPrice(5000)
                 .create());
         //14
-        items.add(new ManaItem.Builder()
+        items.add(new ManaItem.ManaItemBuilder()
                 .setMana(1)
                 .setDuration(Buff.INFINITY) //todo must be checked
                 .setType(Item.Type.USABLE)
@@ -1237,7 +1237,7 @@ public class Initializer {
                 .setSellPrice(9000)
                 .create());
         //15
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
@@ -1255,7 +1255,7 @@ public class Initializer {
                 .setName("Assasination Dagger")
                 .create());
         //16
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
@@ -1273,7 +1273,7 @@ public class Initializer {
                 .setName("Poisonous Dagger")
                 .create());
         //17
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.HERO)
@@ -1291,7 +1291,7 @@ public class Initializer {
                 .setBuyPrice(15000)
                 .create());
         //18
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
@@ -1309,7 +1309,7 @@ public class Initializer {
                 .setName("Soul Eater")
                 .create());
         //19
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.MINION)
@@ -1332,7 +1332,7 @@ public class Initializer {
 
     public static void initCollectibleItems(ArrayList<Item> items) {
         //4
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null)// todo
                         .addBuff(new Buff.BuffBuilder()
@@ -1345,7 +1345,7 @@ public class Initializer {
                 .setName("nooshdaroo")
                 .create());
         //5
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) // todo  target society
                         .addBuff(new Buff.BuffBuilder()
@@ -1357,7 +1357,7 @@ public class Initializer {
                 .create()
         );
         //7
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) //todo namoosan target society
                         .addBuff(new Buff.BuffBuilder()
@@ -1369,14 +1369,14 @@ public class Initializer {
                 .setName("exir")
                 .create());
         //8
-        items.add(new ManaItem.Builder()
+        items.add(new ManaItem.ManaItemBuilder()
                 .setDuration(1)
                 .setMana(3)
                 .setType(Item.Type.COLLECTIBLE)
                 .setName("majoone mana")
                 .create());
         //9
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) //todo target society
                         .addBuff(new Buff.BuffBuilder()
@@ -1388,7 +1388,7 @@ public class Initializer {
                 .setName("majoone rooin tani")
                 .create());
         //10
-        items.add(new SpecialPowerAdderItem.Builder()
+        items.add(new SpecialPowerAdderItem.SpecialPowerAdderItemBuilder()
                 .setTargetAttackTypeAll()
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.RANDOM)
                 .setTargetType(SpecialPowerAdderItem.TargetType.MINION)
@@ -1403,7 +1403,7 @@ public class Initializer {
                 .setName("nefrine marg")
                 .create());
         //11
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) // todo fix target society
                         .addBuff(new Buff.BuffBuilder()
@@ -1414,7 +1414,7 @@ public class Initializer {
                 .setName("Random damage")
                 .create());
         //13
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) //todo we do not belive in chance
                         .addBuff(new Buff.BuffBuilder()
@@ -1426,7 +1426,7 @@ public class Initializer {
                 .setName("Blades of agility")
                 .create());
         //20
-        items.add(new SpellItem.Builder()
+        items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(null) //todo sham nakhordam
                         .addBuff(new Buff.BuffBuilder()

@@ -25,28 +25,28 @@ public abstract class Item {
         COLLECTIBLE
     }
 
-    public static abstract class Builder {
+    public static abstract class ItemBuilder {
         private String name;
         private int buyPrice;
         private int sellPrice;
         private Type type;
 
-        public Builder setName(String name) {
+        public ItemBuilder setName(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder setBuyPrice(int buyPrice) {
+        public ItemBuilder setBuyPrice(int buyPrice) {
             this.buyPrice = buyPrice;
             return this;
         }
 
-        public Builder setSellPrice(int sellPrice) {
+        public ItemBuilder setSellPrice(int sellPrice) {
             this.sellPrice = sellPrice;
             return this;
         }
 
-        public Builder setType(Type type) {
+        public ItemBuilder setType(Type type) {
             this.type = type;
             return this;
         }

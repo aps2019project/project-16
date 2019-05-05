@@ -12,10 +12,10 @@ public class SpellItem extends Item {
         this.spell = spell;
     }
 
-    public static class Builder extends Item.Builder {
+    public static class SpellItemBuilder extends ItemBuilder {
         private Spell spell;
 
-        public Builder setSpell(Spell spell) {
+        public SpellItemBuilder setSpell(Spell spell) {
             this.spell = spell;
             return this;
         }

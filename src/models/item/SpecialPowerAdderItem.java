@@ -35,41 +35,41 @@ public class SpecialPowerAdderItem extends Item {
         this.specialPower = specialPower;
     }
 
-    public static class Builder extends Item.Builder {
+    public static class SpecialPowerAdderItemBuilder extends ItemBuilder {
         private ArrayList<TargetAttackType> targetAttackTypes = new ArrayList<>();
         private TargetType targetType;
         private TargetSelection targetSelection;
         private SpecialPowerCastTime specialPowerCastTime;
         private Spell specialPower;
 
-        public Builder addTargetAttackType(TargetAttackType targetAttackType) {
+        public SpecialPowerAdderItemBuilder addTargetAttackType(TargetAttackType targetAttackType) {
             targetAttackTypes.add(targetAttackType);
             return this;
         }
 
-        public Builder setTargetAttackTypeAll() {
+        public SpecialPowerAdderItemBuilder setTargetAttackTypeAll() {
             targetAttackTypes.add(TargetAttackType.MELEE);
             targetAttackTypes.add(TargetAttackType.RANGED);
             targetAttackTypes.add(TargetAttackType.HYBRID);
             return this;
         }
 
-        public Builder setTargetType(TargetType targetType) {
+        public SpecialPowerAdderItemBuilder setTargetType(TargetType targetType) {
             this.targetType = targetType;
             return this;
         }
 
-        public Builder setTargetSelection(TargetSelection targetSelection) {
+        public SpecialPowerAdderItemBuilder setTargetSelection(TargetSelection targetSelection) {
             this.targetSelection = targetSelection;
             return this;
         }
 
-        public Builder setSpecialPowerCastTime(SpecialPowerCastTime specialPowerCastTime) {
+        public SpecialPowerAdderItemBuilder setSpecialPowerCastTime(SpecialPowerCastTime specialPowerCastTime) {
             this.specialPowerCastTime = specialPowerCastTime;
             return this;
         }
 
-        public Builder setSpecialPower(Spell specialPower) {
+        public SpecialPowerAdderItemBuilder setSpecialPower(Spell specialPower) {
             this.specialPower = specialPower;
             return this;
         }
