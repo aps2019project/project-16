@@ -23,15 +23,17 @@ public abstract class Unit extends Card implements Buffable {
     private boolean attacked;
     private AttackType attackType;
     private boolean combo;
+    private boolean piercingHoly;
     boolean hasFlag = false;
 
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, boolean piercingHoly, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
         super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
         this.attackType = attackType;
         this.combo = combo;
+        this.piercingHoly = piercingHoly;
         if (specialPower != null)
             this.specialPowers.add(new Pair<>(specialPowerCastTime, specialPower));
     }
@@ -48,7 +50,7 @@ public abstract class Unit extends Card implements Buffable {
         private int hp;
         private int ap;
         private AttackType attackType;
-
+        private boolean piercingHoly = false;
 
         public UnitBuilder setHp(int hp) {
             this.hp = hp;
@@ -70,11 +72,15 @@ public abstract class Unit extends Card implements Buffable {
             return this;
         }
 
+        public UnitBuilder setPiercingHoly() {
+            this.piercingHoly = true;
+            return this;
+        }
+
         public UnitBuilder setSpecialPowerCastTime(SpecialPowerCastTime specialPowerCastTime) {
             this.specialPowerCastTime = specialPowerCastTime;
             return this;
         }
-
 
         int getHp() {
             return hp;
@@ -88,6 +94,9 @@ public abstract class Unit extends Card implements Buffable {
             return attackType;
         }
 
+        boolean isPiercingHoly() {
+            return piercingHoly;
+        }
 
         Spell getSpecialPower() {
             return specialPower;
@@ -187,7 +196,10 @@ public abstract class Unit extends Card implements Buffable {
         this.checkCanAttack(opponent);
         attacked = true;
         moved = true;
-        opponent.dealDamage(ap);
+        if (piercingHoly)
+            opponent.dealDamage(ap + opponent.getHoly());
+        else
+            opponent.dealDamage(ap);
         castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
     }
 
@@ -199,7 +211,7 @@ public abstract class Unit extends Card implements Buffable {
         opponent.dealDamage(ap);
     }
 
-    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException { // todo add exceptions
+    public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
         int damage = ap;
         for (Unit unit : allies) {
             if (!unit.hasCombo())

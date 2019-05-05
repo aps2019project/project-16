@@ -287,12 +287,7 @@ public class Initializer {
         );
         //20
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(ON_ATTACK)
-                .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                .setHoly(1) // todo this is wrong and must be checked with the DOC and new buff should be add
-                                .create())
-                        .create())
+                .setPiercingHoly()
                 .setAttackType(new Melee())
                 .setAp(8)
                 .setHp(1)

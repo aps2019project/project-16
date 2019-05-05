@@ -12,8 +12,8 @@ public class Hero extends Unit {
     private int spellCoolDown;
 
     public Hero(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType,
-                Spell specialPower, SpecialPowerCastTime specialPowerCastTime, Spell spell, int spellManaCost, int spellCoolDown) {
-        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, false, specialPower, specialPowerCastTime);
+                boolean piercingHoly, Spell specialPower, SpecialPowerCastTime specialPowerCastTime, Spell spell, int spellManaCost, int spellCoolDown) {
+        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, false, piercingHoly, specialPower, specialPowerCastTime);
         this.spell = spell;
         this.spellManaCost = spellManaCost;
         this.spellCoolDown = spellCoolDown;
@@ -42,7 +42,7 @@ public class Hero extends Unit {
         @Override
         public Hero create() {
             return new Hero(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(), getAp(), getAttackType(),
-                    getSpecialPower(), getSpecialPowerCastTime(), spell, spellManaCost, spellCoolDown);
+                    isPiercingHoly(), getSpecialPower(), getSpecialPowerCastTime(), spell, spellManaCost, spellCoolDown);
         }
     }
 
