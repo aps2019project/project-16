@@ -123,8 +123,10 @@ public class Game {
     private void addNextCardToHands() {
         for (Player player : players) {
             try {
-                Card nextCard = player.getDeck().pop();
-                player.getHand().addCard(nextCard);
+                if (!player.getHand().isFull()) {
+                    Card nextCard = player.getDeck().pop();
+                    player.getHand().addCard(nextCard);
+                }
             } catch (ArrayIsEmptyException e) {
 
             }
