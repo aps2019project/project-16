@@ -19,6 +19,7 @@ public interface InGameContract {
         void showCollectableInfo(Collectible collectible);
         void showNextCard(Card card);
         void showTable(Table table);
+        void goToPrevMenu();
     }
 
     interface Controller {

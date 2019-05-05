@@ -7,6 +7,7 @@ import models.card.Hero;
 import models.card.Minion;
 import models.card.Unit;
 import models.item.Collectible;
+import view.MenuHandler;
 import view.Notify;
 
 import java.util.ArrayList;
@@ -148,5 +149,10 @@ public class InGameView implements InGameContract.View {
     @Override
     public void showTable(Table table) {
         // TODO: 5/5/19
+    }
+
+    @Override
+    public void goToPrevMenu() {
+        MenuHandler.goToParentMenu();
     }
 }

@@ -240,8 +240,9 @@ public class InGameController implements InGameContract.Controller {
             GameContents.getCurrentGame().endTurn();
             GameContents.getCurrentGame().startTurn();// TODO: 5/4/19 must be removed and merged to endTurn
         } catch (GameIsEndException E) {
-            Notify.logError("Sorry! Game is finished!!");
-            // TODO: 5/5/19 go to main menu and notify winner
+            Notify.logMessage("Game is finished!!");
+            Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
+            view.goToPrevMenu();
         }
     }
 
