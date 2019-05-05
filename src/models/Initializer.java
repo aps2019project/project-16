@@ -9,6 +9,7 @@ import models.card.Minion;
 import models.card.SpellCard;
 import models.item.Item;
 import models.item.ManaItem;
+import models.item.SpecialPowerAdderItem;
 import models.item.SpellItem;
 import models.magic.Buff;
 import models.magic.Spell;
@@ -1159,10 +1160,64 @@ public class Initializer {
     }
 
     public static void initShopUsableItems(ArrayList<Item> items) {
+        //1
+        items.add(new ManaItem.Builder()
+                .setMana(1)
+                .setDuration(3)
+                .setType(Item.Type.USABLE)
+                .setBuyPrice(300)
+                .setSellPrice(300)
+                .setName("Taje Danaii")
+                .create());
+        //2
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.FRIEND))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setHoly(12)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setType(Item.Type.USABLE)
+                .setBuyPrice(4000)
+                .setSellPrice(4000)
+                .setName("Namoose Separ")
+                .create());
+        //3
+        items.add(new SpecialPowerAdderItem.Builder()
+                .addTargetAttackType(SpecialPowerAdderItem.TargetAttackType.RANGED)
+                .addTargetAttackType(SpecialPowerAdderItem.TargetAttackType.HYBRID)
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.HERO)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration(1)
+                                .create())
+                        .create())
+                .setType(Item.Type.USABLE)
+                .setBuyPrice(30000)
+                .setSellPrice(30000)
+                .setName("Kamane Damol")
+                .create());
 
     }
 
     public static void initCollectibleItems(ArrayList<Item> items) {
+        //4
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null)// todo
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(6)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("Nooshdaroo")
+                .create());
         //todo must be implemented
     }
 }
