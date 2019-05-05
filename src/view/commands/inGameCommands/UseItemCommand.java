@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class UseItemCommand extends Command {
     {
         name = "use [x, y]";
-        pattern = Pattern.compile("use \\[(\\d+), (\\d+)\\]", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("use \\[(\\d+), *(\\d+)\\]", Pattern.CASE_INSENSITIVE);
     }
 
     @Override

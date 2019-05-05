@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class UseSpecialPowerCommand extends Command {
     {
         name = "use special power [x, y]";
-        pattern = Pattern.compile("use special power \\[(\\d+), (\\d+)\\]",Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("use special power \\[(\\d+), *(\\d+)\\]",Pattern.CASE_INSENSITIVE);
     }
 
     @Override

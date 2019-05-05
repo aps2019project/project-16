@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class MoveCommand extends Command {
     {
         name = "move to [x, y]";
-        pattern = Pattern.compile("move to \\[(\\d+), (\\d+)\\]", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("move to \\[(\\d+), *(\\d+)\\]", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
