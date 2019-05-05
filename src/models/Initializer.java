@@ -3,19 +3,14 @@ package models;
 import models.attackType.Hybrid;
 import models.attackType.Melee;
 import models.attackType.Ranged;
-import models.card.Card;
-import models.card.Hero;
-import models.card.Minion;
-import models.card.SpellCard;
-import models.item.Item;
-import models.item.ManaItem;
-import models.item.SpecialPowerAdderItem;
-import models.item.SpellItem;
+import models.card.*;
+import models.item.*;
 import models.magic.Buff;
 import models.magic.Spell;
 import models.targetsociety.*;
 import models.targetsociety.UnitTargetSociety.*;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 import static models.SpecialPowerCastTime.*;
@@ -1167,7 +1162,7 @@ public class Initializer {
                 .setType(Item.Type.USABLE)
                 .setBuyPrice(300)
                 .setSellPrice(300)
-                .setName("Taje Danaii")
+                .setName("taje Danaii")
                 .create());
         //2
         items.add(new SpellItem.Builder()
@@ -1181,7 +1176,7 @@ public class Initializer {
                 .setType(Item.Type.USABLE)
                 .setBuyPrice(4000)
                 .setSellPrice(4000)
-                .setName("Namoose Separ")
+                .setName("namoose Separ")
                 .create());
         //3
         items.add(new SpecialPowerAdderItem.Builder()
@@ -1196,11 +1191,143 @@ public class Initializer {
                                 .setDuration(1)
                                 .create())
                         .create())
+                .setSpecialPowerCastTime(ON_ATTACK)//todo check at the end
                 .setType(Item.Type.USABLE)
                 .setBuyPrice(30000)
                 .setSellPrice(30000)
-                .setName("Kamane Damol")
+                .setName("kamane Damol")
                 .create());
+        //6
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo sag too target society
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(-2)
+                                .create())
+                        .create())
+                .setType(Item.Type.USABLE)
+                .setName("pare simorgh")
+                .setBuyPrice(3500)
+                .setSellPrice(3500)
+                .create());
+        //12
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null)//todo MOSTAFA raft khabgah !!!
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(-2)
+                                .setDuration(1)
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_ATTACK)
+                .setType(Item.Type.USABLE)
+                .setName("Terror Hood")
+                .setSellPrice(5000)
+                .setBuyPrice(5000)
+                .create());
+        //14
+        items.add(new ManaItem.Builder()
+                .setMana(1)
+                .setDuration(Buff.INFINITY) //todo must be checked
+                .setType(Item.Type.USABLE)
+                .setName("King Wisdom")
+                .setBuyPrice(9000)
+                .setSellPrice(9000)
+                .create());
+        //15
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null)//todo must be implemented
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDamage(1)
+                                //todo check duration
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_SPAWN)
+                .setType(Item.Type.USABLE)
+                .setSellPrice(15000)
+                .setBuyPrice(15000)
+                .setName("Assasination Dagger")
+                .create());
+        //16
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo must be added
+                        .addBuff(new Buff.BuffBuilder()
+                                .setPoison(1)
+                                .setDuration(1)
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_ATTACK)
+                .setType(Item.Type.USABLE)
+                .setBuyPrice(7000)
+                .setSellPrice(7000)
+                .setName("Poisonous Dagger")
+                .create());
+        //17
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.HERO)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null)//todo check
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(1)
+                                .setDisarm()
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_ATTACK)
+                .setType(Item.Type.USABLE)
+                .setName("Shock Hammer")
+                .setSellPrice(15000)
+                .setBuyPrice(15000)
+                .create());
+        //18
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo taghat biar rafigh
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(1)
+                                .setDuration(Buff.INFINITY)//todo must be checked
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_DEATH)
+                .setType(Item.Type.USABLE)
+                .setSellPrice(25000)
+                .setBuyPrice(25000)
+                .setName("Soul Eater")
+                .create());
+        //19
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
+                .setTargetType(SpecialPowerAdderItem.TargetType.MINION)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null)//todo 53% ram usage
+                        .addBuff(new Buff.BuffBuilder()
+                                .setHoly(1)
+                                .setDuration(2)
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_SPAWN)
+                .setType(Item.Type.USABLE)
+                .setName("ghosle tamid")
+                .setBuyPrice(20000)
+                .setSellPrice(20000)
+                .create());
+
 
     }
 
@@ -1216,7 +1343,100 @@ public class Initializer {
                                 .create())
                         .create())
                 .setType(Item.Type.COLLECTIBLE)
-                .setName("Nooshdaroo")
+                .setName("nooshdaroo")
+                .create());
+        //5
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) // todo  target society
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(2)
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("tire do shakh")
+                .create()
+        );
+        //7
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo namoosan target society
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(3)
+                                .setDeltaHP(3)
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("exir")
+                .create());
+        //8
+        items.add(new ManaItem.Builder()
+                .setDuration(1)
+                .setMana(3)
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("majoone mana")
+                .create());
+        //9
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo target society
+                        .addBuff(new Buff.BuffBuilder()
+                                .setHoly(10)
+                                .setDuration(2)
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("majoone rooin tani")
+                .create());
+        //10
+        items.add(new SpecialPowerAdderItem.Builder()
+                .setTargetAttackTypeAll()
+                .setTargetSelection(SpecialPowerAdderItem.TargetSelection.RANDOM)
+                .setTargetType(SpecialPowerAdderItem.TargetType.MINION)
+                .setSpecialPower(new Spell.SpellBuilder()
+                        .setTargetSociety(null)//TODO  target society
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDamage(8)
+                                .create())
+                        .create())
+                .setSpecialPowerCastTime(ON_DEATH)
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("nefrine marg")
+                .create());
+        //11
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) // todo fix target society
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(2)
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("Random damage")
+                .create());
+        //13
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo we do not belive in chance
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("Blades of agility")
+                .create());
+        //20
+        items.add(new SpellItem.Builder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(null) //todo sham nakhordam
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(Buff.INFINITY)//todo must be checked
+                                .setDeltaAP(5)
+                                .create())
+                        .create())
+                .setType(Item.Type.COLLECTIBLE)
+                .setName("shamshire chini")
                 .create());
         //todo must be implemented
     }
