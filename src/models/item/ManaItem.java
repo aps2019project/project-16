@@ -28,7 +28,7 @@ public class ManaItem extends Item {
         }
 
         @Override
-        public Item create() {
+        public ManaItem create() {
             return new ManaItem(getName(), getBuyPrice(), getSellPrice(), mana, duration);
         }
     }
