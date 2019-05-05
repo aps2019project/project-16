@@ -138,7 +138,11 @@ public class InGameView implements InGameContract.View {
     @Override
     public void showNextCard(Card nextCard) {
         Notify.logMessage("* Next card:");
-        showCardInfo(nextCard);
+        if (nextCard == null) {
+            Notify.logMessage("No more card!");
+        } else {
+            showCardInfo(nextCard);
+        }
     }
 
     @Override

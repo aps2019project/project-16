@@ -3,6 +3,7 @@ package models;
 import com.gilecode.yagson.YaGson;
 import models.card.Card;
 import models.card.Hero;
+import models.card.exception.ArrayIsEmptyException;
 import models.item.Item;
 
 import java.util.ArrayList;
@@ -28,10 +29,16 @@ public class Deck {
     }
 
     public Card getTop() {
+        if (cards.size() < 1) {
+            return null;
+        }
         return cards.get(0);
     }
 
-    public Card pop() {
+    public Card pop() throws ArrayIsEmptyException {
+        if (cards.size() < 1) {
+            throw new ArrayIsEmptyException();
+        }
         Card card = cards.get(0);
         cards.remove(0);
         return card;

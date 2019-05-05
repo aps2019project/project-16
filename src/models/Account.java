@@ -78,7 +78,7 @@ public class Account {
         //todo must be called from some where !! maybe initializer or in game contents
     }
 
-    public Player getPlayer() {
+    public Player getNewPlayerFromAccount() {
         Collection collection = this.getCollection();
         return new Player(collection.getMainDeck().getCopy(), this);
     }

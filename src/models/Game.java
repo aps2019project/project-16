@@ -3,6 +3,7 @@ package models;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Unit;
+import models.card.exception.ArrayIsEmptyException;
 import models.card.exception.GameIsEndException;
 
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ public class Game {
     public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode, int numberOfFlags) {
         this.reward = reward;
         this.gameMode = gameMode;
-        this.currentPlayer = this.players[0] = firstAccount.getPlayer();
-        this.opponentPlayer = this.players[1] = secondAccount.getPlayer();
+        this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
+        this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
         this.players[0].setTable(table);
         this.players[1].setTable(table);
         this.accounts[0] = firstAccount;
@@ -121,9 +122,11 @@ public class Game {
 
     private void addNextCardToHands() {
         for (Player player : players) {
-            if (player.getDeck().getCards().size() > 0) {
+            try {
                 Card nextCard = player.getDeck().pop();
                 player.getHand().addCard(nextCard);
+            } catch (ArrayIsEmptyException e) {
+
             }
         }
     }
