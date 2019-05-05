@@ -1,8 +1,8 @@
 package models;
 
 public class Pair<K, V> {
-    K key;
-    V value;
+    private K key;
+    private V value;
 
     public Pair(K key, V value) {
         this.key = key;
