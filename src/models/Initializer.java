@@ -511,7 +511,7 @@ public class Initializer {
         cards.add(new Minion.MinionBuilder()
                 .setSpecialPowerCastTime(ON_SPAWN)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneRandomEnemyMinion())
+                        .setTargetSociety(new OneRandomUnit(TargetType.MINION, TargetTeam.ENEMY, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(-16)
                                 .setDuration(Buff.INFINITY)

@@ -8,21 +8,23 @@ import models.Table;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class OneRandomEnemyMinion extends TargetSociety {
+public class OneRandomUnit extends UnitTargetSociety {
+    public OneRandomUnit(TargetType targetType, TargetTeam targetTeam, TargetAttackType targetAttackType) {
+        super(targetType, targetTeam, targetAttackType);
+    }
+
     @Override
     public boolean canCast(Player player, Cell cell) {
         Table table = cell.getTable();
-        for (int i = 0; i < Table.HEIGHT; i++)
-            for (int j = 0; j < Table.WIDTH; j++)
-                if (table.getCell(i, j).hasUnit() && table.getCell(i, j).getUnit().getPlayer() != player)
+        for (int row = 0; row < Table.HEIGHT; row++)
+            for (int column = 0; column < Table.WIDTH; column++)
+                if (table.getCell(row, column).hasUnit() && doesEffect(table.getCell(row, column).getUnit(), player))
                     return true;
         return false;
     }
 
     @Override
     public void cast(Player player, Cell cell, ArrayList<Buff> buffs) {
-        if (!canCast(player, cell))
-            return;
         Table table = cell.getTable();
         Random random = new Random();
         int randomRow = random.nextInt(Table.HEIGHT);
@@ -31,13 +33,13 @@ public class OneRandomEnemyMinion extends TargetSociety {
         do {
             int column = randomColumn;
             do {
-                if (table.getCell(row, column).hasUnit() && table.getCell(row, column).getUnit().getPlayer() != player) {
+                if (table.getCell(row, column).hasUnit() && doesEffect(table.getCell(row, column).getUnit(), player)) {
                     castOnUnit(player, table.getCell(row, column).getUnit(), buffs);
                     return;
                 }
                 column = (column + 1) % Table.WIDTH;
             } while (column != randomColumn);
             row = (row + 1) % Table.HEIGHT;
-        } while(row != randomRow);
+        } while (row != randomRow);
     }
 }
