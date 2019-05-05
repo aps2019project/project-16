@@ -46,26 +46,28 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
     public void startMultiGame(int mode, int numberOfFlags) {
         Account currentAccount = GameContents.getCurrentAccount();
         Account secondAccount = GameContents.getSecondAccount();
-        GameMode gameMode = null;
 
         if (secondAccount == null) {
             Notify.logError("Sorry! You didn't select any account as second player.");
             return;
         }
 
-        switch (mode) {
-            case 1:
-                gameMode = GameMode.KILLING_HERO;
-                break;
-            case 2:
-                gameMode = GameMode.KEEP_FLAG;
-                break;
-            case 3:
-                gameMode = GameMode.COLLECT_FLAG;
-                break;
-        }
+        GameMode gameMode = getGameMode(mode);
+
         Game newGame = new Game(currentAccount, secondAccount, 1000, gameMode, numberOfFlags);
         GameContents.setCurrentGame(newGame);
         view.goToInGameMenu();
+    }
+
+    public static GameMode getGameMode(int mode) {
+        switch (mode) {
+            case 1:
+                return GameMode.KILLING_HERO;
+            case 2:
+                return GameMode.KEEP_FLAG;
+            case 3:
+                return GameMode.COLLECT_FLAG;
+        }
+        return GameMode.KILLING_HERO;
     }
 }
