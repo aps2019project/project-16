@@ -1199,9 +1199,11 @@ public class Initializer {
         //6
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo sag too target society
+                        .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.ENEMY, TargetAttackType.RANGED_HYBRID))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(-2)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
                                 .create())
                         .create())
                 .setType(Item.Type.USABLE)
@@ -1215,7 +1217,7 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null)//todo MOSTAFA raft khabgah !!!
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(-2)
                                 .setDuration(1)
@@ -1230,7 +1232,7 @@ public class Initializer {
         //14
         items.add(new ManaItem.ManaItemBuilder()
                 .setMana(1)
-                .setDuration(Buff.INFINITY) //todo must be checked
+                .setDuration(Buff.INFINITY)
                 .setType(Item.Type.USABLE)
                 .setName("King Wisdom")
                 .setBuyPrice(9000)
@@ -1242,10 +1244,9 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null)//todo must be implemented
+                        .setTargetSociety(new AnyUnit(TargetType.HERO, TargetTeam.ENEMY, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDamage(1)
-                                //todo check duration
                                 .create())
                         .create())
                 .setSpecialPowerCastTime(ON_SPAWN)
@@ -1260,7 +1261,7 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo must be added
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setPoison(1)
                                 .setDuration(1)
@@ -1278,7 +1279,7 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.HERO)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null)//todo check
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDuration(1)
                                 .setDisarm()
@@ -1296,10 +1297,10 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.UNIT)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo taghat biar rafigh
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(1)
-                                .setDuration(Buff.INFINITY)//todo must be checked
+                                .setDuration(Buff.INFINITY)
                                 .create())
                         .create())
                 .setSpecialPowerCastTime(ON_DEATH)
@@ -1314,7 +1315,7 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.ALL)
                 .setTargetType(SpecialPowerAdderItem.TargetType.MINION)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null)//todo 53% ram usage
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setHoly(1)
                                 .setDuration(2)
@@ -1334,7 +1335,7 @@ public class Initializer {
         //4
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null)// todo
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(6)
                                 .setDuration(Buff.INFINITY)
@@ -1347,9 +1348,12 @@ public class Initializer {
         //5
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) // todo  target society
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.FRIEND,
+                                TargetAttackType.RANGED_HYBRID))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(2)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
                                 .create())
                         .create())
                 .setType(Item.Type.COLLECTIBLE)
@@ -1359,10 +1363,15 @@ public class Initializer {
         //7
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo namoosan target society
+                        .setTargetSociety(new OneRandomUnit(TargetType.MINION, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(3)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(3)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
                                 .create())
                         .create())
                 .setType(Item.Type.COLLECTIBLE)
@@ -1378,7 +1387,7 @@ public class Initializer {
         //9
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo target society
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setHoly(10)
                                 .setDuration(2)
@@ -1393,7 +1402,7 @@ public class Initializer {
                 .setTargetSelection(SpecialPowerAdderItem.TargetSelection.RANDOM)
                 .setTargetType(SpecialPowerAdderItem.TargetType.MINION)
                 .setSpecialPower(new Spell.SpellBuilder()
-                        .setTargetSociety(null)//TODO  target society
+                        .setTargetSociety(new OneRandomNearestUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDamage(8)
                                 .create())
@@ -1405,9 +1414,11 @@ public class Initializer {
         //11
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) // todo fix target society
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(2)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
                                 .create())
                         .create())
                 .setType(Item.Type.COLLECTIBLE)
@@ -1416,10 +1427,11 @@ public class Initializer {
         //13
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo we do not belive in chance
+                        .setTargetSociety(new OneRandomUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaAP(6)
                                 .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
                                 .create())
                         .create())
                 .setType(Item.Type.COLLECTIBLE)
@@ -1428,15 +1440,15 @@ public class Initializer {
         //20
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(null) //todo sham nakhordam
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.MELEE))
                         .addBuff(new Buff.BuffBuilder()
-                                .setDuration(Buff.INFINITY)//todo must be checked
+                                .setDuration(Buff.INFINITY)
                                 .setDeltaAP(5)
+                                .setNotDispelable()
                                 .create())
                         .create())
                 .setType(Item.Type.COLLECTIBLE)
                 .setName("shamshire chini")
                 .create());
-        //todo must be implemented
     }
 }
