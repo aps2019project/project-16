@@ -1,6 +1,6 @@
 package models.card;
 
-import javafx.util.Pair;
+import models.Pair;
 import models.*;
 import models.attackType.AttackType;
 import models.card.exception.*;
@@ -255,6 +255,7 @@ public abstract class Unit extends Card implements Buffable {
         while (flags.size() > 0)
             flags.remove(0);
     }
+
     public void dropFlags(Cell cell, Unit unit) {
         for (Flag flag : unit.getFlags()) {
             flag.setOwnerUnit(null);
