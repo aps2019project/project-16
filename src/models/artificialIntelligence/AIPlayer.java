@@ -7,11 +7,10 @@ import models.card.Unit;
 import models.item.Item;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class AIPlayer extends Player {
-    private static final int NUMBER_OF_RANDOMS = 3;
+    private static final int NUMBER_OF_RANDOMS = 10;
 
     public AIPlayer(Deck deck, Account account) {
         super(deck, account);
@@ -132,7 +131,7 @@ public class AIPlayer extends Player {
 
     private Cell getBestCellToPutUnit(Game game) {
         ArrayList<Cell> cells = new ArrayList<>();
-        Unit unit = game.getOpponentPlayer().getRandomUnit();
+        Unit opponentUnit = game.getOpponentPlayer().getRandomUnit();
         for (int i = 0; i < NUMBER_OF_RANDOMS; i++) {
             int row = new Random().nextInt() % 5;
             int column = new Random().nextInt() % 9;
@@ -140,7 +139,7 @@ public class AIPlayer extends Player {
             if (!cell.hasUnit())
                 cells.add(cell);
         }
-        return getNearestCell(cells, unit.getCurrentCell());
+        return getNearestCell(cells, opponentUnit.getCurrentCell());
     }
 
     private Cell getBestCellToCastSpell(Game game) {
