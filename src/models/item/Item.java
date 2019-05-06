@@ -12,6 +12,7 @@ public abstract class Item {
     private int collectionID;
     private Type type;
     private int GameItemID;
+    private int collectibleID;
 
     public Item(String name, int buyPrice, int sellPrice, Type type) {
         this.name = name;
@@ -68,6 +69,14 @@ public abstract class Item {
         Type getType() {
             return type;
         }
+    }
+
+    public int getCollectibleID() {
+        return collectibleID;
+    }
+
+    public void setCollectibleID(int collectibleID) {
+        this.collectibleID = collectibleID;
     }
 
     public int getCollectionID() {

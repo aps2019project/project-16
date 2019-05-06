@@ -72,7 +72,11 @@ public class Player {
     }
 
     public Item getCollectible(int collectibleID) {
-        // TODO: 5/4/19
+        for (Item collectible : collectibles) {
+            if (collectible.getCollectibleID() == collectibleID) {
+                return collectible;
+            }
+        }
         return null;
     }
 

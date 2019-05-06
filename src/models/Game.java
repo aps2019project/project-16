@@ -311,6 +311,7 @@ public class Game {
     private void generateCollectibles() {
         for (int i = 0; i < 3; i++) {
             Item collectible = Initializer.getRandomCollectible();
+            collectible.setCollectibleID(i);
             Cell cell = table.getCell(2 * i, 4);
             cell.addCollectible(collectible);
         }
