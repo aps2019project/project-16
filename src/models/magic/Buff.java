@@ -5,7 +5,7 @@ import models.Player;
 import models.card.Unit;
 
 public class Buff {
-    public static final int INFINITY = Integer.MAX_VALUE;
+    public static final int INFINITY = 1000000;
     private int durationToStart;
     private int remainingDuration;
     private final int duration;
@@ -75,7 +75,7 @@ public class Buff {
         }
 
         public BuffBuilder setDurationToStart(int durationToStart) {
-            this.durationToStart = 2 * durationToStart;
+            this.durationToStart = 2 * durationToStart - 1;
             return this;
         }
 
