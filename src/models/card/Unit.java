@@ -132,6 +132,8 @@ public abstract class Unit extends Card implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
+        if (notGetNegativeEffect && !buff.isPositive())
+            return;
         buffs.add(buff.copy());
     }
 
@@ -146,6 +148,10 @@ public abstract class Unit extends Card implements Buffable {
 
     public ArrayList<Buff> getBuffs() {
         return buffs;
+    }
+
+    public boolean isNotGetNegativeEffect() {
+        return notGetNegativeEffect;
     }
 
     @Override
@@ -165,7 +171,7 @@ public abstract class Unit extends Card implements Buffable {
         hp += amount;
     }
 
-    public void getDamage(int amount) {
+    private void getDamage(int amount) {
         if (amount - getHoly() > 0)
             hp -= amount - getHoly();
     }

@@ -136,6 +136,8 @@ public class Buff {
      * @param player
      */
     public void start(Unit unit, Player player) {
+        if (unit.isNotGetNegativeEffect() && !isPositive())
+            return;
         if (durationToStart == 0) {
             unit.getDamageFromBuff(damage);
             unit.changeAP(deltaAP);
