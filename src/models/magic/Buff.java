@@ -144,7 +144,7 @@ public class Buff {
             unit.changeHP(deltaHP);
             casted = true;
         }
-        if (disarm) {
+        if (dispel) {
             if (unit.getPlayer() != player) {
                 unit.getBuffs().forEach(buff -> {
                     if (buff.isPositive() && buff.isDispelable())
