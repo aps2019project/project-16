@@ -25,8 +25,8 @@ public class AIPlayer extends Player {
     }
 
     private void useCollectibles(Game game) {
-        ArrayList<Item> collectibles = getCollectibles();
-        for (Item collectible : collectibles) {
+        ArrayList<Item> collectiblesToUse = new ArrayList<>(getCollectibles());
+        for (Item collectible : collectiblesToUse) {
             setSelectedCollectible(collectible);
             Cell cellToCastCollectible = getBestCellToCastCollectible(game);
             try {
@@ -51,21 +51,28 @@ public class AIPlayer extends Player {
     }
 
     private void attackToOpponentUnits(Game game) {
-        ArrayList<Unit> myUnits = getUnits();
-        ArrayList<Unit> opponentUnits = game.getOpponentPlayer().getUnits();
+        ArrayList<Unit> originalMyUnits = getUnits();
+        ArrayList<Unit> myUnits = new ArrayList<>(originalMyUnits);
+        ArrayList<Unit> originalOppUnits = game.getOpponentPlayer().getUnits();
+        ArrayList<Unit> opponentUnits = new ArrayList<>(originalOppUnits);
         for (Unit myUnit : myUnits) {
-            setSelectedUnit(myUnit);
-            for (Unit opponentUnit : opponentUnits) {
-                try {
-                    attack(opponentUnit);
-                } catch (Exception e) {
+            if (originalMyUnits.contains(myUnit)) {
+                setSelectedUnit(myUnit);
+                for (Unit opponentUnit : opponentUnits) {
+                    if (originalOppUnits.contains(opponentUnit)) {
+                        try {
+                            attack(opponentUnit);
+                        } catch (Exception e) {
+                        }
+                    }
                 }
             }
         }
     }
 
     private void putMyCards(Game game) {
-        ArrayList<Card> myCards = getHand().getCards();
+        ArrayList<Card> originalMyUnits = getHand().getCards();
+        ArrayList<Card> myCards = new ArrayList<>(originalMyUnits);
         for (Card card : myCards) {
             putUnit(game, card);
             putSpellCard(game, card);
@@ -99,7 +106,7 @@ public class AIPlayer extends Player {
     }
 
     private void moveMyUnits(Game game) {
-        ArrayList<Unit> myUnits = getUnits();
+        ArrayList<Unit> myUnits = new ArrayList<>(getUnits());
         for (Unit unit : myUnits) {
             setSelectedUnit(unit);
             Cell cellToMove = getBestCellToMove(unit, game);
