@@ -18,7 +18,7 @@ public interface InGameContract {
         void showCollectables(ArrayList<Item> collectibles);
         void showCollectableInfo(Item collectible);
         void showNextCard(Card card);
-        void showTable(Table table);
+        void showTable(Player currentPlayer, Table table);
         void goToPrevMenu();
     }
 

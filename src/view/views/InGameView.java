@@ -147,8 +147,52 @@ public class InGameView implements InGameContract.View {
     }
 
     @Override
-    public void showTable(Table table) {
-        // TODO: 5/5/19
+    public void showTable(Player currentPlayer, Table table) {
+        for (int i = 0; i < 10; i++) {
+            if (i == 0) {
+                System.out.print("     ");
+            } else {
+                System.out.printf("%d    ", i);
+            }
+        }
+        System.out.print("\n");
+        for (int i = 0; i < 5; i++) {
+            System.out.printf("%d:   ", i + 1);
+            for (int j = 0; j < 9; j++) {
+                Cell cell = table.getCell(i, j);
+                printCell(currentPlayer, cell);
+            }
+            System.out.print("\n");
+        }
+    }
+
+    private void printCell(Player currentPlayer, Cell cell) {
+        Unit unit = cell.getUnit();
+        if (unit == null) {
+            System.out.print("00");
+        } else {
+            if (unit instanceof Hero) {
+                System.out.print("H");
+            } else {
+                System.out.print("M");
+            }
+            if (unit.getPlayer() == currentPlayer) {
+                System.out.print("1");
+            } else {
+                System.out.print("2");
+            }
+        }
+        if (cell.getFlags().size() != 0) {
+            System.out.print("F");
+        } else {
+            System.out.print("0");
+        }
+        if (cell.getCollectibles().size() != 0) {
+            System.out.print("C");
+        } else {
+            System.out.print("0");
+        }
+        System.out.print(" ");
     }
 
     @Override

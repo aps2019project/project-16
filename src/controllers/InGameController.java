@@ -322,6 +322,8 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadGameTable() {
-        // TODO: 5/5/19
+        Player currentPlayer = GameContents.getCurrentGame().getCurrentPlayer();
+        Table table = GameContents.getCurrentGame().getTable();
+        view.showTable(currentPlayer, table);
     }
 }
