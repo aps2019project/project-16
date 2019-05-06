@@ -155,6 +155,10 @@ public class Game {
     private void setMana() {
         players[0].setMana((turn + 1) / 2 + 2);
         players[1].setMana((turn + 1) / 2 + 2);
+        if (players[0].getMana() > 9)
+            players[0].setMana(9);
+        if (players[1].getMana() > 9)
+            players[1].setMana(9);
     }
 
     private void getRewardToWinner() {
@@ -185,11 +189,11 @@ public class Game {
         Hero hero1 = player1.getHero();
         Hero hero2 = player2.getHero();
         if (hero1 == null || hero1.getHp() <= 0) {
-            setWinner(player1);
+            setWinner(player2);
             return true;
         }
         if (hero2 == null || hero2.getHp() <= 0) {
-            setWinner(player2);
+            setWinner(player1);
             return true;
         }
         return false;
@@ -303,6 +307,7 @@ public class Game {
 
             hero.setCurrentCell(cell);
             hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
+            cell.setUnit(hero);
             players[i].getUnits().add(hero);
             players[i].pickUpFlags(cell, hero);
             players[i].pickUpCollectibles(cell);
