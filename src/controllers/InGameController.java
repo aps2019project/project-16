@@ -171,12 +171,12 @@ public class InGameController implements InGameContract.Controller {
     }
 
     private String getCardName(String cardID) {
-        String[] strings = cardID.split("_");
+        String[] strings = cardID.split(",");
         return strings[0];
     }
 
     private int getIDFromString(String cardID) {
-        String[] strings = cardID.split("_");
+        String[] strings = cardID.split(",");
         return Integer.parseInt(strings[1]);
     }
 
