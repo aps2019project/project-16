@@ -172,10 +172,13 @@ public class Player {
         this.mana -= unit.getManaCost();
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
+        cell.setUnit(unit);
         this.hand.removeCard(unit);
         this.units.add(unit);
+
         pickUpFlags(cell, selectedUnit);
         pickUpCollectibles(cell);
+
         unit.castSpecialPower(SpecialPowerCastTime.ON_SPAWN, cell);
         unit.castSpecialPower(SpecialPowerCastTime.PASSIVE, cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
