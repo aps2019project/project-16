@@ -127,7 +127,7 @@ public class AIPlayer extends Player {
         int newColumn = unit.getCurrentCell().getColumn() + columnDirection;
 
         return game.getTable().getCell(newRow, newColumn);
-    } //done
+    }
 
     private Cell getBestCellToPutUnit(Game game) {
         ArrayList<Cell> cells = new ArrayList<>();
@@ -140,25 +140,25 @@ public class AIPlayer extends Player {
                 cells.add(cell);
         }
         return getNearestCell(cells, unit.getCurrentCell());
-    } //done
+    }
 
     private Cell getBestCellToCastSpell(Game game) {
         int row = new Random().nextInt() % 5;
         int column = new Random().nextInt() % 9;
         return game.getTable().getCell(row, column);
-    }//done
+    }
 
     private Cell getBestCellToCastSpecialPower(Game game) {
         int row = new Random().nextInt() % 5;
         int column = new Random().nextInt() % 9;
         return game.getTable().getCell(row, column);
-    }//done
+    }
 
     private Cell getBestCellToCastCollectible(Game game) {
         int row = new Random().nextInt() % 5;
         int column = new Random().nextInt() % 9;
         return game.getTable().getCell(row, column);
-    }//done
+    }
 
     public int setMovementDirection(int number) {
         if (number > 0) {
