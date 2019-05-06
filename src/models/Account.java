@@ -7,7 +7,7 @@ public class Account {
     private String name;
     private String password;
     private Collection collection = new Collection();
-    private ArrayList<MatchResult> matchHistory;//todo must be initialize
+    private ArrayList<MatchResult> matchHistory;//phase 2
     private int money = 20000;
     private int wins;
     private int numberOfItems;
@@ -62,13 +62,6 @@ public class Account {
         this.password = password;
     }
     //////////////////////////////////////////////////////////////////////////////////////////
-
-    public static Account getAccount(String name) {
-
-        return null;
-        //todo must be checked with save and load method for accounts
-        //todo must be called from some where !! maybe initializer or in game contents
-    }
 
     public Player getNewPlayerFromAccount() {
         Collection collection = this.getCollection();

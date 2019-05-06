@@ -108,7 +108,17 @@ public class GameContents {
 
         writer.write(json);
         writer.close();
-        //todo must be called from some where !! after battle
+    }
+
+    public static void saveCurrentAndSecondAccounts() {
+        try {
+            saveAccount(currentAccount);
+            if (secondAccount != null) {
+                saveAccount(secondAccount);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void loadAccounts() throws FileNotFoundException {

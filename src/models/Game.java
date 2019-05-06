@@ -126,7 +126,6 @@ public class Game {
         checkIfAnyoneIsDead();
         gameIsEnd();
         this.turn++;
-        //todo cast especial power unit
         incrementTurnFlagKeeped();
         gameIsEnd();
     }
@@ -148,6 +147,7 @@ public class Game {
         if (checkWinningCondition()) {
             this.endFlag = true;
             this.getRewardToWinner();
+            GameContents.saveCurrentAndSecondAccounts();
             throw new GameIsEndException();
         }
     }
@@ -312,7 +312,9 @@ public class Game {
     private void castUsableItems() {
         for (Player player : players) {
             Item item = player.getDeck().getItem();
-            //todo use the usable func must be called
+            if (item != null) {
+                item.use(player, table.getCell(0, 0));
+            }
         }
     }
 

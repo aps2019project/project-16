@@ -10,7 +10,7 @@ public class Leaderboard {
     }
 
     private void save() {
-        //todo must be implemented (sepehr)
+        //phase 2: must be implemented (sepehr)
     }
 
     public  void addScore(AccountScore accountScore){
