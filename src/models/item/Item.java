@@ -113,9 +113,8 @@ public abstract class Item {
     public abstract void use(Player player, Cell cell);
 
     public Item getCopy(boolean setCollectionID) {
-        YaGson yaGson = new YaGson();
-        String json = yaGson.toJson(this);
-        Item newItem = yaGson.fromJson(json, this.getClass());
+        String json = new YaGson().toJson(this);
+        Item newItem = new YaGson().fromJson(json, this.getClass());
         if (setCollectionID) {
             newItem.collectionID = UniqueIDGenerator.getCollectionUniqueID();
         }
