@@ -7,6 +7,7 @@ import models.card.Unit;
 import models.card.exception.ArrayIsEmptyException;
 import models.card.exception.GameIsEndException;
 import models.item.Item;
+import models.item.ManaItem;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -159,6 +160,17 @@ public class Game {
             players[0].setMana(9);
         if (players[1].getMana() > 9)
             players[1].setMana(9);
+        Item item;
+        if (turn % 2 == 0) {
+            item = players[0].getDeck().getItem();
+            if (item instanceof ManaItem)
+                item.use(players[0], this.table.getCell(0,0));
+        }
+        else {
+            item = players[1].getDeck().getItem();
+            if (item instanceof ManaItem)
+                item.use(players[1], this.table.getCell(0,0));
+        }
     }
 
     private void getRewardToWinner() {
@@ -317,7 +329,7 @@ public class Game {
     private void castUsableItems() {
         for (Player player : players) {
             Item item = player.getDeck().getItem();
-            if (item != null) {
+            if (item != null && !(item instanceof ManaItem)) {
                 item.use(player, table.getCell(0, 0));
             }
         }
