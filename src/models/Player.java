@@ -143,7 +143,7 @@ public class Player {
         }
     }
 
-    public void moveUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
+    public void moveSelectedUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
             DistanceException, PathIsBlockException {
         if (Table.getDistance(this.selectedUnit.getCurrentCell(), cell) > 2)
             throw new DistanceException();

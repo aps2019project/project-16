@@ -78,7 +78,7 @@ public class InGameController implements InGameContract.Controller {
             if (cell == null) {
                 throw new CellIsNotInTableException();
             }
-            currentPlayer.moveUnit(cell);
+            currentPlayer.moveSelectedUnit(cell);
             Notify.logMessage("Unit \"" + currentPlayer.getSelectedUnit().getName() + "\" moved to"
                     + "\n\trow: " + x
                     + "\n\tcolumn: " + y);
