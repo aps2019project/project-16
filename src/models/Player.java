@@ -176,7 +176,7 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
 
-        pickUpFlags(cell, selectedUnit);
+        pickUpFlags(cell, unit);
         pickUpCollectibles(cell);
 
         unit.castSpecialPower(SpecialPowerCastTime.ON_SPAWN, cell);
