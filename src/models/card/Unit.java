@@ -9,6 +9,7 @@ import models.magic.Buffable;
 import models.magic.Spell;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Unit extends Card implements Buffable {
@@ -24,6 +25,11 @@ public abstract class Unit extends Card implements Buffable {
     private AttackType attackType;
     private boolean combo;
     private boolean piercingHoly;
+    private int addedApPerAttack; // todo fix constructor and builders
+    private HashMap<Unit, Integer> attackedTo = new HashMap<>();
+    private boolean notDisarmable;
+    //todo add not poison able and poison func
+    private boolean dontGetWeakerAttack;
     boolean hasFlag = false;
 
 
@@ -194,12 +200,16 @@ public abstract class Unit extends Card implements Buffable {
 
     public void attack(Unit opponent) throws AttackException {
         this.checkCanAttack(opponent);
+        attackedTo.putIfAbsent(opponent, 0);
+        int damage = ap;
+        damage += addedApPerAttack * attackedTo.get(opponent);
         attacked = true;
         moved = true;
         if (piercingHoly)
-            opponent.dealDamage(ap + opponent.getHoly());
+            opponent.dealDamage(damage + opponent.getHoly());
         else
-            opponent.dealDamage(ap);
+            opponent.dealDamage(damage);
+        attackedTo.computeIfPresent(opponent, (unit, integer) -> integer + 1); //todo check if work correctly
         castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
     }
 
