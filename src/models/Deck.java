@@ -103,14 +103,12 @@ public class Deck {
     }
 
     public boolean isValid() {
-
         return this.cards.size() == CARD_CAPACITY && this.getHero() != null;
     }
 
     public Deck getCopy() {
-        YaGson yaGson = new YaGson();
-        String json = yaGson.toJson(this);
-        Deck newDeck = yaGson.fromJson(json, this.getClass());
+        String json = new YaGson().toJson(this);
+        Deck newDeck = new YaGson().fromJson(json, this.getClass());
         return newDeck;
     }
 }

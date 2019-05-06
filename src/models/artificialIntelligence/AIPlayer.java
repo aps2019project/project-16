@@ -186,7 +186,7 @@ public class AIPlayer extends Player {
         int distance = 123; //just for sure!!
         Cell resultCell = null;
         for (Cell cell1 : cells) {
-            if (Table.getDistance(cell1, cell) < distance) {
+            if (Table.getDistance(cell1, cell) < distance && !cell1.hasUnit()) {
                 distance = Table.getDistance(cell1, cell);
                 resultCell = cell1;
             }
