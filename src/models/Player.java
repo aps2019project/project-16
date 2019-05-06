@@ -5,6 +5,7 @@ import models.card.exception.*;
 import models.item.Item;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private Deck deck;
@@ -254,6 +255,11 @@ public class Player {
             this.collectibles.addAll(cell.getCollectibles());
             cell.removeCollectibles();
         }
+    }
+    public Unit getRandomUnit(){
+        int i = new Random().nextInt() % this.getUnits().size();
+        Unit unit = units.get(i);
+        return unit;
     }
 
     //+useItem(item :Item):void        //todo check is dead for item

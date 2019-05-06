@@ -6,6 +6,7 @@ import models.card.SpellCard;
 import models.card.Unit;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AIPlayer extends Player {
     public AIPlayer(Deck deck, Account account) {
@@ -75,8 +76,18 @@ public class AIPlayer extends Player {
     }
 
     private Cell getBestCellToMove(Unit unit, Game game) {
-        // TODO: 5/6/19
-        return null;
+        Player opponent = game.getOpponentPlayer();
+        Unit randomUnit = opponent.getRandomUnit();
+        int rowDiff = randomUnit.getCurrentCell().getRow() - unit.getCurrentCell().getRow();
+        int columnDiff = randomUnit.getCurrentCell().getColumn() - unit.getCurrentCell().getColumn();
+
+        int rowDirection = setMovementDirection(rowDiff);
+        int columnDirection = setMovementDirection(columnDiff);
+
+        int newRow = unit.getCurrentCell().getRow() + rowDirection;
+        int newColumn = unit.getCurrentCell().getColumn() + columnDirection;
+
+        return game.getTable().getCell(newRow, newColumn);
     }
 
     private Cell getBestCellToPutUnit(Game game) {
@@ -87,5 +98,15 @@ public class AIPlayer extends Player {
     private Cell getBestCellToCastSpell(Game game) {
         // TODO: 5/6/19
         return null;
+    }
+
+    public int setMovementDirection(int number) {
+        if (number > 0) {
+            return 1;
+        } else if (number == 0) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }
