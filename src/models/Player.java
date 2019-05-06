@@ -209,6 +209,7 @@ public class Player {
         this.mana -= hero.getSpellManaCost();
         hero.castSpell(cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        //todo why do we need cell in this method ?????
     }
 
     public void castSelectedCollectible(Cell cell) throws NoSelectedCollectibleException {
