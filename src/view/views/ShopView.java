@@ -28,25 +28,25 @@ public class ShopView implements ShopContract.View {
             switch (getCardType(card)) {
                 case "Minion":
                     Minion minion = (Minion) card;
-                    System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d - Special power: %s - Buy cost: %d\n"
+                    System.out.printf("\t%d : Type: %s - Name: %s - Class: %s - AP: %d - HP: %d - MP: %d " + /* "- Special power: %s" +*/ " - Buy cost: %d\n"
                             , (printingState == 's') ? (i) : (minion.getCollectionID())
                             , getCardType(minion)
                             , minion.getName()
-                            , minion.toString()
+                            , minion.getAttackType().toString()
                             , minion.getAp()
                             , minion.getHp()
                             , minion.getManaCost()
-                            , minion.toString()
+                            /*, minion.toString()*/
                             , minion.getBuyPrice());
                     break;
                 case "Spell":
                     SpellCard spellCard = (SpellCard) card;
-                    System.out.printf("\t%d : Type: %s - Name: %s - MP: %d - Description: %s - Buy cost: %d\n"
+                    System.out.printf("\t%d : Type: %s - Name: %s - MP: %d " + /*"- Description: %s" +*/ " - Buy cost: %d\n"
                             , (printingState == 's') ? (i) : (spellCard.getCollectionID())
                             , getCardType(spellCard)
                             , spellCard.getName()
                             , spellCard.getManaCost()
-                            , spellCard.toString()
+                            /* , spellCard.toString() */
                             , spellCard.getBuyPrice());
                     break;
             }
@@ -68,10 +68,10 @@ public class ShopView implements ShopContract.View {
         logMessage("Items:");
         for (Item item : items) {
             i++;
-            System.out.printf("\t%d : Name: %s - Description: %s - Buy cost: %d\n"
+            System.out.printf("\t%d : Name: %s " + /*"- Description: %s" +*/ " - Buy cost: %d\n"
                     , (printingState == 's') ? (i) : (item.getCollectionID())
                     , item.getName()
-                    , item.toString()
+                    /*, item.toString()*/
                     , item.getBuyPrice());
         }
     }
@@ -81,12 +81,12 @@ public class ShopView implements ShopContract.View {
         logMessage("Heroes:");
         for (Hero hero : heroes) {
             i++;
-            System.out.printf("\t%d :  Name: %s - AP: %d - HP: %d - Special Power : %s - Buy cost: %d\n"
+            System.out.printf("\t%d :  Name: %s - AP: %d - HP: %d " + /*"- Special Power : %s " +*/ "- Buy cost: %d\n"
                     , (printingState == 's') ? (i) : (hero.getCollectionID())
                     , hero.getName()
                     , hero.getAp()
                     , hero.getHp()
-                    , hero.toString()
+                    /*, hero.toString() */
                     , hero.getBuyPrice());
         }
     }
