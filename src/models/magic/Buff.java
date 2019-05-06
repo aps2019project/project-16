@@ -139,7 +139,7 @@ public class Buff {
         if (unit.isNotGetNegativeEffect() && !isPositive())
             return;
         if (durationToStart == 0) {
-            unit.getDamageFromBuff(damage);
+            unit.getDamage(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
@@ -176,7 +176,7 @@ public class Buff {
             return;
         }
         if (!casted) {
-            unit.getDamageFromBuff(damage);
+            unit.getDamage(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
