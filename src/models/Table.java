@@ -56,9 +56,8 @@ public class Table {
     }
 
     public static boolean isAdjacent(Cell firstCell, Cell secondCell) {
-        return (firstCell.getColumn() == secondCell.getColumn()
-                && Math.abs(firstCell.getRow() - secondCell.getRow()) == 1)
-                || (firstCell.getRow() == secondCell.getRow()
-                && Math.abs(firstCell.getColumn() - secondCell.getColumn()) == 1);
+        return getDistance(firstCell, secondCell) == 1 ||
+                Math.abs(firstCell.getRow() - secondCell.getRow()) == 1
+                && Math.abs(firstCell.getColumn() - secondCell.getColumn()) == 1;
     }
 }
