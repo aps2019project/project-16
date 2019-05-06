@@ -139,4 +139,9 @@ public class Collection {
         }
         return null;
     }
+
+    //todo just for debug delete this function
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
 }

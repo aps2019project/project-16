@@ -29,6 +29,7 @@ public class Player {
                 ((Unit) card).setPlayer(this);
             }
         }
+        deck.getHero().setPlayer(this);
     }
 
     public void setTable(Table table) {
