@@ -1426,6 +1426,7 @@ public class Initializer {
     public static Item getRandomCollectible() {
         int size = collectibles.size();
         int randomNumber = new Random().nextInt() % size;
+        randomNumber = Math.abs(randomNumber) % size;
         return collectibles.get(randomNumber).getCopy(false);
     }
 }

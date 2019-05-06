@@ -127,7 +127,7 @@ public class InGameView implements InGameContract.View {
     public void showCollectables(ArrayList<Item> collectibles) {
         Notify.logMessage("List of collected collectibles:");
         for (Item collectible : collectibles) {
-            Notify.logMessage(collectible.getName());
+            Notify.logMessage("* name: " + collectible.getName() + " collectible ID: " + collectible.getCollectibleID());
         }
     }
 

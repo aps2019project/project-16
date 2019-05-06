@@ -71,6 +71,7 @@ public class InGameController implements InGameContract.Controller {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Cell cell = game.getTable().getCell(x - 1, y - 1);
+        Unit selectedUnit = currentPlayer.getSelectedUnit();
         try {
             if (currentPlayer.getSelectedUnit() == null) {
                 throw new UnitIsNotSelectedException();
@@ -79,7 +80,7 @@ public class InGameController implements InGameContract.Controller {
                 throw new CellIsNotInTableException();
             }
             currentPlayer.moveSelectedUnit(cell);
-            Notify.logMessage("Unit \"" + currentPlayer.getSelectedUnit().getName() + "\" moved to"
+            Notify.logMessage("Unit \"" + selectedUnit.getName() + "\" moved to"
                     + "\n\trow: " + x
                     + "\n\tcolumn: " + y);
         } catch (UnitIsNotSelectedException E) {

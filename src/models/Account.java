@@ -60,6 +60,14 @@ public class Account {
     public Account(String name, String password) {
         this.name = name;
         this.password = password;
+        //TODO: JUST FOR DEBUG
+        GameLevel gameLevel = GameContents.getGameLevel(1);
+        if (gameLevel != null) {
+            Deck defaultDeck = gameLevel.getDeck().getCopy();
+            defaultDeck.setName("default1");
+            collection.addDeck(defaultDeck);
+        }
+        //TODO END OF
     }
     //////////////////////////////////////////////////////////////////////////////////////////
 
