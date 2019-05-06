@@ -219,7 +219,7 @@ public class Player {
         selectedCollectible.use(this, cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
         selectedCollectible = null;
-    }
+    }//todo why do we need cell in this method ????
 
     public int getNumberOfCollectedFlags() {
         int sum = 0;

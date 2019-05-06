@@ -155,10 +155,10 @@ public class AIPlayer extends Player {
     }//done
 
     private Cell getBestCellToCastCollectible(Game game) {
-        // TODO: 5/6/19
-
-        return null;
-    }
+        int row = new Random().nextInt() % 5;
+        int column = new Random().nextInt() % 9;
+        return game.getTable().getCell(row, column);
+    }//done
 
     public int setMovementDirection(int number) {
         if (number > 0) {
