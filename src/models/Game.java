@@ -185,11 +185,11 @@ public class Game {
         Hero hero1 = player1.getHero();
         Hero hero2 = player2.getHero();
         if (hero1 == null || hero1.getHp() <= 0) {
-            setWinner(player1);
+            setWinner(player2);
             return true;
         }
         if (hero2 == null || hero2.getHp() <= 0) {
-            setWinner(player2);
+            setWinner(player1);
             return true;
         }
         return false;
