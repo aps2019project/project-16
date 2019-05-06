@@ -9,6 +9,7 @@ public class Flag {
     Flag(Cell cell) {
         this.currentCell = cell;
         this.ownerUnit = null;
+        cell.addFlag(this);
     }
 
     public Cell getCurrentCell() {

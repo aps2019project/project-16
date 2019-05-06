@@ -142,7 +142,7 @@ public class CollectionController implements CollectionContract.Controller {
             Notify.logError("Sorry! This deck doesn't exist!");
         } else if (!deck.hasCard(cardID)) {
             Notify.logError("Sorry! This card doesn't exist exist in deck \"" + deckName + "\"");
-        } else {
+        } else if (type != null) {
             switch (type) {
                 case "item":
                     deck.setItem(null);
