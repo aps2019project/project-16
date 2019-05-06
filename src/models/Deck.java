@@ -103,7 +103,6 @@ public class Deck {
     }
 
     public boolean isValid() {
-
         return this.cards.size() == CARD_CAPACITY && this.getHero() != null;
     }
 

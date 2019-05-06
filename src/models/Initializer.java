@@ -210,7 +210,7 @@ public class Initializer {
                         .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND, TargetAttackType.ANY))
                         .addBuff(new Buff.BuffBuilder()
                                 .setDeltaHP(10)
-                                .setDuration(Buff.INFINITY)
+                                .setHalfTurnDuration()
                                 .create())
                         .create())
                 .setAttackType(new Ranged(3))
