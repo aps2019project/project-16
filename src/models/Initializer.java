@@ -80,14 +80,7 @@ public class Initializer {
         );
         //5
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(ON_ATTACK)
-                .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDuration(Buff.INFINITY)
-                                .setDeltaHP(0)// todo special power must be corrected
-                                .create())
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .create())
+                .setAddedApPerAttack(5)
                 .setAttackType(new Melee())
                 .setAp(6)
                 .setHp(24)
@@ -451,14 +444,7 @@ public class Initializer {
         );
         //28
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(ON_DEFEND)
-                .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                //todo .setNotDisarm must be added
-                                //todo target society ?????!!!???
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
+                .setNotDisarmable()
                 .setAttackType(new Melee())
                 .setAp(14)
                 .setHp(10)
@@ -470,13 +456,7 @@ public class Initializer {
         );
         //29
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(ON_DEFEND)
-                .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                //todo .setNotPoison must be added
-                                //todo target society ????!!!???
-                                .create())
-                        .create())
+                .setNotGetPoisoned()
                 .setAttackType(new Melee())
                 .setAp(12)
                 .setHp(20)
@@ -488,14 +468,7 @@ public class Initializer {
         );
         //30
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(ON_DEFEND)
-                .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                //todo doesnt get nagative buff from others
-                                //todo target society
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
+                .setNotGetNegativeEffect()
                 .setAttackType(new Ranged(5))
                 .setAp(7)
                 .setHp(5)
@@ -526,13 +499,7 @@ public class Initializer {
         );
         //32
         cards.add(new Minion.MinionBuilder()
-                .setSpecialPowerCastTime(ON_DEFEND)
-                .setSpecialPower(new Spell.SpellBuilder()
-                        .addBuff(new Buff.BuffBuilder()
-                                //todo implement at the end
-                                .create())
-                        //todo target society
-                        .create())
+                .setNotGetWeakerAttack()
                 .setAttackType(new Melee())
                 .setAp(8)
                 .setHp(14)
