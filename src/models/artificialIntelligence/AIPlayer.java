@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class AIPlayer extends Player {
+    private static final int NUMBER_OF_RANDOMS = 10;
+
     public AIPlayer(Deck deck, Account account) {
         super(deck, account);
     }
@@ -114,6 +116,9 @@ public class AIPlayer extends Player {
     private Cell getBestCellToMove(Unit unit, Game game) {
         Player opponent = game.getOpponentPlayer();
         Unit randomUnit = opponent.getRandomUnit();
+        if (randomUnit == null) {
+            return null;
+        }
         int rowDiff = randomUnit.getCurrentCell().getRow() - unit.getCurrentCell().getRow();
         int columnDiff = randomUnit.getCurrentCell().getColumn() - unit.getCurrentCell().getColumn();
 
@@ -127,23 +132,37 @@ public class AIPlayer extends Player {
     }
 
     private Cell getBestCellToPutUnit(Game game) {
-        // TODO: 5/6/19
-        return null;
+        ArrayList<Cell> cells = new ArrayList<>();
+        Unit opponentUnit = game.getOpponentPlayer().getRandomUnit();
+        if (opponentUnit == null) {
+            return null;
+        }
+        for (int i = 0; i < NUMBER_OF_RANDOMS; i++) {
+            int row = new Random().nextInt() % 5;
+            int column = new Random().nextInt() % 9;
+            Cell cell = game.getTable().getCell(row, column);
+            if (!cell.hasUnit())
+                cells.add(cell);
+        }
+        return getNearestCell(cells, opponentUnit.getCurrentCell());
     }
 
     private Cell getBestCellToCastSpell(Game game) {
-        // TODO: 5/6/19
-        return null;
+        int row = new Random().nextInt() % 5;
+        int column = new Random().nextInt() % 9;
+        return game.getTable().getCell(row, column);
     }
 
     private Cell getBestCellToCastSpecialPower(Game game) {
-        // TODO: 5/6/19
-        return null;
+        int row = new Random().nextInt() % 5;
+        int column = new Random().nextInt() % 9;
+        return game.getTable().getCell(row, column);
     }
 
     private Cell getBestCellToCastCollectible(Game game) {
-        // TODO: 5/6/19
-        return null;
+        int row = new Random().nextInt() % 5;
+        int column = new Random().nextInt() % 9;
+        return game.getTable().getCell(row, column);
     }
 
     public int setMovementDirection(int number) {
@@ -154,5 +173,17 @@ public class AIPlayer extends Player {
         } else {
             return -1;
         }
+    }
+
+    private Cell getNearestCell(ArrayList<Cell> cells, Cell cell) {
+        int distance = 123; //just for sure!!
+        Cell resultCell = null;
+        for (Cell cell1 : cells) {
+            if (Table.getDistance(cell1, cell) < distance) {
+                distance = Table.getDistance(cell1, cell);
+                resultCell = cell1;
+            }
+        }
+        return resultCell;
     }
 }

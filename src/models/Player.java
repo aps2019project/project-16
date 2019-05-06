@@ -209,6 +209,7 @@ public class Player {
         this.mana -= hero.getSpellManaCost();
         hero.castSpell(cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        //todo why do we need cell in this method ?????
     }
 
     public void castSelectedCollectible(Cell cell) throws NoSelectedCollectibleException {
@@ -218,7 +219,7 @@ public class Player {
         selectedCollectible.use(this, cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
         selectedCollectible = null;
-    }
+    }//todo why do we need cell in this method ????
 
     public int getNumberOfCollectedFlags() {
         int sum = 0;
@@ -256,7 +257,10 @@ public class Player {
             cell.removeCollectibles();
         }
     }
-    public Unit getRandomUnit(){
+    public Unit getRandomUnit() {
+        if (this.getUnits().size() == 0) {
+            return null;
+        }
         int i = new Random().nextInt() % this.getUnits().size();
         Unit unit = units.get(i);
         return unit;

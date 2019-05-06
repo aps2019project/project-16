@@ -56,6 +56,7 @@ public class AccountController implements AccountContract.Controller {
     public void saveGameData() {
         try {
             GameContents.saveAccount(GameContents.getCurrentAccount());
+            Notify.logMessage("Your account saved successfully");
         } catch (IOException e) {
             e.printStackTrace();
         }
