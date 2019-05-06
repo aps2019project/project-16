@@ -11,6 +11,7 @@ import models.magic.Spell;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class Unit extends Card implements Buffable {
     private ArrayList<Pair<SpecialPowerCastTime, Spell>> specialPowers = new ArrayList<>();
@@ -197,9 +198,23 @@ public abstract class Unit extends Card implements Buffable {
         buffs.add(buff.copy());
     }
 
+    public void addBuff(Buff buff, Player player) {
+        if (notGetNegativeEffect && !buff.isPositive())
+            return;
+        if (notGetPoisoned && buff.hasPoison())
+            return;
+        Buff newBuff = buff.copy();
+        buffs.add(newBuff);
+        newBuff.start(this, player);
+    }
+
     @Override
     public void addBuffs(List<Buff> buffs) {
         buffs.forEach(this::addBuff);
+    }
+
+    public void addBuffs(List<Buff> buffs, Player player) {
+        buffs.forEach(buff -> addBuff(buff, player));
     }
 
     public void addSpecialPower(SpecialPowerCastTime specialPowerCastTime, Spell spell) {
