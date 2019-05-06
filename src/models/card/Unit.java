@@ -217,7 +217,7 @@ public abstract class Unit extends Card implements Buffable {
     @Override
     public void doBuffs() {
         for (Buff buff : buffs)
-            buff.cast(this);
+            buff.castOnEndTurn(this);
     }
 
     public void nextTurn() {

@@ -139,27 +139,35 @@ public class Buff {
         if (unit.isNotGetNegativeEffect() && !isPositive())
             return;
         if (durationToStart == 0) {
-            unit.getDamage(damage);
-            unit.changeAP(deltaAP);
-            unit.changeHP(deltaHP);
+            cast(unit);
             casted = true;
         }
         if (dispel) {
-            if (unit.getPlayer() != player) {
-                unit.getBuffs().forEach(buff -> {
-                    if (buff.isPositive() && buff.isDispelable())
-                        buff.finish(unit);
-                });
-                unit.getBuffs().removeIf(buff -> buff.isDispelable() && buff.isPositive());
-            }
-            else {
-                unit.getBuffs().forEach(buff -> {
-                    if (!buff.isPositive() && buff.isDispelable())
-                        buff.finish(unit);
-                });
-                unit.getBuffs().removeIf(buff -> !buff.isPositive() && buff.isDispelable());
-            }
+            dispel(unit, player);
         }
+    }
+
+    private void dispel(Unit unit, Player player) {
+        if (unit.getPlayer() != player) {
+            unit.getBuffs().forEach(buff -> {
+                if (buff.isPositive() && buff.isDispelable())
+                    buff.finish(unit);
+            });
+            unit.getBuffs().removeIf(buff -> buff.isDispelable() && buff.isPositive());
+        }
+        else {
+            unit.getBuffs().forEach(buff -> {
+                if (!buff.isPositive() && buff.isDispelable())
+                    buff.finish(unit);
+            });
+            unit.getBuffs().removeIf(buff -> !buff.isPositive() && buff.isDispelable());
+        }
+    }
+
+    private void cast(Unit unit) {
+        unit.getDamage(damage);
+        unit.changeAP(deltaAP);
+        unit.changeHP(deltaHP);
     }
 
     public boolean isDispelable() {
@@ -170,15 +178,13 @@ public class Buff {
         return deltaAP > 0 || deltaHP > 0 || holy > 0;
     }
 
-    public void cast(Unit unit) {
+    public void castOnEndTurn(Unit unit) {
         if (durationToStart > 0) {
             durationToStart--;
             return;
         }
         if (!casted) {
-            unit.getDamage(damage);
-            unit.changeAP(deltaAP);
-            unit.changeHP(deltaHP);
+            cast(unit);
             casted = true;
         }
         if (remainingDuration % 2 == 0)
@@ -198,7 +204,7 @@ public class Buff {
      * it should be casted before unit buffs casting.
      * @param cell
      */
-    public void cast(Cell cell) {
+    public void castOnEndTurn(Cell cell) {
         if (cell.hasUnit()) {
             if (poison == 1)
                 cell.getUnit().addBuff(new Buff(3, this));

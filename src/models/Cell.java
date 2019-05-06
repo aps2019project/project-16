@@ -72,7 +72,7 @@ public class Cell implements Buffable {
     @Override
     public void doBuffs() {
         for (Buff buff : cellEffect)
-            buff.cast(this);
+            buff.castOnEndTurn(this);
     }
 
     public ArrayList<Flag> getFlags() {
