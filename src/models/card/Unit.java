@@ -171,12 +171,12 @@ public abstract class Unit extends Card implements Buffable {
     }
 
     public void getDamageFromUnit(int amount) {
-        getDamage(amount);
+        if (!notGetWeakerAttack || amount >= ap)
+            getDamage(amount);
     }
 
     public void getDamageFromBuff(int amount) {
-        if (!notGetWeakerAttack || amount >= ap)
-            getDamage(amount);
+        getDamage(amount);
     }
 
     public void changeAP(int amount) {
