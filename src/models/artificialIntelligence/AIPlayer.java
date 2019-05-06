@@ -4,6 +4,7 @@ import models.*;
 import models.card.Card;
 import models.card.SpellCard;
 import models.card.Unit;
+import models.item.Item;
 
 import java.util.ArrayList;
 
@@ -13,16 +14,51 @@ public class AIPlayer extends Player {
     }
 
     public void doActsInAITurn(Game game) {
-        // TODO: 5/6/19 call this func
-        // TODO: 5/5/19
-        //  + attack
-        //  + use special power
-        //  + use collectible
-
-        //put cards
         putMyCards(game);
-        //move
         moveMyUnits(game);
+        attackToOpponentUnits(game);
+        useSpecialPower(game);
+        useCollectibles(game);
+    }
+
+    private void useCollectibles(Game game) {
+        ArrayList<Item> collectibles = getCollectibles();
+        for (Item collectible : collectibles) {
+            setSelectedCollectible(collectible);
+            Cell cellToCastCollectible = getBestCellToCastCollectible(game);
+            try {
+                if (cellToCastCollectible == null) {
+                    throw new NullPointerException();
+                }
+                castSelectedCollectible(cellToCastCollectible);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private void useSpecialPower(Game game) {
+        Cell cellToCastSpecialPower = getBestCellToCastSpecialPower(game);
+        try {
+            if (cellToCastSpecialPower == null) {
+                throw new NullPointerException();
+            }
+            castHeroSpell(cellToCastSpecialPower);
+        } catch (Exception e) {
+        }
+    }
+
+    private void attackToOpponentUnits(Game game) {
+        ArrayList<Unit> myUnits = getUnits();
+        ArrayList<Unit> opponentUnits = game.getOpponentPlayer().getUnits();
+        for (Unit myUnit : myUnits) {
+            setSelectedUnit(myUnit);
+            for (Unit opponentUnit : opponentUnits) {
+                try {
+                    attack(opponentUnit);
+                } catch (Exception e) {
+                }
+            }
+        }
     }
 
     private void putMyCards(Game game) {
@@ -68,7 +104,7 @@ public class AIPlayer extends Player {
                 if (cellToMove == null) {
                     throw new NullPointerException();
                 }
-                moveUnit(cellToMove);
+                moveSelectedUnit(cellToMove);
             } catch (Exception e) {
             }
         }
@@ -85,6 +121,16 @@ public class AIPlayer extends Player {
     }
 
     private Cell getBestCellToCastSpell(Game game) {
+        // TODO: 5/6/19
+        return null;
+    }
+
+    private Cell getBestCellToCastSpecialPower(Game game) {
+        // TODO: 5/6/19
+        return null;
+    }
+
+    private Cell getBestCellToCastCollectible(Game game) {
         // TODO: 5/6/19
         return null;
     }
