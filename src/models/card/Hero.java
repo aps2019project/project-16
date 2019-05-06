@@ -11,9 +11,13 @@ public class Hero extends Unit {
     private int spellRemainingCoolDown = 0;
     private int spellCoolDown;
 
-    public Hero(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType,
-                boolean piercingHoly, Spell specialPower, SpecialPowerCastTime specialPowerCastTime, Spell spell, int spellManaCost, int spellCoolDown) {
-        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, false, piercingHoly, specialPower, specialPowerCastTime);
+    public Hero(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap,
+                AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime,
+                int addedApPerAttack, boolean piercingHoly, boolean notDisarmable, boolean notGetWeakerAttack,
+                boolean notGetNegativeEffect, boolean notGetPoisoned, Spell spell, int spellManaCost, int spellCoolDown) {
+        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, combo, specialPower,
+                specialPowerCastTime, addedApPerAttack, piercingHoly, notDisarmable, notGetWeakerAttack,
+                notGetNegativeEffect, notGetPoisoned);
         this.spell = spell;
         this.spellManaCost = spellManaCost;
         this.spellCoolDown = spellCoolDown;
@@ -41,8 +45,10 @@ public class Hero extends Unit {
 
         @Override
         public Hero create() {
-            return new Hero(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(), getAp(), getAttackType(),
-                    isPiercingHoly(), getSpecialPower(), getSpecialPowerCastTime(), spell, spellManaCost, spellCoolDown);
+            return new Hero(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(), getAp(),
+                    getAttackType(), isPiercingHoly(), getSpecialPower(), getSpecialPowerCastTime(), getAddedApPerAttack(),
+                    isPiercingHoly(), isNotDisarmable(), isNotGetWeakerAttack(), isNotGetNegativeEffect(),
+                    isNotGetPoisoned(), spell, spellManaCost, spellCoolDown);
         }
     }
 

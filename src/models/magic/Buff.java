@@ -136,8 +136,10 @@ public class Buff {
      * @param player
      */
     public void start(Unit unit, Player player) {
+        if (unit.isNotGetNegativeEffect() && !isPositive())
+            return;
         if (durationToStart == 0) {
-            unit.dealDamage(damage);
+            unit.getDamageFromBuff(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
@@ -174,7 +176,7 @@ public class Buff {
             return;
         }
         if (!casted) {
-            unit.dealDamage(damage);
+            unit.getDamageFromBuff(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
@@ -223,6 +225,10 @@ public class Buff {
         if (isActive())
             return disarm;
         return false;
+    }
+
+    public boolean hasPoison() {
+        return poison > 0;
     }
 
     public Buff copy() {

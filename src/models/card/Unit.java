@@ -9,6 +9,7 @@ import models.magic.Buffable;
 import models.magic.Spell;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Unit extends Card implements Buffable {
@@ -24,10 +25,16 @@ public abstract class Unit extends Card implements Buffable {
     private AttackType attackType;
     private boolean combo;
     private boolean piercingHoly;
+    private int addedApPerAttack;
+    private boolean notDisarmable;
+    private boolean notGetWeakerAttack;
+    private boolean notGetNegativeEffect;
+    private boolean notGetPoisoned;
+    private HashMap<Unit, Integer> attackedTo = new HashMap<>();
     boolean hasFlag = false;
 
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, boolean piercingHoly, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime, int addedApPerAttack, boolean piercingHoly, boolean notDisarmable, boolean notGetWeakerAttack, boolean notGetNegativeEffect, boolean notGetPoisoned) {
         super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
@@ -51,6 +58,41 @@ public abstract class Unit extends Card implements Buffable {
         private int ap;
         private AttackType attackType;
         private boolean piercingHoly = false;
+        private int addedApPerAttack = 0;
+        private boolean notDisarmable = false;
+        private boolean notGetWeakerAttack = false;
+        private boolean notGetNegativeEffect = false;
+        private boolean notGetPoisoned = false;
+
+        public UnitBuilder setPiercingHoly() {
+            this.piercingHoly = true;
+            return this;
+        }
+
+        public UnitBuilder setAddedApPerAttack(int addedApPerAttack) {
+            this.addedApPerAttack = addedApPerAttack;
+            return this;
+        }
+
+        public UnitBuilder setNotDisarmable() {
+            this.notDisarmable = true;
+            return this;
+        }
+
+        public UnitBuilder setNotGetWeakerAttack() {
+            this.notGetWeakerAttack = true;
+            return this;
+        }
+
+        public UnitBuilder setNotGetNegativeEffect() {
+            this.notGetNegativeEffect = true;
+            return this;
+        }
+
+        public UnitBuilder setNotGetPoisoned() {
+            this.notGetPoisoned = true;
+            return this;
+        }
 
         public UnitBuilder setHp(int hp) {
             this.hp = hp;
@@ -69,11 +111,6 @@ public abstract class Unit extends Card implements Buffable {
 
         public UnitBuilder setSpecialPower(Spell specialPower) {
             this.specialPower = specialPower;
-            return this;
-        }
-
-        public UnitBuilder setPiercingHoly() {
-            this.piercingHoly = true;
             return this;
         }
 
@@ -105,6 +142,26 @@ public abstract class Unit extends Card implements Buffable {
         SpecialPowerCastTime getSpecialPowerCastTime() {
             return specialPowerCastTime;
         }
+
+        int getAddedApPerAttack() {
+            return addedApPerAttack;
+        }
+
+        boolean isNotDisarmable() {
+            return notDisarmable;
+        }
+
+        boolean isNotGetWeakerAttack() {
+            return notGetWeakerAttack;
+        }
+
+        boolean isNotGetNegativeEffect() {
+            return notGetNegativeEffect;
+        }
+
+        boolean isNotGetPoisoned() {
+            return notGetPoisoned;
+        }
     }
 
     public int getHp() {
@@ -125,6 +182,10 @@ public abstract class Unit extends Card implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
+        if (notGetNegativeEffect && !buff.isPositive())
+            return;
+        if (notGetPoisoned && buff.hasPoison())
+            return;
         buffs.add(buff.copy());
     }
 
@@ -139,6 +200,10 @@ public abstract class Unit extends Card implements Buffable {
 
     public ArrayList<Buff> getBuffs() {
         return buffs;
+    }
+
+    public boolean isNotGetNegativeEffect() {
+        return notGetNegativeEffect;
     }
 
     @Override
@@ -158,9 +223,18 @@ public abstract class Unit extends Card implements Buffable {
         hp += amount;
     }
 
-    public void dealDamage(int amount) {
+    private void getDamage(int amount) {
         if (amount - getHoly() > 0)
             hp -= amount - getHoly();
+    }
+
+    public void getDamageFromUnit(int amount) {
+        if (!notGetWeakerAttack || amount >= ap)
+            getDamage(amount);
+    }
+
+    public void getDamageFromBuff(int amount) {
+        getDamage(amount);
     }
 
     public void changeAP(int amount) {
@@ -175,6 +249,8 @@ public abstract class Unit extends Card implements Buffable {
     }
 
     private boolean isDisarmed() {
+        if (notDisarmable)
+            return false;
         for (Buff buff : buffs)
             if (buff.hasDisarm())
                 return true;
@@ -194,12 +270,16 @@ public abstract class Unit extends Card implements Buffable {
 
     public void attack(Unit opponent) throws AttackException {
         this.checkCanAttack(opponent);
+        attackedTo.putIfAbsent(opponent, 0);
+        int damage = ap;
+        damage += addedApPerAttack * attackedTo.get(opponent);
         attacked = true;
         moved = true;
         if (piercingHoly)
-            opponent.dealDamage(ap + opponent.getHoly());
+            opponent.getDamageFromUnit(damage + opponent.getHoly());
         else
-            opponent.dealDamage(ap);
+            opponent.getDamageFromUnit(damage);
+        attackedTo.computeIfPresent(opponent, (unit, integer) -> integer + 1); //todo check if work correctly
         castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
     }
 
@@ -208,7 +288,7 @@ public abstract class Unit extends Card implements Buffable {
             return;
         if (isDisarmed() || isStunned())
             return;
-        opponent.dealDamage(ap);
+        opponent.getDamageFromUnit(ap);
     }
 
     public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
@@ -219,7 +299,7 @@ public abstract class Unit extends Card implements Buffable {
             unit.checkCanAttack(opponent);
             damage += unit.getAp();
         }
-        opponent.dealDamage(damage);
+        opponent.getDamageFromUnit(damage);
     }
 
     public boolean isDead() {
