@@ -181,6 +181,8 @@ public abstract class Unit extends Card implements Buffable {
     }
 
     private boolean isDisarmed() {
+        if (notDisarmable)
+            return false;
         for (Buff buff : buffs)
             if (buff.hasDisarm())
                 return true;
