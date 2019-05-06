@@ -155,6 +155,10 @@ public class Game {
     private void setMana() {
         players[0].setMana((turn + 1) / 2 + 2);
         players[1].setMana((turn + 1) / 2 + 2);
+        if (players[0].getMana() > 9)
+            players[0].setMana(9);
+        if (players[1].getMana() > 9)
+            players[1].setMana(9);
     }
 
     private void getRewardToWinner() {
