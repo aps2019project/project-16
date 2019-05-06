@@ -204,6 +204,13 @@ public class Player {
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
+    public void castSelectedCollectible(Cell cell) throws NoSelectedCollectibleException {
+        if (selectedCollectible == null) {
+            throw new NoSelectedCollectibleException();
+        }
+        selectedCollectible.use(this, cell);
+    }
+
     public int getNumberOfCollectedFlags() {
         int sum = 0;
         for (Unit unit : units) {

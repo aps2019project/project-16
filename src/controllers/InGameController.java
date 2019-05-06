@@ -295,7 +295,19 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void useSelectedCollectable(int x, int y) {
-        // TODO: 5/4/19
+        Game game = GameContents.getCurrentGame();
+        Cell cell = game.getTable().getCell(x - 1, y - 1);
+        try {
+            if (cell == null) {
+                throw new CellIsNotInTableException();
+            }
+            game.getCurrentPlayer().castSelectedCollectible(cell);
+            Notify.logMessage("You casted the selected collectible!");
+        } catch (NoSelectedCollectibleException e) {
+            Notify.logError("At first you must select a collectible!");
+        } catch (CellIsNotInTableException e) {
+            Notify.logError("Cell is not in the table!");
+        }
     }
 
     @Override
