@@ -143,8 +143,10 @@ public class AIPlayer extends Player {
     } //done
 
     private Cell getBestCellToCastSpell(Game game) {
-        return null;
-    }
+        int row = new Random().nextInt() % 5;
+        int column = new Random().nextInt() % 9;
+        return game.getTable().getCell(row, column);
+    }//done
 
     private Cell getBestCellToCastSpecialPower(Game game) {
         int row = new Random().nextInt() % 5;
