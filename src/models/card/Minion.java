@@ -6,9 +6,13 @@ import models.magic.Spell;
 
 public class Minion extends Unit {
 
-    public Minion(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType,
-                  boolean combo, boolean piercingHoly, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
-        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, combo, piercingHoly, specialPower, specialPowerCastTime);
+    private Minion(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap,
+                   AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime,
+                   int addedApPerAttack, boolean piercingHoly, boolean notDisarmable, boolean notGetWeakerAttack,
+                   boolean notGetNegativeEffect, boolean notGetPoisoned) {
+        super(name, manaCost, buyPrice, sellPrice, description, hp, ap, attackType, combo, specialPower,
+                specialPowerCastTime, addedApPerAttack, piercingHoly, notDisarmable, notGetWeakerAttack,
+                notGetNegativeEffect, notGetPoisoned);
     }
 
     public static class MinionBuilder extends UnitBuilder {
@@ -22,7 +26,8 @@ public class Minion extends Unit {
         @Override
         public Minion create() {
             return new Minion(getName(), getManaCost(), getBuyPrice(), getSellPrice(), getDescription(), getHp(),
-                    getAp(), getAttackType(), combo, isPiercingHoly(), getSpecialPower(), getSpecialPowerCastTime());
+                    getAp(), getAttackType(), combo, getSpecialPower(), getSpecialPowerCastTime(), getAddedApPerAttack(),
+                    isPiercingHoly(), isNotDisarmable(), isNotGetWeakerAttack(), isNotGetNegativeEffect(), isNotGetPoisoned());
         }
     }
 

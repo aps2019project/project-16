@@ -25,17 +25,16 @@ public abstract class Unit extends Card implements Buffable {
     private AttackType attackType;
     private boolean combo;
     private boolean piercingHoly;
-    private int addedApPerAttack; // todo fix constructor and builders
-    private HashMap<Unit, Integer> attackedTo = new HashMap<>();
+    private int addedApPerAttack;
     private boolean notDisarmable;
-    //todo add not poison able and poison func
     private boolean notGetWeakerAttack;
     private boolean notGetNegativeEffect;
     private boolean notGetPoisoned;
+    private HashMap<Unit, Integer> attackedTo = new HashMap<>();
     boolean hasFlag = false;
 
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, boolean piercingHoly, Spell specialPower, SpecialPowerCastTime specialPowerCastTime) {
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime, int addedApPerAttack, boolean piercingHoly, boolean notDisarmable, boolean notGetWeakerAttack, boolean notGetNegativeEffect, boolean notGetPoisoned) {
         super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
@@ -59,6 +58,41 @@ public abstract class Unit extends Card implements Buffable {
         private int ap;
         private AttackType attackType;
         private boolean piercingHoly = false;
+        private int addedApPerAttack = 0;
+        private boolean notDisarmable = false;
+        private boolean notGetWeakerAttack = false;
+        private boolean notGetNegativeEffect = false;
+        private boolean notGetPoisoned = false;
+
+        public UnitBuilder setPiercingHoly() {
+            this.piercingHoly = true;
+            return this;
+        }
+
+        public UnitBuilder setAddedApPerAttack(int addedApPerAttack) {
+            this.addedApPerAttack = addedApPerAttack;
+            return this;
+        }
+
+        public UnitBuilder setNotDisarmable() {
+            this.notDisarmable = true;
+            return this;
+        }
+
+        public UnitBuilder setNotGetWeakerAttack() {
+            this.notGetWeakerAttack = true;
+            return this;
+        }
+
+        public UnitBuilder setNotGetNegativeEffect() {
+            this.notGetNegativeEffect = true;
+            return this;
+        }
+
+        public UnitBuilder setNotGetPoisoned() {
+            this.notGetPoisoned = true;
+            return this;
+        }
 
         public UnitBuilder setHp(int hp) {
             this.hp = hp;
@@ -77,11 +111,6 @@ public abstract class Unit extends Card implements Buffable {
 
         public UnitBuilder setSpecialPower(Spell specialPower) {
             this.specialPower = specialPower;
-            return this;
-        }
-
-        public UnitBuilder setPiercingHoly() {
-            this.piercingHoly = true;
             return this;
         }
 
@@ -112,6 +141,26 @@ public abstract class Unit extends Card implements Buffable {
 
         SpecialPowerCastTime getSpecialPowerCastTime() {
             return specialPowerCastTime;
+        }
+
+        int getAddedApPerAttack() {
+            return addedApPerAttack;
+        }
+
+        boolean isNotDisarmable() {
+            return notDisarmable;
+        }
+
+        boolean isNotGetWeakerAttack() {
+            return notGetWeakerAttack;
+        }
+
+        boolean isNotGetNegativeEffect() {
+            return notGetNegativeEffect;
+        }
+
+        boolean isNotGetPoisoned() {
+            return notGetPoisoned;
         }
     }
 
