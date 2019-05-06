@@ -7,9 +7,12 @@ import models.card.Unit;
 import models.item.Item;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class AIPlayer extends Player {
+    private static final int NUMBER_OF_RANDOMS = 3;
+
     public AIPlayer(Deck deck, Account account) {
         super(deck, account);
     }
@@ -127,8 +130,16 @@ public class AIPlayer extends Player {
     }
 
     private Cell getBestCellToPutUnit(Game game) {
-        // TODO: 5/6/19
-        return null;
+        ArrayList<Cell> cells = new ArrayList<>();
+        Unit unit = game.getOpponentPlayer().getRandomUnit();
+        for (int i = 0; i < NUMBER_OF_RANDOMS; i++) {
+            int row = new Random().nextInt() % 5;
+            int column = new Random().nextInt() % 9;
+            Cell cell = game.getTable().getCell(row, column);
+            if (!cell.hasUnit())
+                cells.add(cell);
+        }
+        return getNearestCell(cells, unit.getCurrentCell());
     }
 
     private Cell getBestCellToCastSpell(Game game) {
@@ -154,5 +165,17 @@ public class AIPlayer extends Player {
         } else {
             return -1;
         }
+    }
+
+    private Cell getNearestCell(ArrayList<Cell> cells, Cell cell) {
+        int distance = 123; //just for sure!!
+        Cell resultCell = null;
+        for (Cell cell1 : cells) {
+            if (Table.getDistance(cell1, cell) < distance) {
+                distance = Table.getDistance(cell1, cell);
+                resultCell = cell1;
+            }
+        }
+        return resultCell;
     }
 }
