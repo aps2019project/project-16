@@ -5,7 +5,7 @@ import models.Player;
 import models.card.Unit;
 
 public class Buff {
-    public static final int INFINITY = Integer.MAX_VALUE;
+    public static final int INFINITY = 1000000;
     private int durationToStart;
     private int remainingDuration;
     private final int duration;
