@@ -216,6 +216,7 @@ public class Player {
             throw new NoSelectedCollectibleException();
         }
         selectedCollectible.use(this, cell);
+        this.getCollectibles().removeIf(a -> a.equals(selectedCollectible));
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
         selectedCollectible = null;
     }
@@ -250,8 +251,8 @@ public class Player {
         }
     }
 
-    public void pickUpCollectibles(Cell cell ){
-        if (cell.getCollectibles().size() > 0){
+    public void pickUpCollectibles(Cell cell) {
+        if (cell.getCollectibles().size() > 0) {
             this.collectibles.addAll(cell.getCollectibles());
             cell.removeCollectibles();
         }

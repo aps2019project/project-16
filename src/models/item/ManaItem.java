@@ -34,7 +34,7 @@ public class ManaItem extends Item {
     }
 
     @Override
-    public void use(Player player, Cell cell) { //remember to cast on own turn only.
+    public void use(Player player, Cell cell) { //remember to castOnEndTurn on own turn only.
         if (duration > 0)
             player.setMana(player.getMana() + mana);
         duration--;
