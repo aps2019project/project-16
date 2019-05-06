@@ -8,7 +8,7 @@ public class AIAccount extends Account {
     private Deck AIDeck;
 
     public AIAccount(String name, String password, Deck deck) {
-        //todo the copy of deck in gameLevels must be copied to this function
+        //copy of deck is copied to this function
         super(name, password);
         AIDeck = deck;
     }

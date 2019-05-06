@@ -216,6 +216,7 @@ public class Player {
         }
         selectedCollectible.use(this, cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        selectedCollectible = null;
     }
 
     public int getNumberOfCollectedFlags() {

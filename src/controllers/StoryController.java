@@ -28,7 +28,7 @@ public class StoryController implements StoryContract.Controller {
         GameMode gameMode = MultiPlayerController.getGameMode(gameLevel.getMode());
 
         Account currentAccount = GameContents.getCurrentAccount();
-        Account AIAccount = new AIAccount("AI", "123", oppDeck);
+        Account AIAccount = new AIAccount("AI", "123", oppDeck.getCopy());
 
         Game newGame = new Game(currentAccount, AIAccount, gameLevel.getPrize(), gameMode, gameLevel.getNumberOfFlags());
         GameContents.setCurrentGame(newGame);

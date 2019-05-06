@@ -18,18 +18,17 @@ public class CustomGameController implements CustomGameContract.Controller {
 
     @Override
     public void startGame(String oppDeckName, int mode, int flags) {
+        Deck oppDeck = GameContents.getOpponentDeck(oppDeckName);
 
-        if (!GameContents.hasOppDeck(oppDeckName)) {
+        if (oppDeck == null || !GameContents.hasOppDeck(oppDeckName)) {
             Notify.logError("Oh No! Opponent doesn't have this deck.");
             return;
         }
 
-        Deck oppDeck = GameContents.getOpponentDeck(oppDeckName);
-
         GameMode gameMode = MultiPlayerController.getGameMode(mode);
 
         Account currentAccount = GameContents.getCurrentAccount();
-        Account AIAccount = new AIAccount("AI", "123", oppDeck);
+        Account AIAccount = new AIAccount("AI", "123", oppDeck.getCopy());
 
         Game newGame = new Game(currentAccount, AIAccount, 1000, gameMode, flags);
         GameContents.setCurrentGame(newGame);
