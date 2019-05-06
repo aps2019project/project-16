@@ -204,7 +204,7 @@ public class Initializer {
                 .create()
         );
         //15
-        cards.add(new Minion.MinionBuilder() // todo check if buff cast without error
+        cards.add(new Minion.MinionBuilder()
                 .setSpecialPowerCastTime(PASSIVE)
                 .setSpecialPower(new Spell.SpellBuilder()
                         .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND, TargetAttackType.ANY))
