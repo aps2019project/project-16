@@ -31,6 +31,10 @@ public class Cell implements Buffable {
         return collectibles;
     }
 
+    public void addCollectible(Item collectible) {
+        collectibles.add(collectible);
+    }
+
     public int getRow() {
         return row;
     }

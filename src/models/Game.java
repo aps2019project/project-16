@@ -39,6 +39,7 @@ public class Game {
             generateFlags(numberOfFlags);
         initHeroPlaces();
         castUsableItems();
+        generateCollectibles();
     }
 
     public int getNumberOfFlags() {
@@ -304,6 +305,14 @@ public class Game {
         for (Player player : players) {
             Item item = player.getDeck().getItem();
             //todo use the usable func must be called
+        }
+    }
+
+    private void generateCollectibles() {
+        for (int i = 0; i < 3; i++) {
+            Item collectible = Initializer.getRandomCollectible();
+            Cell cell = table.getCell(2 * i, 4);
+            cell.addCollectible(collectible);
         }
     }
 }

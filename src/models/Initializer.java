@@ -11,10 +11,13 @@ import models.targetsociety.*;
 import models.targetsociety.UnitTargetSociety.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static models.SpecialPowerCastTime.*;
 
 public class Initializer {
+    private static ArrayList<Item> collectibles = initCollectibleItems();
+
     public static void initShopCards(ArrayList<Card> shopCards) {
         addMinions(shopCards);
         addHeroes(shopCards);
@@ -1326,7 +1329,10 @@ public class Initializer {
 
     }
 
-    public static void initCollectibleItems(ArrayList<Item> items) {
+    public static ArrayList<Item> initCollectibleItems() {
+        ArrayList<Item> items = new ArrayList<>();
+
+
         //4
         items.add(new SpellItem.SpellItemBuilder()
                 .setSpell(new Spell.SpellBuilder()
@@ -1445,5 +1451,14 @@ public class Initializer {
                 .setType(Item.Type.COLLECTIBLE)
                 .setName("shamshire chini")
                 .create());
+
+
+        return items;
+    }
+
+    public static Item getRandomCollectible() {
+        int size = collectibles.size();
+        int randomNumber = new Random().nextInt() % size;
+        return collectibles.get(randomNumber).getCopy(false);
     }
 }
