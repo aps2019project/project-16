@@ -28,6 +28,7 @@ public class Game {
     private int numberOfFlags;
 
     public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode, int numberOfFlags) {
+        UniqueIDGenerator.renewWrappersList();
         this.reward = reward;
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();

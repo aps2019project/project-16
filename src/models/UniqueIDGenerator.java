@@ -46,4 +46,8 @@ public class UniqueIDGenerator {
         }
     }
 
+    public static void renewWrappersList(){
+        wrappers = new ArrayList<>();
+    }
+
 }
