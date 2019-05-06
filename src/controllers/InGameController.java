@@ -4,7 +4,7 @@ import contracts.InGameContract;
 import models.*;
 import models.card.*;
 import models.card.exception.*;
-import models.item.Collectible;
+import models.item.Item;
 import view.Notify;
 import view.views.InGameView;
 
@@ -264,7 +264,7 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadCollectables() {
-        ArrayList<Collectible> collectibles = GameContents.getCurrentGame().getCurrentPlayer().getCollectibles();
+        ArrayList<Item> collectibles = GameContents.getCurrentGame().getCurrentPlayer().getCollectibles();
         view.showCollectables(collectibles);
     }
 
@@ -272,7 +272,7 @@ public class InGameController implements InGameContract.Controller {
     public void selectCollectable(int collectableID) {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Collectible collectible = currentPlayer.getCollectible(collectableID);
+        Item collectible = currentPlayer.getCollectible(collectableID);
         if (collectible == null) {
             Notify.logError("You don't have this collectible!");
         } else {
@@ -285,7 +285,7 @@ public class InGameController implements InGameContract.Controller {
     public void loadSelectedCollectableInfo() {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Collectible selectedCollectible = currentPlayer.getSelectedCollectible();
+        Item selectedCollectible = currentPlayer.getSelectedCollectible();
         if (selectedCollectible == null) {
             Notify.logError("You didn't select any collectible!");
         } else {

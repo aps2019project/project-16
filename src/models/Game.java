@@ -6,7 +6,6 @@ import models.card.Unit;
 import models.card.exception.ArrayIsEmptyException;
 import models.card.exception.GameIsEndException;
 import models.item.Item;
-import models.item.Usable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -304,10 +303,7 @@ public class Game {
     private void castUsableItems() {
         for (Player player : players) {
             Item item = player.getDeck().getItem();
-            if (item instanceof Usable) {
-                Usable usable = (Usable) item;
-                //todo use the usable func must be called
-            }
+            //todo use the usable func must be called
         }
     }
 }

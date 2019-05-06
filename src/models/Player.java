@@ -2,7 +2,7 @@ package models;
 
 import models.card.*;
 import models.card.exception.*;
-import models.item.Collectible;
+import models.item.Item;
 
 import java.util.ArrayList;
 
@@ -11,10 +11,10 @@ public class Player {
     private Hand hand = new Hand();
     private Graveyard graveYard = new Graveyard();
     private int mana = 2;
-    private ArrayList<Collectible> collectibles = new ArrayList<>();
+    private ArrayList<Item> collectibles = new ArrayList<>();
     private ArrayList<Unit> units = new ArrayList<>();
     private Unit selectedUnit;
-    private Collectible selectedCollectible;
+    private Item selectedCollectible;
     private int turnsFlagKeeped;
     private Account account;
     private Table table;
@@ -71,16 +71,16 @@ public class Player {
         return null;
     }
 
-    public Collectible getCollectible(int collectibleID) {
+    public Item getCollectible(int collectibleID) {
         // TODO: 5/4/19
         return null;
     }
 
-    public Collectible getSelectedCollectible() {
+    public Item getSelectedCollectible() {
         return selectedCollectible;
     }
 
-    public void setSelectedCollectible(Collectible selectedCollectible) {
+    public void setSelectedCollectible(Item selectedCollectible) {
         this.selectedCollectible = selectedCollectible;
     }
 
@@ -92,7 +92,7 @@ public class Player {
         return graveYard;
     }
 
-    public ArrayList<Collectible> getCollectibles() {
+    public ArrayList<Item> getCollectibles() {
         return collectibles;
     }
 
@@ -211,6 +211,7 @@ public class Player {
             throw new NoSelectedCollectibleException();
         }
         selectedCollectible.use(this, cell);
+        GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
     public int getNumberOfCollectedFlags() {
@@ -242,11 +243,12 @@ public class Player {
             cell.removeFlag();
         }
     }
+
     public void pickUpCollectibles(Cell cell ){
         if (cell.getCollectibles().size() > 0){
             this.collectibles.addAll(cell.getCollectibles());
+            cell.removeCollectibles();
         }
-        cell.removeCollectibles();
     }
 
     //+useItem(item :Item):void        //todo check is dead for item

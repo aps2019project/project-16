@@ -6,7 +6,7 @@ import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
 import models.card.Unit;
-import models.item.Collectible;
+import models.item.Item;
 import view.MenuHandler;
 import view.Notify;
 
@@ -124,15 +124,15 @@ public class InGameView implements InGameContract.View {
     }
 
     @Override
-    public void showCollectables(ArrayList<Collectible> collectibles) {
+    public void showCollectables(ArrayList<Item> collectibles) {
         Notify.logMessage("List of collected collectibles:");
-        for (Collectible collectible : collectibles) {
+        for (Item collectible : collectibles) {
             Notify.logMessage(collectible.getName());
         }
     }
 
     @Override
-    public void showCollectableInfo(Collectible collectible) {
+    public void showCollectableInfo(Item collectible) {
         Notify.logMessage(collectible.getDescription());
     }
 

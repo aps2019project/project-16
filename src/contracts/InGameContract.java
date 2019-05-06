@@ -3,7 +3,7 @@ package contracts;
 import models.*;
 import models.card.Card;
 import models.card.Unit;
-import models.item.Collectible;
+import models.item.Item;
 
 import java.util.ArrayList;
 
@@ -15,8 +15,8 @@ public interface InGameContract {
         void showMinions(String playerName, ArrayList<Unit> units);
         void showCardInfo(Card card);
         void showHand(Hand hand, Card nextCard);
-        void showCollectables(ArrayList<Collectible> collectibles);
-        void showCollectableInfo(Collectible collectible);
+        void showCollectables(ArrayList<Item> collectibles);
+        void showCollectableInfo(Item collectible);
         void showNextCard(Card card);
         void showTable(Table table);
         void goToPrevMenu();

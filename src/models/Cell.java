@@ -1,7 +1,7 @@
 package models;
 
 import models.card.Unit;
-import models.item.Collectible;
+import models.item.Item;
 import models.magic.Buff;
 import models.magic.Buffable;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class Cell implements Buffable {
     private int row;
     private int column;
-    private ArrayList<Collectible> collectibles = new ArrayList<>();
+    private ArrayList<Item> collectibles = new ArrayList<>();
     private Unit unit;
     private Table table;
     private ArrayList<Buff> cellEffect = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Cell implements Buffable {
         this.unit = unit;
     }
 
-    public ArrayList<Collectible> getCollectibles() {
+    public ArrayList<Item> getCollectibles() {
         return collectibles;
     }
 
