@@ -107,7 +107,7 @@ public class InGameView implements InGameContract.View {
 
         if (cardClass == Minion.class) {
             Minion minion = (Minion) card;
-            Notify.logMessage("Combo-ability: " + minion.getComboDescription());
+            Notify.logMessage("Combo-ability: " + minion.hasCombo());
         }
 
         Notify.logMessage("");
