@@ -75,7 +75,7 @@ public class Buff {
         }
 
         public BuffBuilder setDurationToStart(int durationToStart) {
-            this.durationToStart = 2 * durationToStart;
+            this.durationToStart = 2 * durationToStart - 1;
             return this;
         }
 
