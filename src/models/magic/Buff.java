@@ -227,6 +227,10 @@ public class Buff {
         return false;
     }
 
+    public boolean hasPoison() {
+        return poison > 0;
+    }
+
     public Buff copy() {
         return new Buff(duration, this);
     }

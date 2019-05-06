@@ -31,6 +31,7 @@ public abstract class Unit extends Card implements Buffable {
     //todo add not poison able and poison func
     private boolean notGetWeakerAttack;
     private boolean notGetNegativeEffect;
+    private boolean notGetPoisoned;
     boolean hasFlag = false;
 
 
@@ -133,6 +134,8 @@ public abstract class Unit extends Card implements Buffable {
     @Override
     public void addBuff(Buff buff) {
         if (notGetNegativeEffect && !buff.isPositive())
+            return;
+        if (notGetPoisoned && buff.hasPoison())
             return;
         buffs.add(buff.copy());
     }
