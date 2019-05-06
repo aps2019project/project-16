@@ -292,8 +292,8 @@ public class Game {
         }
         numberOfFlags = numberOfFlags / 2;
         for (int i = 0; i < numberOfFlags; i++) {
-            int a = new Random().nextInt() % 5;
-            int b = new Random().nextInt() % 4;
+            int a = Math.abs(new Random().nextInt()) % 5;
+            int b = Math.abs(new Random().nextInt()) % 4;
             new Flag(table.getCell(a, b));
             new Flag(table.getCell(a, 8 - b));
         }

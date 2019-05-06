@@ -138,8 +138,8 @@ public class AIPlayer extends Player {
             return null;
         }
         for (int i = 0; i < NUMBER_OF_RANDOMS; i++) {
-            int row = new Random().nextInt() % 5;
-            int column = new Random().nextInt() % 9;
+            int row = Math.abs(new Random().nextInt()) % 5;
+            int column = Math.abs(new Random().nextInt()) % 9;
             Cell cell = game.getTable().getCell(row, column);
             if (!cell.hasUnit())
                 cells.add(cell);
@@ -148,20 +148,20 @@ public class AIPlayer extends Player {
     }
 
     private Cell getBestCellToCastSpell(Game game) {
-        int row = new Random().nextInt() % 5;
-        int column = new Random().nextInt() % 9;
+        int row = Math.abs(new Random().nextInt()) % 5;
+        int column = Math.abs(new Random().nextInt()) % 9;
         return game.getTable().getCell(row, column);
     }
 
     private Cell getBestCellToCastSpecialPower(Game game) {
-        int row = new Random().nextInt() % 5;
-        int column = new Random().nextInt() % 9;
+        int row = Math.abs(new Random().nextInt()) % 5;
+        int column = Math.abs(new Random().nextInt()) % 9;
         return game.getTable().getCell(row, column);
     }
 
     private Cell getBestCellToCastCollectible(Game game) {
-        int row = new Random().nextInt() % 5;
-        int column = new Random().nextInt() % 9;
+        int row = Math.abs(new Random().nextInt()) % 5;
+        int column = Math.abs(new Random().nextInt()) % 9;
         return game.getTable().getCell(row, column);
     }
 

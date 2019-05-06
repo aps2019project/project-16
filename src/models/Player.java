@@ -266,7 +266,7 @@ public class Player {
         if (this.getUnits().size() == 0) {
             return null;
         }
-        int i = new Random().nextInt() % this.getUnits().size();
+        int i = Math.abs(new Random().nextInt()) % this.getUnits().size();
         Unit unit = units.get(i);
         return unit;
     }
