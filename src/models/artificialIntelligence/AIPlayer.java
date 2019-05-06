@@ -116,7 +116,9 @@ public class AIPlayer extends Player {
     private Cell getBestCellToMove(Unit unit, Game game) {
         Player opponent = game.getOpponentPlayer();
         Unit randomUnit = opponent.getRandomUnit();
-        // TODO: 5/6/19 handle null of random unit + in getRandom if size of units == 0 bood!!!
+        if (randomUnit == null) {
+            return null;
+        }
         int rowDiff = randomUnit.getCurrentCell().getRow() - unit.getCurrentCell().getRow();
         int columnDiff = randomUnit.getCurrentCell().getColumn() - unit.getCurrentCell().getColumn();
 
@@ -132,6 +134,9 @@ public class AIPlayer extends Player {
     private Cell getBestCellToPutUnit(Game game) {
         ArrayList<Cell> cells = new ArrayList<>();
         Unit opponentUnit = game.getOpponentPlayer().getRandomUnit();
+        if (opponentUnit == null) {
+            return null;
+        }
         for (int i = 0; i < NUMBER_OF_RANDOMS; i++) {
             int row = new Random().nextInt() % 5;
             int column = new Random().nextInt() % 9;

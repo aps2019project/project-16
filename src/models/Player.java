@@ -257,7 +257,10 @@ public class Player {
             cell.removeCollectibles();
         }
     }
-    public Unit getRandomUnit(){
+    public Unit getRandomUnit() {
+        if (this.getUnits().size() == 0) {
+            return null;
+        }
         int i = new Random().nextInt() % this.getUnits().size();
         Unit unit = units.get(i);
         return unit;
