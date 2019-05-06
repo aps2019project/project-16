@@ -137,7 +137,7 @@ public class Buff {
      */
     public void start(Unit unit, Player player) {
         if (durationToStart == 0) {
-            unit.dealDamage(damage);
+            unit.getDamageFromBuff(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;
@@ -174,7 +174,7 @@ public class Buff {
             return;
         }
         if (!casted) {
-            unit.dealDamage(damage);
+            unit.getDamageFromBuff(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
             casted = true;

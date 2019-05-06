@@ -29,7 +29,8 @@ public abstract class Unit extends Card implements Buffable {
     private HashMap<Unit, Integer> attackedTo = new HashMap<>();
     private boolean notDisarmable;
     //todo add not poison able and poison func
-    private boolean dontGetWeakerAttack;
+    private boolean notGetWeakerAttack;
+    private boolean notGetNegativeEffect;
     boolean hasFlag = false;
 
 
@@ -164,9 +165,18 @@ public abstract class Unit extends Card implements Buffable {
         hp += amount;
     }
 
-    public void dealDamage(int amount) {
+    public void getDamage(int amount) {
         if (amount - getHoly() > 0)
             hp -= amount - getHoly();
+    }
+
+    public void getDamageFromUnit(int amount) {
+        getDamage(amount);
+    }
+
+    public void getDamageFromBuff(int amount) {
+        if (!notGetWeakerAttack || amount >= ap)
+            getDamage(amount);
     }
 
     public void changeAP(int amount) {
@@ -208,9 +218,9 @@ public abstract class Unit extends Card implements Buffable {
         attacked = true;
         moved = true;
         if (piercingHoly)
-            opponent.dealDamage(damage + opponent.getHoly());
+            opponent.getDamageFromUnit(damage + opponent.getHoly());
         else
-            opponent.dealDamage(damage);
+            opponent.getDamageFromUnit(damage);
         attackedTo.computeIfPresent(opponent, (unit, integer) -> integer + 1); //todo check if work correctly
         castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
     }
@@ -220,7 +230,7 @@ public abstract class Unit extends Card implements Buffable {
             return;
         if (isDisarmed() || isStunned())
             return;
-        opponent.dealDamage(ap);
+        opponent.getDamageFromUnit(ap);
     }
 
     public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
@@ -231,7 +241,7 @@ public abstract class Unit extends Card implements Buffable {
             unit.checkCanAttack(opponent);
             damage += unit.getAp();
         }
-        opponent.dealDamage(damage);
+        opponent.getDamageFromUnit(damage);
     }
 
     public boolean isDead() {
