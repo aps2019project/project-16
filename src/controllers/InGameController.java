@@ -317,14 +317,23 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void finishTheGame() {
-        // TODO: 5/4/19
-    }
-
-    @Override
     public void loadGameTable() {
         Player currentPlayer = GameContents.getCurrentGame().getCurrentPlayer();
         Table table = GameContents.getCurrentGame().getTable();
         view.showTable(currentPlayer, table);
+    }
+
+    @Override
+    public void refuseGame() {
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        Player opponentPlayer = game.getOpponentPlayer();
+        game.setWinner(opponentPlayer);
+        game.getRewardToWinner();
+        GameContents.saveCurrentAndSecondAccounts();
+
+        Notify.logMessage("Player \"" + currentPlayer.getAccount().getName() + "\" refused the game!!");
+        Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
+        view.goToPrevMenu();
     }
 }

@@ -13,8 +13,8 @@ public class ShowInfoCommand extends Command {
 
     @Override
     public void doIt() {
-        String cardName = matcher.group(3);
-        int gameCardID = Integer.parseInt(matcher.group(4));
+        String cardName = matcher.group(1);
+        int gameCardID = Integer.parseInt(matcher.group(3));
         new GraveyardController().loadCard(cardName, gameCardID);
     }
 }

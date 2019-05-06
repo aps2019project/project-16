@@ -174,7 +174,7 @@ public class Game {
         }
     }
 
-    private void getRewardToWinner() {
+    public void getRewardToWinner() {
         if (this.winner.equals(players[0])) {
             accounts[0].increaseMoney(this.reward);
             accounts[0].increaseWins();

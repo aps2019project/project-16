@@ -39,7 +39,7 @@ public interface InGameContract {
         void loadSelectedCollectableInfo();
         void useSelectedCollectable(int x, int y);
         void loadNextCard();
-        void finishTheGame();
         void loadGameTable();
+        void refuseGame();
     }
 }

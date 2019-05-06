@@ -25,10 +25,11 @@ public class RandomEnemyMinionAdjacentToHero extends TargetSociety { // todo mus
         Random random = new Random();
         for (int i = random.nextInt(cells.length); true; i = (i + 1) % cells.length) {
             Cell adjacentCell = cell.getTable().getCell(cell.getRow() + cells[i][0], cell.getColumn() + cells[i][1]);
-            if (adjacentCell.hasUnit() && adjacentCell.getUnit().getPlayer() != player) {
-                castOnUnit(player, adjacentCell.getUnit(), buffs);
-                return;
-            }
+            if (adjacentCell != null)
+                if (adjacentCell.hasUnit() && adjacentCell.getUnit().getPlayer() != player) {
+                    castOnUnit(player, adjacentCell.getUnit(), buffs);
+                    return;
+                }
         }
     }
 }
