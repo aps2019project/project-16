@@ -187,7 +187,7 @@ public class Buff {
             cast(unit);
             casted = true;
         }
-        if (remainingDuration % 2 == 0 && duration > 0)
+        if (remainingDuration % 2 == 0 && remainingDuration > 0)
             unit.changeHP(-poison);
         if (remainingDuration == 0) {
             finish(unit);
