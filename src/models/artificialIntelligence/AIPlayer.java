@@ -13,5 +13,11 @@ public class AIPlayer extends Player {
     public void doActsInAITurn(Game game) {
         // TODO: 5/6/19 call this func
         // TODO: 5/5/19
+        //  + move
+        //  + attack
+        //  + castSpell
+        //  + use special power
+        //  + use collectible
+
     }
 }

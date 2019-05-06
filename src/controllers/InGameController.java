@@ -253,8 +253,7 @@ public class InGameController implements InGameContract.Controller {
     @Override
     public void endTurn() {
         try {
-            GameContents.getCurrentGame().endTurn();
-            GameContents.getCurrentGame().startTurn();// TODO: 5/4/19 must be removed and merged to endTurn
+            GameContents.getCurrentGame().changeTurn();
         } catch (GameIsEndException E) {
             Notify.logMessage("Game is finished!!");
             Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");

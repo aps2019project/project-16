@@ -1,5 +1,6 @@
 package models;
 
+import models.artificialIntelligence.AIPlayer;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Unit;
@@ -83,16 +84,6 @@ public class Game {
         return gameMode;
     }
 
-    public void startTurn() throws GameIsEndException {
-        setCurrentPlayer();
-        setMana();
-        doUnitsBuffs();
-        checkIfAnyoneIsDead();
-        gameIsEnd();
-        //todo merge start and end turn
-        //todo call AI to act then end turn for AI
-    }
-
     public void doUnitsBuffs() {
         for (int row = 0; row < Table.HEIGHT; row++) {
             for (int column = 0; column < Table.WIDTH; column++) {
@@ -111,7 +102,25 @@ public class Game {
         }
     }
 
-    public void endTurn() throws GameIsEndException {
+    public void changeTurn() throws GameIsEndException {
+        endTurn();
+        startTurn();
+        if (currentPlayer instanceof AIPlayer) {
+            ((AIPlayer) currentPlayer).doActsInAITurn(this);
+            endTurn();
+            startTurn();
+        }
+    }
+
+    private void startTurn() throws GameIsEndException {
+        swapPlayers();
+        setMana();
+        doUnitsBuffs();
+        checkIfAnyoneIsDead();
+        gameIsEnd();
+    }
+
+    private void endTurn() throws GameIsEndException {
         addNextCardToHands();
         doCellBuffs();
         checkIfAnyoneIsDead();
@@ -120,7 +129,6 @@ public class Game {
         //todo cast especial power unit
         incrementTurnFlagKeeped();
         gameIsEnd();
-
     }
 
     private void addNextCardToHands() {
@@ -216,7 +224,7 @@ public class Game {
         return false;
     }
 
-    private void setCurrentPlayer() {
+    private void swapPlayers() {
         if (turn % 2 == 0) {
             this.currentPlayer = players[0];
             this.opponentPlayer = players[1];
