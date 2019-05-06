@@ -5,6 +5,8 @@ import models.card.Hero;
 import models.card.Unit;
 import models.card.exception.ArrayIsEmptyException;
 import models.card.exception.GameIsEndException;
+import models.item.Item;
+import models.item.Usable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,6 +39,7 @@ public class Game {
         if (gameMode != GameMode.KILLING_HERO)
             generateFlags(numberOfFlags);
         initHeroPlaces();
+        castUsableItems();
     }
 
     public int getNumberOfFlags() {
@@ -294,6 +297,16 @@ public class Game {
             hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
             players[i].getUnits().add(hero);
             players[i].pickUpFlags(cell, hero);
+        }
+    }
+
+    private void castUsableItems() {
+        for (Player player : players) {
+            Item item = player.getDeck().getItem();
+            if (item instanceof Usable) {
+                Usable usable = (Usable) item;
+                //todo use the usable func must be called
+            }
         }
     }
 }
