@@ -70,7 +70,7 @@ public class Buff {
         }
 
         public BuffBuilder setHalfTurnDuration() {
-            this.duration = 1;
+            this.duration = 0;
             return this;
         }
 
@@ -140,7 +140,6 @@ public class Buff {
             return;
         if (durationToStart == 0) {
             cast(unit);
-            casted = true;
         }
         if (dispel) {
             dispel(unit, player);
@@ -154,8 +153,7 @@ public class Buff {
                     buff.finish(unit);
             });
             unit.getBuffs().removeIf(buff -> buff.isDispelable() && buff.isPositive());
-        }
-        else {
+        } else {
             unit.getBuffs().forEach(buff -> {
                 if (!buff.isPositive() && buff.isDispelable())
                     buff.finish(unit);
@@ -165,9 +163,12 @@ public class Buff {
     }
 
     private void cast(Unit unit) {
-        unit.getDamage(damage);
-        unit.changeAP(deltaAP);
-        unit.changeHP(deltaHP);
+        if (!casted) {
+            unit.getDamage(damage);
+            unit.changeAP(deltaAP);
+            unit.changeHP(deltaHP);
+        }
+        casted = true;
     }
 
     public boolean isDispelable() {
@@ -185,7 +186,6 @@ public class Buff {
         }
         if (!casted) {
             cast(unit);
-            casted = true;
         }
         if (remainingDuration % 2 == 0 && remainingDuration > 0)
             unit.changeHP(-poison);
@@ -202,6 +202,7 @@ public class Buff {
 
     /**
      * it should be casted before unit buffs casting.
+     *
      * @param cell
      */
     public void castOnEndTurn(Cell cell) {
