@@ -154,6 +154,7 @@ public class Player {
             flag.setCurrentCell(cell);
 
         pickUpFlags(cell, selectedUnit);
+        pickUpCollectibles(cell);
         selectedUnit = null;
     }
 
@@ -168,6 +169,7 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
         pickUpFlags(cell, selectedUnit);
+        pickUpCollectibles(cell);
         unit.castSpecialPower(SpecialPowerCastTime.ON_SPAWN, cell);
         unit.castSpecialPower(SpecialPowerCastTime.PASSIVE, cell);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
@@ -239,6 +241,12 @@ public class Player {
             }
             cell.removeFlag();
         }
+    }
+    public void pickUpCollectibles(Cell cell ){
+        if (cell.getCollectibles().size() > 0){
+            this.collectibles.addAll(cell.getCollectibles());
+        }
+        cell.removeCollectibles();
     }
 
     //+useItem(item :Item):void        //todo check is dead for item

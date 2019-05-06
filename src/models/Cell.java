@@ -27,6 +27,10 @@ public class Cell implements Buffable {
         this.unit = unit;
     }
 
+    public ArrayList<Collectible> getCollectibles() {
+        return collectibles;
+    }
+
     public int getRow() {
         return row;
     }
@@ -79,5 +83,10 @@ public class Cell implements Buffable {
     public void removeFlag() {
         while (flags.size() > 0)
             flags.remove(0);
+    }
+    public void removeCollectibles(){
+        while (collectibles.size() > 0 ){
+            collectibles.remove(0);
+        }
     }
 }

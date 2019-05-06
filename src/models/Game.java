@@ -297,6 +297,7 @@ public class Game {
             hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
             players[i].getUnits().add(hero);
             players[i].pickUpFlags(cell, hero);
+            players[i].pickUpCollectibles(cell);
         }
     }
 
