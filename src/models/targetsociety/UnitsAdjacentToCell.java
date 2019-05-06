@@ -19,9 +19,10 @@ public class UnitsAdjacentToCell extends UnitTargetSociety {
         int[][] cells = {{0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}, {0, 0}};
         for (int[] coordinate : cells) {
             Cell adjacentCell = cell.getTable().getCell(cell.getRow() + coordinate[0], cell.getColumn() + coordinate[1]);
-            if (adjacentCell.hasUnit() && doesEffect(adjacentCell.getUnit(), player))
-                if (containsCenter || adjacentCell != cell)
-                    return true;
+            if (adjacentCell != null)
+                if (adjacentCell.hasUnit() && doesEffect(adjacentCell.getUnit(), player))
+                    if (containsCenter || adjacentCell != cell)
+                        return true;
         }
         return false;
     }
@@ -31,9 +32,10 @@ public class UnitsAdjacentToCell extends UnitTargetSociety {
         int[][] cells = {{0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}, {0, 0}};
         for (int[] coordinate : cells) {
             Cell adjacentCell = cell.getTable().getCell(cell.getRow() + coordinate[0], cell.getColumn() + coordinate[1]);
-            if (adjacentCell.hasUnit() && doesEffect(adjacentCell.getUnit(), player))
-                if (containsCenter || adjacentCell != cell)
-                    castOnUnit(player, adjacentCell.getUnit(), buffs);
+            if (adjacentCell != null)
+                if (adjacentCell.hasUnit() && doesEffect(adjacentCell.getUnit(), player))
+                    if (containsCenter || adjacentCell != cell)
+                        castOnUnit(player, adjacentCell.getUnit(), buffs);
         }
     }
 }
