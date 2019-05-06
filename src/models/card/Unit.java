@@ -34,7 +34,10 @@ public abstract class Unit extends Card implements Buffable {
     boolean hasFlag = false;
 
 
-    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap, AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime, int addedApPerAttack, boolean piercingHoly, boolean notDisarmable, boolean notGetWeakerAttack, boolean notGetNegativeEffect, boolean notGetPoisoned) {
+    protected Unit(String name, int manaCost, int buyPrice, int sellPrice, String description, int hp, int ap,
+                   AttackType attackType, boolean combo, Spell specialPower, SpecialPowerCastTime specialPowerCastTime,
+                   int addedApPerAttack, boolean piercingHoly, boolean notDisarmable, boolean notGetWeakerAttack,
+                   boolean notGetNegativeEffect, boolean notGetPoisoned) {
         super(name, manaCost, buyPrice, sellPrice, description);
         this.hp = hp;
         this.ap = ap;
@@ -43,6 +46,11 @@ public abstract class Unit extends Card implements Buffable {
         this.piercingHoly = piercingHoly;
         if (specialPower != null)
             this.specialPowers.add(new Pair<>(specialPowerCastTime, specialPower));
+        this.addedApPerAttack = addedApPerAttack;
+        this.notDisarmable = notDisarmable;
+        this.notGetWeakerAttack = notGetWeakerAttack;
+        this.notGetNegativeEffect = notGetNegativeEffect;
+        this.notGetPoisoned = notGetPoisoned;
     }
 
     public void castSpecialPower(SpecialPowerCastTime time, Cell cell) {
