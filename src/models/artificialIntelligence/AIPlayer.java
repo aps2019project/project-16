@@ -5,6 +5,7 @@ import models.card.Card;
 import models.card.SpellCard;
 import models.card.Unit;
 import models.item.Item;
+import view.Notify;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,26 +28,55 @@ public class AIPlayer extends Player {
     private void useCollectibles(Game game) {
         ArrayList<Item> collectiblesToUse = new ArrayList<>(getCollectibles());
         for (Item collectible : collectiblesToUse) {
-            setSelectedCollectible(collectible);
-            Cell cellToCastCollectible = getBestCellToCastCollectible(game);
-            try {
-                if (cellToCastCollectible == null) {
-                    throw new NullPointerException();
+            castACollectible(game, collectible);
+        }
+    }
+
+    private void castACollectible(Game game, Item collectible) {
+        setSelectedCollectible(collectible);
+        for (int i = 0; i < Table.HEIGHT; i++) {
+            for (int j = 0; j < Table.WIDTH; j++) {
+                Cell cellToCastCollectible = game.getTable().getCell(i, j);
+                try {
+                    if (cellToCastCollectible == null) {
+                        throw new NullPointerException();
+                    }
+                    castSelectedCollectible(cellToCastCollectible);
+
+                    //todo : remove it NOTIFY
+                    int row = cellToCastCollectible.getRow() + 1;
+                    int column = cellToCastCollectible.getColumn() + 1;
+                    Notify.logMessage("AI casted the collectible \"" + collectible.getName()
+                            + " " + collectible.getCollectibleID()
+                            + "\" on [" + row + ", " + column + "]");
+
+                    return;
+
+                } catch (Exception e) {
                 }
-                castSelectedCollectible(cellToCastCollectible);
-            } catch (Exception e) {
             }
         }
     }
 
     private void useSpecialPower(Game game) {
-        Cell cellToCastSpecialPower = getBestCellToCastSpecialPower(game);
-        try {
-            if (cellToCastSpecialPower == null) {
-                throw new NullPointerException();
+        for (int i = 0; i < Table.HEIGHT; i++) {
+            for (int j = 0; j < Table.WIDTH; j++) {
+                Cell cellToCastSpecialPower = game.getTable().getCell(i, j);
+                try {
+                    if (cellToCastSpecialPower == null) {
+                        throw new NullPointerException();
+                    }
+                    castHeroSpell(cellToCastSpecialPower);
+
+                    //todo : remove it NOTIFY
+                    int row = cellToCastSpecialPower.getRow() + 1;
+                    int column = cellToCastSpecialPower.getColumn() + 1;
+                    Notify.logMessage("AI casted hero special power on [" + row + ", " + column + "]");
+                    return;
+
+                } catch (Exception e) {
+                }
             }
-            castHeroSpell(cellToCastSpecialPower);
-        } catch (Exception e) {
         }
     }
 
@@ -57,14 +87,25 @@ public class AIPlayer extends Player {
         ArrayList<Unit> opponentUnits = new ArrayList<>(originalOppUnits);
         for (Unit myUnit : myUnits) {
             if (originalMyUnits.contains(myUnit)) {
-                setSelectedUnit(myUnit);
-                for (Unit opponentUnit : opponentUnits) {
-                    if (originalOppUnits.contains(opponentUnit)) {
-                        try {
-                            attack(opponentUnit);
-                        } catch (Exception e) {
-                        }
-                    }
+                aUnitAttack(originalOppUnits, opponentUnits, myUnit);
+            }
+        }
+    }
+
+    private void aUnitAttack(ArrayList<Unit> originalOppUnits, ArrayList<Unit> opponentUnits, Unit myUnit) {
+        setSelectedUnit(myUnit);
+        for (Unit opponentUnit : opponentUnits) {
+            if (originalOppUnits.contains(opponentUnit)) {
+                try {
+                    attack(opponentUnit);
+
+                    //todo : remove it NOTIFY
+                    Notify.logMessage("AI attacked to"
+                            + " your unit \"" + opponentUnit.getName() + " " + opponentUnit.getGameCardID() + "\""
+                            + " by unit \"" + myUnit.getName() + " " + myUnit.getGameCardID() + "\"");
+                    return;
+
+                } catch (Exception e) {
                 }
             }
         }
@@ -81,13 +122,24 @@ public class AIPlayer extends Player {
 
     private void putSpellCard(Game game, Card card) {
         if (card instanceof SpellCard) {
-            Cell cellToCast = getBestCellToCastSpell(game);
-            try {
-                if (cellToCast == null) {
-                    throw new NullPointerException();
+            for (int i = 0; i < Table.HEIGHT; i++) {
+                for (int j = 0; j < Table.WIDTH; j++) {
+                    Cell cellToCast = game.getTable().getCell(i, j);
+                    try {
+                        if (cellToCast == null) {
+                            throw new NullPointerException();
+                        }
+                        castSpellCard((SpellCard) card, cellToCast);
+
+                        //todo : remove it NOTIFY
+                        int row = cellToCast.getRow() + 1;
+                        int column = cellToCast.getColumn() + 1;
+                        Notify.logMessage("AI casted the spell card \"" + card.getName() + "\" on [" + row + ", " + column + "]");
+                        return;
+
+                    } catch (Exception e) {
+                    }
                 }
-                castSpellCard((SpellCard) card, cellToCast);
-            } catch (Exception e) {
             }
         }
     }
@@ -100,6 +152,12 @@ public class AIPlayer extends Player {
                     throw new NullPointerException();
                 }
                 putUnit(cellToPut, (Unit) card);
+
+                //todo : remove it NOTIFY
+                int row = cellToPut.getRow() + 1;
+                int column = cellToPut.getColumn() + 1;
+                Notify.logMessage("AI put the unit \"" + card.getName() + "\" on [" + row + ", " + column + "]");
+
             } catch (Exception e) {
             }
         }
@@ -115,6 +173,13 @@ public class AIPlayer extends Player {
                     throw new NullPointerException();
                 }
                 moveSelectedUnit(cellToMove);
+
+                //todo : remove it NOTIFY
+                int row = cellToMove.getRow() + 1;
+                int column = cellToMove.getColumn() + 1;
+                Notify.logMessage("AI moved the unit \"" + unit.getName() + " " + unit.getGameCardID() + "\""
+                        + " to [" + row + ", " + column + "]");
+
             } catch (Exception e) {
             }
         }
