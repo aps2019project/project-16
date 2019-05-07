@@ -75,6 +75,10 @@ public class Cell implements Buffable {
             buff.castOnEndTurn(this);
     }
 
+    public ArrayList<Buff> getCellEffect() {
+        return cellEffect;
+    }
+
     public ArrayList<Flag> getFlags() {
         return flags;
     }
@@ -88,8 +92,9 @@ public class Cell implements Buffable {
         while (flags.size() > 0)
             flags.remove(0);
     }
-    public void removeCollectibles(){
-        while (collectibles.size() > 0 ){
+
+    public void removeCollectibles() {
+        while (collectibles.size() > 0) {
             collectibles.remove(0);
         }
     }

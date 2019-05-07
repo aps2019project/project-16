@@ -211,8 +211,8 @@ public class Buff {
                 cell.getUnit().addBuff(new Buff(3, this));
             if (poison == 2)
                 cell.getUnit().changeHP(-poison);
-            if (holy != 0)
-                cell.getUnit().addBuff(new Buff(1, this));
+//            if (holy != 0)
+//                cell.getUnit().addBuff(new Buff(1, this));
         }
     }
 

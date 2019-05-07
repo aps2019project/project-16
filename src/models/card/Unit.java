@@ -279,6 +279,8 @@ public abstract class Unit extends Card implements Buffable {
         int holy = 0;
         for (Buff buff : buffs)
             holy += buff.getHoly();
+        for (Buff buff : currentCell.getCellEffect())
+            holy += buff.getHoly();
         return holy;
     }
 
