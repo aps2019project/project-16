@@ -150,14 +150,14 @@ public class InGameView implements InGameContract.View {
     public void showTable(Player currentPlayer, Table table) {
         for (int i = 0; i < 10; i++) {
             if (i == 0) {
-                System.out.print("     ");
+                System.out.print("    ");
             } else {
-                System.out.printf("%d    ", i);
+                System.out.printf("%d   ", i);
             }
         }
         System.out.print("\n");
         for (int i = 0; i < 5; i++) {
-            System.out.printf("%d:   ", i + 1);
+            System.out.printf("%d:  ", i + 1);
             for (int j = 0; j < 9; j++) {
                 Cell cell = table.getCell(i, j);
                 printCell(currentPlayer, cell);
@@ -169,28 +169,23 @@ public class InGameView implements InGameContract.View {
     private void printCell(Player currentPlayer, Cell cell) {
         Unit unit = cell.getUnit();
         if (unit == null) {
-            System.out.print("00");
+            System.out.print("*");
         } else {
             if (unit instanceof Hero) {
                 System.out.print("H");
             } else {
                 System.out.print("M");
             }
-            if (unit.getPlayer() == currentPlayer) {
-                System.out.print("1");
-            } else {
-                System.out.print("2");
-            }
         }
         if (cell.getFlags().size() != 0) {
             System.out.print("F");
         } else {
-            System.out.print("0");
+            System.out.print("*");
         }
         if (cell.getCollectibles().size() != 0) {
             System.out.print("C");
         } else {
-            System.out.print("0");
+            System.out.print("*");
         }
         System.out.print(" ");
     }
