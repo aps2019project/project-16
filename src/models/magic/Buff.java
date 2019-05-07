@@ -208,7 +208,7 @@ public class Buff {
     public void castOnEndTurn(Cell cell) {
         if (cell.hasUnit()) {
             if (poison == 1)
-                cell.getUnit().addBuff(new Buff(3, this));
+                cell.getUnit().addBuff(new Buff(6, this));
             if (poison == 2)
                 cell.getUnit().changeHP(-poison);
         }
