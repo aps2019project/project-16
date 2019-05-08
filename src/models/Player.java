@@ -23,12 +23,12 @@ public class Player {
     public Player(Deck deck, Account account) {
         this.account = account;
         this.deck = deck;
-        setHand(this.deck);
         for (Card card : deck.getCards()) {
             if (card instanceof Unit) {
                 ((Unit) card).setPlayer(this);
             }
         }
+        setHand(this.deck);
         deck.getHero().setPlayer(this);
     }
 
