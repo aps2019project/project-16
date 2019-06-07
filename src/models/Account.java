@@ -8,7 +8,7 @@ public class Account {
     private String password;
     private Collection collection = new Collection();
     private ArrayList<MatchResult> matchHistory;//phase 2
-    private int money = 20000;
+    private int money = 2000000;
     private int wins;
     private int numberOfItems;
 

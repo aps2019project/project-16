@@ -652,7 +652,7 @@ public class Initializer {
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(new SquareOfCells(2))
                         .addBuff(new Buff.BuffBuilder()
-                                .setDisarm()
+                                .setDispel()
                                 .create())
                         .create())
                 .setManaCost(2)
