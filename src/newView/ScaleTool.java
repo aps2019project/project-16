@@ -2,7 +2,7 @@ package newView;
 
 import javafx.scene.Node;
 
-import static newView.SceneMaker.SCALE;
+import static newView.SceneMakers.SceneMaker.SCALE;
 
 public class ScaleTool {
     public static void relocateInScale(Node node, double x, double y) {

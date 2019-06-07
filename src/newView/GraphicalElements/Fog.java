@@ -1,4 +1,4 @@
-package newView;
+package newView.GraphicalElements;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
 
-import static newView.SceneMaker.SCALE;
+import static newView.SceneMakers.SceneMaker.SCALE;
 
 public class Fog {
     private final int width;

@@ -1,4 +1,4 @@
-package newView;
+package newView.GraphicalElements;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -6,8 +6,8 @@ import javafx.scene.layout.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import static newView.SceneMaker.HEIGHT;
-import static newView.SceneMaker.WIDTH;
+import static newView.SceneMakers.SceneMaker.HEIGHT;
+import static newView.SceneMakers.SceneMaker.WIDTH;
 
 public class BackgroundMaker {
 
