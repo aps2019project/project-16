@@ -36,7 +36,8 @@ public class AccountSceneMaker extends SceneMaker {
             } else if (e.getX() > x) {
                 warriorManView.setX(warriorManView.getX() - 0.1);
                 lionView.setX(lionView.getX() - 0.1);
-            } else if (e.getY() < y) {
+            }
+            if (e.getY() < y) {
                 warriorManView.setY(warriorManView.getY() + 0.1);
                 lionView.setY(lionView.getY() + 0.1);
             } else if (e.getY() > y) {
