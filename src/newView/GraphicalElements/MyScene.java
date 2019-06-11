@@ -7,6 +7,6 @@ import static newView.SceneMakers.SceneMaker.*;
 
 public class MyScene extends Scene {
     public MyScene(Parent root) {
-        super(root, WIDTH, HEIGHT);
+        super(root, WIDTH * SCALE, HEIGHT * SCALE);
     }
 }
