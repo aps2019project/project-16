@@ -10,6 +10,7 @@ import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.HandHBox;
 import newView.GraphicalElements.battle.TilesPane;
+import newView.GraphicalElements.battle.effects.SnowPane;
 
 import java.io.FileNotFoundException;
 
@@ -31,9 +32,11 @@ public class InGameSceneMaker extends SceneMaker {
         TilesPane tilesPane = new TilesPane();
         ScaleTool.relocate(tilesPane, WIDTH / 2 - TILE_LENGTH * 5, HEIGHT / 2 - TILE_LENGTH * 3);
 
+        SnowPane snowPane = new SnowPane();
+
         // TODO: 6/11/19
 
-        borderPane.getChildren().addAll(mapBGView, handHBox, tilesPane);
+        borderPane.getChildren().addAll(mapBGView, snowPane, handHBox, tilesPane);
         return new MyScene(borderPane);
     }
 }

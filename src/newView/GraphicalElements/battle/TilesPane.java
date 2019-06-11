@@ -1,13 +1,9 @@
 package newView.GraphicalElements.battle;
 
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import newView.GraphicalElements.ScaleTool;
 
 import java.io.FileNotFoundException;
-
-import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
-import static newView.SceneMakers.SceneMaker.SCALE;
 
 public class TilesPane extends BorderPane {
     private Tile[][] tiles;
