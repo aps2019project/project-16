@@ -9,10 +9,12 @@ import newView.GraphicalElements.ForegroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.HandHBox;
+import newView.GraphicalElements.battle.TilesPane;
 
 import java.io.FileNotFoundException;
 
 import static newView.GraphicalElements.battle.HandElement.HAND_LENGTH;
+import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
 
 public class InGameSceneMaker extends SceneMaker {
     @Override
@@ -20,15 +22,18 @@ public class InGameSceneMaker extends SceneMaker {
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 10);
 
-        ImageView mapBGView = ForegroundMaker.getForeground(10, 1300, 661);
-        ScaleTool.relocate(mapBGView, WIDTH / 2 - 1300 / 2, HEIGHT / 2 - 661 / 2);
+        ImageView mapBGView = ForegroundMaker.getForeground(10, 1300, 750);
+        ScaleTool.relocate(mapBGView, WIDTH / 2 - 1300 / 2, HEIGHT / 2 - 750 / 2);
 
         HBox handHBox = new HandHBox();
         ScaleTool.relocate(handHBox, WIDTH / 2 - HAND_LENGTH * 3.5, HEIGHT - HAND_LENGTH);
 
+        TilesPane tilesPane = new TilesPane();
+        ScaleTool.relocate(tilesPane, WIDTH / 2 - TILE_LENGTH * 5, HEIGHT / 2 - TILE_LENGTH * 3);
+
         // TODO: 6/11/19
 
-        borderPane.getChildren().addAll(mapBGView, handHBox);
+        borderPane.getChildren().addAll(mapBGView, handHBox, tilesPane);
         return new MyScene(borderPane);
     }
 }
