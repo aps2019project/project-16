@@ -45,6 +45,7 @@ public class AccountSceneMaker extends SceneMaker {
         });
 
         borderPane.getChildren().addAll(lionView, fog.getView(), warriorManView);
+        borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);
     }
 }

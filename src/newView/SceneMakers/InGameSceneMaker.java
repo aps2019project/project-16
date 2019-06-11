@@ -4,10 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import newView.GraphicalElements.BackgroundMaker;
-import newView.GraphicalElements.ForegroundMaker;
-import newView.GraphicalElements.MyScene;
-import newView.GraphicalElements.ScaleTool;
+import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.HandHBox;
 import newView.GraphicalElements.battle.TilesPane;
 import newView.GraphicalElements.battle.effects.SnowPane;
@@ -37,6 +34,7 @@ public class InGameSceneMaker extends SceneMaker {
         // TODO: 6/11/19
 
         borderPane.getChildren().addAll(mapBGView, snowPane, handHBox, tilesPane);
+        borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);
     }
 }
