@@ -16,10 +16,7 @@ public class ForegroundMaker {
 
         ImageView imageView = new ImageView(image);
 
-        imageView.setFitWidth(width * SCALE);
-        imageView.setFitHeight(height * SCALE);
-
-        imageView.setPreserveRatio(false);
+        ScaleTool.resizeImageView(imageView, width, height);
 
         return imageView;
     }

@@ -4,11 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import newView.*;
-import newView.GraphicalElements.BackgroundMaker;
-import newView.GraphicalElements.Fog;
-import newView.GraphicalElements.ForegroundMaker;
-import newView.GraphicalElements.MyScene;
+import newView.GraphicalElements.*;
 
 import java.io.FileNotFoundException;
 
@@ -21,13 +17,13 @@ public class AccountSceneMaker extends SceneMaker {
         BackgroundMaker.setBackgroundFor(borderPane, 1);
 
         ImageView lionView = ForegroundMaker.getForeground(2, 600, 600);
-        ScaleTool.relocateInScale(lionView, -100, 100);
+        ScaleTool.relocate(lionView, -100, 100);
 
         Fog fog = new Fog(800, 150);
-        ScaleTool.relocateInScale(fog.getView(), -100, 550);
+        ScaleTool.relocate(fog.getView(), -100, 550);
 
         ImageView warriorManView = ForegroundMaker.getForeground(1, 800, 250);
-        ScaleTool.relocateInScale(warriorManView, 600, 480);
+        ScaleTool.relocate(warriorManView, 600, 480);
 
         borderPane.addEventHandler(MouseEvent.MOUSE_MOVED, e -> {
             if (e.getX() < x) {
