@@ -1,6 +1,6 @@
 package newView.GraphicalElements.battle;
 
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import newView.GraphicalElements.ScaleTool;
 
 import java.io.FileNotFoundException;
@@ -9,12 +9,14 @@ import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
 import static newView.SceneMakers.SceneMaker.HEIGHT;
 import static newView.SceneMakers.SceneMaker.WIDTH;
 
-public class TilesPane extends BorderPane {
+public class TilesPane extends GridPane {
     private Tile[][] tiles;
 
     public TilesPane() throws FileNotFoundException {
         super();
         ScaleTool.relocate(this, WIDTH / 2 - TILE_LENGTH * 5, HEIGHT / 2 - TILE_LENGTH * 3);
+        setVgap(TILE_LENGTH);
+        setHgap(TILE_LENGTH);
         initTiles();
     }
 
@@ -23,11 +25,11 @@ public class TilesPane extends BorderPane {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 Tile tile = new Tile();
-                ScaleTool.transformTile(tile, i, j);
                 tiles[i][j] = tile;
-                this.getChildren().add(tile);
+                this.add(tile, j, i);
             }
         }
+        ScaleTool.transformTilesPane(this);
         return tiles;
     }
 }
