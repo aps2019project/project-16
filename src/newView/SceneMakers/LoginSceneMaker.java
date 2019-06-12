@@ -9,6 +9,7 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 
+import javax.swing.text.html.ImageView;
 import java.io.FileNotFoundException;
 
 public class LoginSceneMaker extends SceneMaker {
@@ -22,6 +23,7 @@ public class LoginSceneMaker extends SceneMaker {
 
         ScaleTool.resizeRectangle(rectangle, 400, 400);
         rectangle.setFill(Color.rgb(0 , 0 , 0 ,0.6));
+
 
 
         borderPane.setCenter(rectangle);
