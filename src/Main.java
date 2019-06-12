@@ -1,13 +1,19 @@
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import newView.SceneMakers.AccountSceneMaker;
 import newView.SceneMakers.LoginSceneMaker;
+
+import java.io.FileInputStream;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 //        primaryStage.setScene(new AccountSceneMaker().makeScene());
         primaryStage.setScene(new LoginSceneMaker().makeScene());
+        primaryStage.setTitle("DUELYST");
+//        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(new FileInputStream("C:\\Users\\sepehr.p\\Desktop\\project phase1\\src\\newView\\resources\\appIcon\\icon.png")));
         primaryStage.show();
     }
 
