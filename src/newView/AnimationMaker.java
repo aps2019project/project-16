@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.SplittableRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +53,7 @@ public class AnimationMaker {
         this.imageView = new ImageView(image);
     }
 
-    public ImageView getAnimation() throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
+    public ImageView getAnimation(int cycle) throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
         NSDictionary rootDict = (NSDictionary) PropertyListParser.parse(filePlist);
 
         NSDictionary parameters = ((NSDictionary) rootDict.objectForKey("frames"));
@@ -72,10 +73,34 @@ public class AnimationMaker {
 
             }
         });
-        SpriteAnimation sGpriteAnimation = new SpriteAnimation(imageView, Duration.millis(70*coordinates.size()), coordinates);
-        sGpriteAnimation.setCycleCount(Animation.INDEFINITE);
+        SpriteAnimation sGpriteAnimation = new SpriteAnimation(imageView, Duration.millis(70 * coordinates.size()), coordinates);
+        sGpriteAnimation.setCycleCount(cycle);
         sGpriteAnimation.play();
         return imageView;
+    }
+
+    public ImageView getAttackAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, Action.ATTACK).getAnimation(1);
+    }
+
+    public ImageView getBreathingAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, Action.BREATHING).getAnimation(Animation.INDEFINITE);
+    }
+
+    public ImageView getDeathAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, Action.DEATH).getAnimation(1);
+    }
+
+    public ImageView getRunnigAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, Action.RUN).getAnimation(3);
+    }
+
+    public ImageView getHitAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, Action.HIT).getAnimation(1);
+    }
+
+    public ImageView getNothingAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, Action.NOTHING).getAnimation(Animation.INDEFINITE);
     }
 
 }
