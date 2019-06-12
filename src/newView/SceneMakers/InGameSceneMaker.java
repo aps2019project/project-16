@@ -25,9 +25,13 @@ public class InGameSceneMaker extends SceneMaker {
 
         SnowPane snowPane = new SnowPane();
 
+        PlayerInfoPane playerInfoPane1 = new PlayerInfoPane(false);
+        PlayerInfoPane playerInfoPane2 = new PlayerInfoPane(true);
+
         // TODO: 6/11/19
 
-        borderPane.getChildren().addAll(mapBGView, snowPane, handHBox, tilesPane);
+        borderPane.getChildren().addAll(mapBGView, snowPane, playerInfoPane1, playerInfoPane2);
+        borderPane.getChildren().addAll(handHBox, tilesPane);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);
     }
