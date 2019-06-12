@@ -10,8 +10,8 @@ import static newView.SceneMakers.SceneMaker.*;
 
 public class BackgroundMaker {
 
-    public static void setBackgroundFor(Region region, int backgroundNumber) throws FileNotFoundException {
-        FileInputStream input = new FileInputStream("src/newView/resources/bg" + backgroundNumber + ".jpg");
+    public static void setBackgroundFor(Region region, int backgroundNumber, String menuName) throws FileNotFoundException {
+        FileInputStream input = new FileInputStream("src/newView/resources/menuBackGrounds/" + menuName + "/bg" + backgroundNumber + ".jpg");
 
         Image image = new Image(input);
 

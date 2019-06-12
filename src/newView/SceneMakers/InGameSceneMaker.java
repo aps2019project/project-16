@@ -18,9 +18,9 @@ public class InGameSceneMaker extends SceneMaker {
     @Override
     public Scene makeScene() throws FileNotFoundException {
         BorderPane borderPane = new BorderPane();
-        BackgroundMaker.setBackgroundFor(borderPane, 10);
+        BackgroundMaker.setBackgroundFor(borderPane, 10 , "battle");
 
-        ImageView mapBGView = ForegroundMaker.getForeground(10, 1300, 750);
+        ImageView mapBGView = ForegroundMaker.getForeground(10, 1300, 750 , "battle");
         ScaleTool.relocate(mapBGView, WIDTH / 2 - 1300 / 2, HEIGHT / 2 - 750 / 2);
 
         HBox handHBox = new HandHBox();
