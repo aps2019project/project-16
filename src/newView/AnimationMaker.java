@@ -28,8 +28,10 @@ public class AnimationMaker {
     private Action action;
     private SpriteAnimation spriteAnimation;
     private ImageView imageView;
+    private String type;
 
-    public AnimationMaker(String name, Action action) throws FileNotFoundException {
+    public AnimationMaker(String name, String type, Action action) throws FileNotFoundException {
+        this.type = type;
         this.name = name;
         this.action = action;
         setImageView();
@@ -43,12 +45,12 @@ public class AnimationMaker {
     }
 
     public void setFilePlist() {
-        String fileName = name + ".plist";
+        String fileName = "src/newView/resources/cards/" + type + "/" + name + ".plist";
         this.filePlist = new File(fileName);
     }
 
     public void setImageView() throws FileNotFoundException {
-        String fileName = name + ".png";
+        String fileName = "src/newView/resources/cards/" + type + "/" + name + ".png";
         Image image = new Image(new FileInputStream(fileName));
         this.imageView = new ImageView(image);
     }
@@ -79,28 +81,28 @@ public class AnimationMaker {
         return imageView;
     }
 
-    public ImageView getAttackAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, Action.ATTACK).getAnimation(1);
+    public static ImageView getAttackAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.ATTACK).getAnimation(1);
     }
 
-    public ImageView getBreathingAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, Action.BREATHING).getAnimation(Animation.INDEFINITE);
+    public static ImageView getBreathingAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.BREATHING).getAnimation(Animation.INDEFINITE);
     }
 
-    public ImageView getDeathAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, Action.DEATH).getAnimation(1);
+    public static ImageView getDeathAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.DEATH).getAnimation(1);
     }
 
-    public ImageView getRunnigAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, Action.RUN).getAnimation(3);
+    public static ImageView getRunnigAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.RUN).getAnimation(3);
     }
 
-    public ImageView getHitAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, Action.HIT).getAnimation(1);
+    public static ImageView getHitAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.HIT).getAnimation(1);
     }
 
-    public ImageView getNothingAnimation(String name) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, Action.NOTHING).getAnimation(Animation.INDEFINITE);
+    public static ImageView getNothingAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.NOTHING).getAnimation(Animation.INDEFINITE);
     }
 
 }

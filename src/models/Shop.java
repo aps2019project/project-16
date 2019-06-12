@@ -1,5 +1,6 @@
 package models;
 
+import javafx.scene.layout.StackPane;
 import models.card.Card;
 import models.item.Item;
 
@@ -23,6 +24,7 @@ public class Shop {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
+
     public Card getCard(String cardName) {
         for (Card card : cards) {
             if (card.getName().equalsIgnoreCase(cardName))
