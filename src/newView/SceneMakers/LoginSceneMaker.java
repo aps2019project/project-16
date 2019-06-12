@@ -38,8 +38,8 @@ public class LoginSceneMaker extends SceneMaker {
         TextField userNameField = new TextField();
         PasswordField passwordField = new PasswordField();
 
-        ImageView singUp = new ImageView(new Image(new FileInputStream("C:\\Users\\sepehr.p\\Desktop\\project phase1\\src\\newView\\resources\\menuBackGrounds\\login\\signupBotton.png")));
-        ImageView login = new ImageView(new Image(new FileInputStream("C:\\Users\\sepehr.p\\Desktop\\project phase1\\src\\newView\\resources\\menuBackGrounds\\login\\loginBottton.png")));
+        ImageView singUp = new ImageView(new Image(new FileInputStream("src/newView/resources/menuBackGrounds/login/signupBotton.jpg")));
+        ImageView login = new ImageView(new Image(new FileInputStream("src/newView/resources/menuBackGrounds/login/loginBottton.jpg")));
 
         ScaleTool.resizeImageView(singUp, 300, 40);
         ScaleTool.resizeImageView(login, 300, 40);
