@@ -14,15 +14,15 @@ public class AccountSceneMaker extends SceneMaker {
     @Override
     public Scene makeScene() throws FileNotFoundException {
         BorderPane borderPane = new BorderPane();
-        BackgroundMaker.setBackgroundFor(borderPane, 1);
+        BackgroundMaker.setBackgroundFor(borderPane, 1, "account");
 
-        ImageView lionView = ForegroundMaker.getForeground(2, 600, 600);
+        ImageView lionView = ForegroundMaker.getForeground(2, 600, 600, "account");
         ScaleTool.relocate(lionView, -100, 100);
 
         Fog fog = new Fog(800, 150);
         ScaleTool.relocate(fog.getView(), -100, 550);
 
-        ImageView warriorManView = ForegroundMaker.getForeground(1, 800, 250);
+        ImageView warriorManView = ForegroundMaker.getForeground(1, 800, 250, "account");
         ScaleTool.relocate(warriorManView, 600, 480);
 
         borderPane.addEventHandler(MouseEvent.MOUSE_MOVED, e -> {
