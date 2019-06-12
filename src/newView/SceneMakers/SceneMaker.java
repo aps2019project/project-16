@@ -1,11 +1,16 @@
 package newView.SceneMakers;
 
+import com.dd.plist.PropertyListFormatException;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public abstract class SceneMaker {
     public static final double SCALE = 1;
@@ -23,5 +28,5 @@ public abstract class SceneMaker {
         GAME_CURSOR = new ImageCursor(new Image(mouseFIS));
     }
 
-    public abstract Scene makeScene() throws FileNotFoundException;
+    public abstract Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException;
 }

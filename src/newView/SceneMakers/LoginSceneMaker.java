@@ -1,5 +1,6 @@
 package newView.SceneMakers;
 
+import com.dd.plist.PropertyListFormatException;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -8,25 +9,26 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
+import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
+import newView.Type;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class LoginSceneMaker extends SceneMaker {
 
     @Override
-    public Scene makeScene() throws FileNotFoundException {
+    public Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException {
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 1, "login");
 
@@ -47,13 +49,13 @@ public class LoginSceneMaker extends SceneMaker {
         userNameField.setStyle("-fx-background-color: rgba(0,0,0,0.51); -fx-text-fill: White");
         userNameField.setPromptText("ENTER YOUR USERNAME");
         Label userNameLabel = new Label();
-        userNameField.setPrefWidth(235*SCALE);
+        userNameField.setPrefWidth(235 * SCALE);
         userNameLabel.setText("username :");
         userNameLabel.setTextFill(Color.WHITE);
 
         passwordField.setStyle("-fx-background-color: rgba(0,0,0,0.5); -fx-text-fill: White");
         passwordField.setPromptText("ENTER YOUR PASSWORD");
-        passwordField.setPrefWidth(235*SCALE);
+        passwordField.setPrefWidth(235 * SCALE);
         Label passwordLabel = new Label();
         passwordLabel.setText("password :");
         box.setSpacing(SCALE * 30);
@@ -89,6 +91,11 @@ public class LoginSceneMaker extends SceneMaker {
         borderPane.setCenter(stackPane);
 
         BorderPane.setAlignment(stackPane, Pos.CENTER);
+        Pane pane = new CardMaker("afsane", Type.HERO).getUnitCardView();
+        pane.setLayoutX(60);
+        pane.setLayoutY(60);
+
+        borderPane.getChildren().add(pane);
 
         return new MyScene(borderPane);
     }
