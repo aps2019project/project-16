@@ -34,8 +34,7 @@ hs_err_pid*
 .idea/**/shelf
 .idea/**/*.xml
 .idea/**/*.iml
-**/*.png
-**/*.jpg
+**/*.plist
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
