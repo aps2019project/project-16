@@ -5,7 +5,6 @@ import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
-import newView.GraphicalElements.battle.Tile;
 import newView.GraphicalElements.battle.TilesPane;
 
 
@@ -45,31 +44,6 @@ public class ScaleTool {
     private static final double HEIGHT_D_2 = HEIGHT / 2;
     private static final double WIDTH = TILE_LENGTH * 5;
 
-    public static void transformTile(Tile tile, int row, int column) {
-        double x = TILE_LENGTH * column * 1.05;
-        double y = TILE_LENGTH * row * 1.05;
-        relocate(tile
-                , HEIGHT_D_2 + (x - HEIGHT_D_2) * (y + TRANSFORM_RATIO * WIDTH) / (TRANSFORM_RATIO_2 * WIDTH)
-                , y);
-
-        PerspectiveTransform perspective = new PerspectiveTransform();
-        perspective.setUly(0);
-        perspective.setUry(0);
-        perspective.setLry(0 + TILE_LENGTH);
-        perspective.setLly(0 + TILE_LENGTH);
-
-        perspective.setUlx(getNewX(x, y) - x);
-        perspective.setUrx(getNewX(x + TILE_LENGTH, y) - x);
-        perspective.setLlx(getNewX(x, y + TILE_LENGTH) - x);
-        perspective.setLrx(getNewX(x + TILE_LENGTH, y + TILE_LENGTH) - x);
-
-        tile.setEffect(perspective);
-    }
-
-    private static double getNewX(double x, double y) {
-        return HEIGHT_D_2 + (x - HEIGHT_D_2) * (y + TRANSFORM_RATIO * WIDTH) / (TRANSFORM_RATIO_2 * WIDTH);
-    }
-
     public static void transformTilesPane(TilesPane pane) {
         PerspectiveTransform perspective = new PerspectiveTransform();
 
@@ -84,5 +58,9 @@ public class ScaleTool {
         perspective.setLrx(getNewX(HEIGHT, WIDTH));
 
         pane.setEffect(perspective);
+    }
+
+    private static double getNewX(double x, double y) {
+        return HEIGHT_D_2 + (x - HEIGHT_D_2) * (y + TRANSFORM_RATIO * WIDTH) / (TRANSFORM_RATIO_2 * WIDTH);
     }
 }
