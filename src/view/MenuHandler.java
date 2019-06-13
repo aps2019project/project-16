@@ -3,6 +3,7 @@ package view;
 import controllers.AccountController;
 import view.menuItems.AccountMenu;
 import view.menuItems.MenuItem;
+import view.views.AccountView;
 
 import static view.MenuChangingState.*;
 import static view.Notify.*;
@@ -53,7 +54,7 @@ public class MenuHandler {
     }
 
     public static void startFirstMenu() {
-        new AccountController().loadAccounts();
+        new AccountController(new AccountView()).loadAccounts();
         startMenu(new AccountMenu(), TOP_TO_DOWN);
     }
 }

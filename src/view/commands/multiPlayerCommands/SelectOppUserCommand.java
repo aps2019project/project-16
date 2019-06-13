@@ -2,6 +2,7 @@ package view.commands.multiPlayerCommands;
 
 import controllers.MultiPlayerController;
 import view.commands.Command;
+import view.views.MultiPlayerView;
 
 import java.util.regex.Pattern;
 
@@ -14,6 +15,6 @@ public class SelectOppUserCommand extends Command {
     @Override
     public void doIt() {
         String opponentUserName = matcher.group(1);
-        new MultiPlayerController().selectOppUser(opponentUserName);
+        new MultiPlayerController(new MultiPlayerView()).selectOppUser(opponentUserName);
     }
 }

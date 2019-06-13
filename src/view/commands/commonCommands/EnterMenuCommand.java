@@ -4,6 +4,7 @@ import controllers.CollectionController;
 import models.GameContents;
 import view.MenuHandler;
 import view.commands.Command;
+import view.views.CollectionView;
 
 import java.util.regex.Pattern;
 
@@ -20,7 +21,7 @@ public class EnterMenuCommand extends Command {
     public void doIt() {
         String menuName = matcher.group(1);
         if (MenuHandler.getCurrentMenu().getName().equalsIgnoreCase(MAIN_MENU) && menuName.equalsIgnoreCase(BATTLE_MENU)) {
-            new CollectionController().validateMainDeckForEnterBattle();
+            new CollectionController(new CollectionView()).validateMainDeckForEnterBattle();
             return;
         }
         MenuHandler.goToSubMenu(menuName);

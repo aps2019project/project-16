@@ -2,6 +2,7 @@ package view.commands.collectionCommands;
 
 import controllers.CollectionController;
 import view.commands.Command;
+import view.views.CollectionView;
 
 import java.util.regex.Pattern;
 
@@ -17,7 +18,7 @@ public class AddCardToDeckCommand extends Command {
     public void doIt() {
         int cardID = Integer.parseInt(matcher.group(1));
         String deckName = matcher.group(2);
-        CollectionController controller = new CollectionController();
+        CollectionController controller = new CollectionController(new CollectionView());
         controller.addCardToDeck(cardID, deckName);
     }
 }

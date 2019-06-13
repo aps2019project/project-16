@@ -1,18 +1,16 @@
 package controllers;
 
 import contracts.GraveyardContract;
-import models.Game;
 import models.GameContents;
 import models.Graveyard;
 import models.card.Card;
 import view.Notify;
-import view.views.GraveyardView;
 
 public class GraveyardController implements GraveyardContract.Controller {
     private GraveyardContract.View view;
 
-    public GraveyardController() {
-        view = new GraveyardView();
+    public GraveyardController(GraveyardContract.View view) {
+        this.view = view;
         view.setController(this);
     }
 

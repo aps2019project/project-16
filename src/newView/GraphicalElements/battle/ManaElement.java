@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import newView.GraphicalElements.ScaleTool;
-import newView.GraphicalElements.battle.effects.FadeEffect;
+import newView.GraphicalElements.effects.FadeEffect;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

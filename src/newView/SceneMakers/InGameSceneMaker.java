@@ -7,7 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
-import newView.GraphicalElements.battle.effects.SnowPane;
+import newView.GraphicalElements.effects.SnowPane;
+import newView.menu.Page;
 
 import java.io.FileNotFoundException;
 
@@ -34,10 +35,12 @@ public class InGameSceneMaker extends SceneMaker {
         PlayerInfoPane playerInfoPane1 = new PlayerInfoPane(false);
         PlayerInfoPane playerInfoPane2 = new PlayerInfoPane(true);
 
+        EndTurnButton endTurnButton = new EndTurnButton(true);
+
         // TODO: 6/11/19
 
         borderPane.getChildren().addAll(mapBGView, snowPane, playerInfoPane1, playerInfoPane2);
-        borderPane.getChildren().addAll(handHBox, tilesPane);
+        borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);
     }

@@ -3,6 +3,7 @@ package view.commands.inGameCommands;
 import controllers.InGameController;
 import view.CommandHandler;
 import view.commands.Command;
+import view.views.InGameView;
 
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class RefuseGameCommand extends Command {
     public void doIt() {
         String string = CommandHandler.scanCommandByMessage("Are you sure to refuse from the game? (Y/n)");
         if (string != null && string.equalsIgnoreCase("y")) {
-            new InGameController().refuseGame();
+            new InGameController(new InGameView()).refuseGame();
         }
     }
 }

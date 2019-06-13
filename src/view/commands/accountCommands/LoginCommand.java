@@ -3,6 +3,7 @@ package view.commands.accountCommands;
 import controllers.AccountController;
 import view.CommandHandler;
 import view.commands.Command;
+import view.views.AccountView;
 
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class LoginCommand extends Command {
     public void doIt() {
         String username = matcher.group(1);
         String password = CommandHandler.scanCommandByMessage("Please put your password:");
-        AccountController controller = new AccountController();
+        AccountController controller = new AccountController(new AccountView());
         controller.loginAccount(username, password);
     }
 }

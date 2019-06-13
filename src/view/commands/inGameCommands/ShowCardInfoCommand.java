@@ -2,6 +2,7 @@ package view.commands.inGameCommands;
 
 import controllers.InGameController;
 import view.commands.Command;
+import view.views.InGameView;
 
 import java.util.regex.Pattern;
 
@@ -16,6 +17,6 @@ public class ShowCardInfoCommand extends Command {
         String playerName = matcher.group(1);
         String cardName = matcher.group(3);
         int gameCardID = Integer.parseInt(matcher.group(5));
-        new InGameController().loadCardInfo(playerName, cardName, gameCardID);
+        new InGameController(new InGameView()).loadCardInfo(playerName, cardName, gameCardID);
     }
 }

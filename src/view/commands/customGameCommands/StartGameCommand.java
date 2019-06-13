@@ -2,6 +2,7 @@ package view.commands.customGameCommands;
 
 import controllers.CustomGameController;
 import view.commands.Command;
+import view.views.CustomGameView;
 
 import java.util.regex.Pattern;
 
@@ -17,10 +18,10 @@ public class StartGameCommand extends Command {
         String type = matcher.group(3).toLowerCase();
         switch (type) {
             case "kill hero":
-                new CustomGameController().startGame(oppDeckName,1, 0);
+                new CustomGameController(new CustomGameView()).startGame(oppDeckName,1, 0);
                 break;
             case "hold flag":
-                new CustomGameController().startGame(oppDeckName,2, 1);
+                new CustomGameController(new CustomGameView()).startGame(oppDeckName,2, 1);
                 break;
         }
     }
