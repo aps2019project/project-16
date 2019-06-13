@@ -1,7 +1,7 @@
 package models;
 
 import models.card.*;
-import models.card.exception.*;
+import exception.*;
 import models.item.Item;
 
 import java.util.ArrayList;

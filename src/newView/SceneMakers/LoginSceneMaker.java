@@ -1,6 +1,9 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
+import contracts.AccountContract;
+import controllers.AccountController;
+import exception.AccountExistsException;
+import exception.InvalidCredentialsException;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,23 +16,21 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import models.Account;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
-import newView.menu.Page;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.ParseException;
+import java.util.ArrayList;
 
-public class LoginSceneMaker extends SceneMaker {
+public class LoginSceneMaker extends SceneMaker implements AccountContract.View {
 
-    public LoginSceneMaker(Page page) {
-        super(page);
+    public LoginSceneMaker(Stage primaryStage) {
+        super(primaryStage);
     }
 
     @Override
@@ -80,8 +81,23 @@ public class LoginSceneMaker extends SceneMaker {
         box.getChildren().add(singUp);
         box.getChildren().add(login);
 
-        login.setOnMouseClicked(event -> loginAction());
-        singUp.setOnMouseClicked(event -> signUpAction());
+        login.setOnMouseClicked(event -> {
+            AccountController controller = new AccountController(this);
+            try {
+                controller.loginAccount(userNameField.getText(), passwordField.getText());
+                new AccountSceneMaker(getPrimaryStage()).set();
+            } catch (InvalidCredentialsException e) {
+                e.printStackTrace();//todo show error
+            }
+        });
+        singUp.setOnMouseClicked(event -> {
+            AccountController controller = new AccountController(this);
+            try {
+                controller.createAccount(userNameField.getText(), passwordField.getText());
+            } catch (AccountExistsException e) {
+                e.printStackTrace();//todo show error
+            }
+        });
 
 
         Rectangle rectangle = new Rectangle();
@@ -108,10 +124,20 @@ public class LoginSceneMaker extends SceneMaker {
     }
 
     private void loginAction() {
-        //todo must be implemented by mostafa
+
     }
 
     private void signUpAction() {
         //todo must  be  implemented by mostafa
+    }
+
+    @Override
+    public void setController(AccountContract.Controller controller) {
+
+    }
+
+    @Override
+    public void showLeaderboard(ArrayList<Account> accounts) {
+
     }
 }

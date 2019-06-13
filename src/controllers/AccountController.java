@@ -1,6 +1,8 @@
 package controllers;
 
 import contracts.AccountContract;
+import exception.AccountExistsException;
+import exception.InvalidCredentialsException;
 import models.Account;
 import models.GameContents;
 import view.MenuHandler;
@@ -26,10 +28,11 @@ public class AccountController implements AccountContract.Controller {
     }
 
     @Override
-    public void createAccount(String username, String password) {
+    public void createAccount(String username, String password) throws AccountExistsException {
         Account account = GameContents.findAccount(username);
         if (account != null) {
             Notify.logError("An account with this username is already exist! Try another username.");
+            throw new AccountExistsException();
         } else {
             GameContents.addAccount(new Account(username, password));
             Notify.logMessage("Good job! An account with name \"" + username + "\" created.");
@@ -37,17 +40,16 @@ public class AccountController implements AccountContract.Controller {
     }
 
     @Override
-    public void loginAccount(String username, String password) {
+    public void loginAccount(String username, String password) throws InvalidCredentialsException {
         Account account = GameContents.findAccount(username);
-        if (account == null) {
-            Notify.logError("This username doesn't exists!");
-        } else if (!account.getPassword().equals(password)) {
-            Notify.logError("The password is incorrect!");
+        if (account == null || !account.getPassword().equals(password)) {
+            Notify.logError("Invalid Credentials!");
+            throw new InvalidCredentialsException();
         } else {
             GameContents.setCurrentAccount(account);
             GameContents.setSecondAccount(null);//phase 3: must change
             Notify.logMessage("Dear " + username + "!!! You logged in successfully!");
-            MenuHandler.goToSubMenu(MAIN_MENU);
+//            MenuHandler.goToSubMenu(MAIN_MENU);
         }
     }
 
