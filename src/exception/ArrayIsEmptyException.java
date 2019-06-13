@@ -1,4 +1,4 @@
-package models.card.exception;
+package exception;
 
 public class ArrayIsEmptyException extends Exception {
 }

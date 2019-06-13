@@ -1,4 +1,4 @@
-package models.card.exception;
+package exception;
 
 public class DistanceException extends Exception {
 }

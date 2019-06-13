@@ -1,6 +1,7 @@
 package view.commands.accountCommands;
 
 import controllers.AccountController;
+import exception.InvalidCredentialsException;
 import view.CommandHandler;
 import view.commands.Command;
 import view.views.AccountView;
@@ -18,6 +19,9 @@ public class LoginCommand extends Command {
         String username = matcher.group(1);
         String password = CommandHandler.scanCommandByMessage("Please put your password:");
         AccountController controller = new AccountController(new AccountView());
-        controller.loginAccount(username, password);
+        try {
+            controller.loginAccount(username, password);
+        } catch (InvalidCredentialsException ignored) {
+        }
     }
 }

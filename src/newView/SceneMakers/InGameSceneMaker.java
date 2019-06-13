@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
 import newView.GraphicalElements.effects.SnowPane;
-import newView.menu.Page;
 
 import java.io.FileNotFoundException;
 

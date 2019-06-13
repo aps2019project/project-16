@@ -3,7 +3,7 @@ package controllers;
 import contracts.InGameContract;
 import models.*;
 import models.card.*;
-import models.card.exception.*;
+import exception.*;
 import models.item.Item;
 import view.Notify;
 
