@@ -2,6 +2,7 @@ package view.commands.collectionCommands;
 
 import controllers.CollectionController;
 import view.commands.Command;
+import view.views.CollectionView;
 
 import java.util.regex.Pattern;
 
@@ -14,7 +15,7 @@ public class SearchCommand extends Command {
     @Override
     public void doIt() {
         String cardName = matcher.group(1);
-        CollectionController controller = new CollectionController();
+        CollectionController controller = new CollectionController(new CollectionView());
         controller.searchCard(cardName);
     }
 }

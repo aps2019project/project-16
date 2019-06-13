@@ -6,6 +6,7 @@ import models.card.Card;
 import models.card.Hero;
 import models.item.Item;
 import view.Notify;
+import view.views.CollectionView;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void loadCollection() {
-        new CollectionController().loadCollection();
+        new CollectionController(new CollectionView()).loadCollection();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void searchInCollection(String cardName) {
-        new CollectionController().searchCard(cardName);
+        new CollectionController(new CollectionView()).searchCard(cardName);
     }
 
     @Override

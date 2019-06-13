@@ -6,7 +6,6 @@ import models.card.Card;
 import models.card.Hero;
 import models.item.Item;
 import view.Notify;
-import view.views.CollectionView;
 
 import java.util.ArrayList;
 
@@ -15,8 +14,9 @@ import static models.Deck.CARD_CAPACITY;
 public class CollectionController implements CollectionContract.Controller {
     private CollectionContract.View view;
 
-    public CollectionController() {
-        view = new CollectionView();
+    public CollectionController(CollectionContract.View view) {
+        this.view = view;
+        view.setController(this);
     }
 
     @Override

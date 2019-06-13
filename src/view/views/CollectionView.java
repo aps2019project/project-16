@@ -15,6 +15,11 @@ import static view.menuItems.MenuConstants.BATTLE_MENU;
 public class CollectionView implements CollectionContract.View {
 
     @Override
+    public void setController(CollectionContract.Controller controller) {
+
+    }
+
+    @Override
     public void showAllDecks(Deck mainDeck, ArrayList<Deck> decks) {
         if (mainDeck != null) {
             showDeck(mainDeck);

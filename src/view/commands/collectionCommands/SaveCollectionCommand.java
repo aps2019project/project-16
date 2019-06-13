@@ -2,6 +2,7 @@ package view.commands.collectionCommands;
 
 import controllers.CollectionController;
 import view.commands.Command;
+import view.views.CollectionView;
 
 import java.util.regex.Pattern;
 
@@ -15,7 +16,7 @@ public class SaveCollectionCommand extends Command {
 
     @Override
     public void doIt() {
-        CollectionController controller = new CollectionController();
+        CollectionController controller = new CollectionController(new CollectionView());
         controller.saveCollection();
     }
 }
