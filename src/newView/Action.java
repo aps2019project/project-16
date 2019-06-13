@@ -6,7 +6,8 @@ public enum Action {
     BREATHING("breathing"),
     DEATH("death"),
     HIT("hit"),
-    NOTHING("nothing");
+    ACTIVE("active"),
+    NOTHING("");
 
     private String name;
 

@@ -61,24 +61,33 @@ public class AnimationMaker {
         NSDictionary parameters = ((NSDictionary) rootDict.objectForKey("frames"));
         ArrayList<PictureCoordination> coordinates = new ArrayList<>();
         parameters.getHashMap().forEach((key, nsObject) -> {
-            if (key.contains(action.getName())) {
-
-                NSString nsString = (NSString) ((NSDictionary) nsObject).objectForKey("frame");
-                Pattern pattern = Pattern.compile("(\\d+)");
-                Matcher matcher = pattern.matcher(nsString.toString());
-                ArrayList<Integer> tmp = new ArrayList<>();
-
-                while (matcher.find()) {
-                    tmp.add(Integer.parseInt(matcher.group(1)));
+            if (action == Action.NOTHING) {
+                if (!key.contains("active")) {
+                    getCoordinatesForSprite(coordinates, (NSDictionary) nsObject);
                 }
-                coordinates.add(new PictureCoordination(tmp.get(0), tmp.get(1), tmp.get(2), tmp.get(3)));
-
+            } else {
+                if (key.contains(action.getName())) {
+                    getCoordinatesForSprite(coordinates, (NSDictionary) nsObject);
+                }
             }
         });
+
         SpriteAnimation sGpriteAnimation = new SpriteAnimation(imageView, Duration.millis(70 * coordinates.size()), coordinates);
         sGpriteAnimation.setCycleCount(cycle);
         sGpriteAnimation.play();
         return imageView;
+    }
+
+    private void getCoordinatesForSprite(ArrayList<PictureCoordination> coordinates, NSDictionary nsObject) {
+        NSString nsString = (NSString) nsObject.objectForKey("frame");
+        Pattern pattern = Pattern.compile("(\\d+)");
+        Matcher matcher = pattern.matcher(nsString.toString());
+        ArrayList<Integer> tmp = new ArrayList<>();
+
+        while (matcher.find()) {
+            tmp.add(Integer.parseInt(matcher.group(1)));
+        }
+        coordinates.add(new PictureCoordination(tmp.get(0), tmp.get(1), tmp.get(2), tmp.get(3)));
     }
 
     public static ImageView getAttackAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
@@ -90,19 +99,23 @@ public class AnimationMaker {
     }
 
     public static ImageView getDeathAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, type, Action.DEATH).getAnimation(1);
+        return new AnimationMaker(name, type, Action.DEATH).getAnimation(2);
     }
 
     public static ImageView getRunnigAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, type, Action.RUN).getAnimation(3);
+        return new AnimationMaker(name, type, Action.RUN).getAnimation(4);
     }
 
     public static ImageView getHitAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
-        return new AnimationMaker(name, type, Action.HIT).getAnimation(1);
+        return new AnimationMaker(name, type, Action.HIT).getAnimation(2);
     }
 
     public static ImageView getNothingAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
         return new AnimationMaker(name, type, Action.NOTHING).getAnimation(Animation.INDEFINITE);
+    }
+
+    public static ImageView getActiveAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, type, Action.ACTIVE).getAnimation(2);
     }
 
 }

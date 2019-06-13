@@ -185,9 +185,10 @@ public class CardMaker {
         ImageView sprite = getSprite();
 
         ScaleTool.resizeImageView(backGround, 150, 200);
-        ScaleTool.resizeImageView(sprite, 150, 150);
+        ScaleTool.resizeImageView(sprite, 100, 100);
 
-        sprite.setY(-30); //todo must be * scale
+        sprite.setY(15); //todo must be * scale
+        sprite.setX(25);
 
         Text name = nameOfCard;
         Text type = typeOfCard;
