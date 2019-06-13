@@ -1,34 +1,23 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
-import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import newView.AnimationMaker;
-import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
-import newView.menu.LoginPage;
-import newView.menu.Page;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.ParseException;
 
 public class LoadingSceneMaker extends SceneMaker {
 
-    public LoadingSceneMaker(Page page) {
-        super(page);
+    public LoadingSceneMaker(Stage primaryStage) {
+        super(primaryStage);
     }
 
     @Override
@@ -45,9 +34,9 @@ public class LoadingSceneMaker extends SceneMaker {
         ScaleTool.resizeImageView(brand, 200, 50);
         ScaleTool.resizeImageView(demon, 85, 85);
 
-        ScaleTool.relocate(brand , 500, 200);
+        ScaleTool.relocate(brand, 500, 200);
         ScaleTool.relocate(text, 420, 350);
-        ScaleTool.relocate(demon , 550 , 240);
+        ScaleTool.relocate(demon, 550, 240);
 
         pane.getChildren().add(text);
         pane.getChildren().add(demon);
@@ -58,7 +47,7 @@ public class LoadingSceneMaker extends SceneMaker {
                 Thread.sleep(2500);
                 Platform.runLater(() -> {
                     try {
-                        new LoginPage(getPage(), getPage().getStage()).start();
+                        new LoginSceneMaker(getPrimaryStage()).set();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

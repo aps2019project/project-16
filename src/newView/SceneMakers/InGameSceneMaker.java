@@ -4,17 +4,17 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
 import newView.GraphicalElements.battle.effects.SnowPane;
-import newView.menu.Page;
 
 import java.io.FileNotFoundException;
 
 public class InGameSceneMaker extends SceneMaker {
 
-    public InGameSceneMaker(Page page) {
-        super(page);
+    public InGameSceneMaker(Stage primaryStage) {
+        super(primaryStage);
     }
 
     @Override

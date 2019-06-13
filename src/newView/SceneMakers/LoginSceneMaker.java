@@ -1,6 +1,5 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
 import controllers.AccountController;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,24 +13,19 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
-import newView.menu.MainMenuPage;
-import newView.menu.Page;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.ParseException;
 
 public class LoginSceneMaker extends SceneMaker {
 
-    public LoginSceneMaker(Page page) {
-        super(page);
+    public LoginSceneMaker(Stage primaryStage) {
+        super(primaryStage);
     }
 
     @Override
@@ -85,11 +79,7 @@ public class LoginSceneMaker extends SceneMaker {
         login.setOnMouseClicked(event -> {
             AccountController controller = new AccountController();
             controller.loginAccount(userNameField.getText(), passwordField.getText());
-            try {
-                new MainMenuPage(getPage(), getPage().getStage()).start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            new AccountSceneMaker(getPrimaryStage()).set();
         });
         singUp.setOnMouseClicked(event -> {
             AccountController controller = new AccountController();
