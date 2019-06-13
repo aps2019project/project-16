@@ -23,7 +23,7 @@ public abstract class Page {
         parent.start();
     }
 
-    protected Stage getStage() {
+    public Stage getStage() {
         return stage;
     }
 }

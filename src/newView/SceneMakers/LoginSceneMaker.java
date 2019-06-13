@@ -1,6 +1,7 @@
 package newView.SceneMakers;
 
 import com.dd.plist.PropertyListFormatException;
+import controllers.AccountController;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
+import newView.menu.MainMenuPage;
 import newView.menu.Page;
 import org.xml.sax.SAXException;
 
@@ -80,8 +82,19 @@ public class LoginSceneMaker extends SceneMaker {
         box.getChildren().add(singUp);
         box.getChildren().add(login);
 
-        login.setOnMouseClicked(event -> loginAction());
-        singUp.setOnMouseClicked(event -> signUpAction());
+        login.setOnMouseClicked(event -> {
+            AccountController controller = new AccountController();
+            controller.loginAccount(userNameField.getText(), passwordField.getText());
+            try {
+                new MainMenuPage(getPage(), getPage().getStage()).start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        singUp.setOnMouseClicked(event -> {
+            AccountController controller = new AccountController();
+            controller.createAccount(userNameField.getText(), passwordField.getText());
+        });
 
 
         Rectangle rectangle = new Rectangle();
@@ -108,7 +121,7 @@ public class LoginSceneMaker extends SceneMaker {
     }
 
     private void loginAction() {
-        //todo must be implemented by mostafa
+
     }
 
     private void signUpAction() {

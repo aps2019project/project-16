@@ -2,6 +2,7 @@ package newView.SceneMakers;
 
 import com.dd.plist.PropertyListFormatException;
 import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import newView.AnimationMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
+import newView.menu.LoginPage;
 import newView.menu.Page;
 import org.xml.sax.SAXException;
 
@@ -51,7 +53,20 @@ public class LoadingSceneMaker extends SceneMaker {
         pane.getChildren().add(demon);
         pane.getChildren().add(brand);
         pane.setStyle("-fx-background-color: rgb(0,0,0); -fx-text-fill: White");
-        //todo after SOME SECONDS goes to login menu
+        new Thread(() -> {
+            try {
+                Thread.sleep(2500);
+                Platform.runLater(() -> {
+                    try {
+                        new LoginPage(getPage(), getPage().getStage()).start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
         return new MyScene(pane);
     }
 }

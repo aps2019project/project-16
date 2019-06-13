@@ -36,4 +36,8 @@ public abstract class SceneMaker {
     }
 
     public abstract Scene makeScene() throws Exception;
+
+    public Page getPage() {
+        return page;
+    }
 }
