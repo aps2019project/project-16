@@ -18,6 +18,7 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
+import newView.menu.Page;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,6 +27,10 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class LoginSceneMaker extends SceneMaker {
+
+    public LoginSceneMaker(Page page) {
+        super(page);
+    }
 
     @Override
     public Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException {
@@ -92,8 +97,8 @@ public class LoginSceneMaker extends SceneMaker {
 
         BorderPane.setAlignment(stackPane, Pos.CENTER);
 //        Pane pane = new CardMaker("esfandiar", Type.HERO).getUnitCardView();
-        Pane pane = new CardMaker("Fireball", Type.SPELL).getSpellCardView();
-//        Pane pane = new CardMaker("Blades of agility", Type.ITEM).getSpellCardView();
+//        Pane pane = new CardMaker("Fireball", Type.SPELL).getSpellCardView();
+        Pane pane = new CardMaker("tire do shakh", Type.ITEM).getSpellCardView();
         pane.setLayoutX(60);
         pane.setLayoutY(60);
 

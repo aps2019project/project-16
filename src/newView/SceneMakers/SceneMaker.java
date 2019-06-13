@@ -4,6 +4,8 @@ import com.dd.plist.PropertyListFormatException;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import newView.menu.Page;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,10 +20,15 @@ public abstract class SceneMaker {
     public static final double WIDTH = 1300;
     private static FileInputStream mouseFIS;
     public static final ImageCursor GAME_CURSOR;
+    private Page page;
+
+    public SceneMaker(Page page) {
+        this.page = page;
+    }
 
     static {
         try {
-            mouseFIS = new FileInputStream( "src/newView/resources/mouse.png");
+            mouseFIS = new FileInputStream("src/newView/resources/mouse.png");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

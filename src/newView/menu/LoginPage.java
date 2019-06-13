@@ -30,7 +30,7 @@ public class LoginPage extends Page implements AccountContract.View {
     public void start() {
         Scene scene = null;
         try {
-            scene = new LoginSceneMaker().makeScene();
+            scene = new LoginSceneMaker(this).makeScene();
         } catch (IOException | ParserConfigurationException | SAXException | PropertyListFormatException
                 | ParseException e) {
             e.printStackTrace();

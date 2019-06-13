@@ -7,16 +7,22 @@ import javafx.scene.layout.HBox;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
 import newView.GraphicalElements.battle.effects.SnowPane;
+import newView.menu.Page;
 
 import java.io.FileNotFoundException;
 
 public class InGameSceneMaker extends SceneMaker {
+
+    public InGameSceneMaker(Page page) {
+        super(page);
+    }
+
     @Override
     public Scene makeScene() throws FileNotFoundException {
         BorderPane borderPane = new BorderPane();
-        BackgroundMaker.setBackgroundFor(borderPane, 10 , "battle");
+        BackgroundMaker.setBackgroundFor(borderPane, 10, "battle");
 
-        ImageView mapBGView = ForegroundMaker.getForeground(10, 1300, 750 , "battle");
+        ImageView mapBGView = ForegroundMaker.getForeground(10, 1300, 750, "battle");
         ScaleTool.relocate(mapBGView, WIDTH / 2 - 1300 / 2, HEIGHT / 2 - 750 / 2);
 
         HBox handHBox = new HandHBox();
