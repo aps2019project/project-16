@@ -17,13 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.SplittableRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AnimationMaker {
     private String name;
-    private File fileImage;
     private File filePlist;
     private Action action;
     private SpriteAnimation spriteAnimation;
@@ -35,13 +33,14 @@ public class AnimationMaker {
         this.name = name;
         this.action = action;
         setImageView();
-        setFileImage();
         setFilePlist();
     }
 
-    public void setFileImage() {
-        String fileName = name + ".png";
-        this.fileImage = new File(fileName);
+    public AnimationMaker(String name, String filePath) throws FileNotFoundException {
+        this.name = name;
+        this.action = Action.NOTHING;
+        this.filePlist = new File(filePath + name + ".plist");
+        this.imageView = new ImageView(new Image(new FileInputStream(filePath + name + ".png")));
     }
 
     public void setFilePlist() {
@@ -90,6 +89,7 @@ public class AnimationMaker {
         coordinates.add(new PictureCoordination(tmp.get(0), tmp.get(1), tmp.get(2), tmp.get(3)));
     }
 
+
     public static ImageView getAttackAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
         return new AnimationMaker(name, type, Action.ATTACK).getAnimation(1);
     }
@@ -118,4 +118,8 @@ public class AnimationMaker {
         return new AnimationMaker(name, type, Action.ACTIVE).getAnimation(2);
     }
 
+
+    public static ImageView getSimpleAnimation(String name, String filePath) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+        return new AnimationMaker(name, filePath).getAnimation(Animation.INDEFINITE);
+    }
 }

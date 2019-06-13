@@ -18,7 +18,7 @@ public class LoginPage extends Page implements AccountContract.View {
 
     @Override
     public void start() throws Exception {
-        Scene scene = null;
+        Scene scene;
         scene = new LoginSceneMaker(this).makeScene();
         getStage().setScene(scene);
     }
