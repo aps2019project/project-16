@@ -1,4 +1,4 @@
-package newView.GraphicalElements.battle.effects;
+package newView.GraphicalElements.effects;
 
 import javafx.animation.*;
 import javafx.event.ActionEvent;
