@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ManaPane extends HBox {
     private int numberOfManas;
-    private static final int CAPACITY = 9;
+    private static final int CAPACITY = 12;
     private ArrayList<ManaElement> elements = new ArrayList<>();
 
     public ManaPane(int numberOfManas) throws FileNotFoundException {
@@ -26,5 +26,18 @@ public class ManaPane extends HBox {
             elements.get(i).setFull();
         }
         this.getChildren().addAll(elements);
+    }
+
+    public void setNumberOfManas(int numberOfManas) {
+        if (numberOfManas > this.numberOfManas) {
+            for (int i = this.numberOfManas; i < numberOfManas; i++) {
+                elements.get(i).setFull();
+            }
+        } else {
+            for (int i = numberOfManas; i < this.numberOfManas ; i++) {
+                elements.get(i).setEmpty();
+            }
+        }
+        this.numberOfManas = numberOfManas;
     }
 }
