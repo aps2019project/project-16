@@ -5,12 +5,21 @@ public abstract class GameAct {
 }
 
 // TODO: 6/14/19
-//  put unit
-//  attack
-//  move
-//  cast spell
-//  special power
-//  use item
-//  mana increase
+//  +add card to hand
+//  +put unit
+//  +mana increase
+//  +attack
+//  +move
+//  +cast spell
+//  +special power
+//  +use item
 //  buff
 //  cell effect
+//  pick up item
+//  pick up flag
+//  counter attack
+//  combo attack
+//  change turn
+//  generate flags
+//  generate collectibles
+//  usable item
