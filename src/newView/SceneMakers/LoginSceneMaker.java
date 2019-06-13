@@ -33,7 +33,7 @@ public class LoginSceneMaker extends SceneMaker {
     }
 
     @Override
-    public Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException {
+    public Scene makeScene() throws Exception {
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 1, "login");
 

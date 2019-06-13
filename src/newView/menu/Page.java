@@ -1,6 +1,12 @@
 package newView.menu;
 
+import com.dd.plist.PropertyListFormatException;
 import javafx.stage.Stage;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public abstract class Page {
     private Page parent;
@@ -11,9 +17,9 @@ public abstract class Page {
         this.stage = stage;
     }
 
-    public abstract void start();
+    public abstract void start() throws Exception;
 
-    protected void back() {
+    protected void back() throws Exception {
         parent.start();
     }
 

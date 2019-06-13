@@ -35,5 +35,5 @@ public abstract class SceneMaker {
         GAME_CURSOR = new ImageCursor(new Image(mouseFIS));
     }
 
-    public abstract Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException;
+    public abstract Scene makeScene() throws Exception;
 }
