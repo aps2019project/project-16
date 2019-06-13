@@ -2,6 +2,7 @@ package view.commands.inGameCommands;
 
 import controllers.InGameController;
 import view.commands.Command;
+import view.views.InGameView;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,6 @@ public class ShowNextCardCommand extends Command {
 
     @Override
     public void doIt() {
-        new InGameController().loadNextCard();
+        new InGameController(new InGameView()).loadNextCard();
     }
 }

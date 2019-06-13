@@ -9,8 +9,8 @@ import view.views.StoryView;
 public class StoryController implements StoryContract.Controller {
     private StoryContract.View view;
 
-    public StoryController() {
-        view = new StoryView();
+    public StoryController(StoryContract.View view) {
+        this.view = view;
         view.setController(this);
     }
 

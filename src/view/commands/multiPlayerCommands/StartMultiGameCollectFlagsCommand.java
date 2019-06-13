@@ -2,6 +2,7 @@ package view.commands.multiPlayerCommands;
 
 import controllers.MultiPlayerController;
 import view.commands.Command;
+import view.views.MultiPlayerView;
 
 import java.util.regex.Pattern;
 
@@ -14,6 +15,6 @@ public class StartMultiGameCollectFlagsCommand extends Command {
     @Override
     public void doIt() {
         int numberOfFlags = Integer.parseInt(matcher.group(1));
-        new MultiPlayerController().startMultiGame(3,numberOfFlags);
+        new MultiPlayerController(new MultiPlayerView()).startMultiGame(3,numberOfFlags);
     }
 }

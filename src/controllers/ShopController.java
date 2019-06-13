@@ -15,8 +15,9 @@ import static models.Collection.ITEM_CAPACITY;
 public class ShopController implements ShopContract.Controller {
     private ShopContract.View view;
 
-    public ShopController() {
-        view = new ShopView();
+    public ShopController(ShopContract.View view) {
+        this.view = view;
+        view.setController(this);
     }
 
     @Override

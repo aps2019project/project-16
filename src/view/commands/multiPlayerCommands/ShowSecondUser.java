@@ -2,6 +2,7 @@ package view.commands.multiPlayerCommands;
 
 import controllers.MultiPlayerController;
 import view.commands.Command;
+import view.views.MultiPlayerView;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,6 @@ public class ShowSecondUser extends Command {
 
     @Override
     public void doIt() {
-        new MultiPlayerController().loadSecondAccount();
+        new MultiPlayerController(new MultiPlayerView()).loadSecondAccount();
     }
 }

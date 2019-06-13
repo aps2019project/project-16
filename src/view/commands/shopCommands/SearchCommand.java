@@ -2,6 +2,7 @@ package view.commands.shopCommands;
 
 import controllers.ShopController;
 import view.commands.Command;
+import view.views.ShopView;
 
 import java.util.regex.Pattern;
 
@@ -14,6 +15,6 @@ public class SearchCommand extends Command {
     @Override
     public void doIt() {
         String cardName = matcher.group(1);
-        new ShopController().searchInShop(cardName);
+        new ShopController(new ShopView()).searchInShop(cardName);
     }
 }

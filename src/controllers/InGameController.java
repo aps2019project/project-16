@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class InGameController implements InGameContract.Controller {
     private InGameContract.View view;
 
-    public InGameController() {
-        view = new InGameView();
+    public InGameController(InGameContract.View view) {
+        this.view = view;
         view.setController(this);
     }
 

@@ -14,6 +14,11 @@ import static view.Notify.*;
 public class ShopView implements ShopContract.View {
 
     @Override
+    public void setController(ShopContract.Controller controller) {
+
+    }
+
+    @Override
     public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
         printHeroes(heroes, 's');
         printUsables(items, 's');

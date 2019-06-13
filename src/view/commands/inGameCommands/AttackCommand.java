@@ -2,6 +2,7 @@ package view.commands.inGameCommands;
 
 import controllers.InGameController;
 import view.commands.Command;
+import view.views.InGameView;
 
 import java.util.regex.Pattern;
 
@@ -15,6 +16,6 @@ public class AttackCommand extends Command {
     public void doIt() {
         String oppCardName = matcher.group(1);
         int gameID = Integer.parseInt(matcher.group(3));
-        new InGameController().attack(oppCardName, gameID);
+        new InGameController(new InGameView()).attack(oppCardName, gameID);
     }
 }
