@@ -2,6 +2,7 @@ package view.commands.accountCommands;
 
 import controllers.AccountController;
 import view.commands.Command;
+import view.views.AccountView;
 
 import java.util.regex.Pattern;
 
@@ -13,7 +14,7 @@ public class ShowLeaderboardCommand extends Command {
 
     @Override
     public void doIt() {
-        AccountController controller = new AccountController();
+        AccountController controller = new AccountController(new AccountView());
         controller.loadLeaderboard();
     }
 }

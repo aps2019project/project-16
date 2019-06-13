@@ -24,6 +24,11 @@ public class LoginPage extends Page implements AccountContract.View {
     }
 
     @Override
+    public void setController(AccountContract.Controller controller) {
+
+    }
+
+    @Override
     public void showLeaderboard(ArrayList<Account> accounts) {
 
     }

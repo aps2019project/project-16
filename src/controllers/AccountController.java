@@ -2,11 +2,9 @@ package controllers;
 
 import contracts.AccountContract;
 import models.Account;
-import models.Game;
 import models.GameContents;
 import view.MenuHandler;
 import view.Notify;
-import view.views.AccountView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,8 +14,9 @@ import static view.menuItems.MenuConstants.MAIN_MENU;
 public class AccountController implements AccountContract.Controller {
     private AccountContract.View view;
 
-    public AccountController() {
-        view = new AccountView();
+    public AccountController(AccountContract.View view) {
+        this.view = view;
+        view.setController(this);
     }
 
     @Override
