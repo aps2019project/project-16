@@ -2,6 +2,7 @@ package view.commands.graveyardCommands;
 
 import controllers.GraveyardController;
 import view.commands.Command;
+import view.views.GraveyardView;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,6 @@ public class ShowCardsCommand extends Command {
 
     @Override
     public void doIt() {
-        new GraveyardController().loadCards();
+        new GraveyardController(new GraveyardView()).loadCards();
     }
 }

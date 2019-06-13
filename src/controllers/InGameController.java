@@ -6,7 +6,6 @@ import models.card.*;
 import models.card.exception.*;
 import models.item.Item;
 import view.Notify;
-import view.views.InGameView;
 
 import java.util.ArrayList;
 

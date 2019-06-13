@@ -4,7 +4,6 @@ import contracts.StoryContract;
 import models.*;
 import models.artificialIntelligence.AIAccount;
 import view.Notify;
-import view.views.StoryView;
 
 public class StoryController implements StoryContract.Controller {
     private StoryContract.View view;
