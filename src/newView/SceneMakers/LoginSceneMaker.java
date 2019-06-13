@@ -91,7 +91,9 @@ public class LoginSceneMaker extends SceneMaker {
         borderPane.setCenter(stackPane);
 
         BorderPane.setAlignment(stackPane, Pos.CENTER);
-        Pane pane = new CardMaker("afsane", Type.HERO).getUnitCardView();
+        Pane pane = new CardMaker("esfandiar", Type.HERO).getUnitCardView();
+//        Pane pane = new CardMaker("Empower", Type.SPELL).getSpellCardView();
+//        Pane pane = new CardMaker("Blades of agility", Type.ITEM).getSpellCardView();
         pane.setLayoutX(60);
         pane.setLayoutY(60);
 

@@ -9,7 +9,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.StackType;
 import models.Shop;
 import models.card.Card;
 import models.card.Hero;
@@ -131,7 +130,7 @@ public class CardMaker {
     public Pane getUnitCardView() throws FileNotFoundException {
         Pane root = new Pane();
         StackPane stackPaneName = new StackPane();
-        StackPane stackPaneType =  new StackPane();
+        StackPane stackPaneType = new StackPane();
 
         ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
         ImageView sprite = getSprite();
@@ -176,4 +175,85 @@ public class CardMaker {
 
         return root;
     }
+
+    public Pane getSpellCardView() throws FileNotFoundException {
+        Pane root = new Pane();
+        StackPane stackPaneName = new StackPane();
+        StackPane stackPaneType = new StackPane();
+
+        ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
+        ImageView sprite = getSprite();
+
+        ScaleTool.resizeImageView(backGround, 150, 200);
+        ScaleTool.resizeImageView(sprite, 150, 150);
+
+        sprite.setY(-30); //todo must be * scale
+
+        Text name = nameOfCard;
+        Text type = typeOfCard;
+
+        name.setX(75); //todo must be * scale
+        type.setX(50);//todo must be * scale
+
+        name.setY(160);//todo must be * scale
+        type.setY(140);//todo must be * scale
+
+        stackPaneName.setPrefHeight(200);//todo must be * scale
+        stackPaneName.setPrefWidth(150);//todo must be * scale
+
+        stackPaneType.setPrefHeight(200);//todo must be * scale
+        stackPaneType.setPrefWidth(150);//todo must be * scale
+
+        stackPaneName.getChildren().add(name);
+        stackPaneType.getChildren().add(type);
+        stackPaneType.setLayoutY(40);//todo must be * scale
+        stackPaneName.setLayoutY(65);//todo must be * scale
+
+        root.getChildren().add(backGround);
+        root.getChildren().add(sprite);
+        root.getChildren().add(stackPaneType);
+        root.getChildren().add(stackPaneName);
+        return root;
+    }
+
+    public Pane getItemCardView() throws FileNotFoundException {
+        Pane root = new Pane();
+        StackPane stackPaneName = new StackPane();
+        StackPane stackPaneType = new StackPane();
+
+        ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
+        ImageView sprite = getSprite();
+
+        ScaleTool.resizeImageView(backGround, 150, 200);
+        ScaleTool.resizeImageView(sprite, 150, 150);
+
+        sprite.setY(-30); //todo must be * scale
+
+        Text name = nameOfCard;
+        Text type = typeOfCard;
+
+        name.setX(75); //todo must be * scale
+        type.setX(50);//todo must be * scale
+
+        name.setY(160);//todo must be * scale
+        type.setY(140);//todo must be * scale
+
+        stackPaneName.setPrefHeight(200);//todo must be * scale
+        stackPaneName.setPrefWidth(150);//todo must be * scale
+
+        stackPaneType.setPrefHeight(200);//todo must be * scale
+        stackPaneType.setPrefWidth(150);//todo must be * scale
+
+        stackPaneName.getChildren().add(name);
+        stackPaneType.getChildren().add(type);
+        stackPaneType.setLayoutY(40);//todo must be * scale
+        stackPaneName.setLayoutY(65);//todo must be * scale
+
+        root.getChildren().add(backGround);
+        root.getChildren().add(sprite);
+        root.getChildren().add(stackPaneType);
+        root.getChildren().add(stackPaneName);
+        return root;
+    }
+
 }
