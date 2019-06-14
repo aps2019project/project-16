@@ -33,7 +33,9 @@ public abstract class SceneMaker {
 
     public void set() {
         try {
-            primaryStage.setScene(makeScene());
+            Scene scene = makeScene();
+            scene.setCursor(GAME_CURSOR);
+            primaryStage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
         }
