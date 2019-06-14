@@ -82,16 +82,16 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         box.getChildren().add(login);
 
         login.setOnMouseClicked(event -> {
-            AccountController controller = new AccountController(this);
+            AccountController controller = new AccountController();
             try {
                 controller.loginAccount(userNameField.getText(), passwordField.getText());
-                new AccountSceneMaker(getPrimaryStage()).set();
+                new MainMenuSceneMaker(getPrimaryStage()).set();
             } catch (InvalidCredentialsException e) {
                 e.printStackTrace();//todo show error
             }
         });
         singUp.setOnMouseClicked(event -> {
-            AccountController controller = new AccountController(this);
+            AccountController controller = new AccountController();
             try {
                 controller.createAccount(userNameField.getText(), passwordField.getText());
             } catch (AccountExistsException e) {
@@ -119,7 +119,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         pane.setLayoutY(60);
 
         borderPane.getChildren().add(pane);
-
         return new MyScene(borderPane);
     }
 
