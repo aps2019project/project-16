@@ -3,18 +3,17 @@ package controllers;
 import contracts.InGameContract;
 import models.*;
 import models.card.*;
-import models.card.exception.*;
+import exception.*;
 import models.item.Item;
 import view.Notify;
-import view.views.InGameView;
 
 import java.util.ArrayList;
 
 public class InGameController implements InGameContract.Controller {
     private InGameContract.View view;
 
-    public InGameController() {
-        view = new InGameView();
+    public InGameController(InGameContract.View view) {
+        this.view = view;
         view.setController(this);
     }
 

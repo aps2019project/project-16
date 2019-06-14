@@ -1,18 +1,12 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import newView.menu.Page;
-import org.xml.sax.SAXException;
+import javafx.stage.Stage;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 
 public abstract class SceneMaker {
     public static final double SCALE = 1;
@@ -20,10 +14,10 @@ public abstract class SceneMaker {
     public static final double WIDTH = 1300;
     private static FileInputStream mouseFIS;
     public static final ImageCursor GAME_CURSOR;
-    private Page page;
+    private Stage primaryStage;
 
-    public SceneMaker(Page page) {
-        this.page = page;
+    public SceneMaker(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     static {
@@ -36,4 +30,16 @@ public abstract class SceneMaker {
     }
 
     public abstract Scene makeScene() throws Exception;
+
+    public void set() {
+        try {
+            primaryStage.setScene(makeScene());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }

@@ -6,13 +6,12 @@ import models.Game;
 import models.GameContents;
 import models.GameMode;
 import view.Notify;
-import view.views.MultiPlayerView;
 
 public class MultiPlayerController implements MultiPlayerContract.Controller {
     private MultiPlayerContract.View view;
 
-    public MultiPlayerController() {
-        view = new MultiPlayerView();
+    public MultiPlayerController(MultiPlayerContract.View view) {
+        this.view = view;
         view.setController(this);
     }
 

@@ -2,6 +2,7 @@ package view.commands.shopCommands;
 
 import controllers.ShopController;
 import view.commands.Command;
+import view.views.ShopView;
 
 import java.util.regex.Pattern;
 
@@ -12,6 +13,6 @@ public class ShowCommand extends Command {
     }
     @Override
     public void doIt() {
-        new ShopController().loadShop();
+        new ShopController(new ShopView()).loadShop();
     }
 }

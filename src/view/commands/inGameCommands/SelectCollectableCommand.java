@@ -2,6 +2,7 @@ package view.commands.inGameCommands;
 
 import controllers.InGameController;
 import view.commands.Command;
+import view.views.InGameView;
 
 import java.util.regex.Pattern;
 
@@ -14,6 +15,6 @@ public class SelectCollectableCommand extends Command {
     @Override
     public void doIt() {
         int collectableID = Integer.parseInt(matcher.group(1));
-        new InGameController().selectCollectable(collectableID);
+        new InGameController(new InGameView()).selectCollectable(collectableID);
     }
 }

@@ -2,6 +2,7 @@ package view.commands.storyCommands;
 
 import controllers.StoryController;
 import view.commands.Command;
+import view.views.StoryView;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,6 @@ public class ShowLevelsCommand extends Command {
 
     @Override
     public void doIt() {
-        new StoryController().loadAllLevels();
+        new StoryController(new StoryView()).loadAllLevels();
     }
 }

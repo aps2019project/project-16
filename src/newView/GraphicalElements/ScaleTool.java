@@ -1,11 +1,11 @@
 package newView.GraphicalElements;
 
 import javafx.scene.Node;
-import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
-import newView.GraphicalElements.battle.TilesPane;
+import newView.GraphicalElements.battle.Tile;
+import newView.GraphicalElements.battle.TilePolygon;
 
 
 import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
@@ -40,24 +40,33 @@ public class ScaleTool {
 
     private static final double TRANSFORM_RATIO = 8;
     private static final double TRANSFORM_RATIO_2 = TRANSFORM_RATIO + 1;
-    private static final double HEIGHT = TILE_LENGTH * 9;
+    private static final double HEIGHT = TILE_LENGTH * 9 * SCALE;
     private static final double HEIGHT_D_2 = HEIGHT / 2;
-    private static final double WIDTH = TILE_LENGTH * 5;
+    private static final double WIDTH = TILE_LENGTH * 5 * SCALE;
 
-    public static void transformTilesPane(TilesPane pane) {
-        PerspectiveTransform perspective = new PerspectiveTransform();
+    public static void relocateTile(Tile tile) {
+        double x = TILE_LENGTH * tile.getColumn();
+        double y = TILE_LENGTH * tile.getRow();
 
-        perspective.setUly(0);
-        perspective.setUry(0);
-        perspective.setLly(WIDTH);
-        perspective.setLry(WIDTH);
+        relocate(tile, getNewX(x, y), y);
+    }
 
-        perspective.setUlx(getNewX(0, 0));
-        perspective.setUrx(getNewX(HEIGHT, 0));
-        perspective.setLlx(getNewX(0, WIDTH));
-        perspective.setLrx(getNewX(HEIGHT, WIDTH));
+    public static void makeTilePoints(TilePolygon polygon, int row, int column) {
+        double x = TILE_LENGTH * column;
+        double y = TILE_LENGTH * row;
 
-        pane.setEffect(perspective);
+        polygon.setUly(0);
+        polygon.setUry(0);
+        polygon.setLly(0 + TILE_LENGTH);
+        polygon.setLry(0 + TILE_LENGTH);
+
+        double coordinateX = getNewX(x, y);
+        polygon.setUlx(getNewX(x, y) - coordinateX);
+        polygon.setUrx(getNewX(x + TILE_LENGTH, y) - coordinateX);
+        polygon.setLlx(getNewX(x, y + TILE_LENGTH) - coordinateX);
+        polygon.setLrx(getNewX(x + TILE_LENGTH, y + TILE_LENGTH) - coordinateX);
+
+        polygon.setPoints();
     }
 
     private static double getNewX(double x, double y) {

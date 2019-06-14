@@ -2,6 +2,7 @@ package view.commands.graveyardCommands;
 
 import controllers.GraveyardController;
 import view.commands.Command;
+import view.views.GraveyardView;
 
 import java.util.regex.Pattern;
 
@@ -15,6 +16,6 @@ public class ShowInfoCommand extends Command {
     public void doIt() {
         String cardName = matcher.group(1);
         int gameCardID = Integer.parseInt(matcher.group(3));
-        new GraveyardController().loadCard(cardName, gameCardID);
+        new GraveyardController(new GraveyardView()).loadCard(cardName, gameCardID);
     }
 }

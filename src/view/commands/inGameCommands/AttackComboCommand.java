@@ -2,6 +2,7 @@ package view.commands.inGameCommands;
 
 import controllers.InGameController;
 import view.commands.Command;
+import view.views.InGameView;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -26,6 +27,6 @@ public class AttackComboCommand extends Command {
             }
             count++;
         }
-        new InGameController().attackCombo(oppCardID, myCardIDs);
+        new InGameController(new InGameView()).attackCombo(oppCardID, myCardIDs);
     }
 }

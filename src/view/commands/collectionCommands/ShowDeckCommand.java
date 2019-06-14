@@ -2,6 +2,7 @@ package view.commands.collectionCommands;
 
 import controllers.CollectionController;
 import view.commands.Command;
+import view.views.CollectionView;
 
 import java.util.regex.Pattern;
 
@@ -14,6 +15,6 @@ public class ShowDeckCommand extends Command {
     @Override
     public void doIt() {
         String deckName = matcher.group(1);
-        new CollectionController().loadDeck(deckName);
+        new CollectionController(new CollectionView()).loadDeck(deckName);
     }
 }

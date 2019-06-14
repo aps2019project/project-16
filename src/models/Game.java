@@ -4,8 +4,8 @@ import models.artificialIntelligence.AIPlayer;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Unit;
-import models.card.exception.ArrayIsEmptyException;
-import models.card.exception.GameIsEndException;
+import exception.ArrayIsEmptyException;
+import exception.GameIsEndException;
 import models.item.Item;
 import models.item.ManaItem;
 

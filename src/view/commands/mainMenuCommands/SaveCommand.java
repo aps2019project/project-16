@@ -2,6 +2,7 @@ package view.commands.mainMenuCommands;
 
 import controllers.AccountController;
 import view.commands.Command;
+import view.views.AccountView;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,6 @@ public class SaveCommand extends Command {
 
     @Override
     public void doIt() {
-        new AccountController().saveGameData();
+        new AccountController(new AccountView()).saveGameData();
     }
 }

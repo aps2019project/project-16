@@ -2,6 +2,7 @@ package view.commands.customGameCommands;
 
 import controllers.CustomGameController;
 import view.commands.Command;
+import view.views.CustomGameView;
 
 import java.util.regex.Pattern;
 
@@ -15,6 +16,6 @@ public class StartGameCollectFlagsCommand extends Command {
     public void doIt() {
         String oppDeckName = matcher.group(1);
         int numberOfFlags = Integer.parseInt(matcher.group(3));
-        new CustomGameController().startGame(oppDeckName, 3, numberOfFlags);
+        new CustomGameController(new CustomGameView()).startGame(oppDeckName, 3, numberOfFlags);
     }
 }

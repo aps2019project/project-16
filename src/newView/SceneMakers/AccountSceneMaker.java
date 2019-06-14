@@ -4,17 +4,18 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import newView.GraphicalElements.*;
-import newView.menu.Page;
 
 import java.io.FileNotFoundException;
 
 public class AccountSceneMaker extends SceneMaker {
     private double x = 0, y = 0;
 
-    public AccountSceneMaker(Page page) {
-        super(page);
+    public AccountSceneMaker(Stage primaryStage) {
+        super(primaryStage);
     }
+
 
     @Override
     public Scene makeScene() throws FileNotFoundException {

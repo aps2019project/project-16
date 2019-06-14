@@ -3,7 +3,7 @@ package models.card;
 import models.Pair;
 import models.*;
 import models.attackType.AttackType;
-import models.card.exception.*;
+import exception.*;
 import models.magic.Buff;
 import models.magic.Buffable;
 import models.magic.Spell;
@@ -11,7 +11,6 @@ import models.magic.Spell;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
 
 public abstract class Unit extends Card implements Buffable {
     private ArrayList<Pair<SpecialPowerCastTime, Spell>> specialPowers = new ArrayList<>();

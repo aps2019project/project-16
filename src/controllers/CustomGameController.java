@@ -4,15 +4,14 @@ import contracts.CustomGameContract;
 import models.*;
 import models.artificialIntelligence.AIAccount;
 import view.Notify;
-import view.views.CustomGameView;
 
 import java.util.ArrayList;
 
 public class CustomGameController implements CustomGameContract.Controller {
     private CustomGameContract.View view;
 
-    public CustomGameController() {
-        view = new CustomGameView();
+    public CustomGameController(CustomGameContract.View view) {
+        this.view = view;
         view.setController(this);
     }
 
