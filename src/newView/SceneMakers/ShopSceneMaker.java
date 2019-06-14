@@ -103,6 +103,7 @@ public class ShopSceneMaker extends SceneMaker {
                 e.printStackTrace();
             }
         });
+
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/button_back.png")));
         ScaleTool.resizeImageView(back, 90, 90);
         back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
@@ -157,7 +158,7 @@ public class ShopSceneMaker extends SceneMaker {
         //todo by mostafa piadesazie search
 
         StackPane collectionStackPane = new StackPane();
-        ImageView collectionBotton = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/collection.png")));
+        ImageView collectionBotton = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/collection.png")));//todo this picture must be relocated
         ScaleTool.homothety(collectionBotton, 0.5);
         Text collectionText = new Text();
         collectionText.setText("COLLECTION");
@@ -177,6 +178,8 @@ public class ShopSceneMaker extends SceneMaker {
         pane.getChildren().addAll(next, previous);
         pane.getChildren().add(search);
         pane.getChildren().add(collectionStackPane);
+
+        //todo a shop picture for showing shop cards is needed and must be implemented
 
         return new MyScene(pane);
     }
