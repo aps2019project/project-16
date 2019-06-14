@@ -94,7 +94,7 @@ public class MainMenuSceneMaker extends SceneMaker {
     }
 
     private void setTextStyle(Text text) {
-        text.setFont(new Font(35));
+        text.setFont(new Font(ScaleTool.scale(35)));
         text.setFill(Color.WHITE);
     }
     private void setGlowOnMouseOver(Text text) {
