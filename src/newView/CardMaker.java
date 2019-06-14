@@ -1,21 +1,16 @@
 package newView;
 
 import com.dd.plist.PropertyListFormatException;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import models.Shop;
 import models.card.Card;
-import models.card.Hero;
 import models.card.Unit;
-import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
-import newView.Type;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -226,9 +221,10 @@ public class CardMaker {
         ImageView sprite = getSprite();
 
         ScaleTool.resizeImageView(backGround, 150, 200);
-        ScaleTool.resizeImageView(sprite, 150, 150);
+        ScaleTool.resizeImageView(sprite, 110, 110);
 
-        sprite.setY(-30); //todo must be * scale
+        sprite.setY(10); //todo must be * scale
+        sprite.setX(20);
 
         Text name = nameOfCard;
         Text type = typeOfCard;

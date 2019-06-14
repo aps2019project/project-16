@@ -5,6 +5,7 @@ import newView.SceneMakers.AccountSceneMaker;
 import newView.SceneMakers.LoginSceneMaker;
 import newView.menu.LoadingPage;
 import newView.menu.LoginPage;
+import newView.menu.ShopPage;
 
 import java.io.FileInputStream;
 
@@ -14,7 +15,8 @@ public class Main extends Application {
 //        primaryStage.setScene(new AccountSceneMaker().makeScene());
         //primaryStage.setScene(new LoginSceneMaker().makeScene());
 //        new LoginPage(null, primaryStage).start();
-        new LoadingPage(null ,primaryStage).start();
+//        new LoadingPage(null ,primaryStage).start();
+        new ShopPage(null, primaryStage).start();
         primaryStage.setTitle("DUELYST");
 //        primaryStage.setResizable(false);
         //primaryStage.getIcons().add(new Image(new FileInputStream("C:\\Users\\sepehr.p\\Desktop\\project phase1\\src\\newView\\resources\\appIcon\\icon.png")));
