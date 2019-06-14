@@ -1,8 +1,5 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -10,30 +7,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import models.Initializer;
 import models.card.Card;
-import models.card.Hero;
-import models.card.Minion;
 import models.item.Item;
-import models.magic.Spell;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
-import newView.menu.Page;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
 
 public class ShopSceneMaker extends SceneMaker {
     private Type visibleType = Type.ITEM;
@@ -48,8 +35,8 @@ public class ShopSceneMaker extends SceneMaker {
     private int usableCounter;
     private int spellCounter;
 
-    public ShopSceneMaker(Page page) {
-        super(page);
+    public ShopSceneMaker(Stage primaryStage) {
+        super(primaryStage);
     }
 
     @Override

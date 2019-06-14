@@ -82,7 +82,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         box.getChildren().add(login);
 
         login.setOnMouseClicked(event -> {
-            AccountController controller = new AccountController(this);
+            AccountController controller = new AccountController();
             try {
                 controller.loginAccount(userNameField.getText(), passwordField.getText());
                 new MainMenuSceneMaker(getPrimaryStage()).set();
@@ -91,7 +91,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
             }
         });
         singUp.setOnMouseClicked(event -> {
-            AccountController controller = new AccountController(this);
+            AccountController controller = new AccountController();
             try {
                 controller.createAccount(userNameField.getText(), passwordField.getText());
             } catch (AccountExistsException e) {
