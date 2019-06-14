@@ -72,4 +72,9 @@ public class ScaleTool {
     private static double getNewX(double x, double y) {
         return HEIGHT_D_2 + (x - HEIGHT_D_2) * (y + TRANSFORM_RATIO * WIDTH) / (TRANSFORM_RATIO_2 * WIDTH);
     }
+
+    public static void homothety(Node node, double scale) {
+        node.setScaleX(node.getScaleX() * scale * SCALE);
+        node.setScaleY(node.getScaleY() * scale * SCALE);
+    }
 }
