@@ -1,26 +1,42 @@
 package newView.SceneMakers;
 
+import com.dd.plist.PropertyListFormatException;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Initializer;
 import models.card.Card;
+import models.card.Hero;
+import models.card.Minion;
 import models.item.Item;
+import models.magic.Spell;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class ShopSceneMaker extends SceneMaker {
     private Type visibleType = Type.ITEM;
@@ -39,6 +55,10 @@ public class ShopSceneMaker extends SceneMaker {
         super(primaryStage);
     }
 
+//    public ShopSceneMaker(Page page) {
+//        super(page);
+//    }
+
     @Override
     public Scene makeScene() throws Exception {
 
@@ -50,6 +70,7 @@ public class ShopSceneMaker extends SceneMaker {
         Pane pane = new Pane();
         HBox type = new HBox();
         GridPane visibleCards = new GridPane();
+        TextField search = new TextField();
         Rectangle cardsBackground = new Rectangle();
 
         type.setSpacing(20);
@@ -117,13 +138,18 @@ public class ShopSceneMaker extends SceneMaker {
         type.getChildren().addAll(hero, minion, spell, usableItem);
 
         visibleCards.setMinSize(850, 450);
-        visibleCards.setVgap(-65);
+        visibleCards.setVgap(-55);
         visibleCards.setHgap(10);
         ScaleTool.relocate(visibleCards, 200, 150);
 
 
         ScaleTool.relocate(cardsBackground, 180, 130);
-        ScaleTool.resizeRectangle(cardsBackground, 830, 470);
+        ScaleTool.resizeRectangle(cardsBackground, 830, 450);
+        cardsBackground.setFill(Color.rgb(0, 0, 0, 0.4));
+
+        search.setPromptText("ENTER CARD NAME");
+        ScaleTool.relocate(search, 10, 120);
+        search.setStyle("-fx-arc-height: 10; -fx-arc-width: 10; -fx-background-color: rgba(80,150,255,1)");
 
 
         showingCards(visibleCards);
@@ -133,6 +159,8 @@ public class ShopSceneMaker extends SceneMaker {
         pane.getChildren().add(cardsBackground);
         pane.getChildren().add(visibleCards);
         pane.getChildren().addAll(next, previous);
+        pane.getChildren().add(search);
+
         return new MyScene(pane);
     }
 

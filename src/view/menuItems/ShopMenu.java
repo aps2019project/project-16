@@ -20,7 +20,6 @@ public class ShopMenu extends MenuItem {
 
         commands.add(new ExitCommand());
         commands.add(new HelpCommand());
-
         //no subMenu
     }
 }
