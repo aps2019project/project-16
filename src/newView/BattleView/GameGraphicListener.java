@@ -4,10 +4,9 @@ import newView.BattleView.gameActs.GameAct;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-// TODO: 6/14/19 use it
 public class GameGraphicListener extends Thread {
     private final LinkedBlockingQueue<GameAct> inQueueGameActs = new LinkedBlockingQueue<>();
-    public static final int GAME_ACT_TIME = 1000;//we can increase game speed by it!!! :))
+    public static final int GAME_ACT_TIME = 1000;//we can increase game speed by this constant!!! :))
 
     public void addGameAct(GameAct gameAct) {
         inQueueGameActs.add(gameAct);
@@ -36,6 +35,7 @@ public class GameGraphicListener extends Thread {
             }
             gameAct = inQueueGameActs.poll();
         }
-        gameAct.showAction();
+        //noinspection ConstantConditions: NullPointer warning handled by wait and notify methods
+        gameAct.passToPlatform();
     }
 }

@@ -3,8 +3,8 @@ package newView.SceneMakers;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import newView.BattleView.GameGraphicData;
 import newView.BattleView.GraphicalGameViewer;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
@@ -25,20 +25,21 @@ public class InGameSceneMaker extends SceneMaker {
         ImageView mapBGView = ForegroundMaker.getForeground(10, 1400, 900, "battle");
         ScaleTool.relocate(mapBGView, WIDTH / 2 - 1400 / 2, HEIGHT / 2 - 900 / 2);
 
-        HBox handHBox = new HandHBox();
+        SnowPane snowPane = new SnowPane();
+
+        HandHBox handHBox = new HandHBox();
+
+        PlayerInfoPane[] infoPanes = new PlayerInfoPane[2];
+        infoPanes[0] = new PlayerInfoPane(false);
+        infoPanes[1] = new PlayerInfoPane(true);
 
         TilesPane tilesPane = new TilesPane();
 
-        SnowPane snowPane = new SnowPane();
-
-        PlayerInfoPane playerInfoPane1 = new PlayerInfoPane(false);
-        PlayerInfoPane playerInfoPane2 = new PlayerInfoPane(true);
-
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        // TODO: 6/11/19
+        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes);
 
-        borderPane.getChildren().addAll(mapBGView, snowPane, playerInfoPane1, playerInfoPane2);
+        borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]);
         borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);

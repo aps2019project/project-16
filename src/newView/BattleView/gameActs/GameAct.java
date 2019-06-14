@@ -1,6 +1,12 @@
 package newView.BattleView.gameActs;
 
+import javafx.application.Platform;
+
 public abstract class GameAct {
+    public void passToPlatform() {
+        Platform.runLater(this::showAction);
+    }
+
     public abstract void showAction();
 }
 
