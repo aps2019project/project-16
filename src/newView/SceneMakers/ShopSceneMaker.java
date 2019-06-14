@@ -101,7 +101,7 @@ public class ShopSceneMaker extends SceneMaker {
         });
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/button_back.png")));
         ScaleTool.resizeImageView(back, 90, 90);
-
+        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
         Text usableItem = new Text();
         usableItem.setText("USABLE ITEMS");
