@@ -34,4 +34,8 @@ public class GameGraphicData {
     public static void addGameAct(GameAct gameAct) {
         listener.addGameAct(gameAct);
     }
+
+    public static TilesPane getTilesPane() {
+        return tilesPane;
+    }
 }
