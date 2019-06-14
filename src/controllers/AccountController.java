@@ -21,6 +21,10 @@ public class AccountController implements AccountContract.Controller {
         view.setController(this);
     }
 
+    public AccountController(){
+
+    }
+
     @Override
     public void loadLeaderboard() {
         GameContents.sortAccounts();

@@ -45,13 +45,7 @@ public class LoadingSceneMaker extends SceneMaker {
         new Thread(() -> {
             try {
                 Thread.sleep(2500);
-                Platform.runLater(() -> {
-                    try {
-                        new LoginSceneMaker(getPrimaryStage()).set();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                Platform.runLater(() -> new LoginSceneMaker(getPrimaryStage()).set());
             } catch (Exception e) {
                 e.printStackTrace();
             }

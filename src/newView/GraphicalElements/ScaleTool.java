@@ -16,6 +16,10 @@ public class ScaleTool {
         node.relocate(x * SCALE, y * SCALE);
     }
 
+    public static double scale(double x) {
+        return x * SCALE;
+    }
+
     public static void resizeImageView(ImageView imageView, double width, double height) {
         imageView.setFitWidth(width * SCALE);
         imageView.setFitHeight(height * SCALE);
