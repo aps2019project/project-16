@@ -17,6 +17,14 @@ public class Tile extends Pane {
         return column;
     }
 
+    public double getX() {
+        return getLayoutX();// TODO: 6/14/19 may change
+    }
+
+    public double getY() {
+        return getLayoutY();
+    }
+
     private boolean isSelected = false;
     private TilePolygon polygon = new TilePolygon();
     private ImageView imageView;
@@ -32,6 +40,10 @@ public class Tile extends Pane {
         ScaleTool.makeTilePoints(polygon, row, column);
         this.getChildren().add(polygon);
         setMouseEventsFor(polygon);
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 
     public void setImageView(ImageView imageView) {
