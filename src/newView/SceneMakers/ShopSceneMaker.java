@@ -63,10 +63,6 @@ public class ShopSceneMaker extends SceneMaker {
         super(primaryStage);
     }
 
-//    public ShopSceneMaker(Page page) {
-//        super(page);
-//    }
-
     @Override
     public Scene makeScene() throws Exception {
 

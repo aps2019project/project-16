@@ -9,8 +9,8 @@ public class Main extends Application {
 //        primaryStage.setScene(new AccountSceneMaker().makeScene());
         //primaryStage.setScene(new LoginSceneMaker().makeScene());
 //        new LoginPage(null, primaryStage).start();
-//        new LoadingSceneMaker(primaryStage).set();
-        new ShopSceneMaker(primaryStage).set();
+        new LoadingSceneMaker(primaryStage).set();
+//        new ShopSceneMaker(primaryStage).set();
         primaryStage.setTitle("DUELYST");
 //        primaryStage.setResizable(false);
         //primaryStage.getIcons().add(new Image(new FileInputStream("C:\\Users\\sepehr.p\\Desktop\\project phase1\\src\\newView\\resources\\appIcon\\icon.png")));

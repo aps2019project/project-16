@@ -102,7 +102,7 @@ public class AnimationMaker {
         return new AnimationMaker(name, type, Action.DEATH).getAnimation(2);
     }
 
-    public static ImageView getRunnigAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
+    public static ImageView getRunningAnimation(String name, String type) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
         return new AnimationMaker(name, type, Action.RUN).getAnimation(4);
     }
 

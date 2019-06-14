@@ -89,7 +89,7 @@ public class MainMenuSceneMaker extends SceneMaker {
 
         borderPane.getChildren().addAll(lionView, fog.getView(), warriorManView);
         borderPane.getChildren().addAll(commandsPane);
-        borderPane.setCursor(SceneMaker.GAME_CURSOR);
+
         return new MyScene(borderPane);
     }
 

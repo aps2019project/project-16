@@ -26,4 +26,8 @@ public class TilesPane extends AnchorPane {
             }
         }
     }
+
+    public Tile getTile(int row, int column) {
+        return tiles[row][column];
+    }
 }

@@ -119,7 +119,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         pane.setLayoutY(60);
 
         borderPane.getChildren().add(pane);
-
         return new MyScene(borderPane);
     }
 
