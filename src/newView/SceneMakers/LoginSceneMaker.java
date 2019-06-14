@@ -85,7 +85,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
             AccountController controller = new AccountController(this);
             try {
                 controller.loginAccount(userNameField.getText(), passwordField.getText());
-                new AccountSceneMaker(getPrimaryStage()).set();
+                new MainMenuSceneMaker(getPrimaryStage()).set();
             } catch (InvalidCredentialsException e) {
                 e.printStackTrace();//todo show error
             }

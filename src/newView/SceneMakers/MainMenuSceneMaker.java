@@ -9,10 +9,10 @@ import newView.GraphicalElements.*;
 
 import java.io.FileNotFoundException;
 
-public class AccountSceneMaker extends SceneMaker {
+public class MainMenuSceneMaker extends SceneMaker {
     private double x = 0, y = 0;
 
-    public AccountSceneMaker(Stage primaryStage) {
+    public MainMenuSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
 
