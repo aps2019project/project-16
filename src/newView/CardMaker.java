@@ -35,7 +35,7 @@ public class CardMaker {
     public CardMaker(String name, Type type) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         this.name = name;
         this.type = type;
-        backGround = new File("src/newView/resources/cardBackGrounds/" + type.getName() + ".png");
+        backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
         setAp();
         setHp();
         setNameOfCard();

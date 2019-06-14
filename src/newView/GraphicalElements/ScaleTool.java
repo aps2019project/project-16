@@ -44,9 +44,9 @@ public class ScaleTool {
 
     private static final double TRANSFORM_RATIO = 8;
     private static final double TRANSFORM_RATIO_2 = TRANSFORM_RATIO + 1;
-    private static final double HEIGHT = TILE_LENGTH * 9 * SCALE;
+    private static final double HEIGHT = TILE_LENGTH * 9;
     private static final double HEIGHT_D_2 = HEIGHT / 2;
-    private static final double WIDTH = TILE_LENGTH * 5 * SCALE;
+    private static final double WIDTH = TILE_LENGTH * 5;
 
     public static void relocateTile(Tile tile) {
         double x = TILE_LENGTH * tile.getColumn();
@@ -59,16 +59,16 @@ public class ScaleTool {
         double x = TILE_LENGTH * column;
         double y = TILE_LENGTH * row;
 
-        polygon.setUly(0);
-        polygon.setUry(0);
-        polygon.setLly(0 + TILE_LENGTH);
-        polygon.setLry(0 + TILE_LENGTH);
+        polygon.setUly(0 * SCALE);
+        polygon.setUry(0 * SCALE);
+        polygon.setLly(TILE_LENGTH * SCALE);
+        polygon.setLry(TILE_LENGTH * SCALE);
 
         double coordinateX = getNewX(x, y);
-        polygon.setUlx(getNewX(x, y) - coordinateX);
-        polygon.setUrx(getNewX(x + TILE_LENGTH, y) - coordinateX);
-        polygon.setLlx(getNewX(x, y + TILE_LENGTH) - coordinateX);
-        polygon.setLrx(getNewX(x + TILE_LENGTH, y + TILE_LENGTH) - coordinateX);
+        polygon.setUlx((getNewX(x, y) - coordinateX) * SCALE);
+        polygon.setUrx((getNewX(x + TILE_LENGTH, y) - coordinateX) * SCALE);
+        polygon.setLlx((getNewX(x, y + TILE_LENGTH) - coordinateX) * SCALE);
+        polygon.setLrx((getNewX(x + TILE_LENGTH, y + TILE_LENGTH) - coordinateX) * SCALE);
 
         polygon.setPoints();
     }
