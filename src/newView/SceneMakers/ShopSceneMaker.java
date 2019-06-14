@@ -223,7 +223,7 @@ public class ShopSceneMaker extends SceneMaker {
             showingCards(gridPane);
         } else {
             minusCollectionCounter();
-            //todo show collection method
+            showCollection(gridPane);
         }
     }
 
@@ -233,7 +233,7 @@ public class ShopSceneMaker extends SceneMaker {
             showingCards(gridPane);
         } else {
             addCollectionCounter();
-            //todo show method
+            showCollection(gridPane);
         }
     }
 
