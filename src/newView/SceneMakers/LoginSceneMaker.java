@@ -114,7 +114,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         BorderPane.setAlignment(stackPane, Pos.CENTER);
 //        Pane pane = new CardMaker("esfandiar", Type.HERO).getUnitCardView();
 //        Pane pane = new CardMaker("Fireball", Type.SPELL).getSpellCardView();
-        Pane pane = new CardMaker("tire do shakh", Type.ITEM).getSpellCardView();
+        Pane pane = new CardMaker("tire do shakh", Type.ITEM).getItemCardView();
         pane.setLayoutX(60);
         pane.setLayoutY(60);
 

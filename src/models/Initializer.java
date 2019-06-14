@@ -24,7 +24,7 @@ public class Initializer {
         addSpells(shopCards);
     }
 
-    private static void addMinions(ArrayList<Card> cards) {
+    public static void addMinions(ArrayList<Card> cards) {
         //minions
         //1
         cards.add(new Minion.MinionBuilder()
@@ -631,7 +631,7 @@ public class Initializer {
         );
     }
 
-    private static void addSpells(ArrayList<Card> cards) {
+    public static void addSpells(ArrayList<Card> cards) {
         //1
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
@@ -937,7 +937,7 @@ public class Initializer {
                 .create());
     }
 
-    private static void addHeroes(ArrayList<Card> cards) {
+    public static void addHeroes(ArrayList<Card> cards) {
         //1
         cards.add(new Hero.HeroBuilder()
                 .setSpellCoolDown(2)
