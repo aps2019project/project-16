@@ -6,10 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import newView.BattleView.GameGraphicData;
 import newView.BattleView.GraphicalGameViewer;
-import newView.BattleView.gameActs.AddToHandAct;
-import newView.BattleView.gameActs.AttackAct;
-import newView.BattleView.gameActs.ManaAct;
-import newView.BattleView.gameActs.MoveAct;
+import newView.BattleView.gameActs.*;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
 import newView.GraphicalElements.effects.SnowPane;
@@ -83,7 +80,7 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeManaAct() {
         int playerNumber = random.nextInt(2);
         int number = random.nextInt(8);
-        GameGraphicData.addGameAct(new ManaAct(playerNumber, number));
+        GameGraphicData.addGameAct(new ManaAct(true, number));
         System.out.println("set mana to " + number + " for player " + playerNumber);
     }
 
