@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import models.card.Unit;
 import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
 
@@ -35,6 +36,7 @@ public class Tile extends Pane {
     private boolean isSelected = false;
     private TilePolygon polygon = new TilePolygon();
     private ImageView imageView;
+    private Unit unit;
     public static final double NORMAL_OPACITY = 0.2;
     public static final double HOVER_OPACITY = 0.4;
     public static final double SELECTED_OPACITY = 0.6;
@@ -53,7 +55,12 @@ public class Tile extends Pane {
         return imageView;
     }
 
-    public void setImageView(ImageView imageView) {
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setImageView(ImageView imageView, Unit unit) {
+        this.unit = unit;
         if (this.imageView != null) {
             this.getChildren().remove(this.imageView);
         }

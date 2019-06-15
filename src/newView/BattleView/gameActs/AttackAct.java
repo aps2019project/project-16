@@ -13,10 +13,10 @@ import newView.Type;
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class AttackAct extends GameAct {
-    private String attackerName = "piran";//todo must be in constructor
-    private Type attackerType = Type.MINION;//todo must be in constructor
-    private String defenderName = "piran";//todo must be in constructor
-    private Type defenderType = Type.MINION;//todo must be in constructor
+    private String attackerName = "piran";//todo must be from CARD
+    private Type attackerType = Type.MINION;//todo must be from CARD
+    private String defenderName = "piran";//todo must be from CARD
+    private Type defenderType = Type.MINION;//todo must be from CARD
     private int attackerRow;
     private int attackerColumn;
     private int defenderRow;
@@ -51,8 +51,8 @@ public class AttackAct extends GameAct {
         Tile destination = GameGraphicData.getTilesPane().getTile(defenderRow, defenderColumn);
         destination.enableColorAnimation(Color.rgb(255, 0, 0));
 
-        source.setImageView(attackView);
-        destination.setImageView(hitView);
+        source.setImageView(attackView, source.getUnit());
+        destination.setImageView(hitView, destination.getUnit());
         ImageView unitView1 = source.getImageView();
 
         KeyValue xKeyValue = new KeyValue(unitView1.scaleXProperty(), unitView1.getScaleX() * 1.5);
@@ -64,8 +64,8 @@ public class AttackAct extends GameAct {
         timeline.play();
 
         timeline.setOnFinished(event -> {
-            source.setImageView(breathingView1);
-            destination.setImageView(breathingView2);
+            source.setImageView(breathingView1, source.getUnit());
+            destination.setImageView(breathingView2, destination.getUnit());
         });
     }
 }

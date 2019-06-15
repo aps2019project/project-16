@@ -30,4 +30,17 @@ public class HandHBox extends HBox {
         }
         return null;
     }
+
+    public HandElement getHandElement(String cardName, String type) {
+        for (HandElement handElement : handElements) {
+            String elementCardName = handElement.getCardName();
+            String elementType = handElement.getType().getName();
+            if (elementType != null && elementType.equals(type)) {
+                if (elementCardName != null && elementCardName.equals(cardName)) {
+                    return handElement;
+                }
+            }
+        }
+        return null;
+    }
 }
