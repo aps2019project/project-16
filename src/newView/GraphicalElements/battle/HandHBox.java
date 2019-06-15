@@ -21,4 +21,13 @@ public class HandHBox extends HBox {
             this.getChildren().add(element);
         }
     }
+
+    public HandElement getAnEmptyElement() {
+        for (HandElement handElement : handElements) {
+            if (handElement.getImageView() == null) {
+                return handElement;
+            }
+        }
+        return null;
+    }
 }

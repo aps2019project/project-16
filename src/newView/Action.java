@@ -1,6 +1,7 @@
 package newView;
 
 public enum Action {
+    IDLE("idle"),
     ATTACK("attack"),
     RUN("run"),
     BREATHING("breathing"),

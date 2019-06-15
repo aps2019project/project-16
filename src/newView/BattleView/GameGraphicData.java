@@ -7,7 +7,7 @@ import newView.GraphicalElements.battle.PlayerInfoPane;
 import newView.GraphicalElements.battle.TilesPane;
 
 public class GameGraphicData {
-    // TODO: 6/14/19
+    private static boolean onLeft;
     private static HandHBox handBox;
     private static EndTurnButton turnButton;
     private static TilesPane tilesPane;
@@ -20,11 +20,12 @@ public class GameGraphicData {
     }
 
     public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton,
-                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes) {
+                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes, boolean isOnLeft) {
         handBox = handHBox;
         turnButton = endTurnButton;
         tilesPane = gameTiles;
         infoPanes = playerInfoPanes;
+        onLeft = isOnLeft;
     }
 
     public static GameGraphicListener getListener() {
@@ -41,5 +42,13 @@ public class GameGraphicData {
 
     public static PlayerInfoPane[] getInfoPanes() {
         return infoPanes;
+    }
+
+    public static HandHBox getHandBox() {
+        return handBox;
+    }
+
+    public static boolean isOnLeft() {
+        return onLeft;
     }
 }

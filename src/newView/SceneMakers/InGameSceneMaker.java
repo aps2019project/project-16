@@ -6,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import newView.BattleView.GameGraphicData;
 import newView.BattleView.GraphicalGameViewer;
+import newView.BattleView.gameActs.AddToHandAct;
 import newView.BattleView.gameActs.AttackAct;
 import newView.BattleView.gameActs.ManaAct;
 import newView.BattleView.gameActs.MoveAct;
@@ -43,7 +44,7 @@ public class InGameSceneMaker extends SceneMaker {
 
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes);
+        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes, true);//todo must be corrected
 
         //todo: delete
         // just for testing
@@ -61,6 +62,7 @@ public class InGameSceneMaker extends SceneMaker {
             makeMoveAct();
             makeAttackAct();
             makeManaAct();
+            makeAddToHandAct();
         });
     }
 
@@ -83,5 +85,10 @@ public class InGameSceneMaker extends SceneMaker {
         int number = random.nextInt(8);
         GameGraphicData.addGameAct(new ManaAct(playerNumber, number));
         System.out.println("set mana to " + number + " for player " + playerNumber);
+    }
+
+    private void makeAddToHandAct() {
+        GameGraphicData.addGameAct(new AddToHandAct(true));
+        System.out.println("add to hand");
     }
 }

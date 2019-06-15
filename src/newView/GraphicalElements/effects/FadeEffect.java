@@ -10,7 +10,7 @@ public class FadeEffect {
     private ImageView toChange;
 
     public FadeEffect(double time, ImageView toChange, Image purpose) {
-        duration = Duration.millis(time);
+        duration = Duration.millis(time / 2);
         this.toChange = toChange;
 
         FadeTransition fade = fadePlay(true);
