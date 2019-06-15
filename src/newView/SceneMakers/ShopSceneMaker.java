@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Account;
+import models.GameContents;
 import models.Initializer;
 import models.card.Card;
 import models.card.Hero;
@@ -39,7 +40,7 @@ import java.util.stream.Stream;
 
 public class ShopSceneMaker extends SceneMaker {
     private Type visibleType = Type.ITEM;
-    private Account account;
+    private Account account = GameContents.getCurrentAccount();
 
     private ArrayList<Card> collectionCards = account.getCollection().getCards();
     private ArrayList<Item> collectionItems = account.getCollection().getItems();
@@ -157,12 +158,12 @@ public class ShopSceneMaker extends SceneMaker {
         //todo by mostafa piadesazie search
 
         StackPane collectionStackPane = new StackPane();
-        ImageView collectionBotton = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/collection.png")));
-        ScaleTool.homothety(collectionBotton, 0.5);
+//        ImageView collectionBotton = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/collection.png")));
+//        ScaleTool.homothety(collectionBotton, 0.5);
         Text collectionText = new Text();
         collectionText.setText("COLLECTION");
         collectionText.setStyle("-fx-text-fill: white"); //TODO WHAT THE FUCK!!!!
-        collectionStackPane.getChildren().addAll(collectionBotton, collectionText);
+        collectionStackPane.getChildren().addAll( collectionText);
         collectionStackPane.setOnMouseClicked(event -> {
             inShop = false;
             showCollection(visibleCards);

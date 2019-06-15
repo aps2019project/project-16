@@ -87,7 +87,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
                 controller.loginAccount(userNameField.getText(), passwordField.getText());
                 new MainMenuSceneMaker(getPrimaryStage()).set();
             } catch (InvalidCredentialsException e) {
-                e.printStackTrace();//todo show error
+//                e.printStackTrace();//todo show error
             }
         });
         singUp.setOnMouseClicked(event -> {
@@ -95,7 +95,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
             try {
                 controller.createAccount(userNameField.getText(), passwordField.getText());
             } catch (AccountExistsException e) {
-                e.printStackTrace();//todo show error
+//                e.printStackTrace();//todo show error
             }
         });
 
