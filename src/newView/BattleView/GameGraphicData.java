@@ -38,4 +38,8 @@ public class GameGraphicData {
     public static TilesPane getTilesPane() {
         return tilesPane;
     }
+
+    public static PlayerInfoPane[] getInfoPanes() {
+        return infoPanes;
+    }
 }
