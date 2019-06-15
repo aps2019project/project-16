@@ -22,7 +22,18 @@ public class ShopController implements ShopContract.Controller {
 
     @Override
     public void loadCollection() {
-        new CollectionController(new CollectionView()).loadCollection();
+        Collection collection = GameContents.getCurrentAccount().getCollection();
+        ArrayList<Hero> heroes = new ArrayList<>();
+        ArrayList<Card> cards = new ArrayList<>();
+        ArrayList<Item> items = collection.getItems();
+        for (Card card : collection.getCards()) {
+            if (card.getClass().equals(Hero.class)) {
+                heroes.add((Hero) card);
+            } else {
+                cards.add(card);
+            }
+        }
+        view.showCollection(heroes, items, cards);
     }
 
     @Override

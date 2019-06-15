@@ -34,9 +34,11 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private Type visibleType = Type.HERO;
 
     private List<Object> collection;
+
     {
         controller.loadShop();
     }
+
     private int collectionCounter;
 
 
@@ -157,19 +159,22 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         collectionText.setStyle("-fx-text-fill: white"); //TODO WHAT THE FUCK!!!!
         collectionStackPane.getChildren().addAll(collectionBotton, collectionText);
         collectionStackPane.setOnMouseClicked(event -> {
-            inShop = false;
-            showCollection(visibleCards);
+            inShop = !inShop;
+            if (inShop)
+                showingCards(visibleCards); //todo add another button for this
+            else
+                showCollection(visibleCards);
         });
 
         showingCards(visibleCards);
 
+        pane.getChildren().add(collectionStackPane);
         pane.getChildren().add(back);
         pane.getChildren().add(type);
         pane.getChildren().add(cardsBackground);
         pane.getChildren().add(visibleCards);
         pane.getChildren().addAll(next, previous);
         pane.getChildren().add(search);
-        pane.getChildren().add(collectionStackPane);
 
         //todo a shop picture for showing shop cards is needed and must be implemented
 
@@ -183,23 +188,30 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 for (int j = 0; j < 5; j++) {
                     if (collection.size() > 5 * i + j + collectionCounter) {
                         Object card = collection.get(5 * i + j + collectionCounter);
+                        Pane cardView = new Pane();
+                        int cardId = 0;
                         if (card instanceof Item) {
                             String name = ((Item) card).getName();
-                            Pane cardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                            cardId= ((Item) card).getCollectionID();
+                            cardView = new CardMaker(name, Type.ITEM).getItemCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Hero) {
                             String name = ((Hero) card).getName();
-                            Pane cardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                            cardId = ((Hero) card).getCollectionID();
+                            cardView = new CardMaker(name, Type.HERO).getUnitCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Minion) {
                             String name = ((Minion) card).getName();
-                            Pane cardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                            cardId = ((Minion) card).getCollectionID();
+                            cardView = new CardMaker(name, Type.MINION).getUnitCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof SpellCard) {
                             String name = ((SpellCard) card).getName();
-                            Pane cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                            cardId = ((SpellCard) card).getCollectionID();
+                            cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
                             visibleCards.add(cardView, j, i);
                         }
+                        setSellOnMouseClick(cardView, cardId);
                     }
                 }
             }
@@ -251,6 +263,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                     Item item = items.get(5 * i + j + itemCounter);
                     String name = item.getName();
                     Pane itemCardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                    setBuyOnMouseClick(itemCardView, name);
                     gridPane.add(itemCardView, j, i);
                 }
             }
@@ -263,6 +276,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 Card spell = spells.get(5 * i + j + spellCounter);
                 String name = spell.getName();
                 Pane spellCardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                setBuyOnMouseClick(spellCardView, name);
                 gridPane.add(spellCardView, j, i);
             }
         }
@@ -274,6 +288,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 Card minion = minions.get(5 * i + j + minionCounter);
                 String name = minion.getName();
                 Pane minionCardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                setBuyOnMouseClick(minionCardView, name);
                 gridPane.add(minionCardView, j, i);
             }
         }
@@ -285,15 +300,18 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 Card hero = heroes.get(5 * i + j);
                 String name = hero.getName();
                 Pane heroCardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                setBuyOnMouseClick(heroCardView, name);
                 gridPane.add(heroCardView, j, i);
             }
         }
     }
 
-    private void setBuyOnMouseClick(Pane card) {
-        card.setOnMouseClicked(event -> {
+    private void setBuyOnMouseClick(Pane card, String name) {
+        card.setOnMouseClicked(event -> controller.buyCard(name));
+    }
 
-        });
+    private void setSellOnMouseClick(Pane card, int id) {
+        card.setOnMouseClicked(event -> controller.sellCard(id));
     }
 
     private void addCounter() {
@@ -334,6 +352,11 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     @Override
     public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+        //todo correct program to use this
+    }
+
+    @Override
+    public void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
         collection = new ArrayList<>();
         collection.addAll(cards);
         collection.addAll(heroes);

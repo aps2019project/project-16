@@ -25,6 +25,11 @@ public class ShopView implements ShopContract.View {
         printCards(cards, 's');
     }
 
+    @Override
+    public void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+
+    }
+
     public static void printCards(ArrayList<Card> cards, char printingState) {
         int i = 0;
         logMessage("Cards:");

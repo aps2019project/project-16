@@ -11,6 +11,8 @@ public interface ShopContract {
         void setController(Controller controller);
 
         void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
+
+        void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
     }
 
     interface Controller {
