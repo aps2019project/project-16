@@ -1,7 +1,10 @@
 package newView.SceneMakers;
 
 import com.dd.plist.PropertyListFormatException;
+import contracts.ShopContract;
+import controllers.ShopController;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -38,14 +41,15 @@ import java.util.MissingFormatArgumentException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ShopSceneMaker extends SceneMaker {
-    private Type visibleType = Type.ITEM;
-    private Account account = GameContents.getCurrentAccount();
+public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
+    ShopContract.Controller controller = new ShopController(this);
 
-    private ArrayList<Card> collectionCards = account.getCollection().getCards();
-    private ArrayList<Item> collectionItems = account.getCollection().getItems();
-    private List collection = Stream.concat(collectionCards.stream(), collectionItems.stream()).collect(Collectors.toList());
+    private Type visibleType = Type.HERO;
 
+    private List<Object> collection;
+    {
+        controller.loadShop();
+    }
     private int collectionCounter;
 
 
@@ -58,7 +62,7 @@ public class ShopSceneMaker extends SceneMaker {
     private int minionCounter;
     private int spellCounter;
 
-    boolean inShop = true;
+    private boolean inShop = true;
 
     public ShopSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -299,6 +303,12 @@ public class ShopSceneMaker extends SceneMaker {
         }
     }
 
+    private void setBuyOnMouseClick(Pane card) {
+        card.setOnMouseClicked(event -> {
+
+        });
+    }
+
     private void addCounter() {
         if (visibleType == Type.MINION && minionCounter < 30)
             minionCounter += 10;
@@ -330,4 +340,16 @@ public class ShopSceneMaker extends SceneMaker {
     }
 
 
+    @Override
+    public void setController(ShopContract.Controller controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+        collection = new ArrayList<>();
+        collection.addAll(cards);
+        collection.addAll(heroes);
+        collection.addAll(items);
+    }
 }

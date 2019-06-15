@@ -61,7 +61,8 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         Pane root = new Pane();
         GridPane visibleCards = new GridPane();
         ScrollPane rightPart = new ScrollPane();
-        rightPart.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        rightPart.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rightPart.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         BackgroundMaker.setBackgroundFor(root, 1, "collection");
 
@@ -70,6 +71,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         rightPart.setStyle("-fx-background-color: black");
 
         rightPane.setStyle("-fx-background-color: rgb(24,24,32)");
+        rightPane.setMaxWidth(rightPart.getWidth());
 //        ScaleTool.resizeRegion(rightPane, 350, 800);
 
         updateRightPart();
