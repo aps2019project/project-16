@@ -113,11 +113,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
         TextField search = new TextField();
         search.setStyle("-fx-background-color: rgb(37, 45, 52,1)");
-        ScaleTool.relocate(search , 20 , 500); //todo must be relocated again
+        ScaleTool.relocate(search, 20, 500); //todo must be relocated again
         search.setPromptText("SEARCH");
         search.setStyle("-fx-prompt-text-fill: white");
         //todo mostafa karasho bokon!!! man dg hal nadaram  03:23 , 25 khordad 98 !!!
-
 
 
         root.getChildren().add(back);
@@ -216,9 +215,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         cardsInDeck.getChildren().add(temp);
 
         ///todo must be check if there is any bug //mostafa check kon namoosan!!!!
-        List<Object> cards = new ArrayList<>(deck.getCards());
+        List<Object> cards = new ArrayList<>();
         cards.add(deck.getHero());
-        cards.add(deck.getItem());
+        if (deck.getItem() != null)
+            cards.add(deck.getItem());
+        cards.addAll(deck.getCards());
 
         for (Object card : cards) {
             if (card instanceof Hero) {
