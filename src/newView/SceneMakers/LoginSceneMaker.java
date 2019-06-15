@@ -111,14 +111,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         ScaleTool.resizeRegion(box, 300, 300);
         borderPane.setCenter(stackPane);
 
-        BorderPane.setAlignment(stackPane, Pos.CENTER);
-//        Pane pane = new CardMaker("esfandiar", Type.HERO).getUnitCardView();
-//        Pane pane = new CardMaker("Fireball", Type.SPELL).getSpellCardView();
-        Pane pane = new CardMaker("tire do shakh", Type.ITEM).getItemCardView();
-        pane.setLayoutX(60);
-        pane.setLayoutY(60);
-
-        borderPane.getChildren().add(pane);
         return new MyScene(borderPane);
     }
 
