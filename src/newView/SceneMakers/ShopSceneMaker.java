@@ -1,10 +1,8 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
 import contracts.ShopContract;
 import controllers.ShopController;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -14,35 +12,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.Account;
-import models.GameContents;
 import models.Initializer;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
 import models.item.Item;
-import models.magic.Spell;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingFormatArgumentException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
-    ShopContract.Controller controller = new ShopController(this);
+    private ShopContract.Controller controller = new ShopController(this);
 
     private Type visibleType = Type.HERO;
 
