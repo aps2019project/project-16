@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Account;
 import models.Deck;
+import models.GameContents;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
@@ -40,7 +41,7 @@ import java.util.stream.Stream;
 public class CollectionSceneMaker extends SceneMaker {
 
     private boolean showingDecks = true;
-    private Account account;
+    private Account account = GameContents.getCurrentAccount();
     private Deck selectedDeck;
     private int collectionCounter;
 
@@ -79,9 +80,7 @@ public class CollectionSceneMaker extends SceneMaker {
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/back.png")));
         ScaleTool.resizeImageView(back, 100, 100);
-        back.setOnMouseClicked(event -> {
-            backAction();
-        });
+        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
         ImageView next = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/next.png")));
         ScaleTool.resizeImageView(next, 60, 60);
@@ -141,10 +140,6 @@ public class CollectionSceneMaker extends SceneMaker {
 
     private void nextAction(GridPane visibleCards) {
         //todo must be implemented
-    }
-
-    private void backAction() {
-        //todo by mostafa
     }
 
     private VBox getDecks(ArrayList<Deck> accountDecks) throws FileNotFoundException {
@@ -211,7 +206,7 @@ public class CollectionSceneMaker extends SceneMaker {
         cardsInDeck.getChildren().add(temp);
 
         ///todo must be check if there is any bug //mostafa check kon namoosan!!!!
-        List cards = deck.getCards();
+        List<Object> cards = new ArrayList<>(deck.getCards());
         cards.add(deck.getHero());
         cards.add(deck.getItem());
 

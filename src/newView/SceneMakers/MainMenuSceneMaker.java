@@ -68,6 +68,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         shop.setOnMouseClicked(event -> new ShopSceneMaker(getPrimaryStage()).set());
 
         Text collection = new Text("Collection");
+        collection.setOnMouseClicked(event -> new CollectionSceneMaker(getPrimaryStage()).set());
 
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
