@@ -1,9 +1,16 @@
 package newView.GraphicalElements.battle;
 
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
+import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
+
+import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class Tile extends Pane {
     private int row;
@@ -77,5 +84,15 @@ public class Tile extends Pane {
                 polygon.setOpacity(HOVER_OPACITY);
             }
         });
+    }
+
+    public void enableColorAnimation(Color color) {
+        KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
+        KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
+        Timeline timeline = AnimationMaker.makeTimeline(
+                Duration.millis(GAME_ACT_TIME * 0.4)
+                , true, 2
+                , colorValue, strokeValue);
+        timeline.play();
     }
 }

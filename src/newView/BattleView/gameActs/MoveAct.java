@@ -1,6 +1,5 @@
 package newView.BattleView.gameActs;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
@@ -48,10 +47,10 @@ public class MoveAct extends GameAct {
 
         KeyValue xKeyValue = new KeyValue(unitView.xProperty(), destination.getX() - source.getX());
         KeyValue yKeyValue = new KeyValue(unitView.yProperty(), destination.getY() - source.getY());
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(GAME_ACT_TIME * 0.9), xKeyValue, yKeyValue);
-        Timeline timeline = new Timeline(keyFrame);
-        timeline.setAutoReverse(false);
-        timeline.setCycleCount(1);
+        Timeline timeline = AnimationMaker.makeTimeline(
+                Duration.millis(GAME_ACT_TIME * 0.9)
+                , false, 1
+                , xKeyValue, yKeyValue);
         timeline.play();
 
         timeline.setOnFinished(event -> {

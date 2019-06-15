@@ -5,6 +5,9 @@ import com.dd.plist.NSString;
 import com.dd.plist.PropertyListFormatException;
 import com.dd.plist.PropertyListParser;
 import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -118,8 +121,15 @@ public class AnimationMaker {
         return new AnimationMaker(name, type, Action.ACTIVE).getAnimation(2);
     }
 
-
     public static ImageView getSimpleAnimation(String name, String filePath) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
         return new AnimationMaker(name, filePath).getAnimation(Animation.INDEFINITE);
+    }
+
+    public static Timeline makeTimeline(Duration duration, boolean autoReverse, int cycleCount, KeyValue... keyValues) {
+        KeyFrame keyFrame = new KeyFrame(duration, keyValues);
+        Timeline timeline = new Timeline(keyFrame);
+        timeline.setAutoReverse(autoReverse);
+        timeline.setCycleCount(cycleCount);
+        return timeline;
     }
 }
