@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import models.card.*;
 import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
@@ -23,6 +24,7 @@ public class HandElement extends Pane {
     private boolean isSelected = false;
     private ImageView bgView = new ImageView(normalImage);
     private ImageView imageView;
+    private Card card;
     private String cardName;
     private Type type;
     public static final double HAND_LENGTH = 130;
@@ -33,17 +35,18 @@ public class HandElement extends Pane {
         setMouseEventsFor(bgView);
     }
 
-    public void setImageView(ImageView imageView, String cardName, Type type) {
+    public void setImageView(ImageView imageView, Card card, String cardName, Type type) {
+        this.card = card;
         this.cardName = cardName;
         this.type = type;
         if (this.imageView != null) {
-            this.getChildren().remove(this.imageView);
+            animateAndDelete();
         }
         this.imageView = imageView;
         if (imageView != null) {
             this.getChildren().add(imageView);
             ScaleTool.resizeImageView(imageView, HAND_LENGTH, HAND_LENGTH);
-            animatePut();
+            animateForAdding();
             setMouseEventsFor(imageView);
         }
     }
@@ -69,7 +72,20 @@ public class HandElement extends Pane {
         });
     }
 
-    private void animatePut() {
+    private void animateAndDelete() {
+        KeyValue xValue = new KeyValue(imageView.scaleXProperty(), imageView.getScaleX() * 0.01);
+        KeyValue yValue = new KeyValue(imageView.scaleYProperty(), imageView.getScaleY() * 0.01);
+        KeyValue rotateValue = new KeyValue(imageView.rotateProperty(), imageView.getRotate() + 360);
+        Timeline timeline = AnimationMaker.makeTimeline(
+                Duration.millis(GAME_ACT_TIME * 0.8)
+                ,false, 1
+                , xValue, yValue, rotateValue);
+        timeline.play();
+        HandElement handElement = this;
+        timeline.setOnFinished(event -> handElement.getChildren().remove(imageView));
+    }
+
+    private void animateForAdding() {
         KeyValue xKeyValue = new KeyValue(imageView.scaleXProperty(), imageView.getScaleX() * 2);
         KeyValue yKeyValue = new KeyValue(imageView.scaleYProperty(), imageView.getScaleY() * 2);
         Timeline timeline = AnimationMaker.makeTimeline(
@@ -81,5 +97,13 @@ public class HandElement extends Pane {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public Type getType() {
+        return type;
     }
 }
