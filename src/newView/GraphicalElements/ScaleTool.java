@@ -42,7 +42,7 @@ public class ScaleTool {
         region.setPrefHeight(height * SCALE);
     }
 
-    private static final double TRANSFORM_RATIO = 8;
+    private static final double TRANSFORM_RATIO = 6;
     private static final double TRANSFORM_RATIO_2 = TRANSFORM_RATIO + 1;
     private static final double HEIGHT = TILE_LENGTH * 9;
     private static final double HEIGHT_D_2 = HEIGHT / 2;
