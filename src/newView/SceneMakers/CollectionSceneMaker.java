@@ -1,7 +1,10 @@
 package newView.SceneMakers;
 
 import com.sun.org.apache.regexp.internal.RE;
+import contracts.CollectionContract;
+import controllers.CollectionController;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -35,15 +38,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CollectionSceneMaker extends SceneMaker {
+public class CollectionSceneMaker extends SceneMaker implements CollectionContract.View {
 
+    private CollectionContract.Controller controller = new CollectionController(this);
     private boolean showingDecks = true;
     private Account account = GameContents.getCurrentAccount();
     private Deck selectedDeck;
     private int collectionCounter;
+    private final Pane rightPane = new Pane();
 
 
     public CollectionSceneMaker(Stage primaryStage) {
@@ -55,27 +61,18 @@ public class CollectionSceneMaker extends SceneMaker {
         Pane root = new Pane();
         GridPane visibleCards = new GridPane();
         ScrollPane rightPart = new ScrollPane();
-        rightPart.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rightPart.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         BackgroundMaker.setBackgroundFor(root, 1, "collection");
 
         ScaleTool.relocate(rightPart, 1200 - 350 + 100, 0);
-        ScaleTool.resizeRegion(rightPart, 350, 800);
+        ScaleTool.resizeRegion(rightPart, 350, HEIGHT);
         rightPart.setStyle("-fx-background-color: black");
 
-        Pane rightPane = new Pane();
         rightPane.setStyle("-fx-background-color: rgb(24,24,32)");
-        ScaleTool.resizeRegion(rightPane, 350, 800);
+//        ScaleTool.resizeRegion(rightPane, 350, 800);
 
-        VBox rightPartVbox;
-        if (showingDecks) {
-            rightPartVbox = getDecks(account.getDecks());
-        } else {
-            rightPartVbox = getCardsInDeck(selectedDeck);
-        }
-//        cardsInTheDeck.getChildren().add(deckPane);
-//        rightPane.getChildren().add(cardsInTheDeck);
-        rightPane.getChildren().add(rightPartVbox);
+        updateRightPart();
         rightPart.setContent(rightPane);
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/back.png")));
@@ -134,6 +131,19 @@ public class CollectionSceneMaker extends SceneMaker {
         return new MyScene(root);
     }
 
+    private void updateRightPart() throws FileNotFoundException {
+        VBox rightPartVBox;
+        if (showingDecks) {
+            rightPartVBox = getDecks(account.getDecks());
+        } else {
+            rightPartVBox = getCardsInDeck(selectedDeck);
+        }
+//        cardsInTheDeck.getChildren().add(deckPane);
+//        rightPane.getChildren().add(cardsInTheDeck);
+        rightPane.getChildren().removeIf(node -> true);
+        rightPane.getChildren().add(rightPartVBox);
+    }
+
     private void previousAction(GridPane visibleCards) {
         //todo must be implemented
     }
@@ -155,7 +165,7 @@ public class CollectionSceneMaker extends SceneMaker {
             Pane deckPane = new Pane();
             ScaleTool.resizeRegion(deckPane, 315, 70);
             deckPane.setStyle("-fx-background-color: rgb(33, 49 ,64)");
-
+            deckPane.setOnMouseClicked(event -> controller.loadDeck(deck.getName()));
             ImageView stash = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/stash.png")));
             ScaleTool.relocate(stash, 270, 25);
 
@@ -343,5 +353,36 @@ public class CollectionSceneMaker extends SceneMaker {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setController(CollectionContract.Controller controller) {
+
+    }
+
+    @Override
+    public void showAllDecks(Deck mainDeck, ArrayList<Deck> decks) {
+
+    }
+
+    @Override
+    public void showDeck(Deck deck) {
+        selectedDeck = deck;
+        showingDecks = false;
+        try {
+            updateRightPart();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+
+    }
+
+    @Override
+    public void goToBattleMenu() {
+
     }
 }
