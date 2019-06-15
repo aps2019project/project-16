@@ -60,6 +60,8 @@ public class InGameSceneMaker extends SceneMaker {
             makeAttackAct();
             makeManaAct();
             makeAddToHandAct();
+            makeAddToHandAct();
+            makePutUnit();
         });
     }
 
@@ -87,5 +89,11 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeAddToHandAct() {
         GameGraphicData.addGameAct(new AddToHandAct(true));
         System.out.println("add to hand");
+    }
+
+    private void makePutUnit() {
+        int x = random.nextInt(5), y = random.nextInt(9);
+        GameGraphicData.addGameAct(new PutUnitAct(x, y, true));
+        System.out.println("put on " + x + "," + y);
     }
 }
