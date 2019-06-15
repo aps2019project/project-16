@@ -6,6 +6,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import newView.BattleView.GameGraphicData;
 import newView.BattleView.GraphicalGameViewer;
+import newView.BattleView.gameActs.AttackAct;
+import newView.BattleView.gameActs.ManaAct;
 import newView.BattleView.gameActs.MoveAct;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
@@ -15,6 +17,7 @@ import java.util.Random;
 
 public class InGameSceneMaker extends SceneMaker {
     private static GraphicalGameViewer gameViewer = new GraphicalGameViewer();
+    private static Random random = new Random();
 
     public InGameSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -44,7 +47,7 @@ public class InGameSceneMaker extends SceneMaker {
 
         //todo: delete
         // just for testing
-        testForMove(endTurnButton);
+        testForActions(endTurnButton);
         //end of test
 
         borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]);
@@ -53,13 +56,32 @@ public class InGameSceneMaker extends SceneMaker {
         return new MyScene(borderPane);
     }
 
-    private void testForMove(EndTurnButton button) {
+    private void testForActions(EndTurnButton button) {
         button.setOnMouseClicked(event -> {
-            Random random = new Random();
-            int x1 = random.nextInt(5), y1 = random.nextInt(9);
-            int x2 = random.nextInt(5), y2 = random.nextInt(9);
-            GameGraphicData.addGameAct(new MoveAct(x1, y1, x2, y2));
-            System.out.println("move from " + x1 + "," + y1 + " to " + x2 + "," + y2);
+            makeMoveAct();
+            makeAttackAct();
+            makeManaAct();
         });
+    }
+
+    private void makeMoveAct() {
+        int x1 = random.nextInt(5), y1 = random.nextInt(9);
+        int x2 = random.nextInt(5), y2 = random.nextInt(9);
+        GameGraphicData.addGameAct(new MoveAct(x1, y1, x2, y2));
+        System.out.println("move from " + x1 + "," + y1 + " to " + x2 + "," + y2);
+    }
+
+
+    private void makeAttackAct() {
+        int x1 = 0, y1 = 1, x2 = 1, y2 = 2;
+        GameGraphicData.addGameAct(new AttackAct(x1, y1, x2, y2));
+        System.out.println("attack from " + x1 + "," + y1 + " to " + x2 + "," + y2);
+    }
+
+    private void makeManaAct() {
+        int playerNumber = random.nextInt(2);
+        int number = random.nextInt(8);
+        GameGraphicData.addGameAct(new ManaAct(playerNumber, number));
+        System.out.println("set mana to " + number + " for player " + playerNumber);
     }
 }

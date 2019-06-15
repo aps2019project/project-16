@@ -23,4 +23,8 @@ public class PlayerInfoPane extends Pane {
         ScaleTool.relocate(specialPower, HERO_ICON_LENGTH * 0.5, HERO_ICON_LENGTH);
         this.getChildren().addAll(manaPane, specialPower, heroIcon);
     }
+
+    public ManaPane getManaPane() {
+        return manaPane;
+    }
 }
