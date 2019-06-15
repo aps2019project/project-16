@@ -121,6 +121,10 @@ public class AnimationMaker {
         return new AnimationMaker(name, type, Action.ACTIVE).getAnimation(2);
     }
 
+    public static ImageView getIdleAnimation(String name, String type) throws Exception {
+        return new AnimationMaker(name, type, Action.IDLE).getAnimation(Animation.INDEFINITE);
+    }
+
     public static ImageView getSimpleAnimation(String name, String filePath) throws IOException, PropertyListFormatException, ParserConfigurationException, SAXException, ParseException {
         return new AnimationMaker(name, filePath).getAnimation(Animation.INDEFINITE);
     }
