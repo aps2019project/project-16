@@ -2,7 +2,6 @@ package newView.SceneMakers;
 
 import controllers.AccountController;
 import javafx.scene.Scene;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -13,8 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import newView.GraphicalElements.*;
-import view.commands.mainMenuCommands.LogoutCommand;
-import view.views.AccountView;
 
 import java.io.FileNotFoundException;
 
@@ -97,9 +94,5 @@ public class MainMenuSceneMaker extends SceneMaker {
     private void setTextStyle(Text text) {
         text.setFont(new Font(ScaleTool.scale(35)));
         text.setFill(Color.WHITE);
-    }
-    private void setGlowOnMouseOver(Text text) {
-        text.setOnMouseEntered(event -> text.setEffect(new Glow(0.8)));
-        text.setOnMouseExited(event -> text.setEffect(null));
     }
 }

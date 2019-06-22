@@ -203,6 +203,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ImageView deleteDeck = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/deleteDeckIcon.png")));
         ScaleTool.resizeImageView(deleteDeck, 30, 30);
         ScaleTool.relocate(deleteDeck, 30, 30);
+        deleteDeck.setOnMouseClicked(event -> controller.deleteDeck(deck.getName()));
         temp.getChildren().add(deleteDeck);//todo mostafa dokmash
 
         Text deckName = new Text();
@@ -222,16 +223,20 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         cards.addAll(deck.getCards());
 
         for (Object card : cards) {
-            if (card instanceof Hero) {
-                Pane cardPane = getHeroPane((Card) card);
-                cardsInDeck.getChildren().add(cardPane);
-            } else {
-                Pane cardPane = getNotHeroCards(card);
-                cardsInDeck.getChildren().add(cardPane);
-            }
+            int id;
+            Pane cardPane;
+            if (card instanceof Hero)
+                cardPane = getHeroPane((Card) card);
+            else
+                cardPane = getNonHeroPane(card);
+            if (card instanceof Item)
+                id = ((Item) card).getCollectionID();
+            else
+                id = ((Card) card).getCollectionID();
+            cardsInDeck.getChildren().add(cardPane);
+            cardPane.setOnMouseClicked(event -> controller.removeCardFromDeck(id, deck.getName()));
         }
 
-        ///todo mostaf bia dokme hasho dorost kon!!!!
         return cardsInDeck;
     }
 
@@ -288,7 +293,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         return heroPane;
     }
 
-    private Pane getNotHeroCards(Object card) throws FileNotFoundException {
+    private Pane getNonHeroPane(Object card) throws FileNotFoundException {
         int manaCost = 0;
         String name = null;
         if (card instanceof Card) {
