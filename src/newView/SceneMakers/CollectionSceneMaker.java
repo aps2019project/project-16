@@ -1,12 +1,9 @@
 package newView.SceneMakers;
 
-import com.sun.org.apache.regexp.internal.RE;
 import contracts.CollectionContract;
 import controllers.CollectionController;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,7 +23,6 @@ import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
 import models.item.Item;
-import models.item.SpellItem;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
@@ -38,9 +34,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CollectionSceneMaker extends SceneMaker implements CollectionContract.View {
 
@@ -59,8 +52,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     @Override
     public Scene makeScene() throws Exception {
         Pane root = new Pane();
+
         GridPane visibleCards = new GridPane();
+
         ScrollPane rightPart = new ScrollPane();
+
         rightPart.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         rightPart.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -72,7 +68,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
         rightPane.setStyle("-fx-background-color: rgb(24,24,32)");
         rightPane.setMaxWidth(rightPart.getWidth());
-//        ScaleTool.resizeRegion(rightPane, 350, 800);
+        ScaleTool.setMinSize(rightPane, 350, 800);
 
         updateRightPart();
         rightPart.setContent(rightPane);
@@ -109,7 +105,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ScaleTool.relocate(visibleCards, 200, 150);
 
         Rectangle cardsBackground = new Rectangle();
-        ScaleTool.relocate(cardsBackground, 180, 130);
+        ScaleTool.relocate(cardsBackground, 70, 130);
         ScaleTool.resizeRectangle(cardsBackground, 830, 450);
         cardsBackground.setFill(Color.rgb(0, 0, 0, 0.4));
 
@@ -139,6 +135,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         } else {
             rightPartVBox = getCardsInDeck(selectedDeck);
         }
+        rightPartVBox.setStyle("-fx-background-color: rgb(24, 24, 32)");
 //        cardsInTheDeck.getChildren().add(deckPane);
 //        rightPane.getChildren().add(cardsInTheDeck);
         rightPane.getChildren().removeIf(node -> true);
@@ -179,7 +176,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             deckName.setFill(Color.WHITE);
             deckName.setText(deck.getName());
             ScaleTool.relocate(deckName, 80, 15);
-            deckName.setStyle("-fx-font: 18 arial;");
+            deckName.setStyle("-fx-font: 18 TimesNewRoman;");
 
             Text statics = new Text();
             statics.setText(getNumberOfHero(deck) + " :Heroes" + getNumberOfSpells(deck) + ":Spells" + getNumberOfMinions(deck)
@@ -207,6 +204,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ScaleTool.resizeImageView(deleteDeck, 30, 30);
         ScaleTool.relocate(deleteDeck, 30, 30);
         temp.getChildren().add(deleteDeck);//todo mostafa dokmash
+
         Text deckName = new Text();
         deckName.setText(deck.getName());
         deckName.setFill(Color.WHITE);
