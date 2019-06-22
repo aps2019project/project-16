@@ -352,7 +352,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     }
 
     private void minusCollectionCounter() {
-        if (collectionCounter - 10 > 0) {
+        if (collectionCounter - 10 >= 0) {
             collectionCounter -= 10;
         }
     }
