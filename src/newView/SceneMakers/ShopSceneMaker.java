@@ -201,10 +201,10 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                     if (collection.size() > 5 * i + j + collectionCounter) {
                         Object card = collection.get(5 * i + j + collectionCounter);
                         Pane cardView = new Pane();
-                        int cardId = 0;
+                        final int cardId;
                         if (card instanceof Item) {
                             String name = ((Item) card).getName();
-                            cardId= ((Item) card).getCollectionID();
+                            cardId = ((Item) card).getCollectionID();
                             cardView = new CardMaker(name, Type.ITEM).getItemCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Hero) {
@@ -217,13 +217,17 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                             cardId = ((Minion) card).getCollectionID();
                             cardView = new CardMaker(name, Type.MINION).getUnitCardView();
                             visibleCards.add(cardView, j, i);
-                        } else if (card instanceof SpellCard) {
+                        } else {
                             String name = ((SpellCard) card).getName();
                             cardId = ((SpellCard) card).getCollectionID();
                             cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
                             visibleCards.add(cardView, j, i);
                         }
-                        setSellOnMouseClick(cardView, cardId);
+                        cardView.setOnMouseClicked(event -> {
+                            controller.sellCard(cardId);
+                            controller.loadCollection();
+                            showCollection(visibleCards);
+                        });
                     }
                 }
             }
@@ -322,9 +326,6 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         card.setOnMouseClicked(event -> controller.buyCard(name));
     }
 
-    private void setSellOnMouseClick(Pane card, int id) {
-        card.setOnMouseClicked(event -> controller.sellCard(id));
-    }
 
     private void addCounter() {
         if (visibleType == Type.MINION && minionCounter < 30)
