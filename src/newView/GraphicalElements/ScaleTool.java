@@ -81,4 +81,8 @@ public class ScaleTool {
         node.setScaleX(node.getScaleX() * scale * SCALE);
         node.setScaleY(node.getScaleY() * scale * SCALE);
     }
+
+    public static void setMinSize(Region region, double width, double height) {
+        region.setMinSize(width * SCALE, height * SCALE);
+    }
 }
