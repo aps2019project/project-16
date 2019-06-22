@@ -111,10 +111,27 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
         TextField search = new TextField();
         search.setStyle("-fx-background-color: rgb(37, 45, 52,1)");
-        ScaleTool.relocate(search, 20, 500); //todo must be relocated again
+        ScaleTool.relocate(search, 20, 600); //todo must be relocated again
         search.setPromptText("SEARCH");
-        search.setStyle("-fx-prompt-text-fill: white");
+        search.setStyle("-fx-prompt-text-fill: gray");
         //todo mostafa karasho bokon!!! man dg hal nadaram  03:23 , 25 khordad 98 !!!
+
+        TextField newDeckName = new TextField();
+        newDeckName.setStyle("-fx-background-color: rgb(81 , 186, 255)");
+        ScaleTool.relocate(newDeckName, 20, 630);
+        newDeckName.setPromptText("ENTER YOUR NEW DECK NAME");
+        newDeckName.setStyle("-fx-text-fill: gray");
+
+        ImageView newDeckAccept = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/newDeckAccept.png")));
+        ScaleTool.relocate(newDeckAccept, 170, 630);
+        ScaleTool.resizeImageView(newDeckAccept, 50, 50);
+
+        Text ok = new Text();
+        ok.setText("OK");
+        ok.setFill(Color.WHITE);
+        ScaleTool.relocate(ok , 180, 650);
+        ok.setStyle("-fx-font-size: 24");
+
 
 
         root.getChildren().add(back);
@@ -124,6 +141,9 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         root.getChildren().add(next);
         root.getChildren().add(previous);
         root.getChildren().add(search);
+        root.getChildren().add(newDeckName);
+        root.getChildren().add(newDeckAccept);
+        root.getChildren().add(ok);
 
         return new MyScene(root);
     }
