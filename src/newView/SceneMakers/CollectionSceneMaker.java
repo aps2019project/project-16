@@ -105,7 +105,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ScaleTool.relocate(visibleCards, 200, 150);
 
         Rectangle cardsBackground = new Rectangle();
-        ScaleTool.relocate(cardsBackground, 180, 130);
+        ScaleTool.relocate(cardsBackground, 70, 130);
         ScaleTool.resizeRectangle(cardsBackground, 830, 450);
         cardsBackground.setFill(Color.rgb(0, 0, 0, 0.4));
 
