@@ -37,6 +37,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     {
         controller.loadShop();
+        controller.loadCollection();
     }
 
     private int collectionCounter;
@@ -105,6 +106,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         Text usableItem = new Text();
         usableItem.setText("USABLE ITEMS");
         usableItem.setOnMouseClicked(event -> {
+            inShop = true;
             visibleType = Type.ITEM;
             showingCards(visibleCards);
         });
@@ -112,6 +114,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         Text hero = new Text();
         hero.setText("HERO");
         hero.setOnMouseClicked(event -> {
+            inShop = true;
             visibleType = Type.HERO;
             showingCards(visibleCards);
         });
@@ -123,6 +126,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         Text minion = new Text();
         minion.setText("MINION");
         minion.setOnMouseClicked(event -> {
+            inShop = true;
             visibleType = Type.MINION;
             showingCards(visibleCards);
         });
@@ -130,11 +134,25 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         Text spell = new Text();
         spell.setText("SPELL");
         spell.setOnMouseClicked(event -> {
+            inShop = true;
             visibleType = Type.SPELL;
             showingCards(visibleCards);
         });
 
-        type.getChildren().addAll(hero, minion, spell, usableItem);
+        Text collection = new Text();
+        collection.setText("COLLECTION");
+        collection.setOnMouseClicked(event -> {
+            inShop = false;
+            controller.loadCollection();
+            showCollection(visibleCards);
+        });
+
+        setGlowOnMouseOver(hero);
+        setGlowOnMouseOver(minion);
+        setGlowOnMouseOver(spell);
+        setGlowOnMouseOver(usableItem);
+        setGlowOnMouseOver(collection);
+        type.getChildren().addAll(hero, minion, spell, usableItem, collection);
 
         visibleCards.setMinSize(850, 450);
         visibleCards.setVgap(-55);
@@ -151,24 +169,9 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         search.setStyle("-fx-arc-height: 100; -fx-arc-width: 100; -fx-background-color: rgba(80,150,255,1)");
         //todo by mostafa piadesazie search
 
-        StackPane collectionStackPane = new StackPane();
-        ImageView collectionBotton = new ImageView(new Image(new FileInputStream("src/newView/resources/shopIcons/collection.png")));
-        ScaleTool.homothety(collectionBotton, 0.5);
-        Text collectionText = new Text();
-        collectionText.setText("COLLECTION");
-        collectionText.setStyle("-fx-text-fill: white"); //TODO WHAT THE FUCK!!!!
-        collectionStackPane.getChildren().addAll(collectionBotton, collectionText);
-        collectionStackPane.setOnMouseClicked(event -> {
-            inShop = !inShop;
-            if (inShop)
-                showingCards(visibleCards); //todo add another button for this
-            else
-                showCollection(visibleCards);
-        });
 
         showingCards(visibleCards);
 
-        pane.getChildren().add(collectionStackPane);
         pane.getChildren().add(back);
         pane.getChildren().add(type);
         pane.getChildren().add(cardsBackground);

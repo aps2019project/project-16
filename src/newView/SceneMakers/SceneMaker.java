@@ -2,7 +2,9 @@ package newView.SceneMakers;
 
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -43,5 +45,10 @@ public abstract class SceneMaker {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    protected void setGlowOnMouseOver(Text text) {
+        text.setOnMouseEntered(event -> text.setEffect(new Glow(0.8)));
+        text.setOnMouseExited(event -> text.setEffect(null));
     }
 }
