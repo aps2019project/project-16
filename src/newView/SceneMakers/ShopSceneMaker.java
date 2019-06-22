@@ -2,11 +2,14 @@ package newView.SceneMakers;
 
 import contracts.ShopContract;
 import controllers.ShopController;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -167,6 +170,12 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         search.setPromptText("ENTER CARD NAME");
         ScaleTool.relocate(search, 10, 120);
         search.setStyle("-fx-arc-height: 100; -fx-arc-width: 100; -fx-background-color: rgba(80,150,255,1)");
+//        search.setOnKeyPressed(event -> {
+//            if (event.getCode() == KeyCode.ENTER) {
+//                if ()
+//                controller.searchInShop();
+//            }
+//        });
         //todo by mostafa piadesazie search
 
 
