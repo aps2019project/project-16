@@ -60,6 +60,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         Pane commandsPane = new Pane(commandsBox);
 
         Text battle = new Text("Battle");
+        battle.setOnMouseClicked(event -> new BattleSceneMaker(getPrimaryStage()).set());
 
         Text shop = new Text("Shop");
         shop.setOnMouseClicked(event -> new ShopSceneMaker(getPrimaryStage()).set());
@@ -71,7 +72,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
         Text logout = new Text("Logout");
-        save.setOnMouseClicked(event -> new LoginSceneMaker(getPrimaryStage()).set());
+        logout.setOnMouseClicked(event -> new LoginSceneMaker(getPrimaryStage()).set());
 
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
