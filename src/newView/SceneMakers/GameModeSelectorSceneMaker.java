@@ -32,6 +32,8 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         ScaleTool.resizeImageView(killingHero, 250, 600);
         Text killingHeroText = new Text();
         killingHeroText.setText("KILLING HERO");
+        killingHeroText.setStyle("-fx-font-size:  30");
+        ScaleTool.relocate(killingHeroText , 280 , 550);
         killingHeroText.setFill(Color.WHITE);
 
 
@@ -40,7 +42,8 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         ScaleTool.resizeImageView(collectFlag, 250, 600);
         Text collectFlagText = new Text();
         collectFlagText.setText("COLLECT FLAG");
-        collectFlagText.setStyle("-fx-font-size: 30");
+        collectFlagText.setStyle("-fx-font-size: 25");
+        ScaleTool.relocate(collectFlagText , 540 , 600);
         collectFlagText.setFill(Color.WHITE);
 
 
