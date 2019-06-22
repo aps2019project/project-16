@@ -44,6 +44,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     private int collectionCounter;
     private final Pane rightPane = new Pane();
 
+    private List<Object> collection;
+
+    {
+        controller.loadCollection();
+    }
 
     public CollectionSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -115,6 +120,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         search.setPromptText("SEARCH");
         search.setStyle("-fx-prompt-text-fill: gray");
         //todo mostafa karasho bokon!!! man dg hal nadaram  03:23 , 25 khordad 98 !!!
+        showCollection(visibleCards, collection);
 
         TextField newDeckName = new TextField();
         newDeckName.setStyle("-fx-background-color: rgb(81 , 186, 255)");
@@ -163,11 +169,19 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     }
 
     private void previousAction(GridPane visibleCards) {
-        //todo must be implemented
+        collectionCounter -= 10;
+        if (collectionCounter < 0)
+            collectionCounter -= 10;
+        else
+            showCollection(visibleCards, collection);
     }
 
     private void nextAction(GridPane visibleCards) {
-        //todo must be implemented
+        collectionCounter += 10;
+        if (collectionCounter >= collection.size())
+            collectionCounter -= 10;
+        else
+            showCollection(visibleCards, collection);
     }
 
     private VBox getDecks(ArrayList<Deck> accountDecks) throws FileNotFoundException {
@@ -404,7 +418,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     @Override
     public void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
-
+        collection = new ArrayList<>();
+        collection.addAll(cards);
+        collection.addAll(heroes);
+        collection.addAll(items);
     }
 
     @Override
