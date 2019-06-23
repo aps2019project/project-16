@@ -55,12 +55,13 @@ public class CollectionController implements CollectionContract.Controller {
     @Override
     public void searchCard(String name) {
         Collection collection = GameContents.getCurrentAccount().getCollection();
-        int collectionID = collection.searchCard(name);
-        if (collectionID == -1) {
-            Notify.logError("No! This card doesn't exist in collection!");
-        } else {
-            Notify.logMessage("Yes! We have this card in collection. Its cardID: " + collectionID);
-        }
+        view.showCards(collection.getCards(name));
+//        int collectionID = collection.searchCard(name);
+//        if (collectionID == -1) {
+//            Notify.logError("No! This card doesn't exist in collection!");
+//        } else {
+//            Notify.logMessage("Yes! We have this card in collection. Its cardID: " + collectionID);
+//        }
     }
 
     @Override

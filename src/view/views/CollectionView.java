@@ -9,6 +9,7 @@ import view.MenuHandler;
 import view.Notify;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static view.menuItems.MenuConstants.BATTLE_MENU;
 
@@ -53,6 +54,11 @@ public class CollectionView implements CollectionContract.View {
         ShopView.printHeroes(heroes, 'c');
         ShopView.printUsables(items, 'c');
         ShopView.printCards(cards, 'c');
+    }
+
+    @Override
+    public void showCards(List<Object> cards) {
+
     }
 
     @Override

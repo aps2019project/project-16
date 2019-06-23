@@ -6,6 +6,7 @@ import models.card.Hero;
 import models.item.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CollectionContract {
     interface View {
@@ -14,6 +15,7 @@ public interface CollectionContract {
         void showAllDecks(Deck mainDeck, ArrayList<Deck> decks);
         void showDeck(Deck deck);
         void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
+        void showCards(List<Object> cards);
 
         void goToBattleMenu();
     }

@@ -4,6 +4,7 @@ import models.card.Card;
 import models.item.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Collection {
     public static final int ITEM_CAPACITY = 3;
@@ -73,6 +74,19 @@ public class Collection {
                 return item.getCollectionID();
         }
         return -1;
+    }
+
+    public List<Object> getCards(String name) {
+        List<Object> list = new ArrayList<>();
+        for (Card card : cards) {
+            if (card.getName().equalsIgnoreCase(name))
+                list.add(card);
+        }
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(name))
+                list.add(item);
+        }
+        return list;
     }
 
     public Item getItem(int itemID) {

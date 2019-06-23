@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -46,6 +47,8 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     private List<Object> collection;
 
+    GridPane visibleCards;
+
     {
         controller.loadCollection();
     }
@@ -58,7 +61,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     public Scene makeScene() throws Exception {
         Pane root = new Pane();
 
-        GridPane visibleCards = new GridPane();
+        visibleCards = new GridPane();
 
         ScrollPane rightPart = new ScrollPane();
 
@@ -118,7 +121,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         search.setStyle("-fx-background-color: rgb(37, 45, 52,1)");
         ScaleTool.relocate(search, 20, 600); //todo must be relocated again
         search.setPromptText("SEARCH");
-        search.setStyle("-fx-prompt-text-fill: gray");
+        search.setStyle("-fx-text-fill: gray");
+        search.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER)
+                controller.searchCard(search.getText());
+        });
         //todo mostafa karasho bokon!!! man dg hal nadaram  03:23 , 25 khordad 98 !!!
         showCollection(visibleCards, collection);
 
@@ -181,17 +188,15 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     private void previousAction(GridPane visibleCards) {
         collectionCounter -= 10;
         if (collectionCounter < 0)
-            collectionCounter -= 10;
-        else
-            showCollection(visibleCards, collection);
+            collectionCounter += 10;
+        showCollection(visibleCards, collection);
     }
 
     private void nextAction(GridPane visibleCards) {
         collectionCounter += 10;
         if (collectionCounter >= collection.size())
             collectionCounter -= 10;
-        else
-            showCollection(visibleCards, collection);
+        showCollection(visibleCards, collection);
     }
 
     private VBox getDecks(ArrayList<Deck> accountDecks) throws FileNotFoundException {
@@ -388,7 +393,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         return cardPane;
     }
 
-    private void showCollection(GridPane visibleCards, List collection) {
+    private void showCollection(GridPane visibleCards, List<Object> collection) {
         visibleCards.getChildren().removeIf(node -> true);
         try {
             for (int i = 0; i < 2; i++) {
@@ -466,6 +471,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         collection.addAll(cards);
         collection.addAll(heroes);
         collection.addAll(items);
+    }
+
+    @Override
+    public void showCards(List<Object> cards) {
+        showCollection(visibleCards, cards);
     }
 
     @Override
