@@ -150,16 +150,14 @@ public class CardMaker {
         ap.setY(124);//todo must be * scale
         hp.setY(124);//todo must be * scale
 
-        stackPaneName.setPrefHeight(200);//todo must be * scale
         stackPaneName.setPrefWidth(150);//todo must be * scale
 
-        stackPaneType.setPrefHeight(200);//todo must be * scale
         stackPaneType.setPrefWidth(150);//todo must be * scale
 
         stackPaneName.getChildren().add(name);
         stackPaneType.getChildren().add(type);
-        stackPaneType.setLayoutY(40);//todo must be * scale
-        stackPaneName.setLayoutY(65);//todo must be * scale
+        stackPaneType.setLayoutY(135);//todo must be * scale
+        stackPaneName.setLayoutY(160);//todo must be * scale
 
         root.getChildren().add(backGround);
         root.getChildren().add(sprite);
@@ -194,16 +192,14 @@ public class CardMaker {
         name.setY(160);//todo must be * scale
         type.setY(140);//todo must be * scale
 
-        stackPaneName.setPrefHeight(200);//todo must be * scale
         stackPaneName.setPrefWidth(150);//todo must be * scale
 
-        stackPaneType.setPrefHeight(200);//todo must be * scale
         stackPaneType.setPrefWidth(150);//todo must be * scale
 
         stackPaneName.getChildren().add(name);
         stackPaneType.getChildren().add(type);
-        stackPaneType.setLayoutY(40);//todo must be * scale
-        stackPaneName.setLayoutY(65);//todo must be * scale
+        stackPaneType.setLayoutY(135);//todo must be * scale
+        stackPaneName.setLayoutY(160);//todo must be * scale
 
         root.getChildren().add(backGround);
         root.getChildren().add(sprite);
@@ -235,16 +231,14 @@ public class CardMaker {
         name.setY(160);//todo must be * scale
         type.setY(140);//todo must be * scale
 
-        stackPaneName.setPrefHeight(200);//todo must be * scale
         stackPaneName.setPrefWidth(150);//todo must be * scale
 
-        stackPaneType.setPrefHeight(200);//todo must be * scale
         stackPaneType.setPrefWidth(150);//todo must be * scale
 
         stackPaneName.getChildren().add(name);
         stackPaneType.getChildren().add(type);
-        stackPaneType.setLayoutY(40);//todo must be * scale
-        stackPaneName.setLayoutY(65);//todo must be * scale
+        stackPaneType.setLayoutY(135);//todo must be * scale
+        stackPaneName.setLayoutY(160);//todo must be * scale
 
         root.getChildren().add(backGround);
         root.getChildren().add(sprite);

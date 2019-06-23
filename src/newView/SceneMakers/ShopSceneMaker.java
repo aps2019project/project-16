@@ -159,7 +159,6 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         type.getChildren().addAll(hero, minion, spell, usableItem, collection);
 
         visibleCards.setMinSize(850, 450);
-        visibleCards.setVgap(-55);
         visibleCards.setHgap(10);
         ScaleTool.relocate(visibleCards, 200, 150);
 

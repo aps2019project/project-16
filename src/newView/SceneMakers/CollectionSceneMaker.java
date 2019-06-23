@@ -47,7 +47,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     private List<Object> collection;
 
-    GridPane visibleCards;
+    private GridPane visibleCards;
 
     {
         controller.loadCollection();
@@ -108,7 +108,6 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         });
 
         ScaleTool.setMinSize(visibleCards,850, 450);
-        visibleCards.setVgap(-55);
         visibleCards.setHgap(10);
         ScaleTool.relocate(visibleCards, 90, 150);
 
