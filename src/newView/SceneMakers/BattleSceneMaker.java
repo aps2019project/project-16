@@ -26,9 +26,7 @@ public class BattleSceneMaker extends SceneMaker {
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
-        back.setOnMouseClicked(event -> {
-            backAction();
-        });
+        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
 
         ImageView singlePlayer = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
@@ -43,12 +41,8 @@ public class BattleSceneMaker extends SceneMaker {
         ScaleTool.relocate(multiPlayer, 300, 200);
         ScaleTool.relocate(singlePlayer, 800, 200);
 
-        singlePlayer.setOnMouseClicked(event -> {
-            singlePlayerAction();
-        });
-        multiPlayer.setOnMouseClicked(event -> {
-            multiPlayerAction();
-        });
+        singlePlayer.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage()).set());//todo correct it
+        multiPlayer.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage()).set());
 
 
         Text singlePlayerText = new Text();
@@ -63,20 +57,8 @@ public class BattleSceneMaker extends SceneMaker {
         multiPlayerText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(multiPlayerText, 750, 520);
 
-        pane.getChildren().addAll(singlePlayer, multiPlayer, singlePlayerText, multiPlayerText , back);
+        pane.getChildren().addAll(singlePlayer, multiPlayer, singlePlayerText, multiPlayerText, back);
 
         return new MyScene(pane);
-    }
-
-    private void multiPlayerAction() {
-        //todo mostafa
-    }
-
-    private void singlePlayerAction() {
-        //todo mostafa
-    }
-
-    private void backAction() {
-        //TODO  MOSTAFA
     }
 }

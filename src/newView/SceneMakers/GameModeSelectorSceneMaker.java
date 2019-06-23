@@ -26,6 +26,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         BackgroundMaker.setBackgroundFor(pane, 1, "gameModeSelector");
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/gameModeSelector/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
+        back.setOnMouseClicked(event -> new BattleSceneMaker(getPrimaryStage()).set());
 
         ImageView killingHero = new ImageView(new Image(new FileInputStream("src/newView/resources/gameModeSelector/killingHero.png")));
         ScaleTool.relocate(killingHero, 250, 100);
@@ -33,7 +34,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         Text killingHeroText = new Text();
         killingHeroText.setText("KILLING HERO");
         killingHeroText.setStyle("-fx-font-size:  30");
-        ScaleTool.relocate(killingHeroText , 280 , 550);
+        ScaleTool.relocate(killingHeroText, 280, 550);
         killingHeroText.setFill(Color.WHITE);
 
 
@@ -43,7 +44,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         Text collectFlagText = new Text();
         collectFlagText.setText("COLLECT FLAG");
         collectFlagText.setStyle("-fx-font-size: 25");
-        ScaleTool.relocate(collectFlagText , 540 , 600);
+        ScaleTool.relocate(collectFlagText, 540, 600);
         collectFlagText.setFill(Color.WHITE);
 
 
@@ -54,7 +55,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         holdFlagText.setText("HOLD FLAG");
         holdFlagText.setFill(Color.WHITE);
         holdFlagText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(holdFlagText, 795 , 570);
+        ScaleTool.relocate(holdFlagText, 795, 570);
 
         pane.getChildren().addAll(back, killingHero, collectFlag, holdFlag);
         pane.getChildren().addAll(killingHeroText, collectFlagText, holdFlagText);
