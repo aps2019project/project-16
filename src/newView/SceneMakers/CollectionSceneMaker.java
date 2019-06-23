@@ -250,6 +250,9 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     }
 
 
+
+
+
     private VBox getCardsInDeck(Deck deck) throws FileNotFoundException {
         VBox cardsInDeck = new VBox();
         cardsInDeck.setPadding(new Insets(0, 10, 10, 10));
@@ -300,7 +303,6 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
                 controller.loadDeck(deck.getName());
             });
         }
-
         return cardsInDeck;
     }
 
