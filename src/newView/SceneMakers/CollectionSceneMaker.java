@@ -144,6 +144,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             newDeckName.setText("");
         });
 
+        ImageView backToDeck = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/backToDecks.png")));
+        ScaleTool.resizeImageView(backToDeck, 100, 50);
+        ScaleTool.relocate(backToDeck, 700, 650);
+
 
         root.getChildren().add(back);
         root.getChildren().add(rightPart);
@@ -155,6 +159,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         root.getChildren().add(newDeckName);
         root.getChildren().add(newDeckAccept);
         root.getChildren().add(ok);
+        root.getChildren().add(backToDeck);
 
         return new MyScene(root);
     }
@@ -227,9 +232,12 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             statics.setFill(Color.WHITE);
             ScaleTool.relocate(statics, 65, 40);
 
-            deckPane.getChildren().addAll(stash, deckIcon, deckName, statics);
-            decks.getChildren().add(deckPane);
+            ImageView tickSelect = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/tick.jpg")));
+            ScaleTool.resizeImageView(tickSelect , 20 ,20);
+            ScaleTool.relocate(tickSelect ,295, 0);
 
+            deckPane.getChildren().addAll(stash, deckIcon, deckName, statics , tickSelect);
+            decks.getChildren().add(deckPane);
             ///TODO MOSTAFA BIA TABEE DOKME HA RO BEZAN !!! :)))))
         }
         return decks;
