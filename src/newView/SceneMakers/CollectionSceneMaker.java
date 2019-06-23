@@ -147,7 +147,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ImageView backToDeck = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/backToDecks.png")));
         ScaleTool.resizeImageView(backToDeck, 100, 50);
         ScaleTool.relocate(backToDeck, 700, 650);
-
+        backToDeck.setOnMouseClicked(event -> controller.loadAllDecks());
 
         root.getChildren().add(back);
         root.getChildren().add(rightPart);
@@ -233,10 +233,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             ScaleTool.relocate(statics, 65, 40);
 
             ImageView tickSelect = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/tick.jpg")));
-            ScaleTool.resizeImageView(tickSelect , 20 ,20);
-            ScaleTool.relocate(tickSelect ,295, 0);
+            ScaleTool.resizeImageView(tickSelect, 20, 20);
+            ScaleTool.relocate(tickSelect, 295, 0);
+            tickSelect.setOnMouseClicked(event -> controller.selectDeck(deck.getName()));
 
-            deckPane.getChildren().addAll(stash, deckIcon, deckName, statics , tickSelect);
+            deckPane.getChildren().addAll(stash, deckIcon, deckName, statics, tickSelect);
             decks.getChildren().add(deckPane);
             ///TODO MOSTAFA BIA TABEE DOKME HA RO BEZAN !!! :)))))
         }
