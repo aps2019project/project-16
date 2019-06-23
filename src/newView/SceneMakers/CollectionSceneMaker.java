@@ -107,10 +107,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             }
         });
 
-        visibleCards.setMinSize(850, 450);
+        ScaleTool.setMinSize(visibleCards,850, 450);
         visibleCards.setVgap(-55);
         visibleCards.setHgap(10);
-        ScaleTool.relocate(visibleCards, 200, 150);
+        ScaleTool.relocate(visibleCards, 90, 150);
 
         Rectangle cardsBackground = new Rectangle();
         ScaleTool.relocate(cardsBackground, 70, 130);
