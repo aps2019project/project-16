@@ -30,6 +30,11 @@ public class ShopView implements ShopContract.View {
 
     }
 
+    @Override
+    public void showCard(Object card) {
+
+    }
+
     public static void printCards(ArrayList<Card> cards, char printingState) {
         int i = 0;
         logMessage("Cards:");

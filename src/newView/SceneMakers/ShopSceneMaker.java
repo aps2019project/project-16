@@ -2,14 +2,12 @@ package newView.SceneMakers;
 
 import contracts.ShopContract;
 import controllers.ShopController;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -29,6 +27,8 @@ import newView.Type;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
@@ -37,6 +37,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private Type visibleType = Type.HERO;
 
     private List<Object> collection;
+    private GridPane visibleCards;
 
     {
         controller.loadShop();
@@ -71,7 +72,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
         Pane pane = new Pane();
         HBox type = new HBox();
-        GridPane visibleCards = new GridPane();
+        visibleCards = new GridPane();
         TextField search = new TextField();
         Rectangle cardsBackground = new Rectangle();
 
@@ -147,7 +148,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         collection.setOnMouseClicked(event -> {
             inShop = false;
             controller.loadCollection();
-            showCollection(visibleCards);
+            showCardList(visibleCards, this.collection);
         });
 
         setGlowOnMouseOver(hero);
@@ -170,12 +171,12 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         search.setPromptText("ENTER CARD NAME");
         ScaleTool.relocate(search, 10, 120);
         search.setStyle("-fx-arc-height: 100; -fx-arc-width: 100; -fx-background-color: rgba(80,150,255,1)");
-//        search.setOnKeyPressed(event -> {
-//            if (event.getCode() == KeyCode.ENTER) {
-//                if ()
-//                controller.searchInShop();
-//            }
-//        });
+        search.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (inShop)
+                    controller.searchInShop(search.getText());
+            }
+        });
         //todo by mostafa piadesazie search
 
 
@@ -193,7 +194,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         return new MyScene(pane);
     }
 
-    private void showCollection(GridPane visibleCards) {
+    private void showCardList(GridPane visibleCards, List<Object> collection) {
         visibleCards.getChildren().removeIf(node -> true);
         try {
             for (int i = 0; i < 2; i++) {
@@ -226,7 +227,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                         cardView.setOnMouseClicked(event -> {
                             controller.sellCard(cardId);
                             controller.loadCollection();
-                            showCollection(visibleCards);
+                            showCardList(visibleCards, this.collection);
                         });
                     }
                 }
@@ -242,7 +243,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             showingCards(gridPane);
         } else {
             minusCollectionCounter();
-            showCollection(gridPane);
+            showCardList(gridPane, this.collection);
         }
     }
 
@@ -252,7 +253,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             showingCards(gridPane);
         } else {
             addCollectionCounter();
-            showCollection(gridPane);
+            showCardList(gridPane, this.collection);
         }
     }
 
@@ -374,5 +375,10 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         collection.addAll(cards);
         collection.addAll(heroes);
         collection.addAll(items);
+    }
+
+    @Override
+    public void showCard(Object card) {
+        showCardList(visibleCards, Arrays.asList(card));
     }
 }

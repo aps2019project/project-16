@@ -59,6 +59,10 @@ public class ShopController implements ShopContract.Controller {
             Notify.logError("This card doesn't exist in shop!!!");
         } else {
             Notify.logMessage("Yes! We have this card in shop. You can buy it by its name.");
+            if (shop.getCard(cardName) != null)
+                view.showCard(shop.getCard(cardName));
+            else
+                view.showCard(shop.getItem(cardName));
         }
     }
 

@@ -13,6 +13,8 @@ public interface ShopContract {
         void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
 
         void showCollection(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards);
+
+        void showCard(Object card);
     }
 
     interface Controller {
