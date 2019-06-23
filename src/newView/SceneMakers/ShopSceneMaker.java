@@ -177,7 +177,6 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                     controller.searchInShop(search.getText());
             }
         });
-        //todo by mostafa piadesazie search
 
 
         showingCards(visibleCards);
@@ -201,32 +200,36 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 for (int j = 0; j < 5; j++) {
                     if (collection.size() > 5 * i + j + collectionCounter) {
                         Object card = collection.get(5 * i + j + collectionCounter);
-                        Pane cardView = new Pane();
+                        Pane cardView;
+                        String name;
                         final int cardId;
                         if (card instanceof Item) {
-                            String name = ((Item) card).getName();
+                            name = ((Item) card).getName();
                             cardId = ((Item) card).getCollectionID();
                             cardView = new CardMaker(name, Type.ITEM).getItemCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Hero) {
-                            String name = ((Hero) card).getName();
+                            name = ((Hero) card).getName();
                             cardId = ((Hero) card).getCollectionID();
                             cardView = new CardMaker(name, Type.HERO).getUnitCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Minion) {
-                            String name = ((Minion) card).getName();
+                            name = ((Minion) card).getName();
                             cardId = ((Minion) card).getCollectionID();
                             cardView = new CardMaker(name, Type.MINION).getUnitCardView();
                             visibleCards.add(cardView, j, i);
                         } else {
-                            String name = ((SpellCard) card).getName();
+                            name = ((SpellCard) card).getName();
                             cardId = ((SpellCard) card).getCollectionID();
                             cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
                             visibleCards.add(cardView, j, i);
                         }
                         cardView.setOnMouseClicked(event -> {
-                            controller.sellCard(cardId);
-                            controller.loadCollection();
+                            if (inShop) {
+                                controller.sellCard(cardId);
+                                controller.loadCollection();
+                            } else
+                                controller.buyCard(name);
                             showCardList(visibleCards, this.collection);
                         });
                     }
@@ -379,6 +382,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     @Override
     public void showCard(Object card) {
+        inShop = true;
         showCardList(visibleCards, Arrays.asList(card));
     }
 }
