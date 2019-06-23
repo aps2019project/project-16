@@ -39,7 +39,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     private CollectionContract.Controller controller = new CollectionController(this);
     private boolean showingDecks = true;
-    private Account account = GameContents.getCurrentAccount();
+    private ArrayList<Deck> decks;
     private Deck selectedDeck;
     private int collectionCounter;
     private final Pane rightPane = new Pane();
@@ -75,7 +75,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         rightPane.setMaxWidth(rightPart.getWidth());
         ScaleTool.setMinSize(rightPane, 350, 800);
 
-        updateRightPart();
+        controller.loadAllDecks();
         rightPart.setContent(rightPane);
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/back.png")));
@@ -132,12 +132,17 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ScaleTool.relocate(newDeckAccept, 170, 630);
         ScaleTool.resizeImageView(newDeckAccept, 50, 50);
 
+
         Text ok = new Text();
         ok.setText("OK");
         ok.setFill(Color.WHITE);
-        ScaleTool.relocate(ok , 180, 650);
+        ScaleTool.relocate(ok, 180, 650);
         ok.setStyle("-fx-font-size: 24");
-
+        ok.setOnMouseClicked(event -> {
+            controller.createDeck(newDeckName.getText());
+            controller.loadAllDecks();
+            newDeckName.setText("");
+        });
 
 
         root.getChildren().add(back);
@@ -157,7 +162,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     private void updateRightPart() throws FileNotFoundException {
         VBox rightPartVBox;
         if (showingDecks) {
-            rightPartVBox = getDecks(account.getDecks());
+            rightPartVBox = getDecks(decks);
         } else {
             rightPartVBox = getCardsInDeck(selectedDeck);
         }
@@ -200,6 +205,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             deckPane.setOnMouseClicked(event -> controller.loadDeck(deck.getName()));
             ImageView stash = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/stash.png")));
             ScaleTool.relocate(stash, 270, 25);
+            stash.setOnMouseClicked(event -> {
+                controller.deleteDeck(deck.getName());
+                controller.loadAllDecks();
+            });
 
             int rand = Math.abs(new Random().nextInt()) % 21 + 1;
             ImageView deckIcon = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/deckIcons/" + rand + ".png")));
@@ -237,7 +246,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ImageView deleteDeck = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/deleteDeckIcon.png")));
         ScaleTool.resizeImageView(deleteDeck, 30, 30);
         ScaleTool.relocate(deleteDeck, 30, 30);
-        deleteDeck.setOnMouseClicked(event -> controller.deleteDeck(deck.getName()));
+        deleteDeck.setOnMouseClicked(event -> {
+            controller.deleteDeck(deck.getName());
+            controller.loadAllDecks();
+        });
         temp.getChildren().add(deleteDeck);//todo mostafa dokmash
 
         Text deckName = new Text();
@@ -251,7 +263,8 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
         ///todo must be check if there is any bug //mostafa check kon namoosan!!!!
         List<Object> cards = new ArrayList<>();
-        cards.add(deck.getHero());
+        if (deck.getHero() != null)
+            cards.add(deck.getHero());
         if (deck.getItem() != null)
             cards.add(deck.getItem());
         cards.addAll(deck.getCards());
@@ -268,7 +281,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             else
                 id = ((Card) card).getCollectionID();
             cardsInDeck.getChildren().add(cardPane);
-            cardPane.setOnMouseClicked(event -> controller.removeCardFromDeck(id, deck.getName()));
+            cardPane.setOnMouseClicked(event -> {
+                controller.removeCardFromDeck(id, deck.getName());
+                controller.loadDeck(deck.getName());
+            });
         }
 
         return cardsInDeck;
@@ -370,28 +386,39 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
                 for (int j = 0; j < 5; j++) {
                     if (collection.size() > 5 * i + j + collectionCounter) {
                         Object card = collection.get(5 * i + j + collectionCounter);
+                        Pane cardView;
+                        int cardId;
                         if (card instanceof Item) {
                             String name = ((Item) card).getName();
-                            Pane cardView = new CardMaker(name, Type.ITEM).getItemCardView();
-                            visibleCards.add(cardView, j, i);
+                            cardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                            cardId = ((Item) card).getCollectionID();
                         } else if (card instanceof Hero) {
                             String name = ((Hero) card).getName();
-                            Pane cardView = new CardMaker(name, Type.HERO).getUnitCardView();
-                            visibleCards.add(cardView, j, i);
+                            cardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                            cardId = ((Hero) card).getCollectionID();
                         } else if (card instanceof Minion) {
                             String name = ((Minion) card).getName();
-                            Pane cardView = new CardMaker(name, Type.MINION).getUnitCardView();
-                            visibleCards.add(cardView, j, i);
-                        } else if (card instanceof SpellCard) {
+                            cardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                            cardId = ((Minion) card).getCollectionID();
+                        } else {
                             String name = ((SpellCard) card).getName();
-                            Pane cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
-                            visibleCards.add(cardView, j, i);
+                            cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                            cardId = ((SpellCard) card).getCollectionID();
                         }
+                        cardView.setOnMouseClicked(event -> addCardToSelectedDeck(cardId));
+                        visibleCards.add(cardView, j, i);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addCardToSelectedDeck(int cardId) {
+        if (!showingDecks) {
+            controller.addCardToDeck(cardId, selectedDeck.getName());
+            controller.loadDeck(selectedDeck.getName());
         }
     }
 
@@ -402,7 +429,15 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     @Override
     public void showAllDecks(Deck mainDeck, ArrayList<Deck> decks) {
-
+        showingDecks = true;
+        this.decks = decks;
+//        decks.remove(mainDeck);
+//        decks.add(0, mainDeck);
+        try {
+            updateRightPart();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
