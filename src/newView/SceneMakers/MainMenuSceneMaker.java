@@ -68,6 +68,9 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text collection = new Text("Collection");
         collection.setOnMouseClicked(event -> new CollectionSceneMaker(getPrimaryStage()).set());
 
+        Text customCard = new Text("Custom Card");
+        customCard.setOnMouseClicked(event -> new CustomCardSceneMaker(getPrimaryStage()).set());
+
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
@@ -77,7 +80,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
 
-        commandsBox.getChildren().addAll(battle, shop, collection, save, logout, exit);
+        commandsBox.getChildren().addAll(battle, shop, collection, customCard, save, logout, exit);
         commandsBox.getChildren().forEach(node -> {
             if (node instanceof Text) {
                 setTextStyle((Text) node);
