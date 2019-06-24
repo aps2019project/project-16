@@ -66,7 +66,8 @@ public class InGameSceneMaker extends SceneMaker {
 //            makeSpecialPAct();
 //            makeCollectibleAct();
 //            makeFlagAct();
-            makeUsableAct();
+//            makeUsableAct();
+            makeAddCollectibleAct();
         });
     }
 
@@ -130,5 +131,12 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeUsableAct() {
         GameGraphicData.addGameAct(new UsableItemAct("first", "ghosle tamid"));
         System.out.println("usable item");
+    }
+
+    private void makeAddCollectibleAct() {
+        int x1 = random.nextInt(5), y1 = random.nextInt(9);
+        GameGraphicData.addGameAct(new AddCollectibleAct(x1, y1, "Blades of agility"));
+        GameGraphicData.addGameAct(new PickUpCollectibleAct(x1, y1));
+        System.out.println("collectible item");
     }
 }

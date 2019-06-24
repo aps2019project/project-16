@@ -31,6 +31,8 @@ public class Tile extends Pane {
     private ImageView flagView = new ImageView(flagImage);
     private static final double FLAG_SIZE = 40;
 
+    private ImageView itemView;
+
     private int row;
     private int column;
 
@@ -147,14 +149,33 @@ public class Tile extends Pane {
     }
 
     public void removeFlag() {
-        KeyValue keyValue = new KeyValue(flagView.yProperty(), flagView.getY() - 20);
+        KeyValue keyValue = new KeyValue(flagView.yProperty(), flagView.getY() - 30);
         KeyValue keyValue1 = new KeyValue(flagView.opacityProperty(), 0.1);
-        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.5)
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.8)
                 , false, 1
                 , keyValue, keyValue1);
 
         timeline.play();
 
         timeline.setOnFinished(event -> this.getChildren().remove(flagView));
+    }
+
+    public void addCollectible(ImageView itemView) {
+        ScaleTool.resizeImageView(itemView, 45, 45);
+        ScaleTool.relocate(itemView, TILE_LENGTH - 55, TILE_LENGTH - 55);
+        this.itemView = itemView;
+        this.getChildren().add(itemView);
+    }
+
+    public void removeCollectible() {
+        KeyValue keyValue = new KeyValue(itemView.yProperty(), flagView.getY() - 50);
+        KeyValue keyValue1 = new KeyValue(itemView.opacityProperty(), 0.01);
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.81)
+                , false, 1
+                , keyValue, keyValue1);
+
+        timeline.play();
+
+        timeline.setOnFinished(event -> this.getChildren().remove(itemView));
     }
 }

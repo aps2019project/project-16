@@ -1,9 +1,6 @@
 package newView.BattleView.gameActs;
 
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -38,7 +35,7 @@ public class UsableItemAct extends GameAct {
 
     private void makeAnimation() throws Exception {
         ImageView activateView = AnimationMaker.getActiveAnimation(name, Type.ITEM.getName());
-        ScaleTool.resizeImageView(activateView, 120, 120);
+        ScaleTool.resizeImageView(activateView, 150, 150);
         ScaleTool.relocate(activateView
                 , (NUMBER_OF_COLUMNS - 1) * TILE_LENGTH / 2
                 , (NUMBER_OF_ROWS - 1) * TILE_LENGTH / 2);
@@ -46,7 +43,7 @@ public class UsableItemAct extends GameAct {
         Text text = new Text("Player \"" + playerName + "\" casted usable item \"" + name + "\"");
         text.setScaleX(2);
         text.setScaleY(2);
-        ScaleTool.relocate(text, (NUMBER_OF_COLUMNS - 3) * TILE_LENGTH / 2, (NUMBER_OF_ROWS + 2) * TILE_LENGTH / 2);
+        ScaleTool.relocate(text, (NUMBER_OF_COLUMNS - 3) * TILE_LENGTH / 2, (NUMBER_OF_ROWS + 3) * TILE_LENGTH / 2);
 
         TilesPane tilesPane = GameGraphicData.getTilesPane();
         tilesPane.getChildren().addAll(activateView, text);

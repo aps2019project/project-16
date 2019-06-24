@@ -23,9 +23,9 @@ public abstract class GameAct {
 //  +counter attack
 //  +generate flags
 //  +usable item
+//  +generate collectibles
+//  +pick up item
 //  buff
 //  cell effect
-//  pick up item
 //  combo attack
 //  change turn
-//  generate collectibles
