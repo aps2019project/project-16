@@ -1,20 +1,27 @@
 package newView.SceneMakers;
 
-import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
+import newView.GraphicalElements.ScaleTool;
+
+import java.io.FileInputStream;
 
 public class CustomCardSceneMaker extends SceneMaker {
     public CustomCardSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
+
+    private boolean showingUnit = true;
 
     @Override
     public Scene makeScene() throws Exception {
@@ -34,35 +41,47 @@ public class CustomCardSceneMaker extends SceneMaker {
         TextField name = new TextField();
         name.setPromptText("ENTER YOUR NAME");
         name.setStyle("-fx-prompt-text-fill: gray");
-
+        ScaleTool.relocate(name, 100, 100);
 
         ChoiceBox type = new ChoiceBox();
         type.setItems(FXCollections.observableArrayList(
                 "HERO", "MINION", "ITEM"
         ));
+        ScaleTool.relocate(type, 100, 200);
 
+        //for spell
+        addingSpellProperties(spell, spellBuff);
+        ScaleTool.relocate(spell, 200, 300);
+        //for unit
+        addingUnitProperties(unit, specialPower);
+        ScaleTool.relocate(unit, 200, 300);
 
-        gettingSpellProperties(spell, spellBuff);
+        ImageView create = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/create.png")));
+        create.setOnMouseClicked(event -> {
+            //todo !!!
+        });
+        create.setOnMouseEntered(event -> {
+            create.setEffect(new Glow(1));
+        });
+        create.setOnMouseExited(event -> {
+            create.setEffect(new Glow(0));
+        });
+        ScaleTool.resizeImageView(create , 100 , 40);
+        ScaleTool.relocate(create , 400,  500);
 
-        //vase unit
-
-        gettingUnitProperties(unit, specialPower);
-
-        //vase buff
-
-        gettingBuffProperties(buff);
-
-
+        if (showingUnit)
+            pane.getChildren().addAll(unit);
+        else
+            pane.getChildren().add(spell);
         pane.getChildren().add(name);
         pane.getChildren().add(type);
-        pane.getChildren().add(gettingSpellProperties(spell, spellBuff));
-//        pane.getChildren().addAll(gettingUnitProperties(unit, specialPower));
+        pane.getChildren().add(create);
 
 
         return new MyScene(pane);
     }
 
-    private VBox gettingSpellProperties(VBox spell, VBox spellBuff) {
+    private void addingSpellProperties(VBox spell, VBox spellBuff) {
         ChoiceBox targetSociety = new ChoiceBox();
         targetSociety.setItems(FXCollections.observableArrayList(
                 "AnyUnit", "EnemiesInColumn", "OneRandomNearestUnit", "OneRandomUnit", "OneUnit",
@@ -71,10 +90,9 @@ public class CustomCardSceneMaker extends SceneMaker {
         ));
 
         spell.getChildren().addAll(targetSociety, gettingBuffProperties(spellBuff));
-        return spell;
     }
 
-    private VBox gettingUnitProperties(VBox unit, VBox specialPower) {
+    private void addingUnitProperties(VBox unit, VBox specialPower) {
         TextField ap = new TextField();
         ap.setPromptText("ENTER AP");
         ap.setStyle("-fx-prompt-text-fill: gray");
@@ -106,7 +124,6 @@ public class CustomCardSceneMaker extends SceneMaker {
         cost.setStyle("-fx-prompt-text-fill: gray");
 
         unit.getChildren().addAll(ap, hp, attackType, range, gettingBuffProperties(specialPower), cost);
-        return unit;
     }
 
     private VBox gettingBuffProperties(VBox buff) {
@@ -137,7 +154,7 @@ public class CustomCardSceneMaker extends SceneMaker {
                 "enemy", "friendly"
         ));
 
-//        buff.getChildren().addAll(buffName, buffType, effectValue, delay, last, friendOrEnemy);
+        buff.getChildren().addAll(buffName, buffType, effectValue, delay, last, friendOrEnemy);
         return buff;
     }
 }
