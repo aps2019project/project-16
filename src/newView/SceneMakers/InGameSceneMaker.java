@@ -56,12 +56,15 @@ public class InGameSceneMaker extends SceneMaker {
 
     private void testForActions(EndTurnButton button) {
         button.setOnMouseClicked(event -> {
-            makeMoveAct();
-            makeAttackAct();
-            makeManaAct();
-            makeAddToHandAct();
-            makeAddToHandAct();
-            makePutUnit();
+//            makeMoveAct();
+//            makeAttackAct();
+//            makeManaAct();
+//            makeAddToHandAct();
+//            makeAddToHandAct();
+//            makePutUnit();
+//            makeSpellAct();
+//            makeSpecialPAct();
+            makeCollectibleAct();
         });
     }
 
@@ -95,5 +98,23 @@ public class InGameSceneMaker extends SceneMaker {
         int x = random.nextInt(5), y = random.nextInt(9);
         GameGraphicData.addGameAct(new PutUnitAct(x, y, true));
         System.out.println("put on " + x + "," + y);
+    }
+
+    private void makeSpecialPAct() {
+        int x1 = random.nextInt(5), y1 = random.nextInt(9);
+        GameGraphicData.addGameAct(new SpecialPowerAct(x1, y1));
+        System.out.println("special power on " + x1 + "," + y1);
+    }
+
+    private void makeSpellAct() {
+        int x1 = random.nextInt(5), y1 = random.nextInt(9);
+        GameGraphicData.addGameAct(new SpellCastAct(x1, y1, true));
+        System.out.println("spell on " + x1 + "," + y1);
+    }
+
+    private void makeCollectibleAct() {
+        int x1 = random.nextInt(5), y1 = random.nextInt(9);
+        GameGraphicData.addGameAct(new UseCollectibleAct(x1, y1));
+        System.out.println("collectible on " + x1 + "," + y1);
     }
 }

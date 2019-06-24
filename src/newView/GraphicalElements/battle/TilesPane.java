@@ -9,8 +9,8 @@ import static newView.SceneMakers.SceneMaker.WIDTH;
 
 public class TilesPane extends AnchorPane {
     private Tile[][] tiles;
-    private final static int NUMBER_OF_ROWS = 5;
-    private final static int NUMBER_OF_COLUMNS = 9;
+    public final static int NUMBER_OF_ROWS = 5;
+    public final static int NUMBER_OF_COLUMNS = 9;
 
     public TilesPane() {
         super();

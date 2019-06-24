@@ -102,4 +102,23 @@ public class Tile extends Pane {
                 , colorValue, strokeValue);
         timeline.play();
     }
+
+    public void showSpellCast(ImageView spellView) {
+        final double SPELL_SIZE = 50;
+        final double START_SIZE = TILE_LENGTH / 2 - SPELL_SIZE / 2;
+        ScaleTool.resizeImageView(spellView, SPELL_SIZE, SPELL_SIZE);
+        ScaleTool.relocate(spellView, START_SIZE, START_SIZE);
+        enableColorAnimation(Color.BLUE);
+        this.getChildren().add(spellView);
+
+        KeyValue keyValue = new KeyValue(spellView.xProperty(), spellView.getX() + 3);
+        KeyValue keyValue1 = new KeyValue(spellView.yProperty(), spellView.getY() + 3);
+        KeyValue keyValue2 = new KeyValue(spellView.rotateProperty(), spellView.getRotate() + 5);
+        KeyValue keyValue3 = new KeyValue(spellView.scaleXProperty(), spellView.getScaleX() * 1.1);
+        KeyValue keyValue4 = new KeyValue(spellView.scaleYProperty(), spellView.getScaleY() * 1.1);
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.06), true, 10
+                ,keyValue, keyValue1, keyValue2, keyValue3, keyValue4);
+        timeline.play();
+        timeline.setOnFinished(event -> this.getChildren().remove(spellView));
+    }
 }
