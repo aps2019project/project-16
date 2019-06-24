@@ -3,6 +3,7 @@ package newView.GraphicalElements.battle;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -11,9 +12,25 @@ import models.card.Unit;
 import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class Tile extends Pane {
+    private static Image flagImage;
+
+    static {
+        try {
+            flagImage = new Image(new FileInputStream("src/newView/resources/tiles/flag.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ImageView flagView = new ImageView(flagImage);
+    private static final double FLAG_SIZE = 40;
+
     private int row;
     private int column;
 
@@ -42,7 +59,7 @@ public class Tile extends Pane {
     public static final double SELECTED_OPACITY = 0.6;
     public static final double TILE_LENGTH = 80;
 
-    public Tile(int row, int column) {
+    public Tile(int row, int column) throws FileNotFoundException {
         this.row = row;
         this.column = column;
         ScaleTool.relocateTile(this);
@@ -117,8 +134,27 @@ public class Tile extends Pane {
         KeyValue keyValue3 = new KeyValue(spellView.scaleXProperty(), spellView.getScaleX() * 1.1);
         KeyValue keyValue4 = new KeyValue(spellView.scaleYProperty(), spellView.getScaleY() * 1.1);
         Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.06), true, 10
-                ,keyValue, keyValue1, keyValue2, keyValue3, keyValue4);
+                , keyValue, keyValue1, keyValue2, keyValue3, keyValue4);
         timeline.play();
         timeline.setOnFinished(event -> this.getChildren().remove(spellView));
+    }
+
+    public void addFlag() {
+        flagView.setOpacity(1);
+        ScaleTool.relocate(flagView, 20, 20);
+        ScaleTool.resizeImageView(flagView, FLAG_SIZE, FLAG_SIZE);
+        this.getChildren().add(flagView);
+    }
+
+    public void removeFlag() {
+        KeyValue keyValue = new KeyValue(flagView.yProperty(), flagView.getY() - 20);
+        KeyValue keyValue1 = new KeyValue(flagView.opacityProperty(), 0.1);
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.5)
+                , false, 1
+                , keyValue, keyValue1);
+
+        timeline.play();
+
+        timeline.setOnFinished(event -> this.getChildren().remove(flagView));
     }
 }

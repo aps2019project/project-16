@@ -64,7 +64,8 @@ public class InGameSceneMaker extends SceneMaker {
 //            makePutUnit();
 //            makeSpellAct();
 //            makeSpecialPAct();
-            makeCollectibleAct();
+//            makeCollectibleAct();
+            makeFlagAct();
         });
     }
 
@@ -116,5 +117,12 @@ public class InGameSceneMaker extends SceneMaker {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
         GameGraphicData.addGameAct(new UseCollectibleAct(x1, y1));
         System.out.println("collectible on " + x1 + "," + y1);
+    }
+
+    private void makeFlagAct() {
+        int x1 = random.nextInt(5), y1 = random.nextInt(9);
+        GameGraphicData.addGameAct(new AddFlagAct(x1, y1));
+        GameGraphicData.addGameAct(new PickFlagAct(x1, y1, true));
+        System.out.println("flag on " + x1 + "," + y1);
     }
 }
