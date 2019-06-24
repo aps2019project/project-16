@@ -9,8 +9,8 @@ import newView.GraphicalElements.battle.HandHBox;
 import newView.Type;
 
 public class AddToHandAct extends GameAct {
-    private String cardName = "piran";//todo must be from CARD
-    private Type cardType = Type.MINION;//todo must be from CARD
+    private String cardName = "Shock";//todo must be from CARD
+    private Type cardType = Type.SPELL;//todo must be from CARD
     private Card card;//todo must be in constructor
     private boolean isForLeft;
 
@@ -32,7 +32,12 @@ public class AddToHandAct extends GameAct {
             HandHBox handHBox = GameGraphicData.getHandBox();
             HandElement handElement = handHBox.getAnEmptyElement();
             if (handElement != null) {
-                ImageView imageView = AnimationMaker.getIdleAnimation(cardName, cardType.getName());
+                ImageView imageView;
+                if (cardType.equals(Type.SPELL)) {
+                    imageView = AnimationMaker.getNothingAnimation(cardName, cardType.getName());
+                } else {
+                    imageView = AnimationMaker.getIdleAnimation(cardName, cardType.getName());
+                }
                 handElement.setImageView(imageView, null, cardName, cardType);
             }
         }
