@@ -65,7 +65,8 @@ public class InGameSceneMaker extends SceneMaker {
 //            makeSpellAct();
 //            makeSpecialPAct();
 //            makeCollectibleAct();
-            makeFlagAct();
+//            makeFlagAct();
+            makeUsableAct();
         });
     }
 
@@ -124,5 +125,10 @@ public class InGameSceneMaker extends SceneMaker {
         GameGraphicData.addGameAct(new AddFlagAct(x1, y1));
         GameGraphicData.addGameAct(new PickFlagAct(x1, y1, true));
         System.out.println("flag on " + x1 + "," + y1);
+    }
+
+    private void makeUsableAct() {
+        GameGraphicData.addGameAct(new UsableItemAct("first", "ghosle tamid"));
+        System.out.println("usable item");
     }
 }
