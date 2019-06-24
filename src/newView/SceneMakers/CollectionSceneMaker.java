@@ -32,6 +32,7 @@ import newView.Type;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.security.SecureClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -107,7 +108,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
             }
         });
 
-        ScaleTool.setMinSize(visibleCards,850, 450);
+        ScaleTool.setMinSize(visibleCards, 850, 450);
         visibleCards.setHgap(10);
         ScaleTool.relocate(visibleCards, 90, 150);
 
@@ -155,6 +156,15 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ScaleTool.relocate(backToDeck, 700, 650);
         backToDeck.setOnMouseClicked(event -> controller.loadAllDecks());
 
+        TextField importDeck = new TextField();
+        importDeck.setPromptText("ENTER DECK NAME FOR IMPORT");
+        importDeck.setStyle("-fx-prompt-text-fill: gray");
+        ScaleTool.relocate(importDeck , 100  , 50);
+        ImageView importDeckButton = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/importDeck.png")));
+        ScaleTool.resizeImageView(importDeckButton , 100 , 40);
+        ScaleTool.relocate(importDeckButton , 260 ,50);
+
+
         root.getChildren().add(back);
         root.getChildren().add(rightPart);
         root.getChildren().add(cardsBackground);
@@ -166,6 +176,9 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         root.getChildren().add(newDeckAccept);
         root.getChildren().add(ok);
         root.getChildren().add(backToDeck);
+
+        root.getChildren().add(importDeck);
+        root.getChildren().add(importDeckButton);
 
         return new MyScene(root);
     }
@@ -249,9 +262,6 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
     }
 
 
-
-
-
     private VBox getCardsInDeck(Deck deck) throws FileNotFoundException {
         VBox cardsInDeck = new VBox();
         cardsInDeck.setPadding(new Insets(0, 10, 10, 10));
@@ -274,6 +284,11 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         deckName.setStyle("-fx-font-size: 26");
         ScaleTool.relocate(deckName, 10, 10);
         temp.getChildren().add(deckName);
+
+        ImageView exportDeck = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/export deck.png")));
+        ScaleTool.resizeImageView(exportDeck, 80, 30);
+        ScaleTool.relocate(exportDeck, 100, 50);
+        temp.getChildren().add(exportDeck);
 
         cardsInDeck.getChildren().add(temp);
 
