@@ -14,10 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Initializer;
-import models.card.Card;
-import models.card.Hero;
-import models.card.Minion;
-import models.card.SpellCard;
+import models.card.*;
 import models.item.Item;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
@@ -28,7 +25,6 @@ import newView.Type;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
@@ -38,11 +34,6 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     private List<Object> collection;
     private GridPane visibleCards;
-
-    {
-        controller.loadShop();
-        controller.loadCollection();
-    }
 
     private int collectionCounter;
 
@@ -58,17 +49,17 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     private boolean inShop = true;
 
+    {
+        controller.loadShop();
+        controller.loadCollection();
+    }
+
     public ShopSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
 
     @Override
     public Scene makeScene() throws Exception {
-
-        Initializer.initShopUsableItems(items);
-        Initializer.addHeroes(heroes);
-        Initializer.addMinions(minions);
-        Initializer.addSpells(spells);
 
         Pane pane = new Pane();
         HBox type = new HBox();
@@ -368,7 +359,13 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     @Override
     public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
-        //todo correct program to use this
+        this.heroes.addAll(heroes);
+        for (Card card : cards)
+            if (card instanceof Minion)
+                this.minions.add(card);
+            else if (card instanceof SpellCard)
+                this.spells.add(card);
+        this.items.addAll(items);
     }
 
     @Override

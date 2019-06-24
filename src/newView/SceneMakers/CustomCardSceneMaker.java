@@ -66,8 +66,8 @@ public class CustomCardSceneMaker extends SceneMaker {
         create.setOnMouseExited(event -> {
             create.setEffect(new Glow(0));
         });
-        ScaleTool.resizeImageView(create , 100 , 40);
-        ScaleTool.relocate(create , 400,  500);
+        ScaleTool.resizeImageView(create, 100, 40);
+        ScaleTool.relocate(create, 400, 500);
 
         if (showingUnit)
             pane.getChildren().addAll(unit);
