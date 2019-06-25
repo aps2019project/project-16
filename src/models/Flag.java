@@ -1,6 +1,8 @@
 package models;
 
 import models.card.Unit;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.AddFlagAct;
 
 public class Flag {
     private Cell currentCell;
@@ -10,6 +12,7 @@ public class Flag {
         this.currentCell = cell;
         this.ownerUnit = null;
         cell.addFlag(this);
+        ClientSender.sendToViewer(new AddFlagAct(cell.getRow(), cell.getColumn()));
     }
 
     public Cell getCurrentCell() {

@@ -389,6 +389,8 @@ public abstract class Unit extends Card implements Buffable {
             flag.setOwnerUnit(null);
             flag.setCurrentCell(cell);
             cell.addFlag(flag);
+
+            ClientSender.sendToViewer(new AddFlagAct(cell.getRow(), cell.getColumn()));
         }
         unit.removeFlag();
     }

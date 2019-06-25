@@ -3,6 +3,8 @@ package models;
 import models.card.*;
 import exception.*;
 import models.item.Item;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,6 +21,12 @@ public class Player {
     private int turnsFlagKeeped;
     private Account account;
     private Table table;
+
+    private boolean isOnLeft;
+
+    public void setOnLeft(boolean onLeft) {
+        isOnLeft = onLeft;
+    }
 
     public Player(Deck deck, Account account) {
         this.account = account;
@@ -58,6 +66,10 @@ public class Player {
                 return (Hero) unit;
         }
         return null;
+    }
+
+    public String getName() {
+        return account.getName();
     }
 
     public Hand getHand() {
@@ -250,6 +262,8 @@ public class Player {
             for (Flag flag : cell.getFlags()) {
                 unit.addFlag(flag);
                 flag.setOwnerUnit(unit);
+
+                ClientSender.sendToViewer(new PickFlagAct(cell.getRow(), cell.getColumn()));
             }
             cell.removeFlag();
         }
