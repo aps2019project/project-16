@@ -1,6 +1,7 @@
 package newView.BattleView.gameActs;
 
 import javafx.scene.image.ImageView;
+import models.card.Card;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.battle.HandElement;
@@ -8,16 +9,18 @@ import newView.GraphicalElements.battle.Tile;
 import newView.Type;
 
 public class SpellCastAct extends GameAct {
-    private String cardName = "Shock";//todo must be from CARD
+    private String cardName;
     private Type type = Type.SPELL;
     private int row;
     private int column;
     private boolean isForLeft;
 
-    public SpellCastAct(int row, int column, boolean isForLeft) {
+    public SpellCastAct(int row, int column, boolean isForLeft, Card card) {
         this.row = row;
         this.column = column;
         this.isForLeft = isForLeft;
+
+        cardName = card.getName();
     }
 
     @Override

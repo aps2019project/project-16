@@ -8,10 +8,9 @@ public class PickFlagAct extends GameAct {
     private int column;
     private boolean isForLeft;// TODO: 6/24/19 must be used
 
-    public PickFlagAct(int row, int column, boolean isForLeft) {
+    public PickFlagAct(int row, int column) {
         this.row = row;
         this.column = column;
-        this.isForLeft = isForLeft;
     }
 
     @Override

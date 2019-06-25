@@ -1,20 +1,23 @@
 package newView.BattleView.gameActs;
 
 import javafx.scene.image.ImageView;
+import models.item.Item;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
 import newView.Type;
 
 public class UseCollectibleAct extends GameAct {
-    private String itemName = "exir";//todo must be from CARD
+    private String itemName;
     private Type type = Type.ITEM;
     private int row;
     private int column;
 
-    public UseCollectibleAct(int row, int column) {
+    public UseCollectibleAct(int row, int column, Item item) {
         this.row = row;
         this.column = column;
+
+        itemName = item.getName();
     }
 
     @Override

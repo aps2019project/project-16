@@ -105,7 +105,7 @@ public class InGameSceneMaker extends SceneMaker {
 
     private void makeSpecialPAct() {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
-        GameGraphicData.addGameAct(new SpecialPowerAct(x1, y1));
+//        GameGraphicData.addGameAct(new SpecialPowerAct(x1, y1));
         System.out.println("special power on " + x1 + "," + y1);
     }
 
@@ -117,7 +117,7 @@ public class InGameSceneMaker extends SceneMaker {
 
     private void makeCollectibleAct() {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
-        GameGraphicData.addGameAct(new UseCollectibleAct(x1, y1));
+//        GameGraphicData.addGameAct(new UseCollectibleAct(x1, y1));
         System.out.println("collectible on " + x1 + "," + y1);
     }
 

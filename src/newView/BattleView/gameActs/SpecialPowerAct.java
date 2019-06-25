@@ -18,13 +18,14 @@ import static newView.GraphicalElements.battle.TilesPane.NUMBER_OF_COLUMNS;
 import static newView.GraphicalElements.battle.TilesPane.NUMBER_OF_ROWS;
 
 public class SpecialPowerAct extends GameAct {
-    private String heroName = "afsane";//todo must be from CARD
+    private String powerName;
     private int row;
     private int column;
 
-    public SpecialPowerAct(int row, int column) {
+    public SpecialPowerAct(int row, int column, String powerName) {
         this.row = row;
         this.column = column;
+        this.powerName = powerName;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class SpecialPowerAct extends GameAct {
     }
 
     private void makeAnimation() throws Exception {
-        ImageView imageView = AnimationMaker.getActiveAnimation(heroName, Type.SPECIAL_POWER.getName());
+        ImageView imageView = AnimationMaker.getActiveAnimation(powerName, Type.SPECIAL_POWER.getName());
         Tile putTile = GameGraphicData.getTilesPane().getTile(row, column);
         TilesPane tilesPane = GameGraphicData.getTilesPane();
 
