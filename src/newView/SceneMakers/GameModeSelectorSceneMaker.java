@@ -1,5 +1,6 @@
 package newView.SceneMakers;
 
+import controllers.StoryController;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
+import view.views.StoryView;
 
 import java.io.FileInputStream;
 
@@ -57,9 +59,27 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         holdFlagText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(holdFlagText, 795, 570);
 
+        //todo just for test
+        todoJustForTest(killingHero, collectFlag, holdFlag);
+
         pane.getChildren().addAll(back, killingHero, collectFlag, holdFlag);
         pane.getChildren().addAll(killingHeroText, collectFlagText, holdFlagText);
 
         return new MyScene(pane);
+    }
+
+    private void todoJustForTest(ImageView killingHero, ImageView collectFlag, ImageView holdFlag) {
+        killingHero.setOnMouseClicked(event -> {
+            new StoryController(new StoryView()).loadLevel(1);
+            new InGameSceneMaker(getPrimaryStage()).set();
+        });
+        holdFlag.setOnMouseClicked(event -> {
+            new StoryController(new StoryView()).loadLevel(2);
+            new InGameSceneMaker(getPrimaryStage()).set();
+        });
+        collectFlag.setOnMouseClicked(event -> {
+            new StoryController(new StoryView()).loadLevel(3);
+            new InGameSceneMaker(getPrimaryStage()).set();
+        });
     }
 }

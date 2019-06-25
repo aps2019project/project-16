@@ -145,7 +145,9 @@ public class Tile extends Pane {
         flagView.setOpacity(1);
         ScaleTool.relocate(flagView, 20, 20);
         ScaleTool.resizeImageView(flagView, FLAG_SIZE, FLAG_SIZE);
-        this.getChildren().add(flagView);
+        if (!this.getChildren().contains(flagView)) {
+            this.getChildren().add(flagView);
+        }
     }
 
     public void removeFlag() {
@@ -161,6 +163,9 @@ public class Tile extends Pane {
     }
 
     public void addCollectible(ImageView itemView) {
+        if (this.itemView != null) {
+            this.getChildren().remove(this.itemView);
+        }
         ScaleTool.resizeImageView(itemView, 45, 45);
         ScaleTool.relocate(itemView, TILE_LENGTH - 55, TILE_LENGTH - 55);
         this.itemView = itemView;

@@ -74,14 +74,14 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeMoveAct() {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
         int x2 = random.nextInt(5), y2 = random.nextInt(9);
-        GameGraphicData.addGameAct(new MoveAct(x1, y1, x2, y2));
+//        GameGraphicData.addGameAct(new MoveAct(x1, y1, x2, y2));
         System.out.println("move from " + x1 + "," + y1 + " to " + x2 + "," + y2);
     }
 
 
     private void makeAttackAct() {
         int x1 = 0, y1 = 1, x2 = 1, y2 = 2;
-        GameGraphicData.addGameAct(new AttackAct(x1, y1, x2, y2));
+//        GameGraphicData.addGameAct(new AttackAct(x1, y1, x2, y2));
         System.out.println("attack from " + x1 + "," + y1 + " to " + x2 + "," + y2);
     }
 
@@ -93,13 +93,13 @@ public class InGameSceneMaker extends SceneMaker {
     }
 
     private void makeAddToHandAct() {
-        GameGraphicData.addGameAct(new AddToHandAct(true));
+//        GameGraphicData.addGameAct(new AddToHandAct(true));
         System.out.println("add to hand");
     }
 
     private void makePutUnit() {
         int x = random.nextInt(5), y = random.nextInt(9);
-        GameGraphicData.addGameAct(new PutUnitAct(x, y, true));
+//        GameGraphicData.addGameAct(new PutUnitAct(x, y, true));
         System.out.println("put on " + x + "," + y);
     }
 
@@ -111,7 +111,7 @@ public class InGameSceneMaker extends SceneMaker {
 
     private void makeSpellAct() {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
-        GameGraphicData.addGameAct(new SpellCastAct(x1, y1, true));
+//        GameGraphicData.addGameAct(new SpellCastAct(x1, y1, true));
         System.out.println("spell on " + x1 + "," + y1);
     }
 
@@ -124,7 +124,7 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeFlagAct() {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
         GameGraphicData.addGameAct(new AddFlagAct(x1, y1));
-        GameGraphicData.addGameAct(new PickFlagAct(x1, y1, true));
+        GameGraphicData.addGameAct(new PickFlagAct(x1, y1));
         System.out.println("flag on " + x1 + "," + y1);
     }
 
