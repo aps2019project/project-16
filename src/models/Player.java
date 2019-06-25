@@ -193,6 +193,8 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
 
+        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit));
+
         pickUpFlags(cell, unit);
         pickUpCollectibles(cell);
 
@@ -210,6 +212,9 @@ public class Player {
         spellCard.cast(this, cell);
         spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
         graveYard.addCard(spellCard);
+
+        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard));
+
         this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
