@@ -31,7 +31,7 @@ public class StoryController implements StoryContract.Controller {
 
         Game newGame = new Game(currentAccount, AIAccount, gameLevel.getPrize(), gameMode, gameLevel.getNumberOfFlags());
         GameContents.setCurrentGame(newGame);
-        view.goToLevelInGame();
+//        view.goToLevelInGame();
     }
 
     @Override

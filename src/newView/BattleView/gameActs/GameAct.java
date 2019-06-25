@@ -25,6 +25,7 @@ public abstract class GameAct {
 //  +usable item
 //  +generate collectibles
 //  +pick up item
+//  +dying
 //  buff
 //  cell effect
 //  combo attack
