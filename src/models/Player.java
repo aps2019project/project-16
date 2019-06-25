@@ -278,6 +278,8 @@ public class Player {
         if (cell.getCollectibles().size() > 0) {
             this.collectibles.addAll(cell.getCollectibles());
             cell.removeCollectibles();
+
+            ClientSender.sendToViewer(new PickUpCollectibleAct(cell.getRow(), cell.getColumn()));
         }
     }
 
