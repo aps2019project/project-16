@@ -8,6 +8,9 @@ import exception.ArrayIsEmptyException;
 import exception.GameIsEndException;
 import models.item.Item;
 import models.item.ManaItem;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.*;
+import newView.Type;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,6 +36,8 @@ public class Game {
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
         this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
+        initHands();
+        initIsOnLeft();
         this.players[0].setTable(table);
         this.players[1].setTable(table);
         this.accounts[0] = firstAccount;
@@ -40,9 +45,15 @@ public class Game {
         this.numberOfFlags = numberOfFlags;
         if (gameMode != GameMode.KILLING_HERO)
             generateFlags(numberOfFlags);
+        generateCollectibles();
         initHeroPlaces();
         castUsableItems();
-        generateCollectibles();
+    }
+
+    private void initIsOnLeft() {
+        for (int i = 0; i < 2; i++) {
+            players[i].setOnLeft(getIsForLeft(i));
+        }
     }
 
     public int getNumberOfFlags() {
@@ -84,6 +95,15 @@ public class Game {
 
     public GameMode getGameMode() {
         return gameMode;
+    }
+
+    private void initHands() {
+        for (int i = 0; i < 2; i++) {
+            ArrayList<Card> addedCards = players[i].setHand();
+            for (Card card : addedCards) {
+                ClientSender.sendToViewer(new AddToHandAct(getIsForLeft(i), card));
+            }
+        }
     }
 
     public void doUnitsBuffs() {
@@ -138,6 +158,8 @@ public class Game {
                 if (!player.getHand().isFull()) {
                     Card nextCard = player.getDeck().pop();
                     player.getHand().addCard(nextCard);
+
+                    ClientSender.sendToViewer(new AddToHandAct(player == players[0], nextCard));
                 }
             } catch (ArrayIsEmptyException e) {
 
@@ -165,12 +187,11 @@ public class Game {
         if (turn % 2 == 0) {
             item = players[0].getDeck().getItem();
             if (item instanceof ManaItem)
-                item.use(players[0], this.table.getCell(0,0));
-        }
-        else {
+                item.use(players[0], this.table.getCell(0, 0));
+        } else {
             item = players[1].getDeck().getItem();
             if (item instanceof ManaItem)
-                item.use(players[1], this.table.getCell(0,0));
+                item.use(players[1], this.table.getCell(0, 0));
         }
     }
 
@@ -343,5 +364,9 @@ public class Game {
             Cell cell = table.getCell(2 * i, 4);
             cell.addCollectible(collectible);
         }
+    }
+
+    private boolean getIsForLeft(int i) {
+        return i == 0;
     }
 }

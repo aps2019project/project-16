@@ -36,7 +36,6 @@ public class Player {
                 ((Unit) card).setPlayer(this);
             }
         }
-        setHand(this.deck);
         deck.getHero().setPlayer(this);
     }
 
@@ -145,15 +144,21 @@ public class Player {
         this.mana = mana;
     }
 
-    public void setHand(Deck deck) {
+    public ArrayList<Card> setHand() {
+        ArrayList<Card> addedCards = new ArrayList<>();
+        Deck deck = this.deck;
         deck.shuffle();
         for (int i = 0; i < 3; i++) {
             try {
-                this.hand.addCard(deck.pop());
+                Card card = deck.pop();
+                this.hand.addCard(card);
+
+                addedCards.add(card);
             } catch (ArrayIsEmptyException e) {
 
             }
         }
+        return addedCards;
     }
 
     public void moveSelectedUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
