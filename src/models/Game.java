@@ -193,6 +193,10 @@ public class Game {
             if (item instanceof ManaItem)
                 item.use(players[1], this.table.getCell(0, 0));
         }
+
+        for (int i = 0; i < 2; i++) {
+            ClientSender.sendToViewer(new ManaAct(getIsForLeft(i), players[i].getMana()));
+        }
     }
 
     public void getRewardToWinner() {
@@ -361,6 +365,8 @@ public class Game {
             Item item = player.getDeck().getItem();
             if (item != null && !(item instanceof ManaItem)) {
                 item.use(player, table.getCell(0, 0));
+
+                ClientSender.sendToViewer(new UsableItemAct(player.getName(), item.getName()));
             }
         }
     }

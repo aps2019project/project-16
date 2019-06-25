@@ -234,6 +234,9 @@ public class Player {
             throw new SpellNotReadyException();
         this.mana -= hero.getSpellManaCost();
         hero.castSpell(cell);
+
+        ClientSender.sendToViewer(new SpecialPowerAct(cell.getRow(), cell.getColumn(), hero.getName()));
+
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
@@ -242,6 +245,9 @@ public class Player {
             throw new NoSelectedCollectibleException();
         }
         selectedCollectible.use(this, cell);
+
+        ClientSender.sendToViewer(new UseCollectibleAct(cell.getRow(), cell.getColumn(), selectedCollectible));
+
         this.getCollectibles().removeIf(a -> a.equals(selectedCollectible));
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
         selectedCollectible = null;
