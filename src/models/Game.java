@@ -277,10 +277,15 @@ public class Game {
             ArrayList<Unit> unitsToRemove = new ArrayList<>();
             for (Unit unit : player.getUnits()) {
                 if (unit.isDead()) {
-                    unit.getCurrentCell().setUnit(null);
+                    Cell currentCell = unit.getCurrentCell();
+
+                    currentCell.setUnit(null);
                     unit.dropFlags(unit.getCurrentCell(), unit);
-                    unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, unit.getCurrentCell());
+                    unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, currentCell);//todo: send to client
                     unitsToRemove.add(unit);
+
+                    ClientSender.sendToViewer(new DieUnitAct(currentCell.getRow(), currentCell.getColumn()
+                            , unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION));
                 }
             }
             for (Unit unit : unitsToRemove) {
