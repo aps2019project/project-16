@@ -23,6 +23,8 @@ public class InGameSceneMaker extends SceneMaker {
 
     @Override
     public Scene makeScene() throws Exception {
+        GameGraphicData.setOnLeft(true);//todo must be corrected
+
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 10, "battle");
 
@@ -34,14 +36,14 @@ public class InGameSceneMaker extends SceneMaker {
         HandHBox handHBox = new HandHBox();
 
         PlayerInfoPane[] infoPanes = new PlayerInfoPane[2];
-        infoPanes[0] = new PlayerInfoPane(false);
-        infoPanes[1] = new PlayerInfoPane(true);
+        infoPanes[0] = new PlayerInfoPane(true);
+        infoPanes[1] = new PlayerInfoPane(false);
 
         TilesPane tilesPane = new TilesPane();
 
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes, true);//todo must be corrected
+        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes);
 
         //todo: delete
         // just for testing
@@ -88,7 +90,7 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeManaAct() {
         int playerNumber = random.nextInt(2);
         int number = random.nextInt(8);
-        GameGraphicData.addGameAct(new ManaAct(true, number));
+//        GameGraphicData.addGameAct(new ManaAct(true, number));
         System.out.println("set mana to " + number + " for player " + playerNumber);
     }
 

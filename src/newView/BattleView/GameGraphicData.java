@@ -47,12 +47,11 @@ public class GameGraphicData {
     }
 
     public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton,
-                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes, boolean isOnLeft) {
+                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes) {
         handBox = handHBox;
         turnButton = endTurnButton;
         tilesPane = gameTiles;
         infoPanes = playerInfoPanes;
-        onLeft = isOnLeft;
     }
 
     public static GameGraphicListener getListener() {
@@ -73,6 +72,10 @@ public class GameGraphicData {
 
     public static HandHBox getHandBox() {
         return handBox;
+    }
+
+    public static void setOnLeft(boolean onLeft) {
+        GameGraphicData.onLeft = onLeft;
     }
 
     public static boolean isOnLeft() {

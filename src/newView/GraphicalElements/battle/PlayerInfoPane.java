@@ -14,9 +14,9 @@ public class PlayerInfoPane extends Pane {
     private SpecialPower specialPower;
     private HeroIcon heroIcon = new HeroIcon();
 
-    public PlayerInfoPane(boolean rightToLeft) throws FileNotFoundException {
-        specialPower = new SpecialPower(rightToLeft);
-        if (rightToLeft) {
+    public PlayerInfoPane(boolean isOnLeft) throws FileNotFoundException {
+        specialPower = new SpecialPower(isOnLeft);
+        if (!isOnLeft) {
             ScaleTool.relocate(this, WIDTH, 0);
             this.getTransforms().add(new Scale(-1, 1));
         }

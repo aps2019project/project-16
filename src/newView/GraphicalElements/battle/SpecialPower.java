@@ -16,19 +16,22 @@ public class SpecialPower extends Pane {
     private ImageView imageView = new ImageView(image);
     private boolean isSelected = false;
 
-    private boolean rightToLeft;
+    private boolean isOnLeft;
 
     public static final double SPECIAL_POWER_LENGTH = 100;
 
-    public SpecialPower(boolean rightToLeft) throws FileNotFoundException {
-        this.rightToLeft = rightToLeft;
+    public SpecialPower(boolean isOnLeft) throws FileNotFoundException {
+        this.isOnLeft = isOnLeft;
         ScaleTool.resizeImageView(imageView, SPECIAL_POWER_LENGTH, SPECIAL_POWER_LENGTH);
         this.getChildren().add(imageView);
-        setMouseEventsFor(imageView);
+
+        if (isOnLeft == GameGraphicData.isOnLeft()) {
+            setMouseEventsFor(imageView);
+        }
     }
 
-    public boolean isRightToLeft() {
-        return rightToLeft;
+    public boolean isOnLeft() {
+        return isOnLeft;
     }
 
     public void setImageView(ImageView imageView) {
@@ -37,7 +40,10 @@ public class SpecialPower extends Pane {
         this.imageView = imageView;
         ScaleTool.resizeImageView(imageView, SPECIAL_POWER_LENGTH, SPECIAL_POWER_LENGTH);
         this.getChildren().add(imageView);
-        setMouseEventsFor(imageView);
+
+        if (isOnLeft == GameGraphicData.isOnLeft()) {
+            setMouseEventsFor(imageView);
+        }
     }
 
     private void setMouseEventsFor(Node node) {
