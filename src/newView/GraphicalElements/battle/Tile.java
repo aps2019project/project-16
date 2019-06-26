@@ -126,8 +126,7 @@ public class Tile extends Pane {
                     }
                     break;
                 case HAND:
-                    //insert card
-                    //then unSelect
+                    GameGraphicData.sendInsertRequest(this);
                     break;
                 case COLLECTIBLE:
                     //cast collectible

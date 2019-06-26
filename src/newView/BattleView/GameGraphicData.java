@@ -11,8 +11,11 @@ public class GameGraphicData {
     private static EndTurnButton turnButton;
     private static TilesPane tilesPane;
     private static PlayerInfoPane[] infoPanes;
+
     private static SelectType selectType = null;
+
     private static Tile selectedTile;
+    private static HandElement selectedHandElement;
 
     private final static GameGraphicListener listener = new GameGraphicListener();
     private final static InGameController controller = new InGameController(new InGameView());
@@ -35,6 +38,11 @@ public class GameGraphicData {
 
     public static void setSelectedTile(SelectType type, Tile tile) {
         selectedTile = tile;
+        selectType = type;
+    }
+
+    public static void setSelectedHandElement(SelectType type, HandElement handElement) {
+        selectedHandElement = handElement;
         selectType = type;
     }
 
@@ -83,6 +91,11 @@ public class GameGraphicData {
         unSelectAll();
     }
 
+    public static void sendInsertRequest(Tile insertTile) {
+        controller.insertCard(selectedHandElement.getCardName(), insertTile.getRow(), insertTile.getColumn());
+        unSelectAll();
+    }
+
     public static void unSelectAll() {
         switch (selectType) {
             case UNIT:
@@ -96,7 +109,8 @@ public class GameGraphicData {
                 // TODO: 6/26/19
                 break;
             case HAND:
-                // TODO: 6/26/19
+                selectedHandElement.unSelect();
+                selectedHandElement = null;
                 break;
         }
         selectType = null;

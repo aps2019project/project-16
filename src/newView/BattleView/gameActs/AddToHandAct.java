@@ -51,7 +51,7 @@ public class AddToHandAct extends GameAct {
                 } else {
                     imageView = AnimationMaker.getIdleAnimation(cardName, cardType.getName());
                 }
-                handElement.setImageView(imageView, null, cardName, cardType);
+                handElement.setImageView(imageView, card, cardName, cardType);
             }
         }
     }
