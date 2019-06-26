@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import models.card.Unit;
 import newView.AnimationMaker;
+import newView.BattleView.GameGraphicData;
+import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 
 import java.io.FileInputStream;
@@ -103,11 +105,38 @@ public class Tile extends Pane {
             }
         });
         node.setOnMouseClicked(event -> {
-            isSelected = !isSelected;
             if (isSelected) {
+                GameGraphicData.unSelectAll();
+                return;
+            } else if (!GameGraphicData.isSomethingSelected()) {
+                if (this.unit == null) {
+                    return;
+                }
+                isSelected = true;
+                GameGraphicData.setSelectedTile(SelectType.UNIT, this);
                 polygon.setOpacity(SELECTED_OPACITY);
-            } else {
-                polygon.setOpacity(HOVER_OPACITY);
+                return;
+            }
+            switch (GameGraphicData.getSelectType()) {
+                case UNIT:
+                    if (this.unit == null) {
+                        GameGraphicData.sendMoveRequest(this);
+                    } else {
+                        GameGraphicData.sendAttackRequest(this);
+                    }
+                    break;
+                case HAND:
+                    //insert card
+                    //then unSelect
+                    break;
+                case COLLECTIBLE:
+                    //cast collectible
+                    //then unSelect
+                    break;
+                case SPECIAL_POWER:
+                    //cast special power
+                    //then unSelect
+                    break;
             }
         });
     }
@@ -182,5 +211,10 @@ public class Tile extends Pane {
         timeline.play();
 
         timeline.setOnFinished(event -> this.getChildren().remove(itemView));
+    }
+
+    public void unSelect() {
+        isSelected = false;
+        polygon.setOpacity(NORMAL_OPACITY);
     }
 }
