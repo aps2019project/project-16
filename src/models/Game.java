@@ -193,10 +193,6 @@ public class Game {
             if (item instanceof ManaItem)
                 item.use(players[1], this.table.getCell(0, 0));
         }
-
-        for (int i = 0; i < 2; i++) {
-            ClientSender.sendToViewer(new ManaAct(getIsForLeft(i), players[i].getMana()));
-        }
     }
 
     public void getRewardToWinner() {

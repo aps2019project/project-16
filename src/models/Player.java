@@ -142,6 +142,7 @@ public class Player {
     /////////////////////////////////////////////////////////////////////////////////////////////
     public void setMana(int mana) {
         this.mana = mana;
+        ClientSender.sendToViewer(new ManaAct(isOnLeft, getMana()));
     }
 
     public ArrayList<Card> setHand() {
@@ -186,7 +187,7 @@ public class Player {
             throw new NotEnoughManaException();
         if (cell.hasUnit())
             throw new CellIsNotFreeException();
-        this.mana -= unit.getManaCost();
+        this.setMana(this.getMana() - unit.getManaCost());
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         cell.setUnit(unit);
@@ -208,7 +209,7 @@ public class Player {
             throw new InvalidTargetException();
         if (spellCard.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
-        this.mana -= spellCard.getManaCost();
+        this.setMana(this.getMana() - spellCard.getManaCost());
         spellCard.cast(this, cell);
         spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
         graveYard.addCard(spellCard);
@@ -232,7 +233,7 @@ public class Player {
             throw new NotEnoughManaException();
         if (!hero.isSpellReady())
             throw new SpellNotReadyException();
-        this.mana -= hero.getSpellManaCost();
+        this.setMana(this.getMana() - hero.getSpellManaCost());
         hero.castSpell(cell);
 
         ClientSender.sendToViewer(new SpecialPowerAct(cell.getRow(), cell.getColumn(), hero.getName()));
