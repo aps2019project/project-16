@@ -1,10 +1,9 @@
 package newView.BattleView;
 
+import controllers.InGameController;
 import newView.BattleView.gameActs.GameAct;
-import newView.GraphicalElements.battle.EndTurnButton;
-import newView.GraphicalElements.battle.HandHBox;
-import newView.GraphicalElements.battle.PlayerInfoPane;
-import newView.GraphicalElements.battle.TilesPane;
+import newView.GraphicalElements.battle.*;
+import view.views.InGameView;
 
 public class GameGraphicData {
     private static boolean onLeft;
@@ -12,11 +11,31 @@ public class GameGraphicData {
     private static EndTurnButton turnButton;
     private static TilesPane tilesPane;
     private static PlayerInfoPane[] infoPanes;
+    private static SelectType selectType = null;
+    private static Tile selectedTile;
 
     private final static GameGraphicListener listener = new GameGraphicListener();
+    private final static InGameController controller = new InGameController(new InGameView());
 
     static {
         listener.start();
+    }
+
+    public static boolean isSomethingSelected() {
+        return selectType != null;
+    }
+
+    public static SelectType getSelectType() {
+        return selectType;
+    }
+
+    public static void setSelectType(SelectType selectType) {
+        GameGraphicData.selectType = selectType;
+    }
+
+    public static void setSelectedTile(SelectType type, Tile tile) {
+        selectedTile = tile;
+        selectType = type;
     }
 
     public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton,
@@ -51,4 +70,39 @@ public class GameGraphicData {
     public static boolean isOnLeft() {
         return onLeft;
     }
+
+    public static void sendMoveRequest(Tile destinationTile) {
+        controller.selectCard(selectedTile.getUnit().getName(), selectedTile.getUnit().getGameCardID());
+        controller.moveToCell(destinationTile.getRow(), destinationTile.getColumn());
+        unSelectAll();
+    }
+
+    public static void sendAttackRequest(Tile opponentTile) {
+        controller.selectCard(selectedTile.getUnit().getName(), selectedTile.getUnit().getGameCardID());
+        controller.attack(opponentTile.getUnit().getName(), opponentTile.getUnit().getGameCardID());
+        unSelectAll();
+    }
+
+    public static void unSelectAll() {
+        switch (selectType) {
+            case UNIT:
+                selectedTile.unSelect();
+                selectedTile = null;
+                break;
+            case SPECIAL_POWER:
+                // TODO: 6/26/19
+                break;
+            case COLLECTIBLE:
+                // TODO: 6/26/19
+                break;
+            case HAND:
+                // TODO: 6/26/19
+                break;
+        }
+        selectType = null;
+    }
+
+    //hand select
+    //unit select (attack + move)
+    //collectible select
 }
