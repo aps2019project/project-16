@@ -50,8 +50,8 @@ public class SpecialPowerAct extends GameAct {
 
         KeyValue keyValue = new KeyValue(text.scaleXProperty(), 8);
         KeyValue keyValue1 = new KeyValue(text.scaleYProperty(), 8);
-        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.15)
-                , true, 2
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.3)
+                , false, 1
                 ,keyValue, keyValue1);
         timeline.play();
 

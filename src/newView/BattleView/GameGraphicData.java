@@ -96,6 +96,11 @@ public class GameGraphicData {
         unSelectAll();
     }
 
+    public static void sendCastSpecialPowerRequest(Tile castTile) {
+        controller.useSpecialPower(castTile.getRow(), castTile.getColumn());
+        unSelectAll();
+    }
+
     public static void unSelectAll() {
         switch (selectType) {
             case UNIT:
@@ -103,7 +108,9 @@ public class GameGraphicData {
                 selectedTile = null;
                 break;
             case SPECIAL_POWER:
-                // TODO: 6/26/19
+                for (PlayerInfoPane infoPane : infoPanes) {
+                    infoPane.getSpecialPower().unSelect();
+                }
                 break;
             case COLLECTIBLE:
                 // TODO: 6/26/19

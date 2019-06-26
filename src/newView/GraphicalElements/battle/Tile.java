@@ -133,8 +133,7 @@ public class Tile extends Pane {
                     //then unSelect
                     break;
                 case SPECIAL_POWER:
-                    //cast special power
-                    //then unSelect
+                    GameGraphicData.sendCastSpecialPowerRequest(this);
                     break;
             }
         });
@@ -163,7 +162,7 @@ public class Tile extends Pane {
         KeyValue keyValue2 = new KeyValue(spellView.rotateProperty(), spellView.getRotate() + 5);
         KeyValue keyValue3 = new KeyValue(spellView.scaleXProperty(), spellView.getScaleX() * 1.1);
         KeyValue keyValue4 = new KeyValue(spellView.scaleYProperty(), spellView.getScaleY() * 1.1);
-        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.06), true, 10
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.15), true, 4
                 , keyValue, keyValue1, keyValue2, keyValue3, keyValue4);
         timeline.play();
         timeline.setOnFinished(event -> this.getChildren().remove(spellView));
