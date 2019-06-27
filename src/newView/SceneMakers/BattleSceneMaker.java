@@ -29,35 +29,35 @@ public class BattleSceneMaker extends SceneMaker {
         back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
 
-        ImageView singlePlayer = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
-        ImageView multiPlayer = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
+        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
+        ImageView customMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
 
-        ScaleTool.resizeImageView(multiPlayer, 100, 200);
-        ScaleTool.resizeImageView(singlePlayer, 100, 203);
+        ScaleTool.resizeImageView(customMode, 100, 200);
+        ScaleTool.resizeImageView(storyMode, 100, 203);
 
-        ScaleTool.homothety(multiPlayer, 3);
-        ScaleTool.homothety(singlePlayer, 3);
+        ScaleTool.homothety(customMode, 3);
+        ScaleTool.homothety(storyMode, 3);
 
-        ScaleTool.relocate(multiPlayer, 300, 200);
-        ScaleTool.relocate(singlePlayer, 800, 200);
+        ScaleTool.relocate(customMode, 300, 200);
+        ScaleTool.relocate(storyMode, 800, 200);
 
-        singlePlayer.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage()).set());//todo correct it
-        multiPlayer.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage()).set());
+        storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
+        customMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
 
 
-        Text singlePlayerText = new Text();
-        singlePlayerText.setText("STORY MODE");
-        singlePlayerText.setFill(Color.WHITE);
-        singlePlayerText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(singlePlayerText, 250, 520);
+        Text storyModeText = new Text();
+        storyModeText.setText("STORY MODE");
+        storyModeText.setFill(Color.WHITE);
+        storyModeText.setStyle("-fx-font-size: 30");
+        ScaleTool.relocate(storyModeText, 250, 520);
 
-        Text multiPlayerText = new Text();
-        multiPlayerText.setText("CUSTOM GAME");
-        multiPlayerText.setFill(Color.WHITE);
-        multiPlayerText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(multiPlayerText, 750, 520);
+        Text customModeText = new Text();
+        customModeText.setText("CUSTOM GAME");
+        customModeText.setFill(Color.WHITE);
+        customModeText.setStyle("-fx-font-size: 30");
+        ScaleTool.relocate(customModeText, 750, 520);
 
-        pane.getChildren().addAll(singlePlayer, multiPlayer, singlePlayerText, multiPlayerText, back);
+        pane.getChildren().addAll(storyMode, customMode, storyModeText, customModeText, back);
 
         return new MyScene(pane);
     }
