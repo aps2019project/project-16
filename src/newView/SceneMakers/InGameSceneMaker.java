@@ -47,11 +47,6 @@ public class InGameSceneMaker extends SceneMaker {
 
         GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes, collectiblesHBox);
 
-        //todo: delete
-        // just for testing
-        testForActions(endTurnButton);
-        //end of test
-
         borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1], collectiblesHBox);
         borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);

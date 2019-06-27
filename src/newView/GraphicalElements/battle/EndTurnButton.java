@@ -1,7 +1,9 @@
 package newView.GraphicalElements.battle;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.effects.FadeEffect;
 
@@ -30,15 +32,22 @@ public class EndTurnButton extends ImageView {
         ScaleTool.resizeImageView(this, BUTTON_WIDTH, BUTTON_HEIGHT);
         ScaleTool.relocate(this, WIDTH * 0.75, HEIGHT * 0.8);
 
-        setOnMouseEntered(event -> {
+        setMouseEventsFor(this);
+    }
+
+    private void setMouseEventsFor(Node node) {
+        node.setOnMouseEntered(event -> {
             if (isEnable) {
                 setImage(hoverImage);
             }
         });
-        setOnMouseExited(event -> {
+        node.setOnMouseExited(event -> {
             if (isEnable) {
                 setImage(normalImage);
             }
+        });
+        node.setOnMouseClicked(event -> {
+            GameGraphicData.sendChangeTurnRequest();
         });
     }
 
@@ -53,6 +62,14 @@ public class EndTurnButton extends ImageView {
         if (isEnable) {
             isEnable = false;
             new FadeEffect(1000, this, disabledImage);
+        }
+    }
+
+    public void changeState() {
+        if (isEnable) {
+            setDisable();
+        } else {
+            setEnable();
         }
     }
 }

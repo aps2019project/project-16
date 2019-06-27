@@ -257,7 +257,7 @@ public class InGameController implements InGameContract.Controller {
         } catch (GameIsEndException E) {
             Notify.logMessage("Game is finished!!");
             Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
-            view.goToPrevMenu();
+//            view.goToPrevMenu();
         }
     }
 

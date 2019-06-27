@@ -85,6 +85,10 @@ public class GameGraphicData {
         return handBox;
     }
 
+    public static EndTurnButton getTurnButton() {
+        return turnButton;
+    }
+
     public static CollectiblesHBox getCollectiblesHBox() {
         return collectiblesHBox;
     }
@@ -129,6 +133,10 @@ public class GameGraphicData {
         controller.selectCollectable(selectedCollectibleElement.getItem().getCollectibleID());
         controller.useSelectedCollectable(castTile.getRow(), castTile.getColumn());
         unSelectAll();
+    }
+
+    public static void sendChangeTurnRequest() {
+        controller.endTurn();
     }
 
     public static void unSelectAll() {

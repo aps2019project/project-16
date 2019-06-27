@@ -125,10 +125,17 @@ public class Game {
     }
 
     public void changeTurn() throws GameIsEndException {
+
+        ClientSender.sendToViewer(new TurnChangeAct());
+
         endTurn();
         startTurn();
         if (currentPlayer instanceof AIPlayer) {
+
             ((AIPlayer) currentPlayer).doActsInAITurn(this);
+
+            ClientSender.sendToViewer(new TurnChangeAct());
+
             endTurn();
             startTurn();
         }

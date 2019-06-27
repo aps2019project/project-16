@@ -2,6 +2,7 @@ package newView.GraphicalElements.battle;
 
 import javafx.scene.layout.HBox;
 import newView.GraphicalElements.ScaleTool;
+import newView.Type;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class HandHBox extends HBox {
     public HandElement getHandElement(String cardName, String type) {
         for (HandElement handElement : handElements) {
             String elementCardName = handElement.getCardName();
-            String elementType = handElement.getType().getName();
-            if (elementType != null && elementType.equals(type)) {
+            Type elementType = handElement.getType();
+            if (elementType != null && elementType.getName().equals(type)) {
                 if (elementCardName != null && elementCardName.equals(cardName)) {
                     return handElement;
                 }
