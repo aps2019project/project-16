@@ -18,7 +18,7 @@ public class CustomGameView implements CustomGameContract.View {
 
     @Override
     public void goToInGameMenu() {
-        MenuHandler.goToSubMenu(IN_GAME_MENU);
+        //MenuHandler.goToSubMenu(IN_GAME_MENU);
     }
 
     @Override

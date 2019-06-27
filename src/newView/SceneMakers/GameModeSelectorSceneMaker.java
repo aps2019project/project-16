@@ -1,8 +1,10 @@
 package newView.SceneMakers;
 
+import controllers.CustomGameController;
 import controllers.StoryController;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -12,14 +14,18 @@ import javafx.stage.Stage;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
+import view.views.CustomGameView;
 import view.views.StoryView;
 
 import java.io.FileInputStream;
 
-
 public class GameModeSelectorSceneMaker extends SceneMaker {
-    public GameModeSelectorSceneMaker(Stage primaryStage) {
+    private boolean customGame;
+    private TextField enterDeckName;
+
+    public GameModeSelectorSceneMaker(Stage primaryStage, boolean customGame) {
         super(primaryStage);
+        this.customGame = customGame;
     }
 
     @Override
@@ -61,36 +67,53 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         holdFlagText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(holdFlagText, 795, 570);
 
-        TextField enterDeckName = new TextField();
-        enterDeckName.setPromptText("ENTER YOUR DECK NAME");
+        enterDeckName = new TextField();
+        enterDeckName.setPromptText("OPP DECK NAME");
         enterDeckName.setStyle("-fx-prompt-text-fill: gray");
         ScaleTool.relocate(enterDeckName, 530, 50);
         enterDeckName.setPrefColumnCount(15);
-        //todo by  mostafa
-        
-        //todo just for test
-        todoJustForTest(killingHero, collectFlag, holdFlag);
+
+        setActions(killingHero, collectFlag, holdFlag);
 
         pane.getChildren().addAll(back, killingHero, collectFlag, holdFlag);
         pane.getChildren().addAll(killingHeroText, collectFlagText, holdFlagText);
-        if (BattleSceneMaker.getCustomGameBooolean())
+        if (customGame)
             pane.getChildren().add(enterDeckName);
 
         return new MyScene(pane);
     }
 
-    private void todoJustForTest(ImageView killingHero, ImageView collectFlag, ImageView holdFlag) {
-        killingHero.setOnMouseClicked(event -> {
-            new StoryController(new StoryView()).loadLevel(1);
-            new InGameSceneMaker(getPrimaryStage()).set();
-        });
-        holdFlag.setOnMouseClicked(event -> {
-            new StoryController(new StoryView()).loadLevel(2);
-            new InGameSceneMaker(getPrimaryStage()).set();
-        });
-        collectFlag.setOnMouseClicked(event -> {
-            new StoryController(new StoryView()).loadLevel(3);
-            new InGameSceneMaker(getPrimaryStage()).set();
-        });
+    private void setActions(ImageView killingHero, ImageView collectFlag, ImageView holdFlag) {
+        if (!customGame) {
+            killingHero.setOnMouseClicked(event -> {
+                new StoryController(new StoryView()).loadLevel(1);
+                new InGameSceneMaker(getPrimaryStage()).set();
+            });
+            holdFlag.setOnMouseClicked(event -> {
+                new StoryController(new StoryView()).loadLevel(2);
+                new InGameSceneMaker(getPrimaryStage()).set();
+            });
+            collectFlag.setOnMouseClicked(event -> {
+                new StoryController(new StoryView()).loadLevel(3);
+                new InGameSceneMaker(getPrimaryStage()).set();
+            });
+        } else {
+            killingHero.setOnMouseClicked(event -> {
+                new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 1, 0);
+                new InGameSceneMaker(getPrimaryStage()).set();
+            });
+            holdFlag.setOnMouseClicked(event -> {
+                new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 2, 1);
+                new InGameSceneMaker(getPrimaryStage()).set();
+            });
+            collectFlag.setOnMouseClicked(event -> {
+                TextInputDialog numberOfFlags = new TextInputDialog();
+                numberOfFlags.setHeaderText("Enter number of flags");
+                numberOfFlags.setContentText("flags:");
+                int flags = Integer.parseInt(numberOfFlags.showAndWait().get());
+                new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 3, flags);
+                new InGameSceneMaker(getPrimaryStage()).set();
+            });
+        }
     }
 }

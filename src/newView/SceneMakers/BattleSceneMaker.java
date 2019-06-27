@@ -18,8 +18,6 @@ public class BattleSceneMaker extends SceneMaker {
         super(primaryStage);
     }
 
-    static boolean customGameBoolean = false;
-
     @Override
     public Scene makeScene() throws Exception {
         Pane pane = new Pane();
@@ -43,34 +41,24 @@ public class BattleSceneMaker extends SceneMaker {
         ScaleTool.relocate(customGame, 300, 200);
         ScaleTool.relocate(storyMode, 800, 200);
 
-        storyMode.setOnMouseClicked(event -> {
-            new GameModeSelectorSceneMaker(getPrimaryStage()).set();
-            customGameBoolean = false;
-        });//todo correct it
-        customGame.setOnMouseClicked(event -> {
-            new GameModeSelectorSceneMaker(getPrimaryStage()).set();
-            customGameBoolean = true;
-        });
+        customMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
+        storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
 
 
-        Text singlePlayerText = new Text();
-        singlePlayerText.setText("STORY MODE");
-        singlePlayerText.setFill(Color.WHITE);
-        singlePlayerText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(singlePlayerText, 250, 520);
+        Text storyModeText = new Text();
+        storyModeText.setText("STORY MODE");
+        storyModeText.setFill(Color.WHITE);
+        storyModeText.setStyle("-fx-font-size: 30");
+        ScaleTool.relocate(storyModeText, 250, 520);
 
-        Text multiPlayerText = new Text();
-        multiPlayerText.setText("CUSTOM GAME");
-        multiPlayerText.setFill(Color.WHITE);
-        multiPlayerText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(multiPlayerText, 750, 520);
+        Text customModeText = new Text();
+        customModeText.setText("CUSTOM GAME");
+        customModeText.setFill(Color.WHITE);
+        customModeText.setStyle("-fx-font-size: 30");
+        ScaleTool.relocate(customModeText, 750, 520);
 
         pane.getChildren().addAll(storyMode, customGame, singlePlayerText, multiPlayerText, back);
 
         return new MyScene(pane);
-    }
-
-    public static boolean getCustomGameBooolean() {
-        return customGameBoolean;
     }
 }

@@ -28,6 +28,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class LoginSceneMaker extends SceneMaker implements AccountContract.View {
+    private AccountContract.Controller controller = new AccountController(this);
 
     public LoginSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -35,6 +36,8 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
 
     @Override
     public Scene makeScene() throws Exception {
+        controller.loadAccounts();
+
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 1, "login");
 
@@ -124,7 +127,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
 
     @Override
     public void setController(AccountContract.Controller controller) {
-
+        this.controller = controller;
     }
 
     @Override
