@@ -2,6 +2,7 @@ package newView.BattleView.gameActs;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
@@ -10,17 +11,25 @@ import newView.GraphicalElements.battle.Tile;
 import newView.Type;
 
 public class PutUnitAct extends GameAct {
-    private String cardName = "piran";//todo must be from CARD
-    private Type type = Type.MINION;//todo must be from CARD
+    private String cardName;
+    private Type type;
     private int row;
     private int column;
     private boolean isForLeft;
-    private Unit unit;//todo must be in constructor
+    private Unit unit;
 
-    public PutUnitAct(int row, int column, boolean isForLeft) {
+    public PutUnitAct(int row, int column, boolean isForLeft, Unit unit) {
         this.row = row;
         this.column = column;
         this.isForLeft = isForLeft;
+        this.unit = unit;
+
+        if (unit instanceof Hero) {
+            type = Type.HERO;
+        } else {
+            type = Type.MINION;
+        }
+        cardName = unit.getName();
     }
 
     @Override
@@ -35,7 +44,7 @@ public class PutUnitAct extends GameAct {
     private void makeAnimation() throws Exception {
         ImageView idleView = AnimationMaker.getBreathingAnimation(cardName, type.getName());
 
-        if (isForLeft == GameGraphicData.isOnLeft()) {
+        if (type != Type.HERO && isForLeft == GameGraphicData.isOnLeft()) {
             HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
             handElement.setImageView(null, null, null, null);
         }

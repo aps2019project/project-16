@@ -8,6 +8,9 @@ import exception.ArrayIsEmptyException;
 import exception.GameIsEndException;
 import models.item.Item;
 import models.item.ManaItem;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.*;
+import newView.Type;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,6 +36,8 @@ public class Game {
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
         this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
+        initHands();
+        initIsOnLeft();
         this.players[0].setTable(table);
         this.players[1].setTable(table);
         this.accounts[0] = firstAccount;
@@ -40,9 +45,15 @@ public class Game {
         this.numberOfFlags = numberOfFlags;
         if (gameMode != GameMode.KILLING_HERO)
             generateFlags(numberOfFlags);
+        generateCollectibles();
         initHeroPlaces();
         castUsableItems();
-        generateCollectibles();
+    }
+
+    private void initIsOnLeft() {
+        for (int i = 0; i < 2; i++) {
+            players[i].setOnLeft(getIsForLeft(i));
+        }
     }
 
     public int getNumberOfFlags() {
@@ -86,6 +97,15 @@ public class Game {
         return gameMode;
     }
 
+    private void initHands() {
+        for (int i = 0; i < 2; i++) {
+            ArrayList<Card> addedCards = players[i].setHand();
+            for (Card card : addedCards) {
+                ClientSender.sendToViewer(new AddToHandAct(getIsForLeft(i), card));
+            }
+        }
+    }
+
     public void doUnitsBuffs() {
         for (int row = 0; row < Table.HEIGHT; row++) {
             for (int column = 0; column < Table.WIDTH; column++) {
@@ -105,10 +125,17 @@ public class Game {
     }
 
     public void changeTurn() throws GameIsEndException {
+
+        ClientSender.sendToViewer(new TurnChangeAct());
+
         endTurn();
         startTurn();
         if (currentPlayer instanceof AIPlayer) {
+
             ((AIPlayer) currentPlayer).doActsInAITurn(this);
+
+            ClientSender.sendToViewer(new TurnChangeAct());
+
             endTurn();
             startTurn();
         }
@@ -138,6 +165,8 @@ public class Game {
                 if (!player.getHand().isFull()) {
                     Card nextCard = player.getDeck().pop();
                     player.getHand().addCard(nextCard);
+
+                    ClientSender.sendToViewer(new AddToHandAct(player == players[0], nextCard));
                 }
             } catch (ArrayIsEmptyException e) {
 
@@ -165,12 +194,11 @@ public class Game {
         if (turn % 2 == 0) {
             item = players[0].getDeck().getItem();
             if (item instanceof ManaItem)
-                item.use(players[0], this.table.getCell(0,0));
-        }
-        else {
+                item.use(players[0], this.table.getCell(0, 0));
+        } else {
             item = players[1].getDeck().getItem();
             if (item instanceof ManaItem)
-                item.use(players[1], this.table.getCell(0,0));
+                item.use(players[1], this.table.getCell(0, 0));
         }
     }
 
@@ -256,10 +284,15 @@ public class Game {
             ArrayList<Unit> unitsToRemove = new ArrayList<>();
             for (Unit unit : player.getUnits()) {
                 if (unit.isDead()) {
-                    unit.getCurrentCell().setUnit(null);
+                    Cell currentCell = unit.getCurrentCell();
+
+                    currentCell.setUnit(null);
                     unit.dropFlags(unit.getCurrentCell(), unit);
-                    unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, unit.getCurrentCell());
+                    unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, currentCell);//todo: send to client
                     unitsToRemove.add(unit);
+
+                    ClientSender.sendToViewer(new DieUnitAct(currentCell.getRow(), currentCell.getColumn()
+                            , unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION));
                 }
             }
             for (Unit unit : unitsToRemove) {
@@ -321,6 +354,9 @@ public class Game {
             hero.setCurrentCell(cell);
             hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
             cell.setUnit(hero);
+
+            ClientSender.sendToViewer(new PutUnitAct(2, 8 * i, getIsForLeft(i), hero));
+
             players[i].getUnits().add(hero);
             players[i].pickUpFlags(cell, hero);
             players[i].pickUpCollectibles(cell);
@@ -332,6 +368,8 @@ public class Game {
             Item item = player.getDeck().getItem();
             if (item != null && !(item instanceof ManaItem)) {
                 item.use(player, table.getCell(0, 0));
+
+                ClientSender.sendToViewer(new UsableItemAct(player.getName(), item.getName()));
             }
         }
     }
@@ -343,5 +381,9 @@ public class Game {
             Cell cell = table.getCell(2 * i, 4);
             cell.addCollectible(collectible);
         }
+    }
+
+    private boolean getIsForLeft(int i) {
+        return i == 0;
     }
 }

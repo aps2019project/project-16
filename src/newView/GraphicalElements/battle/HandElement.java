@@ -9,6 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.card.*;
 import newView.AnimationMaker;
+import newView.BattleView.GameGraphicData;
+import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
 
@@ -63,11 +65,15 @@ public class HandElement extends Pane {
             }
         });
         node.setOnMouseClicked(event -> {
-            isSelected = !isSelected;
             if (isSelected) {
+                GameGraphicData.unSelectAll();
+            } else if (!GameGraphicData.isSomethingSelected()) {
+                if (this.card == null) {
+                    return;
+                }
+                isSelected = true;
+                GameGraphicData.setSelectedHandElement(SelectType.HAND, this);
                 bgView.setImage(selectedImage);
-            } else {
-                bgView.setImage(hoverImage);
             }
         });
     }
@@ -105,5 +111,10 @@ public class HandElement extends Pane {
 
     public Type getType() {
         return type;
+    }
+
+    public void unSelect() {
+        isSelected = false;
+        bgView.setImage(normalImage);
     }
 }

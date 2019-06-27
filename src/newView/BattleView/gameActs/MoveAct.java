@@ -4,6 +4,8 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import models.Cell;
+import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
@@ -13,18 +15,21 @@ import newView.Type;
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class MoveAct extends GameAct {
-    private String unitName = "afsane";//todo must be from tile
-    private Type type = Type.HERO;//todo must be from tile
+    private String unitName;
+    private Type type;
     private int startRow;
     private int startColumn;
     private int destinationRow;
     private int destinationColumn;
 
-    public MoveAct(int startRow, int startColumn, int destinationRow, int destinationColumn) {
-        this.startRow = startRow;
-        this.startColumn = startColumn;
-        this.destinationRow = destinationRow;
-        this.destinationColumn = destinationColumn;
+    public MoveAct(Cell startCell, Cell destinationCell, Unit unit) {
+        startRow = startCell.getRow();
+        startColumn = startCell.getColumn();
+        destinationRow = destinationCell.getRow();
+        destinationColumn = destinationCell.getColumn();
+
+        unitName = unit.getName();
+        type = unit instanceof Hero ? Type.HERO : Type.MINION;
     }
 
     @Override

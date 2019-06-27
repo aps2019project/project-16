@@ -4,7 +4,8 @@ public enum Type {
     HERO("hero"),
     MINION("minion"),
     SPELL("spell"),
-    ITEM("item");
+    ITEM("item"),
+    SPECIAL_POWER("specialPower");
 
     private String name;
 

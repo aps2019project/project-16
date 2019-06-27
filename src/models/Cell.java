@@ -4,6 +4,8 @@ import models.card.Unit;
 import models.item.Item;
 import models.magic.Buff;
 import models.magic.Buffable;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.AddCollectibleAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,8 @@ public class Cell implements Buffable {
 
     public void addCollectible(Item collectible) {
         collectibles.add(collectible);
+
+        ClientSender.sendToViewer(new AddCollectibleAct(row, column, collectible.getName()));
     }
 
     public int getRow() {

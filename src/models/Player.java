@@ -3,6 +3,8 @@ package models;
 import models.card.*;
 import exception.*;
 import models.item.Item;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,6 +22,12 @@ public class Player {
     private Account account;
     private Table table;
 
+    private boolean isOnLeft;
+
+    public void setOnLeft(boolean onLeft) {
+        isOnLeft = onLeft;
+    }
+
     public Player(Deck deck, Account account) {
         this.account = account;
         this.deck = deck;
@@ -28,7 +36,6 @@ public class Player {
                 ((Unit) card).setPlayer(this);
             }
         }
-        setHand(this.deck);
         deck.getHero().setPlayer(this);
     }
 
@@ -58,6 +65,10 @@ public class Player {
                 return (Hero) unit;
         }
         return null;
+    }
+
+    public String getName() {
+        return account.getName();
     }
 
     public Hand getHand() {
@@ -131,17 +142,24 @@ public class Player {
     /////////////////////////////////////////////////////////////////////////////////////////////
     public void setMana(int mana) {
         this.mana = mana;
+        ClientSender.sendToViewer(new ManaAct(isOnLeft, getMana()));
     }
 
-    public void setHand(Deck deck) {
+    public ArrayList<Card> setHand() {
+        ArrayList<Card> addedCards = new ArrayList<>();
+        Deck deck = this.deck;
         deck.shuffle();
         for (int i = 0; i < 3; i++) {
             try {
-                this.hand.addCard(deck.pop());
+                Card card = deck.pop();
+                this.hand.addCard(card);
+
+                addedCards.add(card);
             } catch (ArrayIsEmptyException e) {
 
             }
         }
+        return addedCards;
     }
 
     public void moveSelectedUnit(Cell cell) throws UnitMovedThisTurnException, UnitStunnedException, CellIsNotFreeException,
@@ -169,12 +187,14 @@ public class Player {
             throw new NotEnoughManaException();
         if (cell.hasUnit())
             throw new CellIsNotFreeException();
-        this.mana -= unit.getManaCost();
+        this.setMana(this.getMana() - unit.getManaCost());
         unit.setCurrentCell(cell);
         unit.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.account.getName(), unit.getName()));
         cell.setUnit(unit);
         this.hand.removeCard(unit);
         this.units.add(unit);
+
+        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit));
 
         pickUpFlags(cell, unit);
         pickUpCollectibles(cell);
@@ -189,10 +209,13 @@ public class Player {
             throw new InvalidTargetException();
         if (spellCard.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
-        this.mana -= spellCard.getManaCost();
+        this.setMana(this.getMana() - spellCard.getManaCost());
         spellCard.cast(this, cell);
         spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
         graveYard.addCard(spellCard);
+
+        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard));
+
         this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
@@ -210,8 +233,11 @@ public class Player {
             throw new NotEnoughManaException();
         if (!hero.isSpellReady())
             throw new SpellNotReadyException();
-        this.mana -= hero.getSpellManaCost();
+        this.setMana(this.getMana() - hero.getSpellManaCost());
         hero.castSpell(cell);
+
+        ClientSender.sendToViewer(new SpecialPowerAct(cell.getRow(), cell.getColumn(), hero.getName()));
+
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
@@ -220,6 +246,10 @@ public class Player {
             throw new NoSelectedCollectibleException();
         }
         selectedCollectible.use(this, cell);
+
+        ClientSender.sendToViewer(
+                new UseCollectibleAct(cell.getRow(), cell.getColumn(), selectedCollectible, isOnLeft));
+
         this.getCollectibles().removeIf(a -> a.equals(selectedCollectible));
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
         selectedCollectible = null;
@@ -250,6 +280,8 @@ public class Player {
             for (Flag flag : cell.getFlags()) {
                 unit.addFlag(flag);
                 flag.setOwnerUnit(unit);
+
+                ClientSender.sendToViewer(new PickFlagAct(cell.getRow(), cell.getColumn()));
             }
             cell.removeFlag();
         }
@@ -257,6 +289,11 @@ public class Player {
 
     public void pickUpCollectibles(Cell cell) {
         if (cell.getCollectibles().size() > 0) {
+
+            ClientSender.sendToViewer(new PickUpCollectibleAct(
+                    cell.getRow(), cell.getColumn(), isOnLeft, new ArrayList<>(cell.getCollectibles())
+            ));
+
             this.collectibles.addAll(cell.getCollectibles());
             cell.removeCollectibles();
         }

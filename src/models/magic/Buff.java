@@ -233,7 +233,9 @@ public class Buff {
     }
 
     public boolean hasPoison() {
-        return poison > 0;
+        if (isActive())
+            return poison > 0;
+        return false;
     }
 
     public Buff copy() {

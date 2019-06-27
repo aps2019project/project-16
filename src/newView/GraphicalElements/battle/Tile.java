@@ -3,17 +3,38 @@ package newView.GraphicalElements.battle;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import models.card.Unit;
 import newView.AnimationMaker;
+import newView.BattleView.GameGraphicData;
+import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class Tile extends Pane {
+    private static Image flagImage;
+
+    static {
+        try {
+            flagImage = new Image(new FileInputStream("src/newView/resources/tiles/flag.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ImageView flagView = new ImageView(flagImage);
+    private static final double FLAG_SIZE = 40;
+
+    private ImageView itemView;
+
     private int row;
     private int column;
 
@@ -42,7 +63,7 @@ public class Tile extends Pane {
     public static final double SELECTED_OPACITY = 0.6;
     public static final double TILE_LENGTH = 80;
 
-    public Tile(int row, int column) {
+    public Tile(int row, int column) throws FileNotFoundException {
         this.row = row;
         this.column = column;
         ScaleTool.relocateTile(this);
@@ -84,11 +105,35 @@ public class Tile extends Pane {
             }
         });
         node.setOnMouseClicked(event -> {
-            isSelected = !isSelected;
             if (isSelected) {
+                GameGraphicData.unSelectAll();
+                return;
+            } else if (!GameGraphicData.isSomethingSelected()) {
+                if (this.unit == null) {
+                    return;
+                }
+                isSelected = true;
+                GameGraphicData.setSelectedTile(SelectType.UNIT, this);
                 polygon.setOpacity(SELECTED_OPACITY);
-            } else {
-                polygon.setOpacity(HOVER_OPACITY);
+                return;
+            }
+            switch (GameGraphicData.getSelectType()) {
+                case UNIT:
+                    if (this.unit == null) {
+                        GameGraphicData.sendMoveRequest(this);
+                    } else {
+                        GameGraphicData.sendAttackRequest(this);
+                    }
+                    break;
+                case HAND:
+                    GameGraphicData.sendInsertRequest(this);
+                    break;
+                case COLLECTIBLE:
+                    GameGraphicData.sendCastCollectibleRequest(this);
+                    break;
+                case SPECIAL_POWER:
+                    GameGraphicData.sendCastSpecialPowerRequest(this);
+                    break;
             }
         });
     }
@@ -97,9 +142,80 @@ public class Tile extends Pane {
         KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
         KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
         Timeline timeline = AnimationMaker.makeTimeline(
-                Duration.millis(GAME_ACT_TIME * 0.4)
+                Duration.millis(GAME_ACT_TIME * 0.25)
                 , true, 2
                 , colorValue, strokeValue);
         timeline.play();
+    }
+
+    public void showSpellCast(ImageView spellView) {
+        final double SPELL_SIZE = 50;
+        final double START_SIZE = TILE_LENGTH / 2 - SPELL_SIZE / 2;
+        ScaleTool.resizeImageView(spellView, SPELL_SIZE, SPELL_SIZE);
+        ScaleTool.relocate(spellView, START_SIZE, START_SIZE);
+        enableColorAnimation(Color.BLUE);
+        this.getChildren().add(spellView);
+
+        KeyValue keyValue = new KeyValue(spellView.xProperty(), spellView.getX() + 3);
+        KeyValue keyValue1 = new KeyValue(spellView.yProperty(), spellView.getY() + 3);
+        KeyValue keyValue2 = new KeyValue(spellView.rotateProperty(), spellView.getRotate() + 5);
+        KeyValue keyValue3 = new KeyValue(spellView.scaleXProperty(), spellView.getScaleX() * 1.1);
+        KeyValue keyValue4 = new KeyValue(spellView.scaleYProperty(), spellView.getScaleY() * 1.1);
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.15), true, 4
+                , keyValue, keyValue1, keyValue2, keyValue3, keyValue4);
+        timeline.play();
+        timeline.setOnFinished(event -> this.getChildren().remove(spellView));
+    }
+
+    public void addFlag() {
+        flagView.setOpacity(1);
+        ScaleTool.relocate(flagView, 20, 20);
+        ScaleTool.resizeImageView(flagView, FLAG_SIZE, FLAG_SIZE);
+        if (!this.getChildren().contains(flagView)) {
+            this.getChildren().add(flagView);
+        }
+    }
+
+    public void removeFlag() {
+        KeyValue keyValue = new KeyValue(flagView.yProperty(), flagView.getY() - 30);
+        KeyValue keyValue1 = new KeyValue(flagView.opacityProperty(), 0.1);
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.8)
+                , false, 1
+                , keyValue, keyValue1);
+
+        timeline.play();
+
+        timeline.setOnFinished(event -> this.getChildren().remove(flagView));
+    }
+
+    public void addCollectible(ImageView itemView) {
+        if (this.itemView != null) {
+            this.getChildren().remove(this.itemView);
+        }
+        ScaleTool.resizeImageView(itemView, 45, 45);
+        ScaleTool.relocate(itemView, TILE_LENGTH - 55, TILE_LENGTH - 55);
+        this.itemView = itemView;
+        this.getChildren().add(itemView);
+    }
+
+    public void removeCollectible() {
+        KeyValue keyValue = new KeyValue(itemView.yProperty(), flagView.getY() - 50);
+        KeyValue keyValue1 = new KeyValue(itemView.opacityProperty(), 0.01);
+        Timeline timeline = AnimationMaker.makeTimeline(Duration.millis(GAME_ACT_TIME * 0.81)
+                , false, 1
+                , keyValue, keyValue1);
+
+        timeline.play();
+
+        timeline.setOnFinished(event -> this.getChildren().remove(itemView));
+    }
+
+    public void unSelect() {
+        isSelected = false;
+        polygon.setOpacity(NORMAL_OPACITY);
+    }
+
+    public ImageView getItemView() {
+        return itemView;
     }
 }

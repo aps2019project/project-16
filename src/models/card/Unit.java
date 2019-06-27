@@ -7,6 +7,10 @@ import exception.*;
 import models.magic.Buff;
 import models.magic.Buffable;
 import models.magic.Spell;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.AddFlagAct;
+import newView.BattleView.gameActs.AttackAct;
+import newView.BattleView.gameActs.MoveAct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -300,6 +304,9 @@ public abstract class Unit extends Card implements Buffable {
             opponent.getDamage(damage);
         attackedTo.computeIfPresent(opponent, (unit, integer) -> integer + 1); //todo check if work correctly
         castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
+
+        ClientSender.sendToViewer(
+                new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
     }
 
     public void counterAttack(Unit opponent) {
@@ -308,6 +315,9 @@ public abstract class Unit extends Card implements Buffable {
         if (isDisarmed() || isStunned())
             return;
         opponent.getDamage(ap);
+
+        ClientSender.sendToViewer(
+                new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
     }
 
     public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
@@ -336,6 +346,9 @@ public abstract class Unit extends Card implements Buffable {
             throw new UnitMovedThisTurnException();
         if (newCell.hasUnit())
             throw new CellIsNotFreeException();
+
+        ClientSender.sendToViewer(new MoveAct(this.getCurrentCell(), newCell, this));
+
         this.currentCell = newCell;
         moved = true;
     }
@@ -376,6 +389,8 @@ public abstract class Unit extends Card implements Buffable {
             flag.setOwnerUnit(null);
             flag.setCurrentCell(cell);
             cell.addFlag(flag);
+
+            ClientSender.sendToViewer(new AddFlagAct(cell.getRow(), cell.getColumn()));
         }
         unit.removeFlag();
     }

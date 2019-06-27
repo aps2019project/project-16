@@ -66,10 +66,10 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void moveToCell(int x, int y) {
+    public void moveToCell(int row, int column) {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Cell cell = game.getTable().getCell(x - 1, y - 1);
+        Cell cell = game.getTable().getCell(row, column);
         Unit selectedUnit = currentPlayer.getSelectedUnit();
         try {
             if (currentPlayer.getSelectedUnit() == null) {
@@ -80,8 +80,8 @@ public class InGameController implements InGameContract.Controller {
             }
             currentPlayer.moveSelectedUnit(cell);
             Notify.logMessage("Unit \"" + selectedUnit.getName() + "\" moved to"
-                    + "\n\trow: " + x
-                    + "\n\tcolumn: " + y);
+                    + "\n\trow: " + row
+                    + "\n\tcolumn: " + column);
         } catch (UnitIsNotSelectedException E) {
             Notify.logError("Sorry! First select a unit then move it!");
         } catch (CellIsNotInTableException E) {
@@ -180,16 +180,16 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void useSpecialPower(int x, int y) {
+    public void useSpecialPower(int row, int column) {
         Game game = GameContents.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        Cell cellToUseSP = game.getTable().getCell(x - 1, y - 1);
+        Cell cellToUseSP = game.getTable().getCell(row, column);
         try {
             if (cellToUseSP == null) {
                 throw new CellIsNotInTableException();
             }
             currentPlayer.castHeroSpell(cellToUseSP);
-            Notify.logMessage("You used special power of hero on row: " + x + " column: " + y);
+            Notify.logMessage("You used special power of hero on row: " + row + " column: " + column);
         } catch (CellIsNotInTableException E) {
             Notify.logError("The cell is not in the table!");
         } catch (NoHeroException E) {
@@ -213,12 +213,12 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void insertCard(String cardName, int x, int y) {
+    public void insertCard(String cardName, int row, int column) {
         try {
             Game game = GameContents.getCurrentGame();
             Player currentPlayer = game.getCurrentPlayer();
             Card cardToInsert = currentPlayer.getHand().getCard(cardName);
-            Cell cell = game.getTable().getCell(x - 1, y - 1);
+            Cell cell = game.getTable().getCell(row, column);
             if (cell == null) {
                 throw new CellIsNotInTableException();
             }
@@ -228,13 +228,13 @@ public class InGameController implements InGameContract.Controller {
                 if (cardToInsert.getClass() == Hero.class || cardToInsert.getClass() == Minion.class) {
                     currentPlayer.putUnit(cell, (Unit) cardToInsert);
                     Notify.logMessage("You inserted the unit \"" + cardToInsert.getName() + "\""
-                            + " in row: " + x
-                            + " in column: " + y);
+                            + " in row: " + row
+                            + " in column: " + column);
                 } else {
                     currentPlayer.castSpellCard((SpellCard) cardToInsert, cell);
                     Notify.logMessage("You cast the spell \"" + cardToInsert.getName() + "\""
-                            + " in row: " + x
-                            + " in column: " + y);
+                            + " in row: " + row
+                            + " in column: " + column);
                 }
             }
         } catch (CardNotInHandException E) {
@@ -257,7 +257,7 @@ public class InGameController implements InGameContract.Controller {
         } catch (GameIsEndException E) {
             Notify.logMessage("Game is finished!!");
             Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
-            view.goToPrevMenu();
+//            view.goToPrevMenu();
         }
     }
 
@@ -293,9 +293,9 @@ public class InGameController implements InGameContract.Controller {
     }
 
     @Override
-    public void useSelectedCollectable(int x, int y) {
+    public void useSelectedCollectable(int row, int column) {
         Game game = GameContents.getCurrentGame();
-        Cell cell = game.getTable().getCell(x - 1, y - 1);
+        Cell cell = game.getTable().getCell(row, column);
         try {
             if (cell == null) {
                 throw new CellIsNotInTableException();

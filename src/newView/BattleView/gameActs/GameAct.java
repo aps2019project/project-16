@@ -19,13 +19,14 @@ public abstract class GameAct {
 //  +cast spell
 //  +special power
 //  +use item
+//  +pick up flag
+//  +counter attack
+//  +generate flags
+//  +usable item
+//  +generate collectibles
+//  +pick up item
+//  +dying
 //  buff
 //  cell effect
-//  pick up item
-//  pick up flag
-//  counter attack
 //  combo attack
 //  change turn
-//  generate flags
-//  generate collectibles
-//  usable item

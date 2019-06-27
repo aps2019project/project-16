@@ -6,7 +6,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameGraphicListener extends Thread {
     private final LinkedBlockingQueue<GameAct> inQueueGameActs = new LinkedBlockingQueue<>();
-    public static final int GAME_ACT_TIME = 1000;//we can increase game speed by this constant!!! :))
+    public static final int GAME_ACT_TIME = 500;//we can increase game speed by this constant!!! :))
 
     public void addGameAct(GameAct gameAct) {
         inQueueGameActs.add(gameAct);

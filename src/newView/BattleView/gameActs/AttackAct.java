@@ -5,6 +5,9 @@ import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import models.Cell;
+import models.card.Card;
+import models.card.Hero;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
@@ -13,20 +16,26 @@ import newView.Type;
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class AttackAct extends GameAct {
-    private String attackerName = "piran";//todo must be from CARD
-    private Type attackerType = Type.MINION;//todo must be from CARD
-    private String defenderName = "piran";//todo must be from CARD
-    private Type defenderType = Type.MINION;//todo must be from CARD
+    private String attackerName;
+    private Type attackerType;
+    private String defenderName;
+    private Type defenderType;
     private int attackerRow;
     private int attackerColumn;
     private int defenderRow;
     private int defenderColumn;
 
-    public AttackAct(int attackerRow, int attackerColumn, int defenderRow, int defenderColumn) {
-        this.attackerRow = attackerRow;
-        this.attackerColumn = attackerColumn;
-        this.defenderRow = defenderRow;
-        this.defenderColumn = defenderColumn;
+    public AttackAct(Cell attackCell, Cell defendCell, Card attacker, Card defender) {
+        attackerRow = attackCell.getRow();
+        attackerColumn = attackCell.getColumn();
+        defenderRow = defendCell.getRow();
+        defenderColumn = defendCell.getColumn();
+
+        attackerName = attacker.getName();
+        attackerType = attacker instanceof Hero ? Type.HERO : Type.MINION;
+
+        defenderName = defender.getName();
+        defenderType = defender instanceof Hero ? Type.HERO : Type.MINION;
     }
 
     @Override

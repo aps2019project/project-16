@@ -11,11 +11,12 @@ import static newView.SceneMakers.SceneMaker.WIDTH;
 
 public class PlayerInfoPane extends Pane {
     private ManaPane manaPane = new ManaPane(2);
-    private SpecialPower specialPower = new SpecialPower();
+    private SpecialPower specialPower;
     private HeroIcon heroIcon = new HeroIcon();
 
-    public PlayerInfoPane(boolean rightToLeft) throws FileNotFoundException {
-        if (rightToLeft) {
+    public PlayerInfoPane(boolean isOnLeft) throws FileNotFoundException {
+        specialPower = new SpecialPower(isOnLeft);
+        if (!isOnLeft) {
             ScaleTool.relocate(this, WIDTH, 0);
             this.getTransforms().add(new Scale(-1, 1));
         }
@@ -26,5 +27,9 @@ public class PlayerInfoPane extends Pane {
 
     public ManaPane getManaPane() {
         return manaPane;
+    }
+
+    public SpecialPower getSpecialPower() {
+        return specialPower;
     }
 }
