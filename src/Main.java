@@ -11,7 +11,7 @@ public class Main extends Application {
 //        new LoadingSceneMaker(primaryStage).set();
 //        new ShopSceneMaker(primaryStage).set();
 //        new CollectionSceneMaker(primaryStage).set();
-        new CustomCardSceneMaker(primaryStage).set();
+        new LoginSceneMaker(primaryStage).set();
 //        new BattleSceneMaker(primaryStage).set();
 //        new GameModeSelectorSceneMaker(primaryStage).set();
 //        new CustomCardSceneMaker(primaryStage).set();
