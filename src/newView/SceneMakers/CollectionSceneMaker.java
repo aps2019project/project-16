@@ -1,5 +1,6 @@
 package newView.SceneMakers;
 
+import com.gilecode.yagson.YaGson;
 import contracts.CollectionContract;
 import controllers.CollectionController;
 import javafx.geometry.Insets;
@@ -30,8 +31,10 @@ import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.security.SecureClassLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -159,10 +162,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         TextField importDeck = new TextField();
         importDeck.setPromptText("ENTER DECK NAME FOR IMPORT");
         importDeck.setStyle("-fx-prompt-text-fill: gray");
-        ScaleTool.relocate(importDeck , 100  , 50);
+        ScaleTool.relocate(importDeck, 100, 50);
         ImageView importDeckButton = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/importDeck.png")));
-        ScaleTool.resizeImageView(importDeckButton , 100 , 40);
-        ScaleTool.relocate(importDeckButton , 260 ,50);
+        ScaleTool.resizeImageView(importDeckButton, 100, 40);
+        ScaleTool.relocate(importDeckButton, 260, 50);
 
 
         root.getChildren().add(back);
@@ -288,6 +291,18 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ImageView exportDeck = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/export deck.png")));
         ScaleTool.resizeImageView(exportDeck, 80, 30);
         ScaleTool.relocate(exportDeck, 100, 50);
+        exportDeck.setOnMouseClicked(event -> {
+            try {
+                YaGson yaGson = new YaGson();
+                String json = yaGson.toJson(deck);
+
+                FileWriter writer = new FileWriter("src/decks/" + getUnitDeckId() + ".json");
+
+                writer.write(json);
+                writer.close();
+            } catch (Exception e) {
+            }
+        });
         temp.getChildren().add(exportDeck);
 
         cardsInDeck.getChildren().add(temp);
@@ -496,6 +511,18 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     @Override
     public void goToBattleMenu() {
+    }
 
+    public String getUnitDeckId() {
+        File dir = new File("src/decks");
+        int size;
+        try {
+            size = dir.listFiles().length;
+        } catch (Exception e) {
+            size = 0;
+        }
+
+        size++;
+        return Integer.toString(size);
     }
 }

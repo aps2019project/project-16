@@ -12,7 +12,7 @@ public class Main extends Application {
 //        new ShopSceneMaker(primaryStage).set();
 //        new CollectionSceneMaker(primaryStage).set();
         new LoginSceneMaker(primaryStage).set();
-//        new BattleSceneMaker(primaryStage).set()
+//        new BattleSceneMaker(primaryStage).set();
 //        new GameModeSelectorSceneMaker(primaryStage).set();
 //        new CustomCardSceneMaker(primaryStage).set();
         primaryStage.setTitle("DUELYST");
