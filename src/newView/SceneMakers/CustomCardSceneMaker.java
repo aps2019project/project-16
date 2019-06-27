@@ -155,13 +155,13 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         type.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue ov, Number value, Number new_value) {
+                pane.getChildren().remove(spell);
+                pane.getChildren().remove(unit);
                 switch (new_value.intValue()) {
                     case 2:
-                        pane.getChildren().remove(unit);
                         pane.getChildren().add(spell);
                         break;
                     default:
-                        pane.getChildren().remove(spell);
                         pane.getChildren().add(unit);
                 }
             }
@@ -237,9 +237,7 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
-        back.setOnMouseClicked(event -> {
-            //todo MOSTAFA
-        });
+        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
         gettingBuffProperties(buff);
         ScaleTool.relocate(buff, 700, 300);
