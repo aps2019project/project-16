@@ -46,13 +46,13 @@ public class BattleSceneMaker extends SceneMaker {
 
 
         Text singlePlayerText = new Text();
-        singlePlayerText.setText("SINGLE PLAYER");
+        singlePlayerText.setText("STORY MODE");
         singlePlayerText.setFill(Color.WHITE);
         singlePlayerText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(singlePlayerText, 250, 520);
 
         Text multiPlayerText = new Text();
-        multiPlayerText.setText("MULTI PLAYER");
+        multiPlayerText.setText("CUSTOM GAME");
         multiPlayerText.setFill(Color.WHITE);
         multiPlayerText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(multiPlayerText, 750, 520);
