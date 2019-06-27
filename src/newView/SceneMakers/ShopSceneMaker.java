@@ -179,6 +179,10 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         pane.getChildren().add(search);
 
         //todo a shop picture for showing shop cards is needed and must be implemented
+        Pane t = new Pane();
+        Pane crd = new CardMaker("kave", Type.HERO).getUnitCardView();
+        pane.getChildren().add(crd);
+        ScaleTool.homothety(crd , 0.5);
 
         return new MyScene(pane);
     }

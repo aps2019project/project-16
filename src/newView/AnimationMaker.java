@@ -47,14 +47,24 @@ public class AnimationMaker {
     }
 
     public void setFilePlist() {
-        String fileName = "src/newView/resources/cards/" + type + "/" + name + ".plist";
-        this.filePlist = new File(fileName);
+        try {
+            String fileName = "src/newView/resources/cards/" + type + "/" + name + ".plist";
+            this.filePlist = new File(fileName);
+        } catch (Exception e) {
+            String fileName = "src/newView/resources/cards/custom/" + type + "/1.plist";
+            this.filePlist = new File(fileName);
+        }
     }
 
     public void setImageView() throws FileNotFoundException {
-        String fileName = "src/newView/resources/cards/" + type + "/" + name + ".png";
-        Image image = new Image(new FileInputStream(fileName));
-        this.imageView = new ImageView(image);
+        try {
+            String fileName = "src/newView/resources/cards/" + type + "/" + name + ".png";
+            Image image = new Image(new FileInputStream(fileName));
+            this.imageView = new ImageView(image);
+        } catch (Exception e) {
+            String fileName = "src/newView/resources/cards/custom/" + type + "/1.png";
+            this.imageView = new ImageView(new Image(new FileInputStream(fileName)));
+        }
     }
 
     public ImageView getAnimation(int cycle) throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
