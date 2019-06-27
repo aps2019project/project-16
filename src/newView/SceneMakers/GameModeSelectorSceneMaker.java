@@ -67,7 +67,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         ScaleTool.relocate(enterDeckName, 530, 50);
         enterDeckName.setPrefColumnCount(15);
         //todo by  mostafa
-
+        
         //todo just for test
         todoJustForTest(killingHero, collectFlag, holdFlag);
 
