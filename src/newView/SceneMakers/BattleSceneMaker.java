@@ -41,7 +41,7 @@ public class BattleSceneMaker extends SceneMaker {
         ScaleTool.relocate(customGame, 300, 200);
         ScaleTool.relocate(storyMode, 800, 200);
 
-        customMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
+        customGame.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
         storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
 
 
@@ -51,13 +51,13 @@ public class BattleSceneMaker extends SceneMaker {
         storyModeText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(storyModeText, 250, 520);
 
-        Text customModeText = new Text();
-        customModeText.setText("CUSTOM GAME");
-        customModeText.setFill(Color.WHITE);
-        customModeText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(customModeText, 750, 520);
+        Text customGameText = new Text();
+        customGameText.setText("CUSTOM GAME");
+        customGameText.setFill(Color.WHITE);
+        customGameText.setStyle("-fx-font-size: 30");
+        ScaleTool.relocate(customGameText, 750, 520);
 
-        pane.getChildren().addAll(storyMode, customGame, singlePlayerText, multiPlayerText, back);
+        pane.getChildren().addAll(storyMode, customGame, customGameText, storyModeText, back);
 
         return new MyScene(pane);
     }
