@@ -39,7 +39,7 @@ public class CustomCardSceneMaker extends SceneMaker {
     private TextField hp;
     private TextField range;
     private ChoiceBox specialPowerActivation;
-    private TextField specialPowerCooldown;
+    private TextField specialPowerCoolDown;
     private TextField cost;
     private ChoiceBox attackType;
     private TextField buffName;
@@ -92,9 +92,9 @@ public class CustomCardSceneMaker extends SceneMaker {
                 ON_ATTACK, ON_DEATH, PASSIVE, ON_SPAWN
         ));
 
-        specialPowerCooldown = new TextField();
-        specialPowerCooldown.setStyle("-fx-prompt-text-fill: gray");
-        specialPowerCooldown.setPromptText("ENTER SPECIAL POWER COOL DOWN");
+        specialPowerCoolDown = new TextField();
+        specialPowerCoolDown.setStyle("-fx-prompt-text-fill: gray");
+        specialPowerCoolDown.setPromptText("ENTER SPECIAL POWER COOL DOWN");
 
         cost = new TextField();
         cost.setPromptText("ENTER COST");
@@ -182,7 +182,7 @@ public class CustomCardSceneMaker extends SceneMaker {
                 case HERO:
                     GameContents.getShop().addCard(new Hero.HeroBuilder()
                             .setSpell(new Spell.SpellBuilder().create())
-                            .setSpellCoolDown(Integer.parseInt(specialPowerCooldown.getText()))
+                            .setSpellCoolDown(Integer.parseInt(specialPowerCoolDown.getText()))
                             .setSpellManaCost(3)
                             .setAp(Integer.parseInt(ap.getText()))
                             .setHp(Integer.parseInt(hp.getText()))
@@ -231,13 +231,29 @@ public class CustomCardSceneMaker extends SceneMaker {
         ScaleTool.relocate(create, 400, 500);
 
         if (showingUnit)
-            pane.getChildren().addAll(unit);
+            pane.getChildren().add(unit);
         else
             pane.getChildren().add(spell);
-        pane.getChildren().add(name);
-        pane.getChildren().add(type);
-        pane.getChildren().add(create);
 
+        ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/back.png")));
+        ScaleTool.resizeImageView(back, 85, 85);
+        back.setOnMouseClicked(event -> {
+            //todo MOSTAFA
+        });
+
+        gettingBuffProperties(buff);
+        ScaleTool.relocate(buff, 700, 300);
+
+        ImageView addBuff = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/add buff.png")));
+        ScaleTool.resizeImageView(addBuff , 100 , 40);
+        ScaleTool.relocate(addBuff , 700, 500);
+
+        pane.getChildren().add(type);
+        pane.getChildren().add(name);
+        pane.getChildren().add(create);
+        pane.getChildren().add(back);
+        pane.getChildren().add(buff);
+        pane.getChildren().add(addBuff);
 
         return new MyScene(pane);
     }
@@ -288,12 +304,11 @@ public class CustomCardSceneMaker extends SceneMaker {
                 "RandomEnemyMinionAdjacentToHero", "SquareOfCell", "UnitsAdjacentToCell", "UnitsInHeroRow",
                 "UnitInHeroRow", "UnitInRange", "UnitTargetSociety"
         ));
-
-        spell.getChildren().addAll(targetSociety, gettingBuffProperties(spellBuff));
+        spell.getChildren().addAll(targetSociety/*, gettingBuffProperties(spellBuff)*/);
     }
 
     private void addingUnitProperties(VBox unit, VBox specialPower) {
-        unit.getChildren().addAll(ap, hp, attackType, range, gettingBuffProperties(specialPower), cost);
+        unit.getChildren().addAll(ap, hp, attackType, range, /*gettingBuffProperties(specialPower),*/ cost);
     }
 
     private VBox gettingBuffProperties(VBox buff) {
