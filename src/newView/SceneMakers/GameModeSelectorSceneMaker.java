@@ -14,15 +14,15 @@ import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import view.views.StoryView;
 
-import java.awt.*;
 import java.io.FileInputStream;
+
 
 public class GameModeSelectorSceneMaker extends SceneMaker {
     public GameModeSelectorSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
 
-    public boolean customGame =  true;
+    public boolean customGame = true;
 
 
     @Override
@@ -67,7 +67,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         TextField enterDeckName = new TextField();
         enterDeckName.setPromptText("ENTER YOUR DECK NAME");
         enterDeckName.setStyle("-fx-prompt-text-fill: gray");
-        ScaleTool.relocate(enterDeckName , 530 , 50);
+        ScaleTool.relocate(enterDeckName, 530, 50);
         enterDeckName.setPrefColumnCount(15);
         //todo by  mostafa
 
@@ -76,7 +76,8 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
 
         pane.getChildren().addAll(back, killingHero, collectFlag, holdFlag);
         pane.getChildren().addAll(killingHeroText, collectFlagText, holdFlagText);
-        pane.getChildren().add(enterDeckName);
+        if (customGame)
+            pane.getChildren().add(enterDeckName);
 
         return new MyScene(pane);
     }
