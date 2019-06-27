@@ -39,18 +39,20 @@ public class InGameSceneMaker extends SceneMaker {
         infoPanes[0] = new PlayerInfoPane(true);
         infoPanes[1] = new PlayerInfoPane(false);
 
+        CollectiblesHBox collectiblesHBox = new CollectiblesHBox();
+
         TilesPane tilesPane = new TilesPane();
 
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes);
+        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes, collectiblesHBox);
 
         //todo: delete
         // just for testing
         testForActions(endTurnButton);
         //end of test
 
-        borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]);
+        borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1], collectiblesHBox);
         borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);
@@ -138,7 +140,7 @@ public class InGameSceneMaker extends SceneMaker {
     private void makeAddCollectibleAct() {
         int x1 = random.nextInt(5), y1 = random.nextInt(9);
         GameGraphicData.addGameAct(new AddCollectibleAct(x1, y1, "Blades of agility"));
-        GameGraphicData.addGameAct(new PickUpCollectibleAct(x1, y1));
+//        GameGraphicData.addGameAct(new PickUpCollectibleAct(x1, y1));
         System.out.println("collectible item");
     }
 }

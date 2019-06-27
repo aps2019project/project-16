@@ -129,8 +129,7 @@ public class Tile extends Pane {
                     GameGraphicData.sendInsertRequest(this);
                     break;
                 case COLLECTIBLE:
-                    //cast collectible
-                    //then unSelect
+                    GameGraphicData.sendCastCollectibleRequest(this);
                     break;
                 case SPECIAL_POWER:
                     GameGraphicData.sendCastSpecialPowerRequest(this);
@@ -214,5 +213,9 @@ public class Tile extends Pane {
     public void unSelect() {
         isSelected = false;
         polygon.setOpacity(NORMAL_OPACITY);
+    }
+
+    public ImageView getItemView() {
+        return itemView;
     }
 }

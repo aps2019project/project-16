@@ -12,10 +12,12 @@ public class UseCollectibleAct extends GameAct {
     private Type type = Type.ITEM;
     private int row;
     private int column;
+    private boolean forLeft;
 
-    public UseCollectibleAct(int row, int column, Item item) {
+    public UseCollectibleAct(int row, int column, Item item, boolean forLeft) {
         this.row = row;
         this.column = column;
+        this.forLeft = forLeft;
 
         itemName = item.getName();
     }
@@ -34,5 +36,9 @@ public class UseCollectibleAct extends GameAct {
 
         Tile putTile = GameGraphicData.getTilesPane().getTile(row, column);
         putTile.showSpellCast(itemCastView);
+
+        if (forLeft == GameGraphicData.isOnLeft()) {
+            GameGraphicData.getCollectiblesHBox().deleteCollectible(itemName);
+        }
     }
 }

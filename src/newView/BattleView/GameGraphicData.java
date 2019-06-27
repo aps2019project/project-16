@@ -1,9 +1,12 @@
 package newView.BattleView;
 
 import controllers.InGameController;
+import models.item.Item;
 import newView.BattleView.gameActs.GameAct;
 import newView.GraphicalElements.battle.*;
 import view.views.InGameView;
+
+import java.util.ArrayList;
 
 public class GameGraphicData {
     private static boolean onLeft;
@@ -11,11 +14,13 @@ public class GameGraphicData {
     private static EndTurnButton turnButton;
     private static TilesPane tilesPane;
     private static PlayerInfoPane[] infoPanes;
+    private static CollectiblesHBox collectiblesHBox;
 
     private static SelectType selectType = null;
 
     private static Tile selectedTile;
     private static HandElement selectedHandElement;
+    private static CollectibleElement selectedCollectibleElement;
 
     private final static GameGraphicListener listener = new GameGraphicListener();
     private final static InGameController controller = new InGameController(new InGameView());
@@ -46,12 +51,18 @@ public class GameGraphicData {
         selectType = type;
     }
 
+    public static void setSelectedCollectible(SelectType type, CollectibleElement element) {
+        selectedCollectibleElement = element;
+        selectType = type;
+    }
+
     public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton,
-                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes) {
+                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes, CollectiblesHBox collectiblesBox) {
         handBox = handHBox;
         turnButton = endTurnButton;
         tilesPane = gameTiles;
         infoPanes = playerInfoPanes;
+        collectiblesHBox = collectiblesBox;
     }
 
     public static GameGraphicListener getListener() {
@@ -74,12 +85,22 @@ public class GameGraphicData {
         return handBox;
     }
 
+    public static CollectiblesHBox getCollectiblesHBox() {
+        return collectiblesHBox;
+    }
+
     public static void setOnLeft(boolean onLeft) {
         GameGraphicData.onLeft = onLeft;
     }
 
     public static boolean isOnLeft() {
         return onLeft;
+    }
+
+    public static void addCollectibles(ArrayList<Item> items) {
+        for (Item item : items) {
+            collectiblesHBox.addElement(new CollectibleElement(item));
+        }
     }
 
     public static void sendMoveRequest(Tile destinationTile) {
@@ -104,6 +125,12 @@ public class GameGraphicData {
         unSelectAll();
     }
 
+    public static void sendCastCollectibleRequest(Tile castTile) {
+        controller.selectCollectable(selectedCollectibleElement.getItem().getCollectibleID());
+        controller.useSelectedCollectable(castTile.getRow(), castTile.getColumn());
+        unSelectAll();
+    }
+
     public static void unSelectAll() {
         switch (selectType) {
             case UNIT:
@@ -116,7 +143,8 @@ public class GameGraphicData {
                 }
                 break;
             case COLLECTIBLE:
-                // TODO: 6/26/19
+                selectedCollectibleElement.unSelect();
+                selectedCollectibleElement = null;
                 break;
             case HAND:
                 selectedHandElement.unSelect();

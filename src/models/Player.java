@@ -247,7 +247,8 @@ public class Player {
         }
         selectedCollectible.use(this, cell);
 
-        ClientSender.sendToViewer(new UseCollectibleAct(cell.getRow(), cell.getColumn(), selectedCollectible));
+        ClientSender.sendToViewer(
+                new UseCollectibleAct(cell.getRow(), cell.getColumn(), selectedCollectible, isOnLeft));
 
         this.getCollectibles().removeIf(a -> a.equals(selectedCollectible));
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
@@ -288,10 +289,13 @@ public class Player {
 
     public void pickUpCollectibles(Cell cell) {
         if (cell.getCollectibles().size() > 0) {
+
+            ClientSender.sendToViewer(new PickUpCollectibleAct(
+                    cell.getRow(), cell.getColumn(), isOnLeft, new ArrayList<>(cell.getCollectibles())
+            ));
+
             this.collectibles.addAll(cell.getCollectibles());
             cell.removeCollectibles();
-
-            ClientSender.sendToViewer(new PickUpCollectibleAct(cell.getRow(), cell.getColumn()));
         }
     }
 
