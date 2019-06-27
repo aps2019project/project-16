@@ -47,6 +47,7 @@ public abstract class Card {
         }
 
         public CardBuilder setBuyPrice(int buyPrice) {
+            setSellPrice(buyPrice);
             this.buyPrice = buyPrice;
             return this;
         }

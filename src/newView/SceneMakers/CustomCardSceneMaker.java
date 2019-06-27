@@ -1,5 +1,7 @@
 package newView.SceneMakers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -10,6 +12,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.GameContents;
+import models.SpecialPowerCastTime;
+import models.attackType.AttackType;
+import models.attackType.Hybrid;
+import models.attackType.Melee;
+import models.attackType.Ranged;
+import models.card.Hero;
+import models.card.Minion;
+import models.card.SpellCard;
+import models.magic.Buff;
+import models.magic.Spell;
+import models.targetsociety.TargetSociety;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
@@ -17,11 +31,102 @@ import newView.GraphicalElements.ScaleTool;
 import java.io.FileInputStream;
 
 public class CustomCardSceneMaker extends SceneMaker {
+
+    public static final String HERO = "HERO";
+    public static final String MINION = "MINION";
+    public static final String SPELL = "SPELL";
+    private TextField ap;
+    private TextField hp;
+    private TextField range;
+    private ChoiceBox specialPowerActivation;
+    private TextField specialPowerCooldown;
+    private TextField cost;
+    private ChoiceBox attackType;
+    private TextField buffName;
+    private ChoiceBox buffType;
+    private TextField effectValue;
+    private TextField delay;
+    private TextField last;
+    private ChoiceBox friendOrEnemy;
+
     public CustomCardSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
 
     private boolean showingUnit = true;
+
+    public static final String MELEE = "MELEE";
+
+    public static final String RANGED = "RANGED";
+
+    public static final String HYBRID = "HYBRID";
+
+    public static final String ON_ATTACK = "ON_ATTACK";
+
+    public static final String ON_DEATH = "ON_DEATH";
+
+    public static final String PASSIVE = "PASSIVE";
+
+    public static final String ON_SPAWN = "ON_SPAWN";
+
+    {
+        ap = new TextField();
+        ap.setPromptText("ENTER AP");
+        ap.setStyle("-fx-prompt-text-fill: gray");
+
+        hp = new TextField();
+        hp.setPromptText("ENTER HP");
+        hp.setStyle("-fx-prompt-text-fill: gray");
+
+        attackType = new ChoiceBox();
+        attackType.setItems(FXCollections.observableArrayList(
+                MELEE, RANGED, HYBRID
+        ));
+
+        range = new TextField();
+        range.setPromptText("ENTER RANGE");
+        range.setStyle("-fx-prompt-text-fill: gray");
+
+        specialPowerActivation = new ChoiceBox();
+        specialPowerActivation.setItems(FXCollections.observableArrayList(
+                ON_ATTACK, ON_DEATH, PASSIVE, ON_SPAWN
+        ));
+
+        specialPowerCooldown = new TextField();
+        specialPowerCooldown.setStyle("-fx-prompt-text-fill: gray");
+        specialPowerCooldown.setPromptText("ENTER SPECIAL POWER COOL DOWN");
+
+        cost = new TextField();
+        cost.setPromptText("ENTER COST");
+        cost.setStyle("-fx-prompt-text-fill: gray");
+
+        buffName = new TextField();
+        buffName.setStyle("-fx-prompt-text-fill: gray");
+        buffName.setPromptText("ENTER BUFF NAME");
+
+        buffType = new ChoiceBox();
+        buffType.setItems(FXCollections.observableArrayList(
+                "holy", "power", "poison", ""
+        ));
+
+        effectValue = new TextField();
+        effectValue.setPromptText("ENTER EFFECT VALUE");
+        effectValue.setStyle("-fx-prompt-text-fill: gray");
+
+        delay = new TextField();
+        delay.setStyle("-fx-prompt-text-fill: gray");
+        delay.setPromptText("ENTER DELAY");
+
+        last = new TextField();
+        last.setPromptText("ENTER LAST");
+        last.setStyle("-fx-prompt-text-fill: gray");
+
+
+        friendOrEnemy = new ChoiceBox();
+        friendOrEnemy.setItems(FXCollections.observableArrayList(
+                "enemy", "friendly"
+        ));
+    }
 
     @Override
     public Scene makeScene() throws Exception {
@@ -45,8 +150,22 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         ChoiceBox type = new ChoiceBox();
         type.setItems(FXCollections.observableArrayList(
-                "HERO", "MINION", "ITEM"
+                HERO, MINION, SPELL
         ));
+
+        type.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
+                switch (new_value.intValue()) {
+                    case 2:
+                        pane.getChildren().remove(unit);
+                        pane.getChildren().add(spell);
+                        break;
+                    default:
+                        pane.getChildren().remove(spell);
+                        pane.getChildren().add(unit);
+                }
+            }
+        });
         ScaleTool.relocate(type, 100, 200);
 
         //for spell
@@ -58,7 +177,49 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         ImageView create = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/create.png")));
         create.setOnMouseClicked(event -> {
-            //todo !!!
+
+            switch ((String) type.getValue()) {
+                case HERO:
+                    GameContents.getShop().addCard(new Hero.HeroBuilder()
+                            .setSpell(new Spell.SpellBuilder().create())
+                            .setSpellCoolDown(Integer.parseInt(specialPowerCooldown.getText()))
+                            .setSpellManaCost(3)
+                            .setAp(Integer.parseInt(ap.getText()))
+                            .setHp(Integer.parseInt(hp.getText()))
+                            .setAttackType(getAttackType())
+                            .setName(name.getText())
+                            .setBuyPrice(Integer.parseInt(cost.getText()))
+                            .setManaCost(6)//todo
+                            .create());
+                    break;
+                case MINION:
+                    GameContents.getShop().addCard(new Minion.MinionBuilder()
+                            .setSpecialPower(new Spell.SpellBuilder()
+                                    .create())
+                            .setSpecialPowerCastTime(getSpecialPowerCastTime())
+                            .setAp(Integer.parseInt(ap.getText()))
+                            .setHp(Integer.parseInt(hp.getText()))
+                            .setAttackType(getAttackType())
+                            .setName(name.getText())
+                            .setBuyPrice(Integer.parseInt(cost.getText()))
+                            .setManaCost(6)//todo
+                            .create());
+                    break;
+                case SPELL:
+                    GameContents.getShop().addCard(new SpellCard.SpellCardBuilder()
+                            .setSpell(new Spell.SpellBuilder()
+                                    .addBuff(new Buff.BuffBuilder()
+                                            .setDuration(Integer.parseInt(last.getText()))
+                                            .setDurationToStart(Integer.parseInt(delay.getText()))
+                                            .create())
+                                    .setTargetSociety(getTargetSociety())
+                                    .create())
+                            .setName(name.getText())
+                            .setBuyPrice(Integer.parseInt(cost.getText()))
+                            .setManaCost(6)//todo
+                            .create());
+                    break;
+            }
         });
         create.setOnMouseEntered(event -> {
             create.setEffect(new Glow(1));
@@ -66,8 +227,8 @@ public class CustomCardSceneMaker extends SceneMaker {
         create.setOnMouseExited(event -> {
             create.setEffect(new Glow(0));
         });
-        ScaleTool.resizeImageView(create , 100 , 40);
-        ScaleTool.relocate(create , 400,  500);
+        ScaleTool.resizeImageView(create, 100, 40);
+        ScaleTool.relocate(create, 400, 500);
 
         if (showingUnit)
             pane.getChildren().addAll(unit);
@@ -79,6 +240,45 @@ public class CustomCardSceneMaker extends SceneMaker {
 
 
         return new MyScene(pane);
+    }
+
+    private TargetSociety getTargetSociety() {
+        return null;
+    }
+
+    private SpecialPowerCastTime getSpecialPowerCastTime() {
+        SpecialPowerCastTime specialPowerCastTime;
+        switch ((String) this.attackType.getValue()) {
+            case ON_ATTACK:
+                specialPowerCastTime = SpecialPowerCastTime.ON_ATTACK;
+                break;
+            case ON_DEATH:
+                specialPowerCastTime = SpecialPowerCastTime.ON_DEATH;
+                break;
+            case PASSIVE:
+                specialPowerCastTime = SpecialPowerCastTime.PASSIVE;
+                break;
+            case ON_SPAWN:
+            default:
+                specialPowerCastTime = SpecialPowerCastTime.ON_SPAWN;
+        }
+        return specialPowerCastTime;
+    }
+
+    private AttackType getAttackType() {
+        AttackType attackType;
+        switch ((String) this.attackType.getValue()) {
+            case RANGED:
+                attackType = new Ranged(Integer.parseInt(range.getText()));
+                break;
+            case HYBRID:
+                attackType = new Hybrid(Integer.parseInt(range.getText()));
+                break;
+            case MELEE:
+            default:
+                attackType = new Melee();
+        }
+        return attackType;
     }
 
     private void addingSpellProperties(VBox spell, VBox spellBuff) {
@@ -93,67 +293,10 @@ public class CustomCardSceneMaker extends SceneMaker {
     }
 
     private void addingUnitProperties(VBox unit, VBox specialPower) {
-        TextField ap = new TextField();
-        ap.setPromptText("ENTER AP");
-        ap.setStyle("-fx-prompt-text-fill: gray");
-
-        TextField hp = new TextField();
-        hp.setPromptText("ENTER HP");
-        hp.setStyle("-fx-prompt-text-fill: gray");
-
-        ChoiceBox attackType = new ChoiceBox();
-        attackType.setItems(FXCollections.observableArrayList(
-                "MELEE", "RANGED", "HYBRID"
-        ));
-
-        TextField range = new TextField();
-        range.setPromptText("ENTER RANGE");
-        range.setStyle("-fx-prompt-text-fill: gray");
-
-        ChoiceBox specialPowerActivition = new ChoiceBox();
-        specialPowerActivition.setItems(FXCollections.observableArrayList(
-                "ON_ATTACK", "ON_DEATH", "PASSIVE", "ON_SPAWN"
-        ));
-
-        TextField specialPowerCooldown = new TextField();
-        specialPowerCooldown.setStyle("-fx-prompt-text-fill: gray");
-        specialPowerCooldown.setPromptText("ENTER SPECIAL POWER COOL DOWN");
-
-        TextField cost = new TextField();
-        cost.setPromptText("ENTER COST");
-        cost.setStyle("-fx-prompt-text-fill: gray");
-
         unit.getChildren().addAll(ap, hp, attackType, range, gettingBuffProperties(specialPower), cost);
     }
 
     private VBox gettingBuffProperties(VBox buff) {
-        TextField buffName = new TextField();
-        buffName.setStyle("-fx-prompt-text-fill: gray");
-        buffName.setPromptText("ENTER BUFF NAME");
-
-        ChoiceBox buffType = new ChoiceBox();
-        buffType.setItems(FXCollections.observableArrayList(
-                "holy", "power", "poison", ""
-        ));
-
-        TextField effectValue = new TextField();
-        effectValue.setPromptText("ENTER EFFECT VALUE");
-        effectValue.setStyle("-fx-prompt-text-fill: gray");
-
-        TextField delay = new TextField();
-        delay.setStyle("-fx-prompt-text-fill: gray");
-        delay.setPromptText("ENTER DELAY");
-
-        TextField last = new TextField();
-        last.setPromptText("ENTER LAST");
-        last.setStyle("-fx-prompt-text-fill: gray");
-
-
-        ChoiceBox friendOrEnemy = new ChoiceBox();
-        friendOrEnemy.setItems(FXCollections.observableArrayList(
-                "enemy", "friendly"
-        ));
-
         buff.getChildren().addAll(buffName, buffType, effectValue, delay, last, friendOrEnemy);
         return buff;
     }

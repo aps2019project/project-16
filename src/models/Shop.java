@@ -23,7 +23,9 @@ public class Shop {
         return items;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    public void addCard(Card card) {
+        cards.add(card);
+    }
 
     public Card getCard(String cardName) {
         for (Card card : cards) {
