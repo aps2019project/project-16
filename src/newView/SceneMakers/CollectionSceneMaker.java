@@ -31,10 +31,7 @@ import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.*;
 import java.security.SecureClassLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,6 +163,23 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ImageView importDeckButton = new ImageView(new Image(new FileInputStream("src/newView/resources/collectionIcons/importDeck.png")));
         ScaleTool.resizeImageView(importDeckButton, 100, 40);
         ScaleTool.relocate(importDeckButton, 260, 50);
+        importDeckButton.setOnMouseClicked(event -> {
+            String deckName = importDeck.getText();
+            File dir = new File("src/decks");
+            File[] files = dir.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.getName().equals(deckName)) {
+                        try {
+                            BufferedReader reader = new BufferedReader(new FileReader(file));
+                            Deck deck = new YaGson().fromJson(reader, Deck.class);
+                            this.decks.add(deck);
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+            }
+        });
 
 
         root.getChildren().add(back);
