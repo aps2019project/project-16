@@ -17,6 +17,11 @@ import newView.GraphicalElements.ScaleTool;
 import java.io.FileInputStream;
 
 public class CustomCardSceneMaker extends SceneMaker {
+
+    public static final String HERO = "HERO";
+    public static final String MINION = "MINION";
+    public static final String SPELL = "SPELL";
+
     public CustomCardSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
@@ -45,7 +50,7 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         ChoiceBox type = new ChoiceBox();
         type.setItems(FXCollections.observableArrayList(
-                "HERO", "MINION", "ITEM"
+                HERO, MINION, SPELL
         ));
         ScaleTool.relocate(type, 100, 200);
 
@@ -57,9 +62,15 @@ public class CustomCardSceneMaker extends SceneMaker {
         ScaleTool.relocate(unit, 200, 300);
 
         ImageView create = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/create.png")));
-        create.setOnMouseClicked(event -> {
-            //todo !!!
-        });
+//        create.setOnMouseClicked(event -> {
+//            switch ((String) type.getValue()) {
+//                case HERO:
+//                    GameContents.getShop().addCard(new Hero.HeroBuilder()
+//                            .setName(name.getText())
+//                            .setManaCost(mana)
+//                            .create());
+//            }
+//        });
         create.setOnMouseEntered(event -> {
             create.setEffect(new Glow(1));
         });
