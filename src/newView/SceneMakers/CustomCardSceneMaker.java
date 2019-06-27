@@ -29,6 +29,7 @@ import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 public class CustomCardSceneMaker extends SceneMaker {
 
@@ -49,6 +50,9 @@ public class CustomCardSceneMaker extends SceneMaker {
     private TextField last;
     private ChoiceBox friendOrEnemy;
 
+    private ArrayList<Buff> buffs;
+    private ChoiceBox targetSociety;
+
     public CustomCardSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
@@ -68,6 +72,14 @@ public class CustomCardSceneMaker extends SceneMaker {
     public static final String PASSIVE = "PASSIVE";
 
     public static final String ON_SPAWN = "ON_SPAWN";
+
+    public static final String HOLY = "holy";
+
+    public static final String HP_CHANGE = "hp";
+
+    public static final String AP_CHANGE = "ap";
+
+    public static final String POISON = "poison";
 
     {
         ap = new TextField();
@@ -106,7 +118,7 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         buffType = new ChoiceBox();
         buffType.setItems(FXCollections.observableArrayList(
-                "holy", "power", "poison", ""
+                HOLY, HP_CHANGE, AP_CHANGE, POISON
         ));
 
         effectValue = new TextField();
@@ -121,6 +133,12 @@ public class CustomCardSceneMaker extends SceneMaker {
         last.setPromptText("ENTER LAST");
         last.setStyle("-fx-prompt-text-fill: gray");
 
+        targetSociety = new ChoiceBox();
+        targetSociety.setItems(FXCollections.observableArrayList(
+                "AnyUnit", "EnemiesInColumn", "OneRandomNearestUnit", "OneRandomUnit", "OneUnit",
+                "RandomEnemyMinionAdjacentToHero", "SquareOfCell", "UnitsAdjacentToCell", "UnitsInHeroRow",
+                "UnitInHeroRow", "UnitInRange", "UnitTargetSociety"
+        ));
 
         friendOrEnemy = new ChoiceBox();
         friendOrEnemy.setItems(FXCollections.observableArrayList(
@@ -181,7 +199,10 @@ public class CustomCardSceneMaker extends SceneMaker {
             switch ((String) type.getValue()) {
                 case HERO:
                     GameContents.getShop().addCard(new Hero.HeroBuilder()
-                            .setSpell(new Spell.SpellBuilder().create())
+                            .setSpell(new Spell.SpellBuilder()
+                                    .addBuffs(buffs)
+                                    .setTargetSociety(getTargetSociety())
+                                    .create())
                             .setSpellCoolDown(Integer.parseInt(specialPowerCoolDown.getText()))
                             .setSpellManaCost(3)
                             .setAp(Integer.parseInt(ap.getText()))
@@ -195,6 +216,8 @@ public class CustomCardSceneMaker extends SceneMaker {
                 case MINION:
                     GameContents.getShop().addCard(new Minion.MinionBuilder()
                             .setSpecialPower(new Spell.SpellBuilder()
+                                    .addBuffs(buffs)
+                                    .setTargetSociety(getTargetSociety())
                                     .create())
                             .setSpecialPowerCastTime(getSpecialPowerCastTime())
                             .setAp(Integer.parseInt(ap.getText()))
@@ -208,10 +231,7 @@ public class CustomCardSceneMaker extends SceneMaker {
                 case SPELL:
                     GameContents.getShop().addCard(new SpellCard.SpellCardBuilder()
                             .setSpell(new Spell.SpellBuilder()
-                                    .addBuff(new Buff.BuffBuilder()
-                                            .setDuration(Integer.parseInt(last.getText()))
-                                            .setDurationToStart(Integer.parseInt(delay.getText()))
-                                            .create())
+                                    .addBuffs(buffs)
                                     .setTargetSociety(getTargetSociety())
                                     .create())
                             .setName(name.getText())
@@ -243,8 +263,29 @@ public class CustomCardSceneMaker extends SceneMaker {
         ScaleTool.relocate(buff, 700, 300);
 
         ImageView addBuff = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/add buff.png")));
-        ScaleTool.resizeImageView(addBuff , 100 , 40);
-        ScaleTool.relocate(addBuff , 700, 500);
+        ScaleTool.resizeImageView(addBuff, 100, 40);
+        ScaleTool.relocate(addBuff, 700, 500);
+        addBuff.setOnMouseClicked(event -> {
+            Buff.BuffBuilder builder = new Buff.BuffBuilder();
+            switch ((String) buffType.getValue()) {
+                case HOLY:
+                    builder.setHoly(Integer.parseInt(effectValue.getText()));
+                    break;
+                case POISON:
+                    builder.setPoison(Integer.parseInt(effectValue.getText()));
+                    break;
+                case AP_CHANGE:
+                    builder.setDeltaAP(Integer.parseInt(effectValue.getText()));
+                    break;
+                case HP_CHANGE:
+                    builder.setDeltaHP(Integer.parseInt(effectValue.getText()));
+                    break;
+            }
+            buffs.add(builder
+                    .setDuration(Integer.parseInt(last.getText()))
+                    .setDurationToStart(Integer.parseInt(delay.getText()))
+                    .create());
+        });
 
         pane.getChildren().add(type);
         pane.getChildren().add(name);
@@ -257,7 +298,7 @@ public class CustomCardSceneMaker extends SceneMaker {
     }
 
     private TargetSociety getTargetSociety() {
-        return null;
+        return null; //todo
     }
 
     private SpecialPowerCastTime getSpecialPowerCastTime() {
@@ -296,17 +337,11 @@ public class CustomCardSceneMaker extends SceneMaker {
     }
 
     private void addingSpellProperties(VBox spell, VBox spellBuff) {
-        ChoiceBox targetSociety = new ChoiceBox();
-        targetSociety.setItems(FXCollections.observableArrayList(
-                "AnyUnit", "EnemiesInColumn", "OneRandomNearestUnit", "OneRandomUnit", "OneUnit",
-                "RandomEnemyMinionAdjacentToHero", "SquareOfCell", "UnitsAdjacentToCell", "UnitsInHeroRow",
-                "UnitInHeroRow", "UnitInRange", "UnitTargetSociety"
-        ));
         spell.getChildren().addAll(targetSociety/*, gettingBuffProperties(spellBuff)*/);
     }
 
     private void addingUnitProperties(VBox unit, VBox specialPower) {
-        unit.getChildren().addAll(ap, hp, attackType, range, /*gettingBuffProperties(specialPower),*/ cost);
+        unit.getChildren().addAll(ap, hp, attackType, range, targetSociety, /*gettingBuffProperties(specialPower),*/ cost);
     }
 
     private VBox gettingBuffProperties(VBox buff) {
