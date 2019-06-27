@@ -22,9 +22,6 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
         super(primaryStage);
     }
 
-    public boolean customGame = true;
-
-
     @Override
     public Scene makeScene() throws Exception {
 
@@ -76,7 +73,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
 
         pane.getChildren().addAll(back, killingHero, collectFlag, holdFlag);
         pane.getChildren().addAll(killingHeroText, collectFlagText, holdFlagText);
-        if (customGame)
+        if (BattleSceneMaker.getCustomGameBooolean())
             pane.getChildren().add(enterDeckName);
 
         return new MyScene(pane);
