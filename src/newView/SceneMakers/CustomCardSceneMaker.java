@@ -257,6 +257,7 @@ public class CustomCardSceneMaker extends SceneMaker {
     }
 
     private TargetSociety getTargetSociety() {
+
         return null;
     }
 
