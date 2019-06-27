@@ -29,17 +29,17 @@ public class BattleSceneMaker extends SceneMaker {
         back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
 
-        ImageView customMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
-        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
+        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
+        ImageView customGame = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
 
-        ScaleTool.resizeImageView(storyMode, 100, 200);
-        ScaleTool.resizeImageView(customMode, 100, 203);
+        ScaleTool.resizeImageView(customGame, 100, 200);
+        ScaleTool.resizeImageView(storyMode, 100, 203);
 
+        ScaleTool.homothety(customGame, 3);
         ScaleTool.homothety(storyMode, 3);
-        ScaleTool.homothety(customMode, 3);
 
-        ScaleTool.relocate(storyMode, 300, 200);
-        ScaleTool.relocate(customMode, 800, 200);
+        ScaleTool.relocate(customGame, 300, 200);
+        ScaleTool.relocate(storyMode, 800, 200);
 
         customMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
         storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
@@ -57,7 +57,7 @@ public class BattleSceneMaker extends SceneMaker {
         customModeText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(customModeText, 750, 520);
 
-        pane.getChildren().addAll(customMode, storyMode, storyModeText, customModeText, back);
+        pane.getChildren().addAll(storyMode, customGame, singlePlayerText, multiPlayerText, back);
 
         return new MyScene(pane);
     }
