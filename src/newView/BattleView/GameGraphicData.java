@@ -15,6 +15,7 @@ public class GameGraphicData {
     private static TilesPane tilesPane;
     private static PlayerInfoPane[] infoPanes;
     private static CollectiblesHBox collectiblesHBox;
+    private static GraveyardPane graveyardPane;
 
     private static SelectType selectType = null;
 
@@ -56,13 +57,15 @@ public class GameGraphicData {
         selectType = type;
     }
 
-    public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton,
-                                TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes, CollectiblesHBox collectiblesBox) {
+    public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton
+            , TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes
+            , CollectiblesHBox collectiblesBox, GraveyardPane graveyard) {
         handBox = handHBox;
         turnButton = endTurnButton;
         tilesPane = gameTiles;
         infoPanes = playerInfoPanes;
         collectiblesHBox = collectiblesBox;
+        graveyardPane = graveyard;
     }
 
     public static GameGraphicListener getListener() {
@@ -91,6 +94,10 @@ public class GameGraphicData {
 
     public static CollectiblesHBox getCollectiblesHBox() {
         return collectiblesHBox;
+    }
+
+    public static GraveyardPane getGraveyardPane() {
+        return graveyardPane;
     }
 
     public static void setOnLeft(boolean onLeft) {
