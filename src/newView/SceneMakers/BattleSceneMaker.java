@@ -29,20 +29,20 @@ public class BattleSceneMaker extends SceneMaker {
         back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
 
-        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
-        ImageView customMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
+        ImageView customMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
+        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
 
-        ScaleTool.resizeImageView(customMode, 100, 200);
-        ScaleTool.resizeImageView(storyMode, 100, 203);
+        ScaleTool.resizeImageView(storyMode, 100, 200);
+        ScaleTool.resizeImageView(customMode, 100, 203);
 
-        ScaleTool.homothety(customMode, 3);
         ScaleTool.homothety(storyMode, 3);
+        ScaleTool.homothety(customMode, 3);
 
-        ScaleTool.relocate(customMode, 300, 200);
-        ScaleTool.relocate(storyMode, 800, 200);
+        ScaleTool.relocate(storyMode, 300, 200);
+        ScaleTool.relocate(customMode, 800, 200);
 
-        storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
         customMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
+        storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
 
 
         Text storyModeText = new Text();
@@ -57,7 +57,7 @@ public class BattleSceneMaker extends SceneMaker {
         customModeText.setStyle("-fx-font-size: 30");
         ScaleTool.relocate(customModeText, 750, 520);
 
-        pane.getChildren().addAll(storyMode, customMode, storyModeText, customModeText, back);
+        pane.getChildren().addAll(customMode, storyMode, storyModeText, customModeText, back);
 
         return new MyScene(pane);
     }

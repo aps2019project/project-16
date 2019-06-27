@@ -20,7 +20,7 @@ import view.views.StoryView;
 import java.io.FileInputStream;
 
 public class GameModeSelectorSceneMaker extends SceneMaker {
-    private boolean customGame = true;
+    private boolean customGame;
     private TextField enterDeckName;
 
     public GameModeSelectorSceneMaker(Stage primaryStage, boolean customGame) {
