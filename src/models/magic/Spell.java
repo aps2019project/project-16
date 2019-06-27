@@ -6,6 +6,7 @@ import models.targetsociety.TargetSociety;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 public class Spell {
     private ArrayList<Buff> buffs;
@@ -32,6 +33,11 @@ public class Spell {
 
         public SpellBuilder addBuff(Buff buff) {
             buffs.add(buff);
+            return this;
+        }
+
+        public SpellBuilder addBuffs(Collection<Buff> buffs) {
+            buffs.forEach(this::addBuff);
             return this;
         }
 
