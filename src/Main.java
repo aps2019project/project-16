@@ -1,6 +1,14 @@
+import com.dd.plist.PropertyListFormatException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import newView.AnimationMaker;
 import newView.SceneMakers.*;
+import newView.Type;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class Main extends Application {
     @Override
@@ -21,9 +29,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
 //        MenuHandler.startFirstMenu();
 //        CommandHandler.scanAndRunCommands();
+        AnimationMaker.getAttackAnimation("ali" , "hero");
         launch(args);
     }
 }

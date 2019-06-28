@@ -14,10 +14,7 @@ import javafx.util.Duration;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -49,6 +46,7 @@ public class AnimationMaker {
     public void setFilePlist() {
         try {
             String fileName = "src/newView/resources/cards/" + type + "/" + name + ".plist";
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(fileName)));
             this.filePlist = new File(fileName);
         } catch (Exception e) {
             String fileName = "src/newView/resources/cards/custom/" + type + "/1.plist";
@@ -59,6 +57,7 @@ public class AnimationMaker {
     public void setImageView() throws FileNotFoundException {
         try {
             String fileName = "src/newView/resources/cards/" + type + "/" + name + ".png";
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(fileName)));
             Image image = new Image(new FileInputStream(fileName));
             this.imageView = new ImageView(image);
         } catch (Exception e) {
