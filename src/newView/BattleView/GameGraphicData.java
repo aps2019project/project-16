@@ -16,6 +16,7 @@ public class GameGraphicData {
     private static PlayerInfoPane[] infoPanes;
     private static CollectiblesHBox collectiblesHBox;
     private static GraveyardPane graveyardPane;
+    private static CardInfo cardInfo;
 
     private static SelectType selectType = null;
 
@@ -59,13 +60,14 @@ public class GameGraphicData {
 
     public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton
             , TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes
-            , CollectiblesHBox collectiblesBox, GraveyardPane graveyard) {
+            , CollectiblesHBox collectiblesBox, GraveyardPane graveyard, CardInfo cardInfo1) {
         handBox = handHBox;
         turnButton = endTurnButton;
         tilesPane = gameTiles;
         infoPanes = playerInfoPanes;
         collectiblesHBox = collectiblesBox;
         graveyardPane = graveyard;
+        cardInfo = cardInfo1;
     }
 
     public static GameGraphicListener getListener() {
@@ -98,6 +100,10 @@ public class GameGraphicData {
 
     public static GraveyardPane getGraveyardPane() {
         return graveyardPane;
+    }
+
+    public static CardInfo getCardInfo() {
+        return cardInfo;
     }
 
     public static void setOnLeft(boolean onLeft) {

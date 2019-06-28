@@ -1,7 +1,6 @@
 package newView.SceneMakers;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -42,8 +41,7 @@ public class InGameSceneMaker extends SceneMaker {
 
         GraveyardPane graveyardPane = new GraveyardPane();
 
-        Button button = new Button();
-        // TODO: 6/27/19 + moving it
+        CardInfo cardInfo = new CardInfo();
 
         CollectiblesHBox collectiblesHBox = new CollectiblesHBox();
 
@@ -51,10 +49,11 @@ public class InGameSceneMaker extends SceneMaker {
 
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes, collectiblesHBox, graveyardPane);
+        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes
+                , collectiblesHBox, graveyardPane, cardInfo);
 
         borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1], collectiblesHBox);
-        borderPane.getChildren().addAll(graveyardPane);
+        borderPane.getChildren().addAll(graveyardPane, cardInfo);
         borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);
