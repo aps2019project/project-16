@@ -163,6 +163,7 @@ public class Buff {
     }
 
     private void cast(Unit unit) {
+        // todo sadegh: bazi tasirat buff va spell inja emal mishan
         if (!casted) {
             unit.getDamage(damage);
             unit.changeAP(deltaAP);
@@ -187,7 +188,7 @@ public class Buff {
         if (!casted) {
             cast(unit);
         }
-        if (remainingDuration % 2 == 0 && remainingDuration > 0)
+        if (remainingDuration % 2 == 0 && remainingDuration > 0) // todo sadegh: poison inja emal mishe
             unit.changeHP(-poison);
         if (remainingDuration == 0) {
             finish(unit);
@@ -196,6 +197,7 @@ public class Buff {
     } //todo delete buff from buffs??
 
     private void finish(Unit unit) {
+        //todo sadegh: in method vaghti tamoom mishe buff seda zade mishe. mitooni ye +hp bezari barash masalan
         unit.changeAP(-deltaAP);
         unit.changeHP(-deltaHP);
     }
