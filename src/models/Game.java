@@ -36,6 +36,9 @@ public class Game {
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
         this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
+
+        ClientSender.sendToViewer(new SetPlayerInfosAct(firstAccount.getName(), secondAccount.getName()));
+
         initHands();
         initIsOnLeft();
         this.players[0].setTable(table);
