@@ -94,6 +94,8 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner = winner;
+
+        ClientSender.sendToViewer(new GameEndAct(winner.getName()));
     }
 
     public GameMode getGameMode() {
