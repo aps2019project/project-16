@@ -17,12 +17,14 @@ public class DieUnitAct extends GameAct {
     private int column;
     private String unitName;
     private Type type;
+    private boolean forLeft;
 
-    public DieUnitAct(int row, int column, String unitName, Type type) {
+    public DieUnitAct(int row, int column, String unitName, Type type, boolean forLeft) {
         this.row = row;
         this.column = column;
         this.unitName = unitName;
         this.type = type;
+        this.forLeft = forLeft;
     }
 
     @Override
@@ -36,6 +38,10 @@ public class DieUnitAct extends GameAct {
 
     private void makeAnimation() throws Exception {
         ImageView dieView = AnimationMaker.getDeathAnimation(unitName, type.getName());
+
+        if (forLeft == GameGraphicData.isOnLeft()) {
+            GameGraphicData.getGraveyardPane().addCard(unitName, type);
+        }
 
         Tile tile = GameGraphicData.getTilesPane().getTile(row, column);
         tile.setImageView(dieView, null);

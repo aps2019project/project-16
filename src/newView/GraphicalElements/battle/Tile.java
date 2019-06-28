@@ -8,11 +8,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
+import newView.Type;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -63,7 +65,7 @@ public class Tile extends Pane {
     public static final double SELECTED_OPACITY = 0.6;
     public static final double TILE_LENGTH = 80;
 
-    public Tile(int row, int column) throws FileNotFoundException {
+    public Tile(int row, int column) {
         this.row = row;
         this.column = column;
         ScaleTool.relocateTile(this);
@@ -95,11 +97,17 @@ public class Tile extends Pane {
 
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
+            if (imageView != null) {
+                GameGraphicData.getCardInfo().setCardView(unit.getName(), getUnitType(unit));
+            }
             if (!isSelected) {
                 polygon.setOpacity(HOVER_OPACITY);
             }
         });
         node.setOnMouseExited(event -> {
+            if (imageView != null) {
+                GameGraphicData.getCardInfo().setNull();
+            }
             if (!isSelected) {
                 polygon.setOpacity(NORMAL_OPACITY);
             }
@@ -217,5 +225,13 @@ public class Tile extends Pane {
 
     public ImageView getItemView() {
         return itemView;
+    }
+
+    private Type getUnitType(Unit unit) {
+        if (unit instanceof Hero) {
+            return Type.HERO;
+        } else {
+            return Type.MINION;
+        }
     }
 }

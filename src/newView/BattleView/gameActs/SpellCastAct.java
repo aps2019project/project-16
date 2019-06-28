@@ -41,6 +41,8 @@ public class SpellCastAct extends GameAct {
         if (isForLeft == GameGraphicData.isOnLeft()) {
             HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
             handElement.setImageView(null, null, null, null);
+
+            GameGraphicData.getGraveyardPane().addCard(cardName, type);
         }
     }
 }

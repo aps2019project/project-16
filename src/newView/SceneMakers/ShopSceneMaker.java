@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.Initializer;
 import models.card.*;
 import models.item.Item;
 import newView.CardMaker;
@@ -46,6 +45,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private int itemCounter;
     private int minionCounter;
     private int spellCounter;
+    private int heroCounter;
 
     private boolean inShop = true;
 
@@ -182,7 +182,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         Pane t = new Pane();
         Pane crd = new CardMaker("kave", Type.HERO).getUnitCardView();
         pane.getChildren().add(crd);
-        ScaleTool.homothety(crd , 0.5);
+        ScaleTool.homothety(crd, 0.5);
 
         return new MyScene(pane);
     }
@@ -258,7 +258,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         try {
             gridPane.getChildren().removeIf(node -> true);
             if (visibleType == Type.HERO) {
-                showHero(gridPane, heroes);
+                showHeroes(gridPane, heroes, heroCounter);
             } else if (visibleType == Type.MINION) {
                 showMinions(gridPane, minions, minionCounter);
             } else if (visibleType == Type.SPELL) {
@@ -308,10 +308,10 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         }
     }
 
-    private void showHero(GridPane gridPane, ArrayList<Card> heroes) throws Exception {
+    private void showHeroes(GridPane gridPane, ArrayList<Card> heroes, int heroCounter) throws Exception {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 5; j++) {
-                Card hero = heroes.get(5 * i + j);
+                Card hero = heroes.get(5 * i + j + heroCounter);
                 String name = hero.getName();
                 Pane heroCardView = new CardMaker(name, Type.HERO).getUnitCardView();
                 setBuyOnMouseClick(heroCardView, name);
@@ -326,12 +326,14 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
 
     private void addCounter() {
-        if (visibleType == Type.MINION && minionCounter < 30)
+        if (visibleType == Type.MINION && minionCounter < minions.size() - 10)
             minionCounter += 10;
-        else if (visibleType == Type.SPELL && spellCounter < 10)
+        else if (visibleType == Type.SPELL && spellCounter < spells.size() - 10)
             spellCounter += 10;
-        else if (visibleType == Type.ITEM && itemCounter < 10)
+        else if (visibleType == Type.ITEM && itemCounter < items.size() - 10)
             itemCounter += 10;
+        else if (visibleType == Type.HERO && heroCounter < heroes.size() - 10)
+            heroCounter += 10;
     }
 
     private void minusCounter() {
@@ -341,6 +343,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             spellCounter -= 10;
         else if (visibleType == Type.ITEM && itemCounter >= 10)
             itemCounter -= 10;
+        else if (visibleType == Type.HERO && heroCounter >= 10)
+            heroCounter -= 10;
     }
 
     private void addCollectionCounter() {
