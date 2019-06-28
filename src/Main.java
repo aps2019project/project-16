@@ -32,7 +32,7 @@ public class Main extends Application {
     public static void main(String[] args) throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
 //        MenuHandler.startFirstMenu();
 //        CommandHandler.scanAndRunCommands();
-        AnimationMaker.getAttackAnimation("ali" , "hero");
+//        AnimationMaker.getAttackAnimation("ali" , "hero");
         launch(args);
     }
 }

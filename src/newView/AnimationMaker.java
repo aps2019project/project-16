@@ -44,24 +44,30 @@ public class AnimationMaker {
     }
 
     public void setFilePlist() {
+        String fileName = "src/newView/resources/cards/" + type + "/" + name + ".plist";
         try {
-            String fileName = "src/newView/resources/cards/" + type + "/" + name + ".plist";
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(fileName)));
+            File temp = new File(fileName);
+            if (!temp.exists()) {
+                throw new Exception();
+            }
             this.filePlist = new File(fileName);
         } catch (Exception e) {
-            String fileName = "src/newView/resources/cards/custom/" + type + "/1.plist";
+            fileName = "src/newView/resources/cards/custom/" + type + "/1.plist";
             this.filePlist = new File(fileName);
         }
     }
 
     public void setImageView() throws FileNotFoundException {
+        String fileName = "src/newView/resources/cards/" + type + "/" + name + ".png";
         try {
-            String fileName = "src/newView/resources/cards/" + type + "/" + name + ".png";
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(fileName)));
+            File temp = new File(fileName);
+            if (!temp.exists()) {
+                throw new Exception();
+            }
             Image image = new Image(new FileInputStream(fileName));
             this.imageView = new ImageView(image);
         } catch (Exception e) {
-            String fileName = "src/newView/resources/cards/custom/" + type + "/1.png";
+            fileName = "src/newView/resources/cards/custom/" + type + "/1.png";
             this.imageView = new ImageView(new Image(new FileInputStream(fileName)));
         }
     }
