@@ -210,9 +210,7 @@ public class Buff {
             durationToStart--;
             return;
         }
-        if (remainingDuration < 0)
-            return;
-        if (cell.hasUnit()) {
+        if (cell.hasUnit() && remainingDuration > 0) {
             if (poison == 1)
                 cell.getUnit().addBuff(new Buff(6, this));
             if (poison == 2)
