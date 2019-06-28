@@ -292,7 +292,8 @@ public class Game {
                     unitsToRemove.add(unit);
 
                     ClientSender.sendToViewer(new DieUnitAct(currentCell.getRow(), currentCell.getColumn()
-                            , unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION));
+                            , unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION
+                            , getIsForLeft(player)));
                 }
             }
             for (Unit unit : unitsToRemove) {
@@ -385,5 +386,9 @@ public class Game {
 
     private boolean getIsForLeft(int i) {
         return i == 0;
+    }
+
+    private boolean getIsForLeft(Player player) {
+        return player == players[0];
     }
 }
