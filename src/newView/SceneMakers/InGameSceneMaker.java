@@ -42,6 +42,9 @@ public class InGameSceneMaker extends SceneMaker {
         GraveyardPane graveyardPane = new GraveyardPane();
 
         CardInfo cardInfo = new CardInfo();
+        CancelButton cancelButton = new CancelButton();
+        BackButton backButton = new BackButton();
+        backButton.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
         CollectiblesHBox collectiblesHBox = new CollectiblesHBox();
 
@@ -53,7 +56,7 @@ public class InGameSceneMaker extends SceneMaker {
                 , collectiblesHBox, graveyardPane, cardInfo);
 
         borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1], collectiblesHBox);
-        borderPane.getChildren().addAll(graveyardPane, cardInfo);
+        borderPane.getChildren().addAll(graveyardPane, cardInfo, cancelButton, backButton);
         borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(borderPane);

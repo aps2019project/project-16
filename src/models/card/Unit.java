@@ -10,6 +10,7 @@ import models.magic.Spell;
 import newView.BattleView.ClientSender;
 import newView.BattleView.gameActs.AddFlagAct;
 import newView.BattleView.gameActs.AttackAct;
+import newView.BattleView.gameActs.MinionSpecialPowerAct;
 import newView.BattleView.gameActs.MoveAct;
 
 import java.util.ArrayList;
@@ -59,8 +60,11 @@ public abstract class Unit extends Card implements Buffable {
 
     public void castSpecialPower(SpecialPowerCastTime time, Cell cell) {
         for (Pair<SpecialPowerCastTime, Spell> specialPower : specialPowers)
-            if (time == specialPower.getKey())
+            if (time == specialPower.getKey()) {
                 specialPower.getValue().cast(getPlayer(), cell);
+
+                ClientSender.sendToViewer(new MinionSpecialPowerAct(time, cell.getRow(), cell.getColumn()));
+            }
     }
 
     public static abstract class UnitBuilder extends CardBuilder {
