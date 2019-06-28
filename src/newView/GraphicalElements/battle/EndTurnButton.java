@@ -30,7 +30,7 @@ public class EndTurnButton extends ImageView {
         }
 
         ScaleTool.resizeImageView(this, BUTTON_WIDTH, BUTTON_HEIGHT);
-        ScaleTool.relocate(this, WIDTH * 0.75, HEIGHT * 0.8);
+        ScaleTool.relocate(this, WIDTH * 0.7, HEIGHT * 0.8);
 
         setMouseEventsFor(this);
     }

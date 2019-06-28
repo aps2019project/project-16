@@ -333,6 +333,6 @@ public class InGameController implements InGameContract.Controller {
 
         Notify.logMessage("Player \"" + currentPlayer.getAccount().getName() + "\" refused the game!!");
         Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
-        view.goToPrevMenu();
+//        view.goToPrevMenu();
     }
 }
