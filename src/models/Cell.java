@@ -5,7 +5,9 @@ import models.item.Item;
 import models.magic.Buff;
 import models.magic.Buffable;
 import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.AddCellEffectAct;
 import newView.BattleView.gameActs.AddCollectibleAct;
+import newView.BattleView.gameActs.RemoveCellEffectAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,8 @@ public class Cell implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
-        //todo sadegh: inja buff be cell ezafe mishe
+        // TODO Mostafa : baraye ezafe kardan bayad benevisi:
+        //  ClientSender.sendToViewer(new AddCellEffectAct(param...));
         cellEffect.add(buff.copy());
     }
 
@@ -76,8 +79,11 @@ public class Cell implements Buffable {
 
     @Override
     public void doBuffs() {
-        for (Buff buff : cellEffect) // todo sadegh: inja mitooni check koni age remainingDuration buff == 0 bood hazf koni
+        for (Buff buff : cellEffect)  {
+            // TODO Mostafa : baraye hazf kardan bayad benevisi:
+            //  ClientSender.sendToViewer(new RemoveCellEffectAct(param...));
             buff.castOnEndTurn(this);
+        }
     }
 
     public ArrayList<Buff> getCellEffect() {
