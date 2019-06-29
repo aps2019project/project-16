@@ -8,10 +8,7 @@ import models.magic.Buff;
 import models.magic.Buffable;
 import models.magic.Spell;
 import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.AddFlagAct;
-import newView.BattleView.gameActs.AttackAct;
-import newView.BattleView.gameActs.MinionSpecialPowerAct;
-import newView.BattleView.gameActs.MoveAct;
+import newView.BattleView.gameActs.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -258,8 +255,14 @@ public abstract class Unit extends Card implements Buffable {
             return;
         if (notGetWeakerAttack && amount >= ap)
             return;
-        if (amount - getHoly() > 0)
+        if (amount - getHoly() > 0) {
             hp -= amount - getHoly();
+
+            if (getCurrentCell() != null) {
+                ClientSender.sendToViewer(new ChangeApHpAct(getCurrentCell().getRow(), getCurrentCell().getColumn()
+                        , true, -(amount - getHoly()), false));
+            }
+        }
     }
 
     public void changeAP(int amount) {

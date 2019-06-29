@@ -97,7 +97,7 @@ public class Tile extends Pane {
 
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
-            if (imageView != null) {
+            if (imageView != null && unit != null) {
                 GameGraphicData.getCardInfo().setCardView(unit.getName(), getUnitType(unit));
             }
             if (!isSelected) {

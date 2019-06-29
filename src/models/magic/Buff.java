@@ -3,6 +3,8 @@ package models.magic;
 import models.Cell;
 import models.Player;
 import models.card.Unit;
+import newView.BattleView.ClientSender;
+import newView.BattleView.gameActs.ChangeApHpAct;
 
 public class Buff {
     public static final int INFINITY = 1000000;
@@ -163,11 +165,12 @@ public class Buff {
     }
 
     private void cast(Unit unit) {
-        // todo sadegh: bazi tasirat buff va spell inja emal mishan
         if (!casted) {
             unit.getDamage(damage);
             unit.changeAP(deltaAP);
             unit.changeHP(deltaHP);
+
+            sendChangeHpAndApToClient(unit);
         }
         casted = true;
     }
@@ -188,8 +191,15 @@ public class Buff {
         if (!casted) {
             cast(unit);
         }
-        if (remainingDuration % 2 == 0 && remainingDuration > 0) // todo sadegh: poison inja emal mishe
+        if (remainingDuration % 2 == 0 && remainingDuration > 0) {
             unit.changeHP(-poison);
+
+            Cell cell = unit.getCurrentCell();
+            if (cell != null && poison > 0) {
+                ClientSender.sendToViewer(new ChangeApHpAct(cell.getRow(), cell.getColumn()
+                        , true, -poison, true));
+            }
+        }
         if (remainingDuration == 0) {
             finish(unit);
         }
@@ -197,9 +207,10 @@ public class Buff {
     } //todo delete buff from buffs??
 
     private void finish(Unit unit) {
-        //todo sadegh: in method vaghti tamoom mishe buff seda zade mishe. mitooni ye +hp bezari barash masalan
         unit.changeAP(-deltaAP);
         unit.changeHP(-deltaHP);
+
+        sendChangeHpAndApToClient(unit);
     }
 
     /**
@@ -251,5 +262,20 @@ public class Buff {
 
     private boolean isActive() {
         return remainingDuration > 0 && durationToStart <= 0;
+    }
+
+    private void sendChangeHpAndApToClient(Unit unit) {
+        if (unit.getCurrentCell() != null) {
+            Cell cell = unit.getCurrentCell();
+
+            if (deltaAP != 0) {
+                ClientSender.sendToViewer(new ChangeApHpAct(cell.getRow(), cell.getColumn()
+                        , false, deltaAP, false));
+            }
+            if (deltaHP != 0) {
+                ClientSender.sendToViewer(new ChangeApHpAct(cell.getRow(), cell.getColumn()
+                        , true, deltaHP, false));
+            }
+        }
     }
 }
