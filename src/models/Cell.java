@@ -67,8 +67,7 @@ public class Cell implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
-        // TODO Mostafa : baraye ezafe kardan bayad benevisi:
-        //  ClientSender.sendToViewer(new AddCellEffectAct(param...));
+        ClientSender.sendToViewer(new AddCellEffectAct(getCellEffectType(buff), row, column));
         cellEffect.add(buff.copy());
     }
 
@@ -80,8 +79,8 @@ public class Cell implements Buffable {
     @Override
     public void doBuffs() {
         for (Buff buff : cellEffect)  {
-            // TODO Mostafa : baraye hazf kardan bayad benevisi:
-            //  ClientSender.sendToViewer(new RemoveCellEffectAct(param...));
+            if (buff.getRemainingDuration() == 0)
+                ClientSender.sendToViewer(new RemoveCellEffectAct(getCellEffectType(buff), row, column));
             buff.castOnEndTurn(this);
         }
     }
@@ -108,5 +107,15 @@ public class Cell implements Buffable {
         while (collectibles.size() > 0) {
             collectibles.remove(0);
         }
+    }
+
+    private CellEffectType getCellEffectType(Buff buff) {
+        if (buff.hasPoison())
+            return CellEffectType.POISON;
+        if (buff.getHoly() > 0)
+            return CellEffectType.HOLY;
+        if (buff.getDamage() > 0)
+            return CellEffectType.FIRE;
+        return null; // program should not reach here.
     }
 }
