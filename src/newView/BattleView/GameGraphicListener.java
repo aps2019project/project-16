@@ -6,7 +6,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameGraphicListener extends Thread {
     private final LinkedBlockingQueue<GameAct> inQueueGameActs = new LinkedBlockingQueue<>();
-    public static final int GAME_ACT_TIME = 2000;//we can increase game speed by this constant!!! :))
+    private final static int INIT_TIME = 3000;
+    private static double rate = 1.0;
+    public static int GAME_ACT_TIME = INIT_TIME;
+
 
     public void addGameAct(GameAct gameAct) {
         inQueueGameActs.add(gameAct);
@@ -37,5 +40,21 @@ public class GameGraphicListener extends Thread {
         }
         //noinspection ConstantConditions: NullPointer warning handled by wait and notify methods
         gameAct.passToPlatform();
+    }
+
+    public static String increaseVelocity() {
+        if (rate < 5.9) {
+            rate += 0.5;
+            GAME_ACT_TIME = (int) (INIT_TIME / rate);
+        }
+        return rate + " X";
+    }
+
+    public static String decreaseVelocity() {
+        if (rate > 0.6) {
+            rate -= 0.5;
+            GAME_ACT_TIME = (int) (INIT_TIME / rate);
+        }
+        return rate + " X";
     }
 }

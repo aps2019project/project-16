@@ -1,6 +1,10 @@
 package newView.BattleView.gameActs;
 
+import javafx.scene.paint.Color;
 import models.CellEffectType;
+import newView.BattleView.GameGraphicData;
+import newView.GraphicalElements.battle.CellEffectPane;
+import newView.GraphicalElements.battle.Tile;
 
 public class RemoveCellEffectAct extends GameAct {
     private CellEffectType effectType;
@@ -15,6 +19,19 @@ public class RemoveCellEffectAct extends GameAct {
 
     @Override
     public void showAction() {
-        // TODO Sadegh: 6/29/19
+        Tile tile = GameGraphicData.getTilesPane().getTile(row, column);
+        CellEffectPane effectPane = tile.getCellEffectPane();
+        tile.enableColorAnimation(Color.LAVENDER);
+        switch (effectType) {
+            case FIRE:
+                effectPane.decreaseFire();
+                break;
+            case HOLY:
+                effectPane.decreaseHoly();
+                break;
+            case POISON:
+                effectPane.decreasePoison();
+                break;
+        }
     }
 }

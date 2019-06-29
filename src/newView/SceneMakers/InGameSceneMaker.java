@@ -45,6 +45,7 @@ public class InGameSceneMaker extends SceneMaker {
         CancelButton cancelButton = new CancelButton();
         BackButton backButton = new BackButton();
         backButton.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+        FastForwardPane fastForwardPane = new FastForwardPane();
 
         CollectiblesHBox collectiblesHBox = new CollectiblesHBox();
 
@@ -55,7 +56,8 @@ public class InGameSceneMaker extends SceneMaker {
         GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes
                 , collectiblesHBox, graveyardPane, cardInfo);
 
-        borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1], collectiblesHBox);
+        borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]
+                , fastForwardPane, collectiblesHBox);
         borderPane.getChildren().addAll(graveyardPane, cardInfo, cancelButton, backButton);
         borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         borderPane.setCursor(SceneMaker.GAME_CURSOR);

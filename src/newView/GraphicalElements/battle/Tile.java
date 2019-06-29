@@ -60,6 +60,7 @@ public class Tile extends Pane {
     private TilePolygon polygon = new TilePolygon();
     private ImageView imageView;
     private Unit unit;
+    private CellEffectPane cellEffectPane = new CellEffectPane();
     public static final double NORMAL_OPACITY = 0.2;
     public static final double HOVER_OPACITY = 0.4;
     public static final double SELECTED_OPACITY = 0.6;
@@ -70,8 +71,13 @@ public class Tile extends Pane {
         this.column = column;
         ScaleTool.relocateTile(this);
         ScaleTool.makeTilePoints(polygon, row, column);
-        this.getChildren().add(polygon);
+        this.getChildren().addAll(cellEffectPane, polygon);
         setMouseEventsFor(polygon);
+        setMouseEventsFor(cellEffectPane);
+    }
+
+    public CellEffectPane getCellEffectPane() {
+        return cellEffectPane;
     }
 
     public ImageView getImageView() {
