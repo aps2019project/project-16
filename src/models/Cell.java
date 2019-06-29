@@ -65,6 +65,7 @@ public class Cell implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
+        //todo sadegh: inja buff be cell ezafe mishe
         cellEffect.add(buff.copy());
     }
 
@@ -75,7 +76,7 @@ public class Cell implements Buffable {
 
     @Override
     public void doBuffs() {
-        for (Buff buff : cellEffect)
+        for (Buff buff : cellEffect) // todo sadegh: inja mitooni check koni age remainingDuration buff == 0 bood hazf koni
             buff.castOnEndTurn(this);
     }
 
