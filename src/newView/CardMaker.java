@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import models.GameContents;
 import models.Shop;
 import models.card.Card;
 import models.card.Unit;
@@ -21,7 +22,8 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class CardMaker {
-    Shop shop = new Shop();
+    Shop shop = GameContents.getShop();
+
     private String name;
     private File backGround;
     private Text hp;
