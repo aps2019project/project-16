@@ -300,6 +300,10 @@ public abstract class Unit extends Card implements Buffable {
 
     public void attack(Unit opponent) throws AttackException {
         this.checkCanAttack(opponent);
+
+        ClientSender.sendToViewer(
+                new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
+
         attackedTo.putIfAbsent(opponent, 0);
         int damage = ap;
         damage += addedApPerAttack * attackedTo.get(opponent);
@@ -311,9 +315,6 @@ public abstract class Unit extends Card implements Buffable {
             opponent.getDamage(damage);
         attackedTo.computeIfPresent(opponent, (unit, integer) -> integer + 1); //todo check if work correctly
         castSpecialPower(SpecialPowerCastTime.ON_ATTACK, opponent.getCurrentCell());
-
-        ClientSender.sendToViewer(
-                new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
     }
 
     public void counterAttack(Unit opponent) {
@@ -321,10 +322,11 @@ public abstract class Unit extends Card implements Buffable {
             return;
         if (isDisarmed() || isStunned())
             return;
-        opponent.getDamage(ap);
 
         ClientSender.sendToViewer(
                 new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
+
+        opponent.getDamage(ap);
     }
 
     public void comboAttack(Unit opponent, ArrayList<Unit> allies) throws UnitHasNotComboException, AttackException {
