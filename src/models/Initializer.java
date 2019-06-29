@@ -713,7 +713,7 @@ public class Initializer {
                 .setSpell(new Spell.SpellBuilder()
                         .setTargetSociety(new SquareOfCells(2))
                         .addBuff(new Buff.BuffBuilder()
-                                .setPoison(2)
+                                .setDamage(2)
                                 .setDuration(2)
                                 .create())
                         .create())

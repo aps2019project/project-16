@@ -226,8 +226,8 @@ public class Buff {
         if (cell.hasUnit() && remainingDuration > 0) {
             if (poison == 1)
                 cell.getUnit().addBuff(new Buff(6, this));
-            if (poison == 2)
-                cell.getUnit().changeHP(-poison);
+            if (damage == 2)
+                cell.getUnit().changeHP(-damage);
         }
         remainingDuration--;
     }
