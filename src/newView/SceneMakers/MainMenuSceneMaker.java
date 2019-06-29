@@ -1,5 +1,6 @@
 package newView.SceneMakers;
 
+import com.dd.plist.PropertyListFormatException;
 import controllers.AccountController;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -11,9 +12,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import newView.AnimationMaker;
 import newView.GraphicalElements.*;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class MainMenuSceneMaker extends SceneMaker {
     private double x = 0, y = 0;
@@ -24,7 +30,7 @@ public class MainMenuSceneMaker extends SceneMaker {
 
 
     @Override
-    public Scene makeScene() throws FileNotFoundException {
+    public Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException {
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 1, "account");
 
@@ -91,7 +97,6 @@ public class MainMenuSceneMaker extends SceneMaker {
 
         borderPane.getChildren().addAll(lionView, fog.getView(), warriorManView);
         borderPane.getChildren().addAll(commandsPane);
-
         return new MyScene(borderPane);
     }
 
