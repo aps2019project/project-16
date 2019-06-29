@@ -250,6 +250,14 @@ public class Buff {
         return false;
     }
 
+    public int getRemainingDuration() {
+        return remainingDuration;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
     public boolean hasPoison() {
         if (isActive())
             return poison > 0;

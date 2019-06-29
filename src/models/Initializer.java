@@ -650,7 +650,7 @@ public class Initializer {
         //2
         cards.add(new SpellCard.SpellCardBuilder()
                 .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new SquareOfCells(2))
+                        .setTargetSociety(new SquareOfCells(2)) //todo should be corrected and should not be used
                         .addBuff(new Buff.BuffBuilder()
                                 .setDispel()
                                 .create())
