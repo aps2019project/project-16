@@ -13,15 +13,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.Shop;
 import models.card.*;
 import models.item.Item;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
+import newView.SoundPlayer;
 import newView.Type;
-import sun.awt.image.PNGImageDecoder;
 
 import java.io.FileInputStream;
 import java.util.*;
@@ -71,6 +70,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        SoundPlayer.playByPath("src/newView/resources/sounds/shop.wav");
     }
 
 

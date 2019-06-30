@@ -8,6 +8,7 @@ import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.TilesPane;
+import newView.SoundPlayer;
 
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
 import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
@@ -25,6 +26,8 @@ public class TurnChangeAct extends GameAct {
         ScaleTool.relocate(text, NUMBER_OF_COLUMNS * TILE_LENGTH / 2, NUMBER_OF_ROWS * TILE_LENGTH / 2);
         text.setScaleX(4);
         text.setScaleY(4);
+
+        SoundPlayer.playByPath("src/newView/resources/sounds/next.wav");
 
         TilesPane tilesPane = GameGraphicData.getTilesPane();
         tilesPane.getChildren().add(text);

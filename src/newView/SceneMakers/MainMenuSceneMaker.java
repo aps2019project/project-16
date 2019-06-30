@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import newView.GraphicalElements.*;
+import newView.SoundPlayer;
 
 import java.io.IOException;
 
@@ -55,6 +56,8 @@ public class MainMenuSceneMaker extends SceneMaker {
             x = e.getX();
             y = e.getY();
         });
+
+        SoundPlayer.playByPath("src/newView/resources/sounds/welcome.wav");
 
         VBox commandsBox = new VBox();
         Pane commandsPane = new Pane(commandsBox);

@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
+import newView.SoundPlayer;
 import newView.Type;
 
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
@@ -38,6 +39,8 @@ public class DieUnitAct extends GameAct {
 
     private void makeAnimation() throws Exception {
         ImageView dieView = AnimationMaker.getDeathAnimation(unitName, type.getName());
+
+        SoundPlayer.playByPath("src/newView/resources/sounds/die.wav");
 
         if (forLeft == GameGraphicData.isOnLeft()) {
             GameGraphicData.getGraveyardPane().addCard(unitName, type);

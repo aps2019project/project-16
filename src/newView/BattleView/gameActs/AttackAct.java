@@ -11,6 +11,7 @@ import models.card.Hero;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
+import newView.SoundPlayer;
 import newView.Type;
 
 import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
@@ -54,6 +55,7 @@ public class AttackAct extends GameAct {
         ImageView hitView = AnimationMaker.getHitAnimation(defenderName, defenderType.getName());
         ImageView breathingView2 = AnimationMaker.getBreathingAnimation(defenderName, defenderType.getName());
 
+        SoundPlayer.playByPath("src/newView/resources/sounds/hit.wav");
 
         Tile source = GameGraphicData.getTilesPane().getTile(attackerRow, attackerColumn);
         source.enableColorAnimation(Color.rgb(255, 255, 0));
