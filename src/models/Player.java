@@ -21,6 +21,7 @@ public class Player {
     private int turnsFlagKeeped;
     private Account account;
     private Table table;
+    private Hero hero;
 
     private boolean isOnLeft;
 
@@ -121,6 +122,10 @@ public class Player {
         return selectedUnit;
     }
 
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
     public void attack(Unit opponent) throws AttackException {
         selectedUnit.attack(opponent);
         opponent.counterAttack(selectedUnit);
@@ -200,7 +205,11 @@ public class Player {
             case "ya abalfazl":
                 ClientSender.sendToViewer(new YaAbalfazlAct());
                 try {
-                    castSpellCard(Initializer.getNewHeroSupport(), table.getCell(0,0), true);
+                    System.out.println("spell before");
+                    Cell heroCell = hero.getCurrentCell();
+                    castSpellCard(Initializer.getNewHeroSupport()
+                            , table.getCell(heroCell.getRow(), heroCell.getColumn()), true);
+                    System.out.println("spell");
                 } catch (Exception ignored) {
                 }
                 break;

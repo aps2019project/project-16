@@ -364,6 +364,7 @@ public class Game {
             ClientSender.sendToViewer(
                     new PutUnitAct(2, 8 * i, getIsForLeft(i), hero, false));
 
+            players[i].setHero(hero);
             players[i].getUnits().add(hero);
             players[i].pickUpFlags(cell, hero);
             players[i].pickUpCollectibles(cell);
