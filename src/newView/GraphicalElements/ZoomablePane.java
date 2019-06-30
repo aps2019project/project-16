@@ -6,12 +6,15 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import newView.SceneMakers.SceneMaker;
 
-public class MapBrowserPane extends Pane {
+import static newView.SceneMakers.SceneMaker.HEIGHT;
+import static newView.SceneMakers.SceneMaker.WIDTH;
+
+public class ZoomablePane extends BorderPane {
     private static final int MIN_PIXELS = 300;
     private static final double RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER = 1;
     private Rectangle2D imageProperties;
@@ -19,9 +22,13 @@ public class MapBrowserPane extends Pane {
     private Scale scale = new Scale(1, 1);
     private Translate translate = new Translate(0, 0);
 
-    public MapBrowserPane(Node... children) {
-        super(children);
+    public ZoomablePane(Node... children) {
+        super();
+        this.getChildren().addAll(children);
         getTransforms().addAll(translate, scale);
+        this.setMaxHeight(HEIGHT);
+        this.setMaxWidth(WIDTH);
+        this.initialize();
     }
 
 
@@ -29,12 +36,12 @@ public class MapBrowserPane extends Pane {
         imageProperties = new Rectangle2D(0, 0, getMaxWidth(), getMaxHeight());
         viewPort = new Rectangle2D((imageProperties.getWidth() - SceneMaker.WIDTH *
                 RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER) / 2,
-                (imageProperties.getHeight() - SceneMaker.HEIGHT *
+                (imageProperties.getHeight() - HEIGHT *
                         RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER) / 2,
                 SceneMaker.WIDTH * RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER,
-                SceneMaker.HEIGHT * RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER);
+                HEIGHT * RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER);
 
-        reset(SceneMaker.WIDTH, SceneMaker.HEIGHT);
+        reset(SceneMaker.WIDTH, HEIGHT);
 
         ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
 
@@ -51,7 +58,7 @@ public class MapBrowserPane extends Pane {
         });
 
         setOnMouseReleased(e -> {
-            setCursor(Cursor.DEFAULT);
+            setCursor(SceneMaker.GAME_CURSOR);
         });
 
         setOnScroll(e -> {
@@ -132,8 +139,8 @@ public class MapBrowserPane extends Pane {
 
     // convert mouse coordinates in the imageView to coordinates in the actual image:
     private Point2D imageViewToImage(Point2D imageViewCoordinates) {
-        double xProportion = imageViewCoordinates.getX() / SceneMaker.WIDTH;
-        double yProportion = imageViewCoordinates.getY() / SceneMaker.HEIGHT;
+        double xProportion = imageViewCoordinates.getX() / WIDTH;
+        double yProportion = imageViewCoordinates.getY() / HEIGHT;
 
         return new Point2D(
                 viewPort.getMinX() + xProportion * viewPort.getWidth(),
@@ -145,7 +152,7 @@ public class MapBrowserPane extends Pane {
         translate.setY(-viewPort.getMinY());
         scale.setPivotX(viewPort.getMinX());
         scale.setPivotY(viewPort.getMinY());
-        scale.setX(SceneMaker.WIDTH / viewPort.getWidth());
-        scale.setY(SceneMaker.HEIGHT / viewPort.getHeight());
+        scale.setX(WIDTH / viewPort.getWidth());
+        scale.setY(HEIGHT / viewPort.getHeight());
     }
 }
