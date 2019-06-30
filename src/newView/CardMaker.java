@@ -27,6 +27,8 @@ public class CardMaker {
     private String name;
     private File backGround;
     private Text hp;
+    private ImageView mana;
+    private Text manaValue;
     private Text ap;
     private Text nameOfCard;
     private Text typeOfCard;
@@ -40,11 +42,33 @@ public class CardMaker {
         backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
         setAp();
         setHp();
+        setMana();
         setNameOfCard();
         setTypeOfCard();
         setSprite();
 
     }
+
+    private void setMana() throws FileNotFoundException {
+        manaValue = new Text();
+        manaValue.setFill(Color.BLACK);
+        Card card;
+        if (type != Type.ITEM) {
+            card = shop.getCard(name);
+            manaValue.setText(String.valueOf(card.getManaCost()));
+        }
+    }
+
+
+    private StackPane getManaView() throws FileNotFoundException {
+        mana = new ImageView(new Image(new FileInputStream("src/newView/resources/cardBackgrounds/mana.png")));
+        ScaleTool.resizeImageView(mana, 30, 30);
+        StackPane manaView = new StackPane();
+
+        manaView.getChildren().addAll(mana, manaValue);
+        return manaView;
+    }
+
 
     public void setHp() {
         hp = new Text();
@@ -128,6 +152,7 @@ public class CardMaker {
         Pane root = new Pane();
         StackPane stackPaneName = new StackPane();
         StackPane stackPaneType = new StackPane();
+        StackPane mana = getManaView();
 
         ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
         ImageView sprite = getSprite();
@@ -161,13 +186,9 @@ public class CardMaker {
         stackPaneType.setLayoutY(135);//todo must be * scale
         stackPaneName.setLayoutY(160);//todo must be * scale
 
-        root.getChildren().add(backGround);
-        root.getChildren().add(sprite);
-        root.getChildren().add(stackPaneName);
-        root.getChildren().add(stackPaneType);
-        root.getChildren().add(ap);
-        root.getChildren().add(hp);
-
+        root.getChildren().addAll(backGround, sprite, stackPaneName, stackPaneType, ap, hp);
+        if (this.type == Type.MINION)
+            root.getChildren().add(mana);
         return root;
     }
 
@@ -176,8 +197,11 @@ public class CardMaker {
         StackPane stackPaneName = new StackPane();
         StackPane stackPaneType = new StackPane();
 
+
         ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
         ImageView sprite = getSprite();
+
+        StackPane mana = getManaView();
 
         ScaleTool.resizeImageView(backGround, 150, 200);
         ScaleTool.resizeImageView(sprite, 100, 100);
@@ -205,8 +229,10 @@ public class CardMaker {
 
         root.getChildren().add(backGround);
         root.getChildren().add(sprite);
+        root.getChildren().add(mana);
         root.getChildren().add(stackPaneType);
         root.getChildren().add(stackPaneName);
+
         return root;
     }
 

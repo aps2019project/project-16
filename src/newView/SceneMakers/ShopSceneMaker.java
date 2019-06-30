@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.Shop;
 import models.card.*;
 import models.item.Item;
 import newView.CardMaker;
@@ -20,11 +21,10 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
+import sun.awt.image.PNGImageDecoder;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private ShopContract.Controller controller = new ShopController(this);
@@ -38,9 +38,16 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
 
     private ArrayList<Card> heroes = new ArrayList<>();
+    private HashMap<String, Pane> heroPanes = new HashMap<>();
+
     private ArrayList<Card> minions = new ArrayList<>();
+    private HashMap<String, Pane> minionPanes = new HashMap<>();
+
     private ArrayList<Card> spells = new ArrayList<>();
+    private HashMap<String, Pane> spellPanes = new HashMap<>();
+
     private ArrayList<Item> items = new ArrayList<>();
+    private HashMap<String, Pane> itemPanes = new HashMap<>();
 
     private int itemCounter;
     private int minionCounter;
@@ -52,7 +59,20 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     {
         controller.loadShop();
         controller.loadCollection();
+        try {
+            for (Card hero : heroes)
+                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO).getUnitCardView());
+            for (Card minion : minions)
+                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION).getUnitCardView());
+            for (Card spell : spells)
+                spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL).getSpellCardView());
+            for (Item item : items)
+                itemPanes.put(item.getName(), new CardMaker(item.getName(), Type.ITEM).getItemCardView());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     public ShopSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -184,6 +204,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     private void showCardList(GridPane visibleCards, List<Object> collection) {
         visibleCards.getChildren().removeIf(node -> true);
+        System.gc();
         try {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 5; j++) {
@@ -214,7 +235,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                             visibleCards.add(cardView, j, i);
                         }
                         cardView.setOnMouseClicked(event -> {
-                            if (inShop) {
+                            if (!inShop) {
                                 controller.sellCard(cardId);
                                 controller.loadCollection();
                             } else
@@ -252,6 +273,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private void showingCards(GridPane gridPane) {
         try {
             gridPane.getChildren().removeIf(node -> true);
+            System.gc();
             if (visibleType == Type.HERO) {
                 showHeroes(gridPane, heroes, heroCounter);
             } else if (visibleType == Type.MINION) {
@@ -262,6 +284,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 showItems(gridPane, items, itemCounter);
             }
         } catch (Exception ignored) {
+            ignored.printStackTrace();
         }
     }
 
@@ -271,7 +294,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 if (items.size() > 5 * i + j + itemCounter) {
                     Item item = items.get(5 * i + j + itemCounter);
                     String name = item.getName();
-                    Pane itemCardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                    Pane itemCardView = itemPanes.get(name);
                     setBuyOnMouseClick(itemCardView, name);
                     gridPane.add(itemCardView, j, i);
                 }
@@ -284,7 +307,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             for (int j = 0; j < 5; j++) {
                 Card spell = spells.get(5 * i + j + spellCounter);
                 String name = spell.getName();
-                Pane spellCardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                Pane spellCardView = spellPanes.get(name);
                 setBuyOnMouseClick(spellCardView, name);
                 gridPane.add(spellCardView, j, i);
             }
@@ -296,7 +319,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             for (int j = 0; j < 5; j++) {
                 Card minion = minions.get(5 * i + j + minionCounter);
                 String name = minion.getName();
-                Pane minionCardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                Pane minionCardView = minionPanes.get(minion.getName());
                 setBuyOnMouseClick(minionCardView, name);
                 gridPane.add(minionCardView, j, i);
             }
@@ -308,7 +331,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             for (int j = 0; j < 5; j++) {
                 Card hero = heroes.get(5 * i + j + heroCounter);
                 String name = hero.getName();
-                Pane heroCardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                Pane heroCardView = heroPanes.get(name);
                 setBuyOnMouseClick(heroCardView, name);
                 gridPane.add(heroCardView, j, i);
             }
