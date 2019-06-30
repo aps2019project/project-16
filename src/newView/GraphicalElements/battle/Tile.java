@@ -14,6 +14,7 @@ import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
+import newView.SoundPlayer;
 import newView.Type;
 
 import java.io.FileInputStream;
@@ -127,6 +128,7 @@ public class Tile extends Pane {
                     return;
                 }
                 isSelected = true;
+                SoundPlayer.playCardNameSound(unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION);
                 GameGraphicData.setSelectedTile(SelectType.UNIT, this);
                 polygon.setOpacity(SELECTED_OPACITY);
                 return;

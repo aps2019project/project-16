@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -14,13 +15,19 @@ import javafx.stage.Stage;
 import newView.GraphicalElements.*;
 import newView.SoundPlayer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MainMenuSceneMaker extends SceneMaker {
+    private final static String SOUND_BG_PATH ="src/newView/resources/sounds/mainMenu/mainMenubg.mp3";
     private double x = 0, y = 0;
+    private static AudioClip mainMenuBgSound = new AudioClip(new File(SOUND_BG_PATH).toURI().toString());
+
 
     public MainMenuSceneMaker(Stage primaryStage) {
         super(primaryStage);
+        if (!mainMenuBgSound.isPlaying())
+            mainMenuBgSound.play();
     }
 
 
@@ -59,11 +66,15 @@ public class MainMenuSceneMaker extends SceneMaker {
 
         SoundPlayer.playByPath("src/newView/resources/sounds/welcome.wav");
 
+
         VBox commandsBox = new VBox();
         Pane commandsPane = new Pane(commandsBox);
 
         Text battle = new Text("Battle");
-        battle.setOnMouseClicked(event -> new BattleSceneMaker(getPrimaryStage()).set());
+        battle.setOnMouseClicked(event -> {
+            new BattleSceneMaker(getPrimaryStage()).set();
+            mainMenuBgSound.stop();
+        });
 
         Text shop = new Text("Shop");
         shop.setOnMouseClicked(event -> new ShopSceneMaker(getPrimaryStage()).set());
@@ -101,4 +112,5 @@ public class MainMenuSceneMaker extends SceneMaker {
         text.setFont(new Font(ScaleTool.scale(35)));
         text.setFill(Color.WHITE);
     }
+
 }

@@ -12,6 +12,7 @@ import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
+import newView.SoundPlayer;
 import newView.Type;
 
 import java.io.FileInputStream;
@@ -78,6 +79,7 @@ public class HandElement extends Pane {
                     return;
                 }
                 isSelected = true;
+                SoundPlayer.playCardNameSound(this.card.getName(), type);
                 GameGraphicData.setSelectedHandElement(SelectType.HAND, this);
                 bgView.setImage(selectedImage);
             }
@@ -90,7 +92,7 @@ public class HandElement extends Pane {
         KeyValue rotateValue = new KeyValue(imageView.rotateProperty(), imageView.getRotate() + 360);
         Timeline timeline = AnimationMaker.makeTimeline(
                 Duration.millis(GAME_ACT_TIME * 0.8)
-                ,false, 1
+                , false, 1
                 , xValue, yValue, rotateValue);
         timeline.play();
         HandElement handElement = this;
