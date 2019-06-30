@@ -629,6 +629,9 @@ public class Initializer {
                 .setName("arzhang div")
                 .create()
         );
+
+        // TODO Sepehr
+        //  add "mamad" minion by 0 manaCost
     }
 
     public static void addSpells(ArrayList<Card> cards) {
@@ -935,6 +938,10 @@ public class Initializer {
                 .setBuyPrice(1200)
                 .setName("Shock")
                 .create());
+
+        // TODO Sepehr
+        //  add "hero support" that increase my hero hp +20
+        //  manaCost must be 0
     }
 
     public static void addHeroes(ArrayList<Card> cards) {
@@ -1427,5 +1434,17 @@ public class Initializer {
         int size = collectibles.size();
         int randomNumber = Math.abs(new Random().nextInt()) % size;
         return collectibles.get(randomNumber).getCopy(false);
+    }
+
+    public static Unit getNewMamad() {
+        // TODO Sepehr
+        //  must be copy of card
+        return null;
+    }
+
+    public static SpellCard getNewHeroSupport() {
+        // TODO Sepehr
+        //  must be copy of card
+        return null;
     }
 }
