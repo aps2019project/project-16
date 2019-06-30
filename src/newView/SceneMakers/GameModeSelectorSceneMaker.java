@@ -88,23 +88,28 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
             killingHero.setOnMouseClicked(event -> {
                 new StoryController(new StoryView()).loadLevel(1);
                 new InGameSceneMaker(getPrimaryStage()).set();
+                BattleSceneMaker.battleBgSound.stop();
             });
             holdFlag.setOnMouseClicked(event -> {
                 new StoryController(new StoryView()).loadLevel(2);
                 new InGameSceneMaker(getPrimaryStage()).set();
+                BattleSceneMaker.battleBgSound.stop();
             });
             collectFlag.setOnMouseClicked(event -> {
                 new StoryController(new StoryView()).loadLevel(3);
                 new InGameSceneMaker(getPrimaryStage()).set();
+                BattleSceneMaker.battleBgSound.stop();
             });
         } else {
             killingHero.setOnMouseClicked(event -> {
                 new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 1, 0);
                 new InGameSceneMaker(getPrimaryStage()).set();
+                BattleSceneMaker.battleBgSound.stop();
             });
             holdFlag.setOnMouseClicked(event -> {
                 new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 2, 1);
                 new InGameSceneMaker(getPrimaryStage()).set();
+                BattleSceneMaker.battleBgSound.stop();
             });
             collectFlag.setOnMouseClicked(event -> {
                 TextInputDialog numberOfFlags = new TextInputDialog();
@@ -113,6 +118,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
                 int flags = Integer.parseInt(numberOfFlags.showAndWait().get());
                 new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 3, flags);
                 new InGameSceneMaker(getPrimaryStage()).set();
+                BattleSceneMaker.battleBgSound.stop();
             });
         }
     }
