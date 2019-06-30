@@ -18,6 +18,331 @@ import static models.SpecialPowerCastTime.*;
 public class Initializer {
     private static ArrayList<Item> collectibles = initCollectibleItems();
 
+    private static Card mamad;
+    private static Card heroSupport;
+
+    public static void addSpells(ArrayList<Card> cards) {
+        //1
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setBuyPrice(1000)
+                .setSellPrice(1000)
+                .setName("Total Disarm")
+                .create()
+        );
+        //2
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new SquareOfCells(2)) //todo should be corrected and should not be used
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDispel()
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setSellPrice(1500)
+                .setBuyPrice(1500)
+                .setName("Area Disepel")
+                .create()
+        );
+        //3
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(2)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
+                                .create())
+                        .create())
+                .setManaCost(1)
+                .setBuyPrice(250)
+                .setSellPrice(250)
+                .setName("Empower")
+                .create()
+        );
+        //4
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDamage(4)
+                                .create())
+
+                        .create())
+                .setManaCost(1)
+                .setSellPrice(400)
+                .setBuyPrice(400)
+                .setName("Fireball")
+                .create()
+        );
+        //5
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(4)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(450)
+                .setSellPrice(450)
+                .setName("God Strength")
+                .create()
+        );
+        //6
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new SquareOfCells(2))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDamage(2)
+                                .setDuration(2)
+                                .create())
+                        .create())
+                .setManaCost(3)
+                .setSellPrice(600)
+                .setBuyPrice(600)
+                .setName("HellFire")
+                .create()
+        );
+        //7
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDamage(8)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(1250)
+                .setSellPrice(1250)
+                .setName("Lightening Bolt")
+                .create()
+        );
+        //8
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new SquareOfCells(3))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setPoison(1)
+                                .setDuration(1)
+                                .create())
+                        .create())
+                .setManaCost(5)
+                .setSellPrice(900)
+                .setBuyPrice(900)
+                .setName("Poison Lake")
+                .create()
+        );
+        //9
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(4)
+                                .setDuration(3)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(650)
+                .setBuyPrice(650)
+                .setName("Madness")
+                .create());
+        //10
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDisarm()
+                                .setDuration(1)
+                                .create())
+                        .create())
+                .setManaCost(9)
+                .setBuyPrice(2000)
+                .setSellPrice(2000)
+                .setName("All Disarm")
+                .create()
+        );
+        //11
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(4)
+                                .setPoison(1)
+                                .create())
+                        .create())
+                .setManaCost(8)
+                .setSellPrice(1500)
+                .setBuyPrice(1500)
+                .setName("All Poison")
+                .create());
+        //12
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ANY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDispel()
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(2100)
+                .setBuyPrice(2100)
+                .setName("Dispel")
+                .create()
+        );
+        //13
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(-6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDuration(3)
+                                .setHoly(2)
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(2250)
+                .setBuyPrice(2250)
+                .setName("Health with profit")
+                .create()
+        );
+        //14
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(2500)
+                .setSellPrice(2500)
+                .setName("Power Up")
+                .create()
+        );
+        //15
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(2)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(4)
+                .setBuyPrice(2000)
+                .setSellPrice(2000)
+                .setName("All Power")
+                .create());
+        //16
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new EnemiesInColumn())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDamage(6)
+                                .create())
+                        .create())
+                .setManaCost(4)
+                .setSellPrice(1500)
+                .setBuyPrice(1500)
+                .setName("All Attack")
+                .create());
+        //17
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(-4)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(1)
+                .setBuyPrice(1000)
+                .setBuyPrice(1000)
+                .setName("Weakening")
+                .create()
+        );
+        //18
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaAP(8)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(-6)
+                                .setDuration(Buff.INFINITY)
+                                .create())
+                        .create())
+                .setManaCost(2)
+                .setBuyPrice(1600)
+                .setSellPrice(1600)
+                .setName("Sacrifice")
+                .create());
+        //19
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new RandomEnemyMinionAdjacentToHero())
+                        .addBuff(new Buff.BuffBuilder() // it kills enemy :))
+                                .setDeltaHP(Buff.INFINITY)
+                                .setDuration(Buff.INFINITY)
+                                .setNotDispelable()
+                                .create())
+                        .create())
+                .setManaCost(9)
+                .setSellPrice(1750)
+                .setBuyPrice(1750)
+                .setName("Kings Guard")
+                .create());
+        //20
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setStun()
+                                .setDuration(2)
+                                .create())
+                        .create())
+                .setManaCost(1)
+                .setSellPrice(1200)
+                .setBuyPrice(1200)
+                .setName("Shock")
+                .create());
+
+        //21
+        cards.add(new SpellCard.SpellCardBuilder()
+                .setSpell(new Spell.SpellBuilder()
+                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.FRIEND, TargetAttackType.ANY))
+                        .addBuff(new Buff.BuffBuilder()
+                                .setDeltaHP(20)
+                                .create())
+                        .create())
+                .setManaCost(0)
+                .setSellPrice(Integer.MAX_VALUE)
+                .setBuyPrice(Integer.MAX_VALUE)
+                .setName("hero support")
+                .create());
+        heroSupport = cards.get(cards.size() - 1);
+
+    }
+
     public static void initShopCards(ArrayList<Card> shopCards) {
         addMinions(shopCards);
         addHeroes(shopCards);
@@ -630,318 +955,17 @@ public class Initializer {
                 .create()
         );
 
-        // TODO Sepehr
-        //  add "mamad" minion by 0 manaCost
-    }
-
-    public static void addSpells(ArrayList<Card> cards) {
-        //1
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDisarm()
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
+        cards.add(new Minion.MinionBuilder()
+                .setAttackType(new Melee())
+                .setAp(10)
+                .setHp(10)
                 .setManaCost(0)
-                .setBuyPrice(1000)
-                .setSellPrice(1000)
-                .setName("Total Disarm")
+                .setSellPrice(Integer.MAX_VALUE)
+                .setBuyPrice(Integer.MAX_VALUE)
+                .setName("mammad")
                 .create()
         );
-        //2
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new SquareOfCells(2)) //todo should be corrected and should not be used
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDispel()
-                                .create())
-                        .create())
-                .setManaCost(2)
-                .setSellPrice(1500)
-                .setBuyPrice(1500)
-                .setName("Area Disepel")
-                .create()
-        );
-        //3
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(2)
-                                .setDuration(Buff.INFINITY)
-                                .setNotDispelable()
-                                .create())
-                        .create())
-                .setManaCost(1)
-                .setBuyPrice(250)
-                .setSellPrice(250)
-                .setName("Empower")
-                .create()
-        );
-        //4
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDamage(4)
-                                .create())
-
-                        .create())
-                .setManaCost(1)
-                .setSellPrice(400)
-                .setBuyPrice(400)
-                .setName("Fireball")
-                .create()
-        );
-        //5
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(4)
-                                .setDuration(Buff.INFINITY)
-                                .setNotDispelable()
-                                .create())
-                        .create())
-                .setManaCost(2)
-                .setBuyPrice(450)
-                .setSellPrice(450)
-                .setName("God Strength")
-                .create()
-        );
-        //6
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new SquareOfCells(2))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDamage(2)
-                                .setDuration(2)
-                                .create())
-                        .create())
-                .setManaCost(3)
-                .setSellPrice(600)
-                .setBuyPrice(600)
-                .setName("HellFire")
-                .create()
-        );
-        //7
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.HERO, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDamage(8)
-                                .create())
-                        .create())
-                .setManaCost(2)
-                .setBuyPrice(1250)
-                .setSellPrice(1250)
-                .setName("Lightening Bolt")
-                .create()
-        );
-        //8
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new SquareOfCells(3))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setPoison(1)
-                                .setDuration(1)
-                                .create())
-                        .create())
-                .setManaCost(5)
-                .setSellPrice(900)
-                .setBuyPrice(900)
-                .setName("Poison Lake")
-                .create()
-        );
-        //9
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(4)
-                                .setDuration(3)
-                                .create())
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDisarm()
-                                .create())
-                        .create())
-                .setManaCost(0)
-                .setSellPrice(650)
-                .setBuyPrice(650)
-                .setName("Madness")
-                .create());
-        //10
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDisarm()
-                                .setDuration(1)
-                                .create())
-                        .create())
-                .setManaCost(9)
-                .setBuyPrice(2000)
-                .setSellPrice(2000)
-                .setName("All Disarm")
-                .create()
-        );
-        //11
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDuration(4)
-                                .setPoison(1)
-                                .create())
-                        .create())
-                .setManaCost(8)
-                .setSellPrice(1500)
-                .setBuyPrice(1500)
-                .setName("All Poison")
-                .create());
-        //12
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ANY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDispel()
-                                .create())
-                        .create())
-                .setManaCost(0)
-                .setSellPrice(2100)
-                .setBuyPrice(2100)
-                .setName("Dispel")
-                .create()
-        );
-        //13
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaHP(-6)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDuration(3)
-                                .setHoly(2)
-                                .create())
-                        .create())
-                .setManaCost(0)
-                .setSellPrice(2250)
-                .setBuyPrice(2250)
-                .setName("Health with profit")
-                .create()
-        );
-        //14
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(6)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
-                .setManaCost(2)
-                .setBuyPrice(2500)
-                .setSellPrice(2500)
-                .setName("Power Up")
-                .create()
-        );
-        //15
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new AnyUnit(TargetType.UNIT, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(2)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
-                .setManaCost(4)
-                .setBuyPrice(2000)
-                .setSellPrice(2000)
-                .setName("All Power")
-                .create());
-        //16
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new EnemiesInColumn())
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDamage(6)
-                                .create())
-                        .create())
-                .setManaCost(4)
-                .setSellPrice(1500)
-                .setBuyPrice(1500)
-                .setName("All Attack")
-                .create());
-        //17
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(-4)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
-                .setManaCost(1)
-                .setBuyPrice(1000)
-                .setBuyPrice(1000)
-                .setName("Weakening")
-                .create()
-        );
-        //18
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.MINION, TargetTeam.FRIEND, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaAP(8)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .addBuff(new Buff.BuffBuilder()
-                                .setDeltaHP(-6)
-                                .setDuration(Buff.INFINITY)
-                                .create())
-                        .create())
-                .setManaCost(2)
-                .setBuyPrice(1600)
-                .setSellPrice(1600)
-                .setName("Sacrifice")
-                .create());
-        //19
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new RandomEnemyMinionAdjacentToHero())
-                        .addBuff(new Buff.BuffBuilder() // it kills enemy :))
-                                .setDeltaHP(Buff.INFINITY)
-                                .setDuration(Buff.INFINITY)
-                                .setNotDispelable()
-                                .create())
-                        .create())
-                .setManaCost(9)
-                .setSellPrice(1750)
-                .setBuyPrice(1750)
-                .setName("Kings Guard")
-                .create());
-        //20
-        cards.add(new SpellCard.SpellCardBuilder()
-                .setSpell(new Spell.SpellBuilder()
-                        .setTargetSociety(new OneUnit(TargetType.UNIT, TargetTeam.ENEMY, TargetAttackType.ANY))
-                        .addBuff(new Buff.BuffBuilder()
-                                .setStun()
-                                .setDuration(2)
-                                .create())
-                        .create())
-                .setManaCost(1)
-                .setSellPrice(1200)
-                .setBuyPrice(1200)
-                .setName("Shock")
-                .create());
-
-        // TODO Sepehr
-        //  add "hero support" that increase my hero hp +20
-        //  manaCost must be 0
+        mamad = cards.get(cards.size() - 1);
     }
 
     public static void addHeroes(ArrayList<Card> cards) {
@@ -1437,14 +1461,12 @@ public class Initializer {
     }
 
     public static Unit getNewMamad() {
-        // TODO Sepehr
-        //  must be copy of card
-        return null;
+        Unit unit = (Unit) mamad.getCopy(false);
+        return unit;
     }
 
     public static SpellCard getNewHeroSupport() {
-        // TODO Sepehr
-        //  must be copy of card
-        return null;
+        Card card = heroSupport.getCopy(false);
+        return (SpellCard) card;
     }
 }

@@ -285,7 +285,6 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 showItems(gridPane, items, itemCounter);
             }
         } catch (Exception ignored) {
-            ignored.printStackTrace();
         }
     }
 
