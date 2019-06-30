@@ -182,7 +182,32 @@ public class Player {
         selectedUnit = null;
     }
 
-    public void putUnit(Cell cell, Unit unit) throws CellIsNotFreeException, NotEnoughManaException {
+    public void cheat(String keyWord) {
+        switch (keyWord) {
+            case "salavat":
+                ClientSender.sendToViewer(new SalavatAct());
+                for (int i = 0; i < 5; i++) {
+                    try {
+                        putUnit(table.getCell(i, 4), Initializer.getNewMamad(), true);
+                    } catch (Exception ignored) {
+                    }
+                }
+                break;
+            case "ya hussein":
+                ClientSender.sendToViewer(new YaHusseinAct());
+                setMana(9);
+                break;
+            case "ya abalfazl":
+                ClientSender.sendToViewer(new YaAbalfazlAct());
+                try {
+                    castSpellCard(Initializer.getNewHeroSupport(), table.getCell(0,0), true);
+                } catch (Exception ignored) {
+                }
+                break;
+        }
+    }
+
+    public void putUnit(Cell cell, Unit unit, boolean isCheatPut) throws CellIsNotFreeException, NotEnoughManaException {
         if (unit.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
         if (cell.hasUnit())
@@ -194,7 +219,7 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
 
-        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit));
+        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit, isCheatPut));
 
         pickUpFlags(cell, unit);
         pickUpCollectibles(cell);
@@ -204,17 +229,18 @@ public class Player {
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
-    public void castSpellCard(SpellCard spellCard, Cell cell) throws InvalidTargetException, NotEnoughManaException {
+    public void castSpellCard(SpellCard spellCard, Cell cell, boolean isCheatCast) throws InvalidTargetException, NotEnoughManaException {
         if (!spellCard.canCast(this, cell))
             throw new InvalidTargetException();
         if (spellCard.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
         this.setMana(this.getMana() - spellCard.getManaCost());
+
+        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard, isCheatCast));
+
         spellCard.cast(this, cell);
         spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
         graveYard.addCard(spellCard);
-
-        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard));
 
         this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();

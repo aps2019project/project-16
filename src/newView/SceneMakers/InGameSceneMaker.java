@@ -44,7 +44,9 @@ public class InGameSceneMaker extends SceneMaker {
         CancelButton cancelButton = new CancelButton();
         BackButton backButton = new BackButton();
         backButton.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+
         FastForwardPane fastForwardPane = new FastForwardPane();
+        CheatPane cheatPane = new CheatPane();
 
         CollectiblesHBox collectiblesHBox = new CollectiblesHBox();
 

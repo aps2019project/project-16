@@ -361,7 +361,8 @@ public class Game {
             hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
             cell.setUnit(hero);
 
-            ClientSender.sendToViewer(new PutUnitAct(2, 8 * i, getIsForLeft(i), hero));
+            ClientSender.sendToViewer(
+                    new PutUnitAct(2, 8 * i, getIsForLeft(i), hero, false));
 
             players[i].getUnits().add(hero);
             players[i].pickUpFlags(cell, hero);

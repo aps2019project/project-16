@@ -16,12 +16,14 @@ public class PutUnitAct extends GameAct {
     private int row;
     private int column;
     private boolean isForLeft;
+    private boolean isCheatPut;
     private Unit unit;
 
-    public PutUnitAct(int row, int column, boolean isForLeft, Unit unit) {
+    public PutUnitAct(int row, int column, boolean isForLeft, Unit unit, boolean isCheatPut) {
         this.row = row;
         this.column = column;
         this.isForLeft = isForLeft;
+        this.isCheatPut = isCheatPut;
         this.unit = unit;
 
         if (unit instanceof Hero) {
@@ -44,7 +46,7 @@ public class PutUnitAct extends GameAct {
     private void makeAnimation() throws Exception {
         ImageView idleView = AnimationMaker.getBreathingAnimation(cardName, type.getName());
 
-        if (type != Type.HERO && isForLeft == GameGraphicData.isOnLeft()) {
+        if (type != Type.HERO && isForLeft == GameGraphicData.isOnLeft() && !isCheatPut) {
             HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
             handElement.setImageView(null, null, null, null);
         }

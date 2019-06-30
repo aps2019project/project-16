@@ -41,5 +41,6 @@ public interface InGameContract {
         void loadNextCard();
         void loadGameTable();
         void refuseGame();
+        void cheat(String keyWord);
     }
 }

@@ -14,11 +14,13 @@ public class SpellCastAct extends GameAct {
     private int row;
     private int column;
     private boolean isForLeft;
+    private boolean isCheatCast;
 
-    public SpellCastAct(int row, int column, boolean isForLeft, Card card) {
+    public SpellCastAct(int row, int column, boolean isForLeft, Card card, boolean isCheatCast) {
         this.row = row;
         this.column = column;
         this.isForLeft = isForLeft;
+        this.isCheatCast = isCheatCast;
 
         cardName = card.getName();
     }
@@ -38,7 +40,7 @@ public class SpellCastAct extends GameAct {
         Tile putTile = GameGraphicData.getTilesPane().getTile(row, column);
         putTile.showSpellCast(spellView);
 
-        if (isForLeft == GameGraphicData.isOnLeft()) {
+        if (isForLeft == GameGraphicData.isOnLeft() && !isCheatCast) {
             HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
             handElement.setImageView(null, null, null, null);
 
