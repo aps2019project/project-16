@@ -59,7 +59,7 @@ public class InGameSceneMaker extends SceneMaker {
 
         zoomablePane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]
                 , fastForwardPane, collectiblesHBox);
-        zoomablePane.getChildren().addAll(graveyardPane, cardInfo, cancelButton, backButton);
+        zoomablePane.getChildren().addAll(graveyardPane, cheatPane, cardInfo, cancelButton, backButton);
         zoomablePane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
         zoomablePane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(zoomablePane);
