@@ -60,13 +60,13 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         controller.loadCollection();
         try {
             for (Card hero : heroes)
-                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO).getUnitCardView());
+                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardView());
             for (Card minion : minions)
-                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION).getUnitCardView());
+                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION ,minion).getUnitCardView());
             for (Card spell : spells)
-                spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL).getSpellCardView());
+                spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL , spell).getSpellCardView());
             for (Item item : items)
-                itemPanes.put(item.getName(), new CardMaker(item.getName(), Type.ITEM).getItemCardView());
+                itemPanes.put(item.getName(), new CardMaker(item.getName()).getItemCardView());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,22 +217,22 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                         if (card instanceof Item) {
                             name = ((Item) card).getName();
                             cardId = ((Item) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                            cardView = new CardMaker(name).getItemCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Hero) {
                             name = ((Hero) card).getName();
                             cardId = ((Hero) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                            cardView = new CardMaker(name, Type.HERO, (Card) card).getUnitCardView();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Minion) {
                             name = ((Minion) card).getName();
                             cardId = ((Minion) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                            cardView = new CardMaker(name, Type.MINION , (Card) card).getUnitCardView();
                             visibleCards.add(cardView, j, i);
                         } else {
                             name = ((SpellCard) card).getName();
                             cardId = ((SpellCard) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                            cardView = new CardMaker(name, Type.SPELL , (Card) card).getSpellCardView();
                             visibleCards.add(cardView, j, i);
                         }
                         cardView.setOnMouseClicked(event -> {
