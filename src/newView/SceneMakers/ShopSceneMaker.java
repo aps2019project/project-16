@@ -60,9 +60,9 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         controller.loadCollection();
         try {
             for (Card hero : heroes)
-                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardView());
+                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardViewInShop());
             for (Card minion : minions)
-                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION, minion).getUnitCardView());
+                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION, minion).getUnitCardViewInShop());
             for (Card spell : spells)
                 spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL, spell).getSpellCardView());
             for (Item item : items)
@@ -222,12 +222,12 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                         } else if (card instanceof Hero) {
                             name = ((Hero) card).getName();
                             cardId = ((Hero) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.HERO, (Card) card).getUnitCardView();
+                            cardView = new CardMaker(name, Type.HERO, (Card) card).getUnitCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Minion) {
                             name = ((Minion) card).getName();
                             cardId = ((Minion) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.MINION, (Card) card).getUnitCardView();
+                            cardView = new CardMaker(name, Type.MINION, (Card) card).getUnitCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else {
                             name = ((SpellCard) card).getName();
@@ -347,10 +347,10 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                     itemPanes.put(((Item) card).getName(), new CardMaker(((Item) card).getName()).getItemCardViewInShop());
                 } else if (card instanceof Hero) {
                     controller.buyCard(((Card) card).getName());
-                    heroPanes.put(((Hero) card).getName(), new CardMaker(((Hero) card).getName(), Type.HERO, (Card) card).getUnitCardView());
+                    heroPanes.put(((Hero) card).getName(), new CardMaker(((Hero) card).getName(), Type.HERO, (Card) card).getUnitCardViewInShop());
                 } else if (card instanceof Minion) {
                     controller.buyCard(((Minion) card).getName());
-                    minionPanes.put(((Minion) card).getName(), new CardMaker(((Minion) card).getName(), Type.MINION, (Card) card).getUnitCardView());
+                    minionPanes.put(((Minion) card).getName(), new CardMaker(((Minion) card).getName(), Type.MINION, (Card) card).getUnitCardViewInShop());
                 } else if (card instanceof SpellCard) {
                     controller.buyCard(((SpellCard) card).getName());
                     spellPanes.put(((SpellCard) card).getName(), new CardMaker(((SpellCard) card).getName(), Type.SPELL, (Card) card).getSpellCardView());
