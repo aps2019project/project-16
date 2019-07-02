@@ -205,11 +205,9 @@ public class Player {
             case "ya abalfazl":
                 ClientSender.sendToViewer(new YaAbalfazlAct());
                 try {
-                    System.out.println("spell before");
                     Cell heroCell = hero.getCurrentCell();
                     castSpellCard(Initializer.getNewHeroSupport()
                             , table.getCell(heroCell.getRow(), heroCell.getColumn()), true);
-                    System.out.println("spell");
                 } catch (Exception ignored) {
                 }
                 break;

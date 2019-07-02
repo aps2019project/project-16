@@ -79,7 +79,9 @@ public class HandElement extends Pane {
                     return;
                 }
                 isSelected = true;
-                SoundPlayer.playCardNameSound(this.card.getName(), type);
+                if (type != Type.SPELL) {
+                    SoundPlayer.playCardNameSound(this.card.getName(), type);
+                }
                 GameGraphicData.setSelectedHandElement(SelectType.HAND, this);
                 bgView.setImage(selectedImage);
             }
