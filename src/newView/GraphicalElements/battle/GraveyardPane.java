@@ -2,6 +2,7 @@ package newView.GraphicalElements.battle;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import models.card.Card;
 import newView.CardMaker;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
@@ -16,14 +17,17 @@ public class GraveyardPane extends VBox {
         this.setSpacing(100 * SCALE);
     }
 
-    public void addCard(String name, Type type) throws Exception {
+    public void addCard(String name, Type type, Card card) throws Exception {
+        if (card == null) {
+            return;
+        }
         Pane cardView;
         if (type == Type.SPELL) {
-            cardView = new CardMaker(name, type).getSpellCardView();
+            cardView = new CardMaker(name, type, card).getSpellCardView();
         } else if (type == Type.MINION) {
-            cardView = new CardMaker(name, type).getUnitCardView();
+            cardView = new CardMaker(name, type, card).getUnitCardView();
         } else {
-            cardView = new CardMaker(name, type).getUnitCardView();
+            cardView = new CardMaker(name, type, card).getUnitCardView();
         }
         ScaleTool.homothety(cardView, 0.5);
         this.getChildren().add(cardView);

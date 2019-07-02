@@ -7,11 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import models.GameContents;
-import models.Shop;
 import models.card.Card;
 import models.card.Unit;
-import models.item.Item;
 import newView.GraphicalElements.ScaleTool;
 import org.xml.sax.SAXException;
 
@@ -35,7 +32,8 @@ public class CardMaker {
     private ImageView sprite;
     private Card card;
 
-    public CardMaker(String name, Type type, Card card) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
+    public CardMaker(String name, Type type, Card card) throws PropertyListFormatException
+            , ParserConfigurationException, SAXException, ParseException, IOException {
         this.name = name;
         this.type = type;
         this.card = card;
@@ -105,7 +103,8 @@ public class CardMaker {
         typeOfCard.setText(type.getName().toUpperCase());
     }
 
-    private void setSprite() throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
+    private void setSprite() throws ParserConfigurationException, ParseException
+            , SAXException, PropertyListFormatException, IOException {
         if (type != Type.SPELL && type != Type.ITEM) {
             if (type == Type.HERO)
                 sprite = AnimationMaker.getBreathingAnimation(name, "hero");

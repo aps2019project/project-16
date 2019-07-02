@@ -105,7 +105,7 @@ public class Tile extends Pane {
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
             if (imageView != null && unit != null) {
-                GameGraphicData.getCardInfo().setCardView(unit.getName(), getUnitType(unit));
+                GameGraphicData.getCardInfo().setCardView(unit.getName(), getUnitType(unit), unit);
             }
             if (!isSelected) {
                 polygon.setOpacity(HOVER_OPACITY);

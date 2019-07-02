@@ -54,10 +54,14 @@ public class HandElement extends Pane {
         }
     }
 
+    public Card getCard() {
+        return card;
+    }
+
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
-            if (imageView != null) {
-                GameGraphicData.getCardInfo().setCardView(cardName, type);
+            if (imageView != null && card != null) {
+                GameGraphicData.getCardInfo().setCardView(cardName, type, card);
             }
             if (!isSelected) {
                 bgView.setImage(hoverImage);

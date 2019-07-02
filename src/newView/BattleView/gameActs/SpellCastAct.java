@@ -42,9 +42,10 @@ public class SpellCastAct extends GameAct {
 
         if (isForLeft == GameGraphicData.isOnLeft() && !isCheatCast) {
             HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
+            Card card = handElement.getCard();
             handElement.setImageView(null, null, null, null);
 
-            GameGraphicData.getGraveyardPane().addCard(cardName, type);
+            GameGraphicData.getGraveyardPane().addCard(cardName, type, card);
         }
     }
 }

@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import models.card.Card;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
@@ -38,12 +39,13 @@ public class DieUnitAct extends GameAct {
     }
 
     private void makeAnimation() throws Exception {
+        Card card = GameGraphicData.getTilesPane().getTile(row, column).getUnit();
         ImageView dieView = AnimationMaker.getDeathAnimation(unitName, type.getName());
 
         SoundPlayer.playByPath("src/newView/resources/sounds/die.wav");
 
-        if (forLeft == GameGraphicData.isOnLeft()) {
-            GameGraphicData.getGraveyardPane().addCard(unitName, type);
+        if (forLeft == GameGraphicData.isOnLeft() && card != null) {
+            GameGraphicData.getGraveyardPane().addCard(unitName, type, card);
         }
 
         Tile tile = GameGraphicData.getTilesPane().getTile(row, column);
