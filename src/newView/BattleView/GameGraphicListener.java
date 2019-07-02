@@ -2,6 +2,7 @@ package newView.BattleView;
 
 import newView.BattleView.gameActs.GameAct;
 
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameGraphicListener extends Thread {
@@ -10,6 +11,8 @@ public class GameGraphicListener extends Thread {
     private static double rate = 1.0;
     public static int GAME_ACT_TIME = INIT_TIME;
 
+    private static boolean colorAnimationOn = true;
+    private static boolean mustShow = true;
 
     public void addGameAct(GameAct gameAct) {
         inQueueGameActs.add(gameAct);
@@ -20,13 +23,15 @@ public class GameGraphicListener extends Thread {
 
     @Override
     public void run() {
-        try {
-            while (true) {
-                showAGameAct();
-                Thread.sleep(GAME_ACT_TIME);
+        while (true) {
+            if (mustShow) {
+                try {
+                    showAGameAct();
+                    Thread.sleep(GAME_ACT_TIME);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -40,6 +45,18 @@ public class GameGraphicListener extends Thread {
         }
         //noinspection ConstantConditions: NullPointer warning handled by wait and notify methods
         gameAct.passToPlatform();
+    }
+
+    public void fastShow(ArrayList<GameAct> gameActs) throws InterruptedException {
+        colorAnimationOn = false;
+        int real_time = GAME_ACT_TIME;
+        GAME_ACT_TIME = 50;
+        for (GameAct gameAct : gameActs) {
+            gameAct.passToPlatform();
+            Thread.sleep(GAME_ACT_TIME);
+        }
+        GAME_ACT_TIME = real_time;
+        colorAnimationOn = true;
     }
 
     public static String increaseVelocity() {
@@ -56,5 +73,13 @@ public class GameGraphicListener extends Thread {
             GAME_ACT_TIME = (int) (INIT_TIME / rate);
         }
         return rate + " X";
+    }
+
+    public static boolean isColorAnimationOn() {
+        return colorAnimationOn;
+    }
+
+    public static void setMustShow(boolean mustShow) {
+        GameGraphicListener.mustShow = mustShow;
     }
 }

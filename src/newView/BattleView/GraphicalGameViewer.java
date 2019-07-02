@@ -11,7 +11,6 @@ import models.card.Unit;
 import models.item.Item;
 
 import java.util.ArrayList;
-// TODO: 6/13/19
 public class GraphicalGameViewer implements InGameContract.View {
     private InGameContract.Controller controller;
 

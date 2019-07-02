@@ -12,6 +12,7 @@ import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
 import newView.BattleView.GameGraphicData;
+import newView.BattleView.GameGraphicListener;
 import newView.BattleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.SoundPlayer;
@@ -72,6 +73,7 @@ public class Tile extends Pane {
         this.column = column;
         ScaleTool.relocateTile(this);
         ScaleTool.makeTilePoints(polygon, row, column);
+        polygon.setOpacity(NORMAL_OPACITY);
         this.getChildren().addAll(cellEffectPane, polygon);
         setMouseEventsFor(polygon);
         setMouseEventsFor(cellEffectPane);
@@ -155,13 +157,15 @@ public class Tile extends Pane {
     }
 
     public void enableColorAnimation(Color color) {
-        KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
-        KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
-        Timeline timeline = AnimationMaker.makeTimeline(
-                Duration.millis(GAME_ACT_TIME * 0.25)
-                , true, 2
-                , colorValue, strokeValue);
-        timeline.play();
+        if (GameGraphicListener.isColorAnimationOn()) {
+            KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
+            KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
+            Timeline timeline = AnimationMaker.makeTimeline(
+                    Duration.millis(GAME_ACT_TIME * 0.25)
+                    , true, 2
+                    , colorValue, strokeValue);
+            timeline.play();
+        }
     }
 
     public void showSpellCast(ImageView spellView) {
