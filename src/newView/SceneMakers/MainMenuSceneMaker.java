@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainMenuSceneMaker extends SceneMaker {
-    private final static String SOUND_BG_PATH ="src/newView/resources/sounds/mainMenu/mainMenubg.mp3";
+    private final static String SOUND_BG_PATH = "src/newView/resources/sounds/mainMenu/mainMenubg.mp3";
     private double x = 0, y = 0;
     private static AudioClip mainMenuBgSound = new AudioClip(new File(SOUND_BG_PATH).toURI().toString());
 
@@ -85,6 +85,9 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text customCard = new Text("Custom Card");
         customCard.setOnMouseClicked(event -> new CustomCardSceneMaker(getPrimaryStage()).set());
 
+        Text globalChat = new Text("Global Chat");
+        globalChat.setOnMouseClicked(event -> new GlobalChatSceneMaker(getPrimaryStage()).set());
+
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
@@ -94,7 +97,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
 
-        commandsBox.getChildren().addAll(battle, shop, collection, customCard, save, logout, exit);
+        commandsBox.getChildren().addAll(battle, shop, collection, customCard,globalChat, save, logout, exit);
         commandsBox.getChildren().forEach(node -> {
             if (node instanceof Text) {
                 setTextStyle((Text) node);
