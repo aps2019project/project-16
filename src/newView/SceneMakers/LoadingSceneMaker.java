@@ -39,7 +39,7 @@ public class LoadingSceneMaker extends SceneMaker {
         return new MyScene(pane);
     }
 
-    public Pane getLoading() throws Exception {
+    public static Pane getLoading() throws Exception {
         Pane pane = new Pane();
         ImageView demon = AnimationMaker.getSimpleAnimation("demon", "src/newView/resources/loading/");
         ImageView brand = new ImageView(new Image(new FileInputStream("src/newView/resources/loading/brand_duelyst_preloading.png")));
