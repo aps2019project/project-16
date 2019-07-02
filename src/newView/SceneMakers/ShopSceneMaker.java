@@ -60,13 +60,13 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         controller.loadCollection();
         try {
             for (Card hero : heroes)
-                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardView());
+                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardViewInShop());
             for (Card minion : minions)
-                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION ,minion).getUnitCardView());
+                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION, minion).getUnitCardViewInShop());
             for (Card spell : spells)
-                spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL , spell).getSpellCardView());
+                spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL, spell).getSpellCardView());
             for (Item item : items)
-                itemPanes.put(item.getName(), new CardMaker(item.getName()).getItemCardView());
+                itemPanes.put(item.getName(), new CardMaker(item.getName()).getItemCardViewInShop());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -203,44 +203,45 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         return new MyScene(pane);
     }
 
-    private void showCardList(GridPane visibleCards, List<Object> collection) {
+    private void showCardList(GridPane visibleCards, List<Object> cards) {
         visibleCards.getChildren().removeIf(node -> true);
         System.gc();
         try {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 5; j++) {
-                    if (collection.size() > 5 * i + j + collectionCounter) {
-                        Object card = collection.get(5 * i + j + collectionCounter);
+                    if (cards.size() > 5 * i + j + collectionCounter) {
+                        Object card = cards.get(5 * i + j + collectionCounter);
                         Pane cardView;
                         String name;
                         final int cardId;
                         if (card instanceof Item) {
                             name = ((Item) card).getName();
                             cardId = ((Item) card).getCollectionID();
-                            cardView = new CardMaker(name).getItemCardView();
+                            cardView = new CardMaker(name).getItemCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Hero) {
                             name = ((Hero) card).getName();
                             cardId = ((Hero) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.HERO, (Card) card).getUnitCardView();
+                            cardView = new CardMaker(name, Type.HERO, (Card) card).getUnitCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Minion) {
                             name = ((Minion) card).getName();
                             cardId = ((Minion) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.MINION , (Card) card).getUnitCardView();
+                            cardView = new CardMaker(name, Type.MINION, (Card) card).getUnitCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else {
                             name = ((SpellCard) card).getName();
                             cardId = ((SpellCard) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.SPELL , (Card) card).getSpellCardView();
+                            cardView = new CardMaker(name, Type.SPELL, (Card) card).getSpellCardView();
                             visibleCards.add(cardView, j, i);
                         }
                         cardView.setOnMouseClicked(event -> {
                             if (!inShop) {
                                 controller.sellCard(cardId);
                                 controller.loadCollection();
-                            } else
+                            } else {
                                 controller.buyCard(name);
+                            }
                             showCardList(visibleCards, this.collection);
                         });
                     }
@@ -295,7 +296,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                     Item item = items.get(5 * i + j + itemCounter);
                     String name = item.getName();
                     Pane itemCardView = itemPanes.get(name);
-                    setBuyOnMouseClick(itemCardView, name);
+                    setBuyOnMouseClick(gridPane, itemCardView, item);
                     gridPane.add(itemCardView, j, i);
                 }
             }
@@ -308,7 +309,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 Card spell = spells.get(5 * i + j + spellCounter);
                 String name = spell.getName();
                 Pane spellCardView = spellPanes.get(name);
-                setBuyOnMouseClick(spellCardView, name);
+                setBuyOnMouseClick(gridPane, spellCardView, spell);
                 gridPane.add(spellCardView, j, i);
             }
         }
@@ -320,7 +321,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 Card minion = minions.get(5 * i + j + minionCounter);
                 String name = minion.getName();
                 Pane minionCardView = minionPanes.get(minion.getName());
-                setBuyOnMouseClick(minionCardView, name);
+                setBuyOnMouseClick(gridPane, minionCardView, minion);
                 gridPane.add(minionCardView, j, i);
             }
         }
@@ -332,14 +333,32 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 Card hero = heroes.get(5 * i + j + heroCounter);
                 String name = hero.getName();
                 Pane heroCardView = heroPanes.get(name);
-                setBuyOnMouseClick(heroCardView, name);
+                setBuyOnMouseClick(gridPane, heroCardView, hero);
                 gridPane.add(heroCardView, j, i);
             }
         }
     }
 
-    private void setBuyOnMouseClick(Pane card, String name) {
-        card.setOnMouseClicked(event -> controller.buyCard(name));
+    private void setBuyOnMouseClick(GridPane gridPane, Pane cardPane, Object card) {
+        cardPane.setOnMouseClicked(event -> {
+            try {
+                if (card instanceof Item) {
+                    controller.buyCard(((Item) card).getName());
+                    itemPanes.put(((Item) card).getName(), new CardMaker(((Item) card).getName()).getItemCardViewInShop());
+                } else if (card instanceof Hero) {
+                    controller.buyCard(((Card) card).getName());
+                    heroPanes.put(((Hero) card).getName(), new CardMaker(((Hero) card).getName(), Type.HERO, (Card) card).getUnitCardViewInShop());
+                } else if (card instanceof Minion) {
+                    controller.buyCard(((Minion) card).getName());
+                    minionPanes.put(((Minion) card).getName(), new CardMaker(((Minion) card).getName(), Type.MINION, (Card) card).getUnitCardViewInShop());
+                } else if (card instanceof SpellCard) {
+                    controller.buyCard(((SpellCard) card).getName());
+                    spellPanes.put(((SpellCard) card).getName(), new CardMaker(((SpellCard) card).getName(), Type.SPELL, (Card) card).getSpellCardView());
+                }
+            } catch (Exception e) {
+            }
+            showingCards(gridPane);
+        });
     }
 
 
@@ -385,6 +404,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     @Override
     public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+        this.heroes = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.heroes.addAll(heroes);
         for (Card card : cards)
             if (card instanceof Minion)
