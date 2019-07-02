@@ -1,5 +1,6 @@
 package newView;
 
+import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
 
 import java.io.File;
@@ -13,16 +14,18 @@ public class SoundPlayer {
 
     public static void playCardNameSound(String name, Type type) {
         try {
-            AudioClip sound;
-            File file = new File("src/newView/resources/cards/" + type.getName() + "/" + name + ".m4a");
-            try {
-                if (!file.exists())
-                    throw new Exception();
-            } catch (Exception e) {
-                file = new File("src/new/view/resources/cards/custom/" + type.getName() + "/1.m4a");
-            }
-            sound = new AudioClip(file.toURI().toString());
-            sound.play();
+            new Thread(() -> {
+                AudioClip sound;
+                File file = new File("src/newView/resources/cards/" + type.getName() + "/" + name + ".m4a");
+                try {
+                    if (!file.exists())
+                        throw new Exception();
+                } catch (Exception e) {
+                    file = new File("src/new/view/resources/cards/custom/" + type.getName() + "/1.m4a");
+                }
+                sound = new AudioClip(file.toURI().toString());
+                Platform.runLater(sound::play);
+            }).start();
         } catch (Exception ignored)  {
         }
         //  type mitoone "spell" ya "minion" ya "hero" bashe
