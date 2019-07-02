@@ -1,22 +1,76 @@
 package models;
 
+import com.gilecode.yagson.YaGson;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import models.card.Card;
+import models.card.Hero;
+import models.card.Minion;
 import models.item.Item;
+import newView.Type;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
+    private File customCardsPath = new File("customCards");
     //file custom card
 
-    public Shop() {
-        //read from custom card file
-
+    public Shop() throws FileNotFoundException {
+        initCustomCards();
         Initializer.initShopCards(cards);
         Initializer.initShopUsableItems(items);
+    }
+
+    private void initCustomCards() throws FileNotFoundException {
+        File dir = customCardsPath;
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                Card card = new YaGson().fromJson(reader, Card.class);
+                cards.add(card);
+            }
+        }
+    }
+
+    private boolean CustomCardIsRepeated(Card customCard) throws FileNotFoundException {
+        File dir = customCardsPath;
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            Card card = new YaGson().fromJson(reader, Card.class);
+            if (card.getName().equals(customCard.getName()) && getCardType(card).equals(getCardType(customCard))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void saveCustomCard(Card customCard) throws Exception {
+        if (CustomCardIsRepeated(customCard)) {
+            throw new Exception();
+            ///todo must check and customize by MOSTAFA
+        }
+        YaGson yaGson = new YaGson();
+        String json = yaGson.toJson(customCard);
+
+        FileWriter writer = new FileWriter("customCards/" + getCardType(customCard).getName() + "_" + customCard.getName() + ".josn");
+
+        writer.write(json);
+        writer.close();
+    }
+
+    private Type getCardType(Card card) {
+        if (card instanceof Hero)
+            return Type.HERO;
+        else if (card instanceof Minion)
+            return Type.MINION;
+        else
+            return Type.SPELL;
     }
 
     public ArrayList<Card> getCards() {

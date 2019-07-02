@@ -165,7 +165,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         ScaleTool.relocate(importDeckButton, 260, 50);
         importDeckButton.setOnMouseClicked(event -> {
             String deckName = importDeck.getText();
-            File dir = new File("src/decks");
+            File dir = new File("decks");
             File[] files = dir.listFiles();
             if (files != null) {
                 for (File file : files) {
@@ -310,7 +310,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
                 YaGson yaGson = new YaGson();
                 String json = yaGson.toJson(deck);
 
-                FileWriter writer = new FileWriter("src/decks/" + getUnitDeckId() + ".json");
+                FileWriter writer = new FileWriter("decks/" + getUnitDeckId() + ".json");
 
                 writer.write(json);
                 writer.close();
