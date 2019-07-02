@@ -9,8 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.card.*;
 import newView.AnimationMaker;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.SelectType;
+import newView.battleView.GameGraphicData;
+import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.SoundPlayer;
 import newView.Type;
@@ -18,7 +18,7 @@ import newView.Type;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
+import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class HandElement extends Pane {
     private Image normalImage = new Image(new FileInputStream("src/newView/resources/hand/normal.png"));

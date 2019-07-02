@@ -3,8 +3,8 @@ package models.magic;
 import models.Cell;
 import models.Player;
 import models.card.Unit;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.ChangeApHpAct;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.ChangeApHpAct;
 
 public class Buff {
     public static final int INFINITY = 1000000;

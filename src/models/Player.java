@@ -3,8 +3,8 @@ package models;
 import models.card.*;
 import exception.*;
 import models.item.Item;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.*;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.*;
 
 import java.util.ArrayList;
 import java.util.Random;

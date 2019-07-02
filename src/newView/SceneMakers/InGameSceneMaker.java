@@ -3,9 +3,9 @@ package newView.SceneMakers;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.GraphicalGameViewer;
-import newView.BattleView.gameActs.*;
+import newView.battleView.GameGraphicData;
+import newView.battleView.GraphicalGameViewer;
+import newView.battleView.gameActs.*;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
 import newView.GraphicalElements.effects.SnowPane;
@@ -22,8 +22,6 @@ public class InGameSceneMaker extends SceneMaker {
 
     @Override
     public Scene makeScene() throws Exception {
-        GameGraphicData.setOnLeft(true);//todo must be corrected
-
         ZoomablePane zoomablePane = new ZoomablePane();
         BackgroundMaker.setBackgroundFor(zoomablePane, 10, "battle");
 

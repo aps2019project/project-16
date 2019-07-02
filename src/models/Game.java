@@ -8,8 +8,8 @@ import exception.ArrayIsEmptyException;
 import exception.GameIsEndException;
 import models.item.Item;
 import models.item.ManaItem;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.*;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.*;
 import newView.Type;
 
 import java.util.ArrayList;
@@ -36,6 +36,11 @@ public class Game {
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
         this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
+
+        // TODO Mostafa: 7/2/19 it's must be corrected in server-client
+        //  be currentPlayer "true" ersal besheh be opponent player ham "false" ersal beshe
+        //  be spectator ha ham mohem nist koodomesh bashe
+        ClientSender.sendToViewer(new SetOnLeftAct(true));
 
         ClientSender.sendToViewer(new SetPlayerInfosAct(firstAccount.getName(), secondAccount.getName()));
 

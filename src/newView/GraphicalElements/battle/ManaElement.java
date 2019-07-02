@@ -9,7 +9,7 @@ import newView.GraphicalElements.effects.FadeEffect;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
+import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class ManaElement extends Pane {
     private Image fullImage = new Image(new FileInputStream("src/newView/resources/battleInfo/full_mana.png"));

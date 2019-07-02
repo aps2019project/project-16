@@ -11,9 +11,9 @@ import javafx.util.Duration;
 import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.GameGraphicListener;
-import newView.BattleView.SelectType;
+import newView.battleView.GameGraphicData;
+import newView.battleView.GameGraphicListener;
+import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.SoundPlayer;
 import newView.Type;
@@ -21,7 +21,7 @@ import newView.Type;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
+import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class Tile extends Pane {
     private static Image flagImage;

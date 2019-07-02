@@ -7,8 +7,8 @@ import exception.*;
 import models.magic.Buff;
 import models.magic.Buffable;
 import models.magic.Spell;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.*;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
