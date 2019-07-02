@@ -13,8 +13,8 @@ public class SoundPlayer {
     }
 
     public static void playCardNameSound(String name, Type type) {
-        try {
-            new Thread(() -> {
+        new Thread(() -> {
+            try {
                 AudioClip sound;
                 File file = new File("src/newView/resources/cards/" + type.getName() + "/" + name + ".m4a");
                 try {
@@ -25,9 +25,9 @@ public class SoundPlayer {
                 }
                 sound = new AudioClip(file.toURI().toString());
                 Platform.runLater(sound::play);
-            }).start();
-        } catch (Exception ignored)  {
-        }
+            } catch (Exception ignored) {
+            }
+        }).start();
         //  type mitoone "spell" ya "minion" ya "hero" bashe
     }
 
