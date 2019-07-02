@@ -13,7 +13,16 @@ public class GameContents {
     private static Game currentGame;
     private static Account currentAccount;
     private static Account secondAccount = null;
-    private static Shop shop = new Shop();
+    private static Shop shop;
+
+    static {
+        try {
+            shop = new Shop();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static ArrayList<GameLevel> gameLevels = Initializer2Movaghat.initGameLevels();
 
     public static void setCurrentAccount(Account currentAccount) {
