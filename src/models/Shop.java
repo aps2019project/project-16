@@ -11,6 +11,7 @@ import newView.Type;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.SplittableRandom;
 
 public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
@@ -122,10 +123,12 @@ public class Shop {
         Collection collection = currentAccount.getCollection();
 
         Card card = getCard(cardName);
+        card.decrementCapacity();
 
         Card newCard = card.getCopy(true);
         currentAccount.decreaseMoney(newCard.getBuyPrice());
         collection.addCard(newCard);
+
     }
 
     public void sellCard(int cardID) {
@@ -135,6 +138,8 @@ public class Shop {
         Card card = collection.getCard(cardID);
         currentAccount.increaseMoney(card.getBuyPrice());
         collection.removeCard(card);
+
+        incrementCardCapacity(card.getName());
     }
 
     public void buyItem(String itemName) {
@@ -142,6 +147,7 @@ public class Shop {
         Collection collection = currentAccount.getCollection();
 
         Item item = getItem(itemName);
+        item.decrementCapacity();
 
         Item newItem = item.getCopy(true);
         currentAccount.decreaseMoney(newItem.getBuyPrice());
@@ -155,6 +161,8 @@ public class Shop {
         Item item = collection.getItem(itemID);
         currentAccount.increaseMoney(item.getBuyPrice());
         collection.removeItem(item);
+
+        incrementItemCapacity(item.getName());
     }
 
     public String getType(String name) {
@@ -165,5 +173,23 @@ public class Shop {
         if (item != null)
             return "item";
         return null;
+    }
+
+    public void incrementCardCapacity(String name) {
+        for (Card card : cards) {
+            if (card.getName().equals(name)) {
+                card.incrementCapacity();
+                break;
+            }
+        }
+    }
+
+    public void incrementItemCapacity(String name) {
+        for (Item item : items) {
+            if (item.getName().equals(name)) {
+                item.incrementCapacity();
+                break;
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import controllers.AccountController;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -88,6 +89,9 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text globalChat = new Text("Global Chat");
         globalChat.setOnMouseClicked(event -> new GlobalChatSceneMaker(getPrimaryStage()).set());
 
+        Text scoreBoard = new Text("Score Board");
+        scoreBoard.setOnMouseClicked(event -> new ScoreBoardSceneMaker(getPrimaryStage()).set());
+
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
@@ -97,14 +101,14 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
 
-        commandsBox.getChildren().addAll(battle, shop, collection, customCard,globalChat, save, logout, exit);
+        commandsBox.getChildren().addAll(battle, shop, collection, customCard, globalChat, scoreBoard, save, logout, exit);
         commandsBox.getChildren().forEach(node -> {
             if (node instanceof Text) {
                 setTextStyle((Text) node);
                 setGlowOnMouseOver((Text) node);
             }
         });
-        ScaleTool.relocate(commandsPane, 180, 200);
+        ScaleTool.relocate(commandsPane, 180, 160);
 
         borderPane.getChildren().addAll(lionView, fog.getView(), warriorManView);
         borderPane.getChildren().addAll(commandsPane);

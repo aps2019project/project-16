@@ -4,6 +4,8 @@ import com.gilecode.yagson.YaGson;
 import models.UniqueIDGenerator;
 
 public abstract class Card {
+    private final int CAPACITY = 100;
+
     private int manaCost;
     private int sellPrice;
     private int buyPrice;
@@ -11,6 +13,19 @@ public abstract class Card {
     private String description;
     private int collectionID;
     private int gameCardID;
+    private int capacity = CAPACITY;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void decrementCapacity() {
+        this.capacity--;
+    }
+
+    public void incrementCapacity() {
+        this.capacity++;
+    }
 
     public int getGameCardID() {
         return gameCardID;

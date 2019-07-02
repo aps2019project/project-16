@@ -6,6 +6,7 @@ import models.Player;
 import models.UniqueIDGenerator;
 
 public abstract class Item {
+    private final int CAPACITY = 100;
     private String name;
     private int buyPrice;
     private int sellPrice;
@@ -13,6 +14,19 @@ public abstract class Item {
     private Type type;
     private int GameItemID;
     private int collectibleID;
+    private int capacity = CAPACITY;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void incrementCapacity() {
+        this.capacity++;
+    }
+
+    public void decrementCapacity() {
+        this.capacity--;
+    }
 
     public Item(String name, int buyPrice, int sellPrice, Type type) {
         this.name = name;
