@@ -11,6 +11,7 @@ import models.GameContents;
 import models.Shop;
 import models.card.Card;
 import models.card.Unit;
+import models.item.Item;
 import newView.GraphicalElements.ScaleTool;
 import org.xml.sax.SAXException;
 
@@ -22,8 +23,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class CardMaker {
-    Shop shop = GameContents.getShop();
-
     private String name;
     private File backGround;
     private Text hp;
@@ -34,11 +33,12 @@ public class CardMaker {
     private Text typeOfCard;
     private Type type;
     private ImageView sprite;
+    private Card card;
 
-
-    public CardMaker(String name, Type type) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
+    public CardMaker(String name, Type type, Card card) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
         this.name = name;
         this.type = type;
+        this.card = card;
         backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
         setAp();
         setHp();
@@ -46,15 +46,22 @@ public class CardMaker {
         setNameOfCard();
         setTypeOfCard();
         setSprite();
-
     }
 
-    private void setMana() throws FileNotFoundException {
+    public CardMaker(String name) throws Exception  {
+        this.name = name;
+        this.type = Type.ITEM;
+        backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
+        setNameOfCard();
+        setTypeOfCard();
+        setSprite();
+    }
+
+
+    private void setMana() {
         manaValue = new Text();
         manaValue.setFill(Color.BLACK);
-        Card card;
         if (type != Type.ITEM) {
-            card = shop.getCard(name);
             manaValue.setText(String.valueOf(card.getManaCost()));
         }
     }
@@ -73,9 +80,7 @@ public class CardMaker {
     public void setHp() {
         hp = new Text();
         hp.setFill(Color.WHITE);
-        Card card;
         if (type != Type.SPELL && type != Type.ITEM) {
-            card = (Unit) shop.getCard(name);
             hp.setText(String.valueOf(((Unit) card).getHp()));
         }
     }
@@ -83,9 +88,7 @@ public class CardMaker {
     public void setAp() {
         ap = new Text();
         ap.setFill(Color.WHITE);
-        Card card;
         if (type != Type.SPELL && type != Type.ITEM) {
-            card = (Unit) shop.getCard(name);
             ap.setText(String.valueOf(((Unit) card).getAp()));
         }
     }

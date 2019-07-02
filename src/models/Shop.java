@@ -10,7 +10,11 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
+    //file custom card
+
     public Shop() {
+        //read from custom card file
+
         Initializer.initShopCards(cards);
         Initializer.initShopUsableItems(items);
     }

@@ -449,19 +449,19 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
                         int cardId;
                         if (card instanceof Item) {
                             String name = ((Item) card).getName();
-                            cardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                            cardView = new CardMaker(name).getItemCardView();
                             cardId = ((Item) card).getCollectionID();
                         } else if (card instanceof Hero) {
                             String name = ((Hero) card).getName();
-                            cardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                            cardView = new CardMaker(name, Type.HERO , (Card) card).getUnitCardView();
                             cardId = ((Hero) card).getCollectionID();
                         } else if (card instanceof Minion) {
                             String name = ((Minion) card).getName();
-                            cardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                            cardView = new CardMaker(name, Type.MINION , (Card) card).getUnitCardView();
                             cardId = ((Minion) card).getCollectionID();
                         } else {
                             String name = ((SpellCard) card).getName();
-                            cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                            cardView = new CardMaker(name, Type.SPELL , (Card) card).getSpellCardView();
                             cardId = ((SpellCard) card).getCollectionID();
                         }
                         cardView.setOnMouseClicked(event -> addCardToSelectedDeck(cardId));
