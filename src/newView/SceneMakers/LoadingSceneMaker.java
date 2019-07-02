@@ -1,23 +1,19 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import newView.AnimationMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.ParseException;
 
 public class LoadingSceneMaker extends SceneMaker {
 
@@ -26,8 +22,8 @@ public class LoadingSceneMaker extends SceneMaker {
     }
 
     @Override
-    public Scene makeScene() throws Exception {
-        Pane pane = getLoading();
+    public Scene makeScene() {
+        Pane pane = getLoadingPane();
         new Thread(() -> {
             try {
                 Thread.sleep(2500);
@@ -39,10 +35,23 @@ public class LoadingSceneMaker extends SceneMaker {
         return new MyScene(pane);
     }
 
-    public static Pane getLoading() throws Exception {
+    public static Pane getLoadingPane() {
         Pane pane = new Pane();
-        ImageView demon = AnimationMaker.getSimpleAnimation("demon", "src/newView/resources/loading/");
-        ImageView brand = new ImageView(new Image(new FileInputStream("src/newView/resources/loading/brand_duelyst_preloading.png")));
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setFill(Color.BLACK);
+        ScaleTool.resizeRectangle(rectangle, WIDTH, HEIGHT);
+
+        pane.getChildren().add(rectangle);
+
+        ImageView demon = null;
+        ImageView brand = null;
+        try {
+            demon = AnimationMaker.getSimpleAnimation("demon", "src/newView/resources/loading/");
+            brand = new ImageView(new Image(new FileInputStream("src/newView/resources/loading/brand_duelyst_preloading.png")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Text text = new Text();
         text.setText("THIS MAY TAKE SOME MOMENTS");
         text.setFill(Color.rgb(81, 82, 82));

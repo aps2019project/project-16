@@ -54,7 +54,7 @@ public class InGameSceneMaker extends SceneMaker {
 
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes
+        GameGraphicData.setDatas(zoomablePane, handHBox, endTurnButton, tilesPane, infoPanes
                 , collectiblesHBox, graveyardPane, cardInfo);
 
         zoomablePane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]

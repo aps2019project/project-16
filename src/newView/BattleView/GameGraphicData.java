@@ -1,15 +1,20 @@
 package newView.BattleView;
 
 import controllers.InGameController;
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
 import models.item.Item;
 import newView.BattleView.gameActs.GameAct;
+import newView.GraphicalElements.ZoomablePane;
 import newView.GraphicalElements.battle.*;
+import newView.SceneMakers.LoadingSceneMaker;
 import view.views.InGameView;
 
 import java.util.ArrayList;
 
 public class GameGraphicData {
     private static boolean onLeft;
+    private static ZoomablePane zoomablePane;
     private static HandHBox handBox;
     private static EndTurnButton turnButton;
     private static TilesPane tilesPane;
@@ -24,10 +29,11 @@ public class GameGraphicData {
     private static HandElement selectedHandElement;
     private static CollectibleElement selectedCollectibleElement;
 
-    private final static GameGraphicListener listener = new GameGraphicListener();
+    private static GameGraphicListener listener = new GameGraphicListener();
     private final static InGameController controller = new InGameController(new InGameView());
 
     static {
+        listener.setDaemon(true);
         listener.start();
     }
 
@@ -58,9 +64,10 @@ public class GameGraphicData {
         selectType = type;
     }
 
-    public static void setDatas(HandHBox handHBox, EndTurnButton endTurnButton
+    public static void setDatas(ZoomablePane mainPane, HandHBox handHBox, EndTurnButton endTurnButton
             , TilesPane gameTiles, PlayerInfoPane[] playerInfoPanes
             , CollectiblesHBox collectiblesBox, GraveyardPane graveyard, CardInfo cardInfo1) {
+        zoomablePane = mainPane;
         handBox = handHBox;
         turnButton = endTurnButton;
         tilesPane = gameTiles;
@@ -68,6 +75,27 @@ public class GameGraphicData {
         collectiblesHBox = collectiblesBox;
         graveyardPane = graveyard;
         cardInfo = cardInfo1;
+    }
+
+    public static void showActionsInFastRate(ArrayList<GameAct> initialGameActs) {
+        Pane loadingPane = LoadingSceneMaker.getLoadingPane();
+        Platform.runLater(() -> zoomablePane.getChildren().add(loadingPane));
+        Thread thread = new Thread(() -> {
+            try {
+                listener.fastShow(initialGameActs);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        try {
+            GameGraphicListener.setMustShow(false);
+            thread.start();
+            thread.join();
+            GameGraphicListener.setMustShow(true);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Platform.runLater(() -> zoomablePane.getChildren().remove(loadingPane));
     }
 
     public static GameGraphicListener getListener() {
