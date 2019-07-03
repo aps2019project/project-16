@@ -1,9 +1,14 @@
 package models;
 
+import java.net.Socket;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.regex.MatchResult;
 
 public class Account {
+
     private String name;
     private String password;
     private Collection collection = new Collection();
@@ -11,6 +16,16 @@ public class Account {
     private int money = 2000000;
     private int wins;
     private int numberOfItems;
+    //todo for server
+
+    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
+    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
+
+    public static String generateNewToken() {
+        byte[] randomBytes = new byte[24];
+        secureRandom.nextBytes(randomBytes);
+        return base64Encoder.encodeToString(randomBytes);
+    }
 
     public void setMoney(int money) {
         this.money = money;

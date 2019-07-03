@@ -2,11 +2,10 @@ package newView.SceneMakers;
 
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.GraphicalGameViewer;
-import newView.BattleView.gameActs.*;
+import newView.battleView.GameGraphicData;
+import newView.battleView.GraphicalGameViewer;
+import newView.battleView.gameActs.*;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
 import newView.GraphicalElements.effects.SnowPane;
@@ -23,10 +22,8 @@ public class InGameSceneMaker extends SceneMaker {
 
     @Override
     public Scene makeScene() throws Exception {
-        GameGraphicData.setOnLeft(true);//todo must be corrected
-
-        BorderPane borderPane = new BorderPane();
-        BackgroundMaker.setBackgroundFor(borderPane, 10, "battle");
+        ZoomablePane zoomablePane = new ZoomablePane();
+        BackgroundMaker.setBackgroundFor(zoomablePane, 10, "battle");
 
         ImageView mapBGView = ForegroundMaker.getForeground(10, 1400, 900, "battle");
         ScaleTool.relocate(mapBGView, WIDTH / 2 - 1400 / 2, HEIGHT / 2 - 900 / 2);
@@ -46,20 +43,24 @@ public class InGameSceneMaker extends SceneMaker {
         BackButton backButton = new BackButton();
         backButton.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
+        FastForwardPane fastForwardPane = new FastForwardPane();
+        CheatPane cheatPane = new CheatPane();
+
         CollectiblesHBox collectiblesHBox = new CollectiblesHBox();
 
         TilesPane tilesPane = new TilesPane();
 
         EndTurnButton endTurnButton = new EndTurnButton(true);
 
-        GameGraphicData.setDatas(handHBox, endTurnButton, tilesPane, infoPanes
+        GameGraphicData.setDatas(zoomablePane, handHBox, endTurnButton, tilesPane, infoPanes
                 , collectiblesHBox, graveyardPane, cardInfo);
 
-        borderPane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1], collectiblesHBox);
-        borderPane.getChildren().addAll(graveyardPane, cardInfo, cancelButton, backButton);
-        borderPane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
-        borderPane.setCursor(SceneMaker.GAME_CURSOR);
-        return new MyScene(borderPane);
+        zoomablePane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]
+                , fastForwardPane, collectiblesHBox);
+        zoomablePane.getChildren().addAll(graveyardPane, cheatPane, cardInfo, cancelButton, backButton);
+        zoomablePane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
+        zoomablePane.setCursor(SceneMaker.GAME_CURSOR);
+        return new MyScene(zoomablePane);
     }
 
     private void testForActions(EndTurnButton button) {

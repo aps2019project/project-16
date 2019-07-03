@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -11,11 +12,17 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 public class BattleSceneMaker extends SceneMaker {
+    public static AudioClip battleBgSound = new AudioClip(new File("src/newView/resources/sounds/battle/battlebg.mp3").toURI().toString());
+
     public BattleSceneMaker(Stage primaryStage) {
         super(primaryStage);
+        if (!battleBgSound.isPlaying())
+            battleBgSound.play();
+
     }
 
     @Override
@@ -26,7 +33,10 @@ public class BattleSceneMaker extends SceneMaker {
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
-        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+        back.setOnMouseClicked(event -> {
+            new MainMenuSceneMaker(getPrimaryStage()).set();
+            battleBgSound.stop();
+        });
 
 
         ImageView customGame = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));

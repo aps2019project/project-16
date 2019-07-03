@@ -1,36 +1,39 @@
 package newView.SceneMakers;
 
-import com.dd.plist.PropertyListFormatException;
 import controllers.AccountController;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import newView.AnimationMaker;
 import newView.GraphicalElements.*;
-import org.xml.sax.SAXException;
+import newView.SoundPlayer;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 
 public class MainMenuSceneMaker extends SceneMaker {
+    private final static String SOUND_BG_PATH = "src/newView/resources/sounds/mainMenu/mainMenubg.mp3";
     private double x = 0, y = 0;
+    private static AudioClip mainMenuBgSound = new AudioClip(new File(SOUND_BG_PATH).toURI().toString());
+
 
     public MainMenuSceneMaker(Stage primaryStage) {
         super(primaryStage);
+        if (!mainMenuBgSound.isPlaying())
+            mainMenuBgSound.play();
     }
 
 
     @Override
-    public Scene makeScene() throws IOException, ParserConfigurationException, ParseException, SAXException, PropertyListFormatException {
+    public Scene makeScene() throws IOException {
         BorderPane borderPane = new BorderPane();
         BackgroundMaker.setBackgroundFor(borderPane, 1, "account");
 
@@ -62,11 +65,17 @@ public class MainMenuSceneMaker extends SceneMaker {
             y = e.getY();
         });
 
+        SoundPlayer.playByPath("src/newView/resources/sounds/welcome.wav");
+
+
         VBox commandsBox = new VBox();
         Pane commandsPane = new Pane(commandsBox);
 
         Text battle = new Text("Battle");
-        battle.setOnMouseClicked(event -> new BattleSceneMaker(getPrimaryStage()).set());
+        battle.setOnMouseClicked(event -> {
+            new BattleSceneMaker(getPrimaryStage()).set();
+            mainMenuBgSound.stop();
+        });
 
         Text shop = new Text("Shop");
         shop.setOnMouseClicked(event -> new ShopSceneMaker(getPrimaryStage()).set());
@@ -77,6 +86,12 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text customCard = new Text("Custom Card");
         customCard.setOnMouseClicked(event -> new CustomCardSceneMaker(getPrimaryStage()).set());
 
+        Text globalChat = new Text("Global Chat");
+        globalChat.setOnMouseClicked(event -> new GlobalChatSceneMaker(getPrimaryStage()).set());
+
+        Text scoreBoard = new Text("Score Board");
+        scoreBoard.setOnMouseClicked(event -> new ScoreBoardSceneMaker(getPrimaryStage()).set());
+
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
@@ -86,14 +101,14 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
 
-        commandsBox.getChildren().addAll(battle, shop, collection, customCard, save, logout, exit);
+        commandsBox.getChildren().addAll(battle, shop, collection, customCard, globalChat, scoreBoard, save, logout, exit);
         commandsBox.getChildren().forEach(node -> {
             if (node instanceof Text) {
                 setTextStyle((Text) node);
                 setGlowOnMouseOver((Text) node);
             }
         });
-        ScaleTool.relocate(commandsPane, 180, 200);
+        ScaleTool.relocate(commandsPane, 180, 160);
 
         borderPane.getChildren().addAll(lionView, fog.getView(), warriorManView);
         borderPane.getChildren().addAll(commandsPane);
@@ -104,4 +119,5 @@ public class MainMenuSceneMaker extends SceneMaker {
         text.setFont(new Font(ScaleTool.scale(35)));
         text.setFill(Color.WHITE);
     }
+
 }

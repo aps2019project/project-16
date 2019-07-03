@@ -226,12 +226,12 @@ public class InGameController implements InGameContract.Controller {
                 throw new CardNotInHandException();
             } else {
                 if (cardToInsert.getClass() == Hero.class || cardToInsert.getClass() == Minion.class) {
-                    currentPlayer.putUnit(cell, (Unit) cardToInsert);
+                    currentPlayer.putUnit(cell, (Unit) cardToInsert, false);
                     Notify.logMessage("You inserted the unit \"" + cardToInsert.getName() + "\""
                             + " in row: " + row
                             + " in column: " + column);
                 } else {
-                    currentPlayer.castSpellCard((SpellCard) cardToInsert, cell);
+                    currentPlayer.castSpellCard((SpellCard) cardToInsert, cell, false);
                     Notify.logMessage("You cast the spell \"" + cardToInsert.getName() + "\""
                             + " in row: " + row
                             + " in column: " + column);
@@ -334,5 +334,13 @@ public class InGameController implements InGameContract.Controller {
         Notify.logMessage("Player \"" + currentPlayer.getAccount().getName() + "\" refused the game!!");
         Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
 //        view.goToPrevMenu();
+    }
+
+    @Override
+    public void cheat(String keyWord) {
+        Game game = GameContents.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        keyWord = keyWord.toLowerCase();
+        currentPlayer.cheat(keyWord);
     }
 }

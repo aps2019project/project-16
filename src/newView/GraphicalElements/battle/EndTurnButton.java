@@ -3,7 +3,7 @@ package newView.GraphicalElements.battle;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import newView.BattleView.GameGraphicData;
+import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.effects.FadeEffect;
 

@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import newView.AnimationMaker;
@@ -21,12 +22,36 @@ public class LoadingSceneMaker extends SceneMaker {
     }
 
     @Override
-    public Scene makeScene() throws Exception {
+    public Scene makeScene() {
+        Pane pane = getLoadingPane();
+        new Thread(() -> {
+            try {
+                Thread.sleep(2500);
+                Platform.runLater(() -> new LoginSceneMaker(getPrimaryStage()).set());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+        return new MyScene(pane);
+    }
+
+    public static Pane getLoadingPane() {
         Pane pane = new Pane();
 
+        Rectangle rectangle = new Rectangle();
+        rectangle.setFill(Color.BLACK);
+        ScaleTool.resizeRectangle(rectangle, WIDTH, HEIGHT);
 
-        ImageView demon = AnimationMaker.getSimpleAnimation("demon", "src/newView/resources/loading/");
-        ImageView brand = new ImageView(new Image(new FileInputStream("src/newView/resources/loading/brand_duelyst_preloading.png")));
+        pane.getChildren().add(rectangle);
+
+        ImageView demon = null;
+        ImageView brand = null;
+        try {
+            demon = AnimationMaker.getSimpleAnimation("demon", "src/newView/resources/loading/");
+            brand = new ImageView(new Image(new FileInputStream("src/newView/resources/loading/brand_duelyst_preloading.png")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Text text = new Text();
         text.setText("THIS MAY TAKE SOME MOMENTS");
         text.setFill(Color.rgb(81, 82, 82));
@@ -42,14 +67,7 @@ public class LoadingSceneMaker extends SceneMaker {
         pane.getChildren().add(demon);
         pane.getChildren().add(brand);
         pane.setStyle("-fx-background-color: rgb(0,0,0); -fx-text-fill: White");
-        new Thread(() -> {
-            try {
-                Thread.sleep(2500);
-                Platform.runLater(() -> new LoginSceneMaker(getPrimaryStage()).set());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-        return new MyScene(pane);
+        return pane;
     }
+
 }

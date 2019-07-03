@@ -3,7 +3,6 @@ package newView.GraphicalElements.battle;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-import static newView.GraphicalElements.battle.Tile.NORMAL_OPACITY;
 import static newView.SceneMakers.SceneMaker.SCALE;
 
 public class TilePolygon extends Polygon {
@@ -51,7 +50,6 @@ public class TilePolygon extends Polygon {
 
     public TilePolygon() {
         this.setFill(Color.WHITE);
-        this.setOpacity(NORMAL_OPACITY);
         this.setStroke(Color.LIGHTBLUE);
         this.setStrokeWidth(3 * SCALE);
     }

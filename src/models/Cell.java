@@ -4,10 +4,10 @@ import models.card.Unit;
 import models.item.Item;
 import models.magic.Buff;
 import models.magic.Buffable;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.AddCellEffectAct;
-import newView.BattleView.gameActs.AddCollectibleAct;
-import newView.BattleView.gameActs.RemoveCellEffectAct;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.AddCellEffectAct;
+import newView.battleView.gameActs.AddCollectibleAct;
+import newView.battleView.gameActs.RemoveCellEffectAct;
 
 import java.util.ArrayList;
 import java.util.List;

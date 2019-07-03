@@ -11,6 +11,7 @@ import models.GameContents;
 import models.Shop;
 import models.card.Card;
 import models.card.Unit;
+import models.item.Item;
 import newView.GraphicalElements.ScaleTool;
 import org.xml.sax.SAXException;
 
@@ -22,36 +23,83 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class CardMaker {
-    Shop shop = GameContents.getShop();
-
     private String name;
     private File backGround;
     private Text hp;
+    private ImageView mana;
+    private Text manaValue;
     private Text ap;
     private Text nameOfCard;
     private Text typeOfCard;
     private Type type;
     private ImageView sprite;
+    private Card card;
+    private Text capacity = new Text();
 
-
-    public CardMaker(String name, Type type) throws PropertyListFormatException, ParserConfigurationException, SAXException, ParseException, IOException {
+    public CardMaker(String name, Type type, Card card) throws Exception {
         this.name = name;
         this.type = type;
+        this.card = card;
         backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
         setAp();
         setHp();
+        setMana();
+        setCardCapacity();
         setNameOfCard();
         setTypeOfCard();
         setSprite();
-
     }
+
+    private void setCardCapacity() {
+        capacity.setText(String.valueOf(card.getCapacity()));
+        capacity.setFill(Color.WHITE);
+    }
+
+
+    public CardMaker(String name) throws Exception {
+        this.name = name;
+        this.type = Type.ITEM;
+        backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
+        setNameOfCard();
+        setTypeOfCard();
+        setItemCapacity();
+        setSprite();
+    }
+
+    private void setItemCapacity() {
+        for (Item item : GameContents.getShop().getItems()) {
+            if (item.getName().equals(name)) {
+                capacity.setText(String.valueOf(item.getCapacity()));
+                capacity.setFill(Color.WHITE);
+                break;
+            }
+        }
+    }
+
+
+    private void setMana() {
+        manaValue = new Text();
+        manaValue.setFill(Color.BLACK);
+        if (type != Type.ITEM) {
+            manaValue.setText(String.valueOf(card.getManaCost()));
+        }
+    }
+
+
+    private StackPane getManaView() throws FileNotFoundException {
+        mana = new ImageView(new Image(new FileInputStream("src/newView/resources/cardBackgrounds/mana.png")));
+        ScaleTool.resizeImageView(mana, 30, 30);
+        StackPane manaView = new StackPane();
+
+        manaView.getChildren().addAll(mana, manaValue);
+        return manaView;
+    }
+
 
     public void setHp() {
         hp = new Text();
         hp.setFill(Color.WHITE);
-        Card card;
         if (type != Type.SPELL && type != Type.ITEM) {
-            card = (Unit) shop.getCard(name);
             hp.setText(String.valueOf(((Unit) card).getHp()));
         }
     }
@@ -59,9 +107,7 @@ public class CardMaker {
     public void setAp() {
         ap = new Text();
         ap.setFill(Color.WHITE);
-        Card card;
         if (type != Type.SPELL && type != Type.ITEM) {
-            card = (Unit) shop.getCard(name);
             ap.setText(String.valueOf(((Unit) card).getAp()));
         }
     }
@@ -78,7 +124,8 @@ public class CardMaker {
         typeOfCard.setText(type.getName().toUpperCase());
     }
 
-    private void setSprite() throws ParserConfigurationException, ParseException, SAXException, PropertyListFormatException, IOException {
+    private void setSprite() throws ParserConfigurationException, ParseException
+            , SAXException, PropertyListFormatException, IOException {
         if (type != Type.SPELL && type != Type.ITEM) {
             if (type == Type.HERO)
                 sprite = AnimationMaker.getBreathingAnimation(name, "hero");
@@ -108,6 +155,10 @@ public class CardMaker {
         return ap;
     }
 
+    public Text getCapacity() {
+        return capacity;
+    }
+
     public Text getNameOfCard() {
         return nameOfCard;
     }
@@ -128,6 +179,7 @@ public class CardMaker {
         Pane root = new Pane();
         StackPane stackPaneName = new StackPane();
         StackPane stackPaneType = new StackPane();
+        StackPane mana = getManaView();
 
         ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
         ImageView sprite = getSprite();
@@ -161,13 +213,9 @@ public class CardMaker {
         stackPaneType.setLayoutY(135);//todo must be * scale
         stackPaneName.setLayoutY(160);//todo must be * scale
 
-        root.getChildren().add(backGround);
-        root.getChildren().add(sprite);
-        root.getChildren().add(stackPaneName);
-        root.getChildren().add(stackPaneType);
-        root.getChildren().add(ap);
-        root.getChildren().add(hp);
-
+        root.getChildren().addAll(backGround, sprite, stackPaneName, stackPaneType, ap, hp);
+        if (this.type == Type.MINION)
+            root.getChildren().add(mana);
         return root;
     }
 
@@ -176,8 +224,11 @@ public class CardMaker {
         StackPane stackPaneName = new StackPane();
         StackPane stackPaneType = new StackPane();
 
+
         ImageView backGround = new ImageView(new Image(new FileInputStream(getBackGround())));
         ImageView sprite = getSprite();
+
+        StackPane mana = getManaView();
 
         ScaleTool.resizeImageView(backGround, 150, 200);
         ScaleTool.resizeImageView(sprite, 100, 100);
@@ -205,8 +256,10 @@ public class CardMaker {
 
         root.getChildren().add(backGround);
         root.getChildren().add(sprite);
+        root.getChildren().add(mana);
         root.getChildren().add(stackPaneType);
         root.getChildren().add(stackPaneName);
+
         return root;
     }
 
@@ -247,6 +300,45 @@ public class CardMaker {
         root.getChildren().add(stackPaneType);
         root.getChildren().add(stackPaneName);
         return root;
+    }
+
+    public Pane getItemCardViewInShop() throws FileNotFoundException {
+        Pane root = new Pane();
+        StackPane capacity = new StackPane();
+
+        root.getChildren().add(getItemCardView());
+
+        capacity.getChildren().add(getCapacity());
+        ScaleTool.relocate(capacity, 65, 185);
+
+        root.getChildren().add(capacity);
+        return root;
+    }
+
+    public Pane getUnitCardViewInShop() throws FileNotFoundException {
+        Pane root = new Pane();
+        StackPane capacity = new StackPane();
+
+        root.getChildren().add(getUnitCardView());
+
+        capacity.getChildren().add(getCapacity());
+        ScaleTool.relocate(capacity , 65 , 185);
+
+        root.getChildren().add(capacity);
+        return root;
+    }
+    
+
+    public void decrementCapacity() {
+        int capacity = Integer.parseInt(this.capacity.getText());
+        capacity--;
+        this.capacity.setText(Integer.toString(capacity));
+    }
+
+    public void incrementCapacity() {
+        int capacity = Integer.parseInt(this.capacity.getText());
+        capacity++;
+        this.capacity.setText(Integer.toString(capacity));
     }
 
 }

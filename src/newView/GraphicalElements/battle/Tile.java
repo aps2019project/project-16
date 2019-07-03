@@ -11,15 +11,17 @@ import javafx.util.Duration;
 import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.SelectType;
+import newView.battleView.GameGraphicData;
+import newView.battleView.GameGraphicListener;
+import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
+import newView.SoundPlayer;
 import newView.Type;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
+import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class Tile extends Pane {
     private static Image flagImage;
@@ -71,6 +73,7 @@ public class Tile extends Pane {
         this.column = column;
         ScaleTool.relocateTile(this);
         ScaleTool.makeTilePoints(polygon, row, column);
+        polygon.setOpacity(NORMAL_OPACITY);
         this.getChildren().addAll(cellEffectPane, polygon);
         setMouseEventsFor(polygon);
         setMouseEventsFor(cellEffectPane);
@@ -104,7 +107,7 @@ public class Tile extends Pane {
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
             if (imageView != null && unit != null) {
-                GameGraphicData.getCardInfo().setCardView(unit.getName(), getUnitType(unit));
+                GameGraphicData.getCardInfo().setCardView(unit.getName(), getUnitType(unit), unit);
             }
             if (!isSelected) {
                 polygon.setOpacity(HOVER_OPACITY);
@@ -127,6 +130,7 @@ public class Tile extends Pane {
                     return;
                 }
                 isSelected = true;
+                SoundPlayer.playCardNameSound(unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION);
                 GameGraphicData.setSelectedTile(SelectType.UNIT, this);
                 polygon.setOpacity(SELECTED_OPACITY);
                 return;
@@ -153,13 +157,15 @@ public class Tile extends Pane {
     }
 
     public void enableColorAnimation(Color color) {
-        KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
-        KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
-        Timeline timeline = AnimationMaker.makeTimeline(
-                Duration.millis(GAME_ACT_TIME * 0.25)
-                , true, 2
-                , colorValue, strokeValue);
-        timeline.play();
+        if (GameGraphicListener.isColorAnimationOn()) {
+            KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
+            KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
+            Timeline timeline = AnimationMaker.makeTimeline(
+                    Duration.millis(GAME_ACT_TIME * 0.25)
+                    , true, 2
+                    , colorValue, strokeValue);
+            timeline.play();
+        }
     }
 
     public void showSpellCast(ImageView spellView) {

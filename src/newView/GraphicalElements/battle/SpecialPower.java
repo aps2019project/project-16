@@ -4,8 +4,8 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.SelectType;
+import newView.battleView.GameGraphicData;
+import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 
 import java.io.FileInputStream;
@@ -25,13 +25,7 @@ public class SpecialPower extends Pane {
         ScaleTool.resizeImageView(imageView, SPECIAL_POWER_LENGTH, SPECIAL_POWER_LENGTH);
         this.getChildren().add(imageView);
 
-        if (isOnLeft == GameGraphicData.isOnLeft()) {
-            setMouseEventsFor(imageView);
-        }
-    }
-
-    public boolean isOnLeft() {
-        return isOnLeft;
+        setMouseEventsFor(imageView);
     }
 
     public void setImageView(ImageView imageView) {
@@ -48,25 +42,27 @@ public class SpecialPower extends Pane {
 
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
-            if (!isSelected) {
+            if (!isSelected && isOnLeft == GameGraphicData.isOnLeft()) {
                 imageView.setScaleX(1.1);
                 imageView.setScaleY(1.1);
             }
         });
         node.setOnMouseExited(event -> {
-            if (!isSelected) {
+            if (!isSelected && isOnLeft == GameGraphicData.isOnLeft()) {
                 imageView.setScaleX(1);
                 imageView.setScaleY(1);
             }
         });
         node.setOnMouseClicked(event -> {
-            if (isSelected) {
-                GameGraphicData.unSelectAll();
-            } else if (!GameGraphicData.isSomethingSelected()) {
-                isSelected = true;
-                GameGraphicData.setSelectType(SelectType.SPECIAL_POWER);
-                imageView.setScaleX(1.2);
-                imageView.setScaleY(1.2);
+            if (isOnLeft == GameGraphicData.isOnLeft()) {
+                if (isSelected) {
+                    GameGraphicData.unSelectAll();
+                } else if (!GameGraphicData.isSomethingSelected()) {
+                    isSelected = true;
+                    GameGraphicData.setSelectType(SelectType.SPECIAL_POWER);
+                    imageView.setScaleX(1.2);
+                    imageView.setScaleY(1.2);
+                }
             }
         });
     }

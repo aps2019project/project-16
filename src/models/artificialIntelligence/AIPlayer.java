@@ -129,7 +129,7 @@ public class AIPlayer extends Player {
                         if (cellToCast == null) {
                             throw new NullPointerException();
                         }
-                        castSpellCard((SpellCard) card, cellToCast);
+                        castSpellCard((SpellCard) card, cellToCast, false);
 
                         //todo : remove it NOTIFY
                         int row = cellToCast.getRow() + 1;
@@ -151,7 +151,7 @@ public class AIPlayer extends Player {
                 if (cellToPut == null) {
                     throw new NullPointerException();
                 }
-                putUnit(cellToPut, (Unit) card);
+                putUnit(cellToPut, (Unit) card, false);
 
                 //todo : remove it NOTIFY
                 int row = cellToPut.getRow() + 1;

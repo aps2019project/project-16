@@ -1,6 +1,7 @@
 package newView.GraphicalElements.battle;
 
 import javafx.scene.layout.Pane;
+import models.card.Card;
 import newView.CardMaker;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
@@ -14,12 +15,14 @@ public class CardInfo extends Pane {
     private Pane cardView;
     private ArrayList<Pane> panes = new ArrayList<>();
     private ArrayList<String> names = new ArrayList<>();
+    private Card card;
 
     public CardInfo() {
         ScaleTool.relocate(this, WIDTH * 0.8, HEIGHT * 0.4);
     }
 
-    public void setCardView(String name, Type type) {
+    public void setCardView(String name, Type type, Card card) {
+        this.card = card;
         Pane cardView = getPane(name, type);
 
         if (this.cardView != null) {
@@ -44,11 +47,11 @@ public class CardInfo extends Pane {
         }
         try {
             if (type == Type.SPELL) {
-                cardView = new CardMaker(name, type).getSpellCardView();
+                cardView = new CardMaker(name, type, card).getSpellCardView();
             } else if (type == Type.ITEM) {
-                cardView = new CardMaker(name, type).getItemCardView();
+                cardView = new CardMaker(name).getItemCardView();
             } else {
-                cardView = new CardMaker(name, type).getUnitCardView();
+                cardView = new CardMaker(name, type, card).getUnitCardView();
             }
         } catch (Exception e) {
             e.printStackTrace();

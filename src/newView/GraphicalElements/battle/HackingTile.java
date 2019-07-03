@@ -15,7 +15,7 @@
 //import java.io.FileInputStream;
 //import java.io.FileNotFoundException;
 //
-//import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
+//import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 //
 //public class Tile extends Pane {
 //    private static Image flagImage;

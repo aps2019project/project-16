@@ -9,15 +9,16 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.card.*;
 import newView.AnimationMaker;
-import newView.BattleView.GameGraphicData;
-import newView.BattleView.SelectType;
+import newView.battleView.GameGraphicData;
+import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
+import newView.SoundPlayer;
 import newView.Type;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import static newView.BattleView.GameGraphicListener.GAME_ACT_TIME;
+import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class HandElement extends Pane {
     private Image normalImage = new Image(new FileInputStream("src/newView/resources/hand/normal.png"));
@@ -53,10 +54,14 @@ public class HandElement extends Pane {
         }
     }
 
+    public Card getCard() {
+        return card;
+    }
+
     private void setMouseEventsFor(Node node) {
         node.setOnMouseEntered(event -> {
-            if (imageView != null) {
-                GameGraphicData.getCardInfo().setCardView(cardName, type);
+            if (imageView != null && card != null) {
+                GameGraphicData.getCardInfo().setCardView(cardName, type, card);
             }
             if (!isSelected) {
                 bgView.setImage(hoverImage);
@@ -78,6 +83,9 @@ public class HandElement extends Pane {
                     return;
                 }
                 isSelected = true;
+                if (type != Type.SPELL) {
+                    SoundPlayer.playCardNameSound(this.card.getName(), type);
+                }
                 GameGraphicData.setSelectedHandElement(SelectType.HAND, this);
                 bgView.setImage(selectedImage);
             }
@@ -90,7 +98,7 @@ public class HandElement extends Pane {
         KeyValue rotateValue = new KeyValue(imageView.rotateProperty(), imageView.getRotate() + 360);
         Timeline timeline = AnimationMaker.makeTimeline(
                 Duration.millis(GAME_ACT_TIME * 0.8)
-                ,false, 1
+                , false, 1
                 , xValue, yValue, rotateValue);
         timeline.play();
         HandElement handElement = this;

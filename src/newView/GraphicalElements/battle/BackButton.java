@@ -1,11 +1,9 @@
 package newView.GraphicalElements.battle;
 
-import controllers.InGameController;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import newView.GraphicalElements.ScaleTool;
-import view.views.InGameView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

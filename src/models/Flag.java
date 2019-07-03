@@ -1,8 +1,8 @@
 package models;
 
 import models.card.Unit;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.AddFlagAct;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.AddFlagAct;
 
 public class Flag {
     private Cell currentCell;

@@ -3,8 +3,8 @@ package models;
 import models.card.*;
 import exception.*;
 import models.item.Item;
-import newView.BattleView.ClientSender;
-import newView.BattleView.gameActs.*;
+import newView.battleView.ClientSender;
+import newView.battleView.gameActs.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +21,7 @@ public class Player {
     private int turnsFlagKeeped;
     private Account account;
     private Table table;
+    private Hero hero;
 
     private boolean isOnLeft;
 
@@ -121,6 +122,10 @@ public class Player {
         return selectedUnit;
     }
 
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
     public void attack(Unit opponent) throws AttackException {
         selectedUnit.attack(opponent);
         opponent.counterAttack(selectedUnit);
@@ -182,7 +187,34 @@ public class Player {
         selectedUnit = null;
     }
 
-    public void putUnit(Cell cell, Unit unit) throws CellIsNotFreeException, NotEnoughManaException {
+    public void cheat(String keyWord) {
+        switch (keyWord) {
+            case "salavat":
+                ClientSender.sendToViewer(new SalavatAct());
+                for (int i = 0; i < 5; i++) {
+                    try {
+                        putUnit(table.getCell(i, 4), Initializer.getNewMamad(), true);
+                    } catch (Exception ignored) {
+                    }
+                }
+                break;
+            case "ya hussein":
+                ClientSender.sendToViewer(new YaHusseinAct());
+                setMana(9);
+                break;
+            case "ya abalfazl":
+                ClientSender.sendToViewer(new YaAbalfazlAct());
+                try {
+                    Cell heroCell = hero.getCurrentCell();
+                    castSpellCard(Initializer.getNewHeroSupport()
+                            , table.getCell(heroCell.getRow(), heroCell.getColumn()), true);
+                } catch (Exception ignored) {
+                }
+                break;
+        }
+    }
+
+    public void putUnit(Cell cell, Unit unit, boolean isCheatPut) throws CellIsNotFreeException, NotEnoughManaException {
         if (unit.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
         if (cell.hasUnit())
@@ -194,7 +226,7 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
 
-        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit));
+        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit, isCheatPut));
 
         pickUpFlags(cell, unit);
         pickUpCollectibles(cell);
@@ -204,17 +236,18 @@ public class Player {
         GameContents.getCurrentGame().checkIfAnyoneIsDead();
     }
 
-    public void castSpellCard(SpellCard spellCard, Cell cell) throws InvalidTargetException, NotEnoughManaException {
+    public void castSpellCard(SpellCard spellCard, Cell cell, boolean isCheatCast) throws InvalidTargetException, NotEnoughManaException {
         if (!spellCard.canCast(this, cell))
             throw new InvalidTargetException();
         if (spellCard.getManaCost() > this.getMana())
             throw new NotEnoughManaException();
         this.setMana(this.getMana() - spellCard.getManaCost());
+
+        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard, isCheatCast));
+
         spellCard.cast(this, cell);
         spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
         graveYard.addCard(spellCard);
-
-        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard));
 
         this.getHand().removeCard(spellCard);
         GameContents.getCurrentGame().checkIfAnyoneIsDead();

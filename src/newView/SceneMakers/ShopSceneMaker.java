@@ -19,12 +19,11 @@ import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
+import newView.SoundPlayer;
 import newView.Type;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private ShopContract.Controller controller = new ShopController(this);
@@ -38,9 +37,16 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
 
     private ArrayList<Card> heroes = new ArrayList<>();
+    private HashMap<String, Pane> heroPanes = new HashMap<>();
+
     private ArrayList<Card> minions = new ArrayList<>();
+    private HashMap<String, Pane> minionPanes = new HashMap<>();
+
     private ArrayList<Card> spells = new ArrayList<>();
+    private HashMap<String, Pane> spellPanes = new HashMap<>();
+
     private ArrayList<Item> items = new ArrayList<>();
+    private HashMap<String, Pane> itemPanes = new HashMap<>();
 
     private int itemCounter;
     private int minionCounter;
@@ -52,7 +58,22 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     {
         controller.loadShop();
         controller.loadCollection();
+        try {
+            for (Card hero : heroes)
+                heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardViewInShop());
+            for (Card minion : minions)
+                minionPanes.put(minion.getName(), new CardMaker(minion.getName(), Type.MINION, minion).getUnitCardViewInShop());
+            for (Card spell : spells)
+                spellPanes.put(spell.getName(), new CardMaker(spell.getName(), Type.SPELL, spell).getSpellCardView());
+            for (Item item : items)
+                itemPanes.put(item.getName(), new CardMaker(item.getName()).getItemCardViewInShop());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        SoundPlayer.playByPath("src/newView/resources/sounds/shop.wav");
     }
+
 
     public ShopSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -182,43 +203,45 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         return new MyScene(pane);
     }
 
-    private void showCardList(GridPane visibleCards, List<Object> collection) {
+    private void showCardList(GridPane visibleCards, List<Object> cards) {
         visibleCards.getChildren().removeIf(node -> true);
+        System.gc();
         try {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 5; j++) {
-                    if (collection.size() > 5 * i + j + collectionCounter) {
-                        Object card = collection.get(5 * i + j + collectionCounter);
+                    if (cards.size() > 5 * i + j + collectionCounter) {
+                        Object card = cards.get(5 * i + j + collectionCounter);
                         Pane cardView;
                         String name;
                         final int cardId;
                         if (card instanceof Item) {
                             name = ((Item) card).getName();
                             cardId = ((Item) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.ITEM).getItemCardView();
+                            cardView = new CardMaker(name).getItemCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Hero) {
                             name = ((Hero) card).getName();
                             cardId = ((Hero) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.HERO).getUnitCardView();
+                            cardView = new CardMaker(name, Type.HERO, (Card) card).getUnitCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else if (card instanceof Minion) {
                             name = ((Minion) card).getName();
                             cardId = ((Minion) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.MINION).getUnitCardView();
+                            cardView = new CardMaker(name, Type.MINION, (Card) card).getUnitCardViewInShop();
                             visibleCards.add(cardView, j, i);
                         } else {
                             name = ((SpellCard) card).getName();
                             cardId = ((SpellCard) card).getCollectionID();
-                            cardView = new CardMaker(name, Type.SPELL).getSpellCardView();
+                            cardView = new CardMaker(name, Type.SPELL, (Card) card).getSpellCardView();
                             visibleCards.add(cardView, j, i);
                         }
                         cardView.setOnMouseClicked(event -> {
-                            if (inShop) {
+                            if (!inShop) {
                                 controller.sellCard(cardId);
                                 controller.loadCollection();
-                            } else
+                            } else {
                                 controller.buyCard(name);
+                            }
                             showCardList(visibleCards, this.collection);
                         });
                     }
@@ -252,6 +275,7 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private void showingCards(GridPane gridPane) {
         try {
             gridPane.getChildren().removeIf(node -> true);
+            System.gc();
             if (visibleType == Type.HERO) {
                 showHeroes(gridPane, heroes, heroCounter);
             } else if (visibleType == Type.MINION) {
@@ -271,8 +295,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
                 if (items.size() > 5 * i + j + itemCounter) {
                     Item item = items.get(5 * i + j + itemCounter);
                     String name = item.getName();
-                    Pane itemCardView = new CardMaker(name, Type.ITEM).getItemCardView();
-                    setBuyOnMouseClick(itemCardView, name);
+                    Pane itemCardView = itemPanes.get(name);
+                    setBuyOnMouseClick(gridPane, itemCardView, item);
                     gridPane.add(itemCardView, j, i);
                 }
             }
@@ -284,8 +308,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             for (int j = 0; j < 5; j++) {
                 Card spell = spells.get(5 * i + j + spellCounter);
                 String name = spell.getName();
-                Pane spellCardView = new CardMaker(name, Type.SPELL).getSpellCardView();
-                setBuyOnMouseClick(spellCardView, name);
+                Pane spellCardView = spellPanes.get(name);
+                setBuyOnMouseClick(gridPane, spellCardView, spell);
                 gridPane.add(spellCardView, j, i);
             }
         }
@@ -296,8 +320,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             for (int j = 0; j < 5; j++) {
                 Card minion = minions.get(5 * i + j + minionCounter);
                 String name = minion.getName();
-                Pane minionCardView = new CardMaker(name, Type.MINION).getUnitCardView();
-                setBuyOnMouseClick(minionCardView, name);
+                Pane minionCardView = minionPanes.get(minion.getName());
+                setBuyOnMouseClick(gridPane, minionCardView, minion);
                 gridPane.add(minionCardView, j, i);
             }
         }
@@ -308,15 +332,33 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
             for (int j = 0; j < 5; j++) {
                 Card hero = heroes.get(5 * i + j + heroCounter);
                 String name = hero.getName();
-                Pane heroCardView = new CardMaker(name, Type.HERO).getUnitCardView();
-                setBuyOnMouseClick(heroCardView, name);
+                Pane heroCardView = heroPanes.get(name);
+                setBuyOnMouseClick(gridPane, heroCardView, hero);
                 gridPane.add(heroCardView, j, i);
             }
         }
     }
 
-    private void setBuyOnMouseClick(Pane card, String name) {
-        card.setOnMouseClicked(event -> controller.buyCard(name));
+    private void setBuyOnMouseClick(GridPane gridPane, Pane cardPane, Object card) {
+        cardPane.setOnMouseClicked(event -> {
+            try {
+                if (card instanceof Item) {
+                    controller.buyCard(((Item) card).getName());
+                    itemPanes.put(((Item) card).getName(), new CardMaker(((Item) card).getName()).getItemCardViewInShop());
+                } else if (card instanceof Hero) {
+                    controller.buyCard(((Card) card).getName());
+                    heroPanes.put(((Hero) card).getName(), new CardMaker(((Hero) card).getName(), Type.HERO, (Card) card).getUnitCardViewInShop());
+                } else if (card instanceof Minion) {
+                    controller.buyCard(((Minion) card).getName());
+                    minionPanes.put(((Minion) card).getName(), new CardMaker(((Minion) card).getName(), Type.MINION, (Card) card).getUnitCardViewInShop());
+                } else if (card instanceof SpellCard) {
+                    controller.buyCard(((SpellCard) card).getName());
+                    spellPanes.put(((SpellCard) card).getName(), new CardMaker(((SpellCard) card).getName(), Type.SPELL, (Card) card).getSpellCardView());
+                }
+            } catch (Exception e) {
+            }
+            showingCards(gridPane);
+        });
     }
 
 
@@ -362,6 +404,8 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
 
     @Override
     public void showShop(ArrayList<Hero> heroes, ArrayList<Item> items, ArrayList<Card> cards) {
+        this.heroes = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.heroes.addAll(heroes);
         for (Card card : cards)
             if (card instanceof Minion)
