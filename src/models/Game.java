@@ -37,6 +37,9 @@ public class Game {
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
         this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
 
+        players[0].setCurrentGame(this);
+        players[1].setCurrentGame(this);
+
         // TODO Mostafa: 7/2/19 it's must be corrected in server-client
         //  be currentPlayer "true" ersal besheh be opponent player ham "false" ersal beshe
         //  be spectator ha ham mohem nist koodomesh bashe
