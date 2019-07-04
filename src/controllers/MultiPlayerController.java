@@ -54,7 +54,10 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
         GameMode gameMode = getGameMode(mode);
 
         Game newGame = new Game(currentAccount, secondAccount, 1000, gameMode, numberOfFlags);
-        GameContents.setCurrentGame(newGame);
+        currentAccount.setCurrentGame(newGame);
+        secondAccount.setCurrentGame(newGame);
+//      RRR-Remove  GameContents
+//      .setCurrentGame(newGame);
         view.goToInGameMenu();
     }
 

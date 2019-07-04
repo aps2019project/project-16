@@ -22,6 +22,6 @@ public class MultiPlayerView implements MultiPlayerContract.View {
 
     @Override
     public void goToInGameMenu() {
-        MenuHandler.goToSubMenu(IN_GAME_MENU);
+//        MenuHandler.goToSubMenu(IN_GAME_MENU);
     }
 }

@@ -18,6 +18,8 @@ public class Account {
     private int numberOfItems;
     //todo for server
 
+    private Game currentGame;
+
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
@@ -33,6 +35,14 @@ public class Account {
 
     public int getNumberOfItems() {
         return numberOfItems;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
     }
 
     public String getName() {

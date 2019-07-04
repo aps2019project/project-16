@@ -19,39 +19,45 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadGameInfo() {
-        view.showGameInfo(GameContents.getCurrentGame());
+//        view.showGameInfo(GameContents
+//        .getCurrentGame());
     }
 
     @Override
     public void loadMinions(boolean myMinions) {
-        Player player;
-        if (myMinions) {
-            player = GameContents.getCurrentGame().getCurrentPlayer();
-        } else {
-            player = GameContents.getCurrentGame().getOpponentPlayer();
-        }
-        view.showMinions(player.getAccount().getName(), player.getUnits());
+//        Player player;
+//        if (myMinions) {
+//            player = GameContents
+//            .getCurrentGame().getCurrentPlayer();
+//        } else {
+//            player = GameContents
+//            .getCurrentGame().getOpponentPlayer();
+//        }
+//        view.showMinions(player.getAccount().getName(), player.getUnits());
     }
 
     @Override
     public void loadCardInfo(String playerName, String cardName, int gameCardID) {
-        Game game = GameContents.getCurrentGame();
-        Player player = game.getPlayer(playerName);
-        if (player == null) {
-            Notify.logError("This player isn't in the game.");
-        } else {
-            Unit unit = player.getUnit(cardName, gameCardID);
-            if (unit == null) {
-                Notify.logError("This unit isn't in the game.");
-            } else {
-                view.showCardInfo(unit);
-            }
-        }
+//        Game game = GameContents
+//        .getCurrentGame();
+//        Player player = game.getPlayer(playerName);
+//        if (player == null) {
+//            Notify.logError("This player isn't in the game.");
+//        } else {
+//            Unit unit = player.getUnit(cardName, gameCardID);
+//            if (unit == null) {
+//                Notify.logError("This unit isn't in the game.");
+//            } else {
+//                view.showCardInfo(unit);
+//            }
+//        }
     }
 
     @Override
     public void selectCard(String cardName, int gameID) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Unit unit = currentPlayer.getUnit(cardName, gameID);
         if (unit == null) {
@@ -67,7 +73,9 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void moveToCell(int row, int column) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Cell cell = game.getTable().getCell(row, column);
         Unit selectedUnit = currentPlayer.getSelectedUnit();
@@ -101,7 +109,9 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void attack(String oppCardName, int gameID) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Player opponentPlayer = game.getOpponentPlayer();
         Unit opponentUnit = opponentPlayer.getUnit(oppCardName, gameID);
@@ -125,7 +135,9 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void attackCombo(String oppCardID, ArrayList<String> myCardIDs) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Player opponentPlayer = game.getOpponentPlayer();
         Unit opponentUnit = opponentPlayer.getUnit(getCardName(oppCardID), getIDFromString(oppCardID));
@@ -181,9 +193,11 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void useSpecialPower(int row, int column) {
-        Game game = GameContents.getCurrentGame();
-        Player currentPlayer = game.getCurrentPlayer();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Cell cellToUseSP = game.getTable().getCell(row, column);
+        Player currentPlayer = game.getCurrentPlayer();
         try {
             if (cellToUseSP == null) {
                 throw new CellIsNotInTableException();
@@ -207,15 +221,18 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadHand() {
-        Player player = GameContents.getCurrentGame().getCurrentPlayer();
-        Hand hand = player.getHand();
-        view.showHand(hand, player.getDeck().getTop());
+//        Player player = GameContents
+//        .getCurrentGame().getCurrentPlayer();
+//        Hand hand = player.getHand();
+//        view.showHand(hand, player.getDeck().getTop());
     }
 
     @Override
     public void insertCard(String cardName, int row, int column) {
         try {
-            Game game = GameContents.getCurrentGame();
+            Account currentAccount = GameContents.getCurrentAccount();
+
+            Game game = currentAccount.getCurrentGame();
             Player currentPlayer = game.getCurrentPlayer();
             Card cardToInsert = currentPlayer.getHand().getCard(cardName);
             Cell cell = game.getTable().getCell(row, column);
@@ -252,24 +269,31 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void endTurn() {
+        Game game = null;
         try {
-            GameContents.getCurrentGame().changeTurn();
+            Account currentAccount = GameContents.getCurrentAccount();
+
+            game = currentAccount.getCurrentGame();
+            game.changeTurn();
         } catch (GameIsEndException E) {
             Notify.logMessage("Game is finished!!");
-            Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
+            Notify.logMessage("Winner is: \"" + game.getWinner().getAccount().getName() + "\"");
 //            view.goToPrevMenu();
         }
     }
 
     @Override
     public void loadCollectables() {
-        ArrayList<Item> collectibles = GameContents.getCurrentGame().getCurrentPlayer().getCollectibles();
-        view.showCollectables(collectibles);
+//        ArrayList<Item> collectibles = GameContents
+//        .getCurrentGame().getCurrentPlayer().getCollectibles();
+//        view.showCollectables(collectibles);
     }
 
     @Override
     public void selectCollectable(int collectableID) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Item collectible = currentPlayer.getCollectible(collectableID);
         if (collectible == null) {
@@ -282,19 +306,22 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadSelectedCollectableInfo() {
-        Game game = GameContents.getCurrentGame();
-        Player currentPlayer = game.getCurrentPlayer();
-        Item selectedCollectible = currentPlayer.getSelectedCollectible();
-        if (selectedCollectible == null) {
-            Notify.logError("You didn't select any collectible!");
-        } else {
-            view.showCollectableInfo(selectedCollectible);
-        }
+//        Game game = GameContents
+//                .getCurrentGame();
+//        Player currentPlayer = game.getCurrentPlayer();
+//        Item selectedCollectible = currentPlayer.getSelectedCollectible();
+//        if (selectedCollectible == null) {
+//            Notify.logError("You didn't select any collectible!");
+//        } else {
+//            view.showCollectableInfo(selectedCollectible);
+//        }
     }
 
     @Override
     public void useSelectedCollectable(int row, int column) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Cell cell = game.getTable().getCell(row, column);
         try {
             if (cell == null) {
@@ -311,20 +338,25 @@ public class InGameController implements InGameContract.Controller {
 
     @Override
     public void loadNextCard() {
-        Player player = GameContents.getCurrentGame().getCurrentPlayer();
-        view.showNextCard(player.getDeck().getTop());
+//        Player player = GameContents
+//        .getCurrentGame().getCurrentPlayer();
+//        view.showNextCard(player.getDeck().getTop());
     }
 
     @Override
     public void loadGameTable() {
-        Player currentPlayer = GameContents.getCurrentGame().getCurrentPlayer();
-        Table table = GameContents.getCurrentGame().getTable();
-        view.showTable(currentPlayer, table);
+//        Player currentPlayer = GameContents
+//        .getCurrentGame().getCurrentPlayer();
+//        Table table = GameContents
+//        .getCurrentGame().getTable();
+//        view.showTable(currentPlayer, table);
     }
 
     @Override
     public void refuseGame() {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         Player opponentPlayer = game.getOpponentPlayer();
         game.setWinner(opponentPlayer);
@@ -332,13 +364,15 @@ public class InGameController implements InGameContract.Controller {
         GameContents.saveCurrentAndSecondAccounts();
 
         Notify.logMessage("Player \"" + currentPlayer.getAccount().getName() + "\" refused the game!!");
-        Notify.logMessage("Winner is: \"" + GameContents.getCurrentGame().getWinner().getAccount().getName() + "\"");
+        Notify.logMessage("Winner is: \"" + game.getWinner().getAccount().getName() + "\"");
 //        view.goToPrevMenu();
     }
 
     @Override
     public void cheat(String keyWord) {
-        Game game = GameContents.getCurrentGame();
+        Account currentAccount = GameContents.getCurrentAccount();
+
+        Game game = currentAccount.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         keyWord = keyWord.toLowerCase();
         currentPlayer.cheat(keyWord);

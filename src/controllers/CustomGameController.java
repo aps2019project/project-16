@@ -30,7 +30,9 @@ public class CustomGameController implements CustomGameContract.Controller {
         Account AIAccount = new AIAccount("AI", "123", oppDeck.getCopy());
 
         Game newGame = new Game(currentAccount, AIAccount, 1000, gameMode, flags);
-        GameContents.setCurrentGame(newGame);
+        currentAccount.setCurrentGame(newGame);
+//      RRR-Remove  GameContents
+//      .setCurrentGame(newGame);
         view.goToInGameMenu();
     }
 

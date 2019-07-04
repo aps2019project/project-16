@@ -10,7 +10,7 @@ import java.util.Comparator;
 
 public class GameContents {
     private static ArrayList<Account> accounts = new ArrayList<>();
-    private static Game currentGame;
+//    private static Game currentGame;
     private static Account currentAccount;
     private static Account secondAccount = null;
     private static Shop shop;
@@ -33,13 +33,14 @@ public class GameContents {
         return shop;
     }
 
-    public static Game getCurrentGame() {
-        return currentGame;
-    }
-
-    public static void setCurrentGame(Game currentGame) {
-        GameContents.currentGame = currentGame;
-    }
+//    public static Game getCurrentGame() {
+//        return currentGame;
+//    }
+//
+//    public static void setCurrentGame(Game currentGame) {
+//        GameContents
+//        .currentGame = currentGame;
+//    }
 
     public static Account getCurrentAccount() {
         return currentAccount;
