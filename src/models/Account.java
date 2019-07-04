@@ -19,6 +19,7 @@ public class Account {
     //todo for server
 
     private Game currentGame;
+    private Account opponentAccount;
 
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
@@ -43,6 +44,14 @@ public class Account {
 
     public Game getCurrentGame() {
         return currentGame;
+    }
+
+    public void setOpponentAccount(Account opponentAccount) {
+        this.opponentAccount = opponentAccount;
+    }
+
+    public Account getOpponentAccount() {
+        return opponentAccount;
     }
 
     public String getName() {

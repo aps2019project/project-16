@@ -26,25 +26,28 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
         } else if (!secondAccount.hasValidMainDeck()) {
             Notify.logError("OOPS! This account doesn't have valid main deck. Try another one!");
         } else {
-            GameContents.setSecondAccount(secondAccount);
+            currentAccount.setOpponentAccount(secondAccount);
+//            GameContents
+//            .setSecondAccount(secondAccount);
             Notify.logMessage("You selected \"" + secondUserName + "\" as second account.");
         }
     }
 
     @Override
     public void loadSecondAccount() {
-        Account secondAccount = GameContents.getSecondAccount();
-        if (secondAccount == null) {
-            Notify.logMessage("You didn't select any account as second player.");
-        } else {
-            view.showSecondAccount(secondAccount);
-        }
+//        Account secondAccount = GameContents
+//        .getSecondAccount();
+//        if (secondAccount == null) {
+//            Notify.logMessage("You didn't select any account as second player.");
+//        } else {
+//            view.showSecondAccount(secondAccount);
+//        }
     }
 
     @Override
     public void startMultiGame(int mode, int numberOfFlags) {
         Account currentAccount = GameContents.getCurrentAccount();
-        Account secondAccount = GameContents.getSecondAccount();
+        Account secondAccount = currentAccount.getOpponentAccount();
 
         if (secondAccount == null) {
             Notify.logError("Sorry! You didn't select any account as second player.");

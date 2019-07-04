@@ -12,7 +12,7 @@ public class GameContents {
     private static ArrayList<Account> accounts = new ArrayList<>();
 //    private static Game currentGame;
     private static Account currentAccount;
-    private static Account secondAccount = null;
+//    private static Account secondAccount = null;
     private static Shop shop;
 
     static {
@@ -46,13 +46,13 @@ public class GameContents {
         return currentAccount;
     }
 
-    public static Account getSecondAccount() {
-        return secondAccount;
-    }
-
-    public static void setSecondAccount(Account secondAccount) {
-        GameContents.secondAccount = secondAccount;
-    }
+//    public static Account getSecondAccount() {
+//        return secondAccount;
+//    }
+//
+//    public static void setSecondAccount(Account secondAccount) {
+//        GameContents.secondAccount = secondAccount;
+//    }
 
     public static ArrayList<Account> getAccounts() {
         return accounts;
@@ -123,8 +123,8 @@ public class GameContents {
     public static void saveCurrentAndSecondAccounts() {
         try {
             saveAccount(currentAccount);
-            if (secondAccount != null) {
-                saveAccount(secondAccount);
+            if (currentAccount.getOpponentAccount() != null) {
+                saveAccount(currentAccount.getOpponentAccount());
             }
         } catch (IOException e) {
             e.printStackTrace();
