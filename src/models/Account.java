@@ -1,10 +1,9 @@
 package models;
 
-import java.net.Socket;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.regex.MatchResult;
 
 public class Account {
@@ -144,4 +143,14 @@ public class Account {
         return "UserName : " + this.getName() + " - Wins : " + this.getWins();
     }
 
+    public void saveAccountAndHisOpponent() {
+        try {
+            GameContents.saveAccount(this);
+            if (this.getOpponentAccount() != null) {
+                GameContents.saveAccount(this.getOpponentAccount());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

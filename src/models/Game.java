@@ -191,7 +191,9 @@ public class Game {
         if (checkWinningCondition()) {
             this.endFlag = true;
             this.getRewardToWinner();
-            GameContents.saveCurrentAndSecondAccounts();
+            accounts[0].saveAccountAndHisOpponent();
+//            GameContents
+//            .saveCurrentAndSecondAccounts();
             throw new GameIsEndException();
         }
     }

@@ -51,7 +51,8 @@ public class GameContents {
 //    }
 //
 //    public static void setSecondAccount(Account secondAccount) {
-//        GameContents.secondAccount = secondAccount;
+//        GameContents
+//        .secondAccount = secondAccount;
 //    }
 
     public static ArrayList<Account> getAccounts() {
@@ -68,10 +69,6 @@ public class GameContents {
                 return account;
         }
         return null;
-    }
-
-    public static void logoutCurrentAccount() {
-        currentAccount = null;
     }
 
     public static void sortAccounts() {
@@ -118,17 +115,6 @@ public class GameContents {
 
         writer.write(json);
         writer.close();
-    }
-
-    public static void saveCurrentAndSecondAccounts() {
-        try {
-            saveAccount(currentAccount);
-            if (currentAccount.getOpponentAccount() != null) {
-                saveAccount(currentAccount.getOpponentAccount());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void loadAccounts() throws FileNotFoundException {

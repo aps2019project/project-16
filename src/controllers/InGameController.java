@@ -361,7 +361,10 @@ public class InGameController implements InGameContract.Controller {
         Player opponentPlayer = game.getOpponentPlayer();
         game.setWinner(opponentPlayer);
         game.getRewardToWinner();
-        GameContents.saveCurrentAndSecondAccounts();
+
+        currentAccount.saveAccountAndHisOpponent();
+//        GameContents
+//        .saveCurrentAndSecondAccounts();
 
         Notify.logMessage("Player \"" + currentPlayer.getAccount().getName() + "\" refused the game!!");
         Notify.logMessage("Winner is: \"" + game.getWinner().getAccount().getName() + "\"");
