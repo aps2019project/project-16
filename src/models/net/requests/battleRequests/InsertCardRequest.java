@@ -1,8 +1,6 @@
 package models.net.requests.battleRequests;
 
-import models.net.RequestPacket;
-
-public class InsertCardRequest extends RequestPacket {
+public class InsertCardRequest extends BattleRequest {
     private String cardName;
     private int row;
     private int column;

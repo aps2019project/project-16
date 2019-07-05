@@ -1,8 +1,6 @@
 package models.net.requests.battleRequests;
 
-import models.net.RequestPacket;
-
-public class AttackRequest extends RequestPacket {
+public class AttackRequest extends BattleRequest {
     private String myUnitName;
     private int myGameID;
     private String oppUnitName;

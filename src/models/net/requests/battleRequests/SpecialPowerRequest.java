@@ -1,8 +1,6 @@
 package models.net.requests.battleRequests;
 
-import models.net.RequestPacket;
-
-public class SpecialPowerRequest extends RequestPacket {
+public class SpecialPowerRequest extends BattleRequest {
     private int row;
     private int column;
 

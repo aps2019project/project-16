@@ -1,8 +1,6 @@
 package models.net.requests.battleRequests;
 
-import models.net.RequestPacket;
-
-public class CheatRequest extends RequestPacket {
+public class CheatRequest extends BattleRequest {
     private String cheatCode;
 
     public CheatRequest(String cheatCode) {

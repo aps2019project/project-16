@@ -1,8 +1,6 @@
 package models.net.requests.battleRequests;
 
-import models.net.RequestPacket;
-
-public class CastCollectibleRequest extends RequestPacket {
+public class CastCollectibleRequest extends BattleRequest {
     private int collectibleID;
     private int row;
     private int column;

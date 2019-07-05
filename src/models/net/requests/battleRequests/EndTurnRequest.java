@@ -1,8 +1,6 @@
 package models.net.requests.battleRequests;
 
-import models.net.RequestPacket;
-
-public class EndTurnRequest extends RequestPacket {
+public class EndTurnRequest extends BattleRequest {
     @Override
     public void run() {
         // TODO mostafa:
