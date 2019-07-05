@@ -1,13 +1,12 @@
 package newView.GraphicalElements.battle;
 
-import controllers.InGameController;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import newView.GraphicalElements.ScaleTool;
-import view.views.InGameView;
+import newView.battleView.GameGraphicData;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,7 +33,7 @@ public class CheatPane extends Pane {
         this.getChildren().addAll(cheatField, buttonView);
 
         buttonView.setOnMouseClicked(event ->
-                new InGameController(new InGameView()).cheat(cheatField.getText()));
+                GameGraphicData.sendCheatRequest(cheatField.getText()));
     }
 
     private void setMouseEventsFor(Node node) {
