@@ -49,7 +49,7 @@ public class CardInfo extends Pane {
             if (type == Type.SPELL) {
                 cardView = new CardMaker(name, type, card).getSpellCardView();
             } else if (type == Type.ITEM) {
-                cardView = new CardMaker(name).getItemCardView();
+                cardView = new CardMaker(name, null).getItemCardView();
             } else {
                 cardView = new CardMaker(name, type, card).getUnitCardView();
             }

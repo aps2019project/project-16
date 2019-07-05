@@ -446,7 +446,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
                         int cardId;
                         if (card instanceof Item) {
                             String name = ((Item) card).getName();
-                            cardView = new CardMaker(name).getItemCardView();
+                            cardView = new CardMaker(name, (Item) card).getItemCardView();
                             cardId = ((Item) card).getCollectionID();
                         } else if (card instanceof Hero) {
                             String name = ((Hero) card).getName();

@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import models.GameContents;
-import models.Shop;
 import models.card.Card;
 import models.card.Unit;
 import models.item.Item;
@@ -56,24 +54,22 @@ public class CardMaker {
     }
 
 
-    public CardMaker(String name) throws Exception {
+    public CardMaker(String name, Item item) throws Exception {
         this.name = name;
         this.type = Type.ITEM;
         backGround = new File("src/newView/resources/cardBackgrounds/" + type.getName() + ".png");
         setNameOfCard();
         setTypeOfCard();
-        setItemCapacity();
+        setItemCapacity(item);
         setSprite();
     }
 
-    private void setItemCapacity() {
-        for (Item item : GameContents.getShop().getItems()) {
-            if (item.getName().equals(name)) {
-                capacity.setText(String.valueOf(item.getCapacity()));
-                capacity.setFill(Color.WHITE);
-                break;
-            }
+    private void setItemCapacity(Item item) {
+        if (item == null){
+            return;
         }
+        capacity.setText(String.valueOf(item.getCapacity()));
+        capacity.setFill(Color.WHITE);
     }
 
 
@@ -327,7 +323,7 @@ public class CardMaker {
         root.getChildren().add(capacity);
         return root;
     }
-    
+
 
     public void decrementCapacity() {
         int capacity = Integer.parseInt(this.capacity.getText());
