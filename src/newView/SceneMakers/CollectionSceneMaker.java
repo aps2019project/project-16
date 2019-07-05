@@ -17,9 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.Account;
 import models.Deck;
-import models.GameContents;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
@@ -32,7 +30,6 @@ import newView.GraphicalElements.ScaleTool;
 import newView.Type;
 
 import java.io.*;
-import java.security.SecureClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

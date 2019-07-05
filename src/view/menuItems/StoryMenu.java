@@ -2,7 +2,8 @@ package view.menuItems;
 
 import view.commands.commonCommands.ExitCommand;
 import view.commands.commonCommands.HelpCommand;
-import view.commands.storyCommands.*;
+import view.commands.storyCommands.EnterLevelCommand;
+import view.commands.storyCommands.ShowLevelsCommand;
 
 import static view.menuItems.MenuConstants.STORY_MENU;
 

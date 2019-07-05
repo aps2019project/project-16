@@ -1,6 +1,5 @@
 package view.commands.shopCommands;
 
-import controllers.CollectionController;
 import controllers.ShopController;
 import view.commands.Command;
 import view.views.ShopView;

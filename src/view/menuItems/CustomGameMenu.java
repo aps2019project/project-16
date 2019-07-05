@@ -2,7 +2,9 @@ package view.menuItems;
 
 import view.commands.commonCommands.ExitCommand;
 import view.commands.commonCommands.HelpCommand;
-import view.commands.customGameCommands.*;
+import view.commands.customGameCommands.ShowOppDecksCommand;
+import view.commands.customGameCommands.StartGameCollectFlagsCommand;
+import view.commands.customGameCommands.StartGameCommand;
 
 import static view.menuItems.MenuConstants.CUSTOM_GAME_MENU;
 

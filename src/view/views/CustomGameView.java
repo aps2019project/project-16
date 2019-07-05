@@ -2,11 +2,8 @@ package view.views;
 
 import contracts.CustomGameContract;
 import models.Deck;
-import view.MenuHandler;
 
 import java.util.ArrayList;
-
-import static view.menuItems.MenuConstants.IN_GAME_MENU;
 
 public class CustomGameView implements CustomGameContract.View {
     private CustomGameContract.Controller controller;

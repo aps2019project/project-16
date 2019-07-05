@@ -2,7 +2,10 @@ package view.menuItems;
 
 import view.commands.commonCommands.ExitCommand;
 import view.commands.commonCommands.HelpCommand;
-import view.commands.multiPlayerCommands.*;
+import view.commands.multiPlayerCommands.SelectOppUserCommand;
+import view.commands.multiPlayerCommands.ShowSecondUser;
+import view.commands.multiPlayerCommands.StartMultiGameCollectFlagsCommand;
+import view.commands.multiPlayerCommands.StartMultiGameCommand;
 
 import static view.menuItems.MenuConstants.MULTI_PLAYER_MENU;
 

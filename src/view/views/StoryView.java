@@ -1,7 +1,6 @@
 package view.views;
 
 import contracts.StoryContract;
-import models.Game;
 import models.GameLevel;
 import view.MenuHandler;
 

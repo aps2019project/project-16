@@ -2,10 +2,7 @@ package view.views;
 
 import contracts.MultiPlayerContract;
 import models.Account;
-import view.MenuHandler;
 import view.Notify;
-
-import static view.menuItems.MenuConstants.IN_GAME_MENU;
 
 public class MultiPlayerView implements MultiPlayerContract.View {
     private MultiPlayerContract.Controller controller;
