@@ -5,7 +5,10 @@ import exception.AccountExistsException;
 import exception.InvalidCredentialsException;
 import models.Account;
 import models.GameContents;
+import models.net.AuthTokenGenerator;
+import models.net.RequestHandlerThread;
 import models.net.Server;
+import models.net.updates.LoginSuccessUpdate;
 import models.net.updates.RequestResultUpdate;
 import view.MenuHandler;
 import view.Notify;
@@ -23,7 +26,7 @@ public class AccountController implements AccountContract.Controller {
         view.setController(this);
     }
 
-    public AccountController(){
+    public AccountController() {
 
     }
 
@@ -37,12 +40,10 @@ public class AccountController implements AccountContract.Controller {
     public void createAccount(String username, String password) {
         Account account = GameContents.findAccount(username);
         if (account != null) {
-            Server.getInstance().sendPacketByThread(
-                    new RequestResultUpdate("An account with this username is already exist! Try another username."));
+            Notify.logError("An account with this username is already exist! Try another username.");
         } else {
             GameContents.addAccount(new Account(username, password));
-            Server.getInstance().sendPacketByThread(
-                    new RequestResultUpdate("Good job! An account with name \"" + username + "\" created."));
+            Notify.logMessage("Good job! An account with name \"" + username + "\" created.");
         }
     }
 
@@ -52,9 +53,13 @@ public class AccountController implements AccountContract.Controller {
         if (account == null || !account.getPassword().equals(password)) {
             Notify.logError("Invalid Credentials!");
         } else {
-            GameContents.setCurrentAccount(account);
+            ((RequestHandlerThread) Thread.currentThread()).setAccountName(username);
+            String authToken = AuthTokenGenerator.generateNewToken();
+            ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().sendPacket(
+                    new LoginSuccessUpdate(authToken)
+            );
+            ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().setAuthToken(authToken);
             Notify.logMessage("Dear " + username + "!!! You logged in successfully!");
-//            MenuHandler.goToSubMenu(MAIN_MENU);
         }
     }
 

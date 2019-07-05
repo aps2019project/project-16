@@ -14,6 +14,7 @@ public class ServerSideClient {
     private final JsonWriter jsonWriter;
 
     private Socket socket;
+    private String authToken;
 
     private MyObservable<Boolean> socketState;
 
@@ -80,6 +81,14 @@ public class ServerSideClient {
 
     public MyObservable<Boolean> getSocketState() {
         return socketState;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
 

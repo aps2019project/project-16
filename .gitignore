@@ -35,7 +35,7 @@ hs_err_pid*
 .idea/**/*.xml
 .idea/**/*.iml
 **/*.plist
-
+**/Thumbs.db
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids

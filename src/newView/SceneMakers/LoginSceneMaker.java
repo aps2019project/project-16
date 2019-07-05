@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Account;
 import models.net.Client;
+import models.net.requests.LoginRequest;
 import models.net.requests.SignUpRequest;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
@@ -87,9 +88,7 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         box.getChildren().add(login);
 
         login.setOnMouseClicked(event -> {
-            AccountController controller = new AccountController();
-            controller.loginAccount(userNameField.getText(), passwordField.getText());
-            new MainMenuSceneMaker(getPrimaryStage()).set();
+            Client.getInstance().sendPacket(new LoginRequest(userNameField.getText(), passwordField.getText()));
         });
         singUp.setOnMouseClicked(event -> {
             Client.getInstance().sendPacket(new SignUpRequest(userNameField.getText(), passwordField.getText()));

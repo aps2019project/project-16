@@ -16,6 +16,7 @@ public class Client {
     private static Client instance;
     private Socket socket;
     private MyObservable<Boolean> socketState;
+    private String authToken;
 
     private Thread readerThread;
     private Thread writerThread;
@@ -104,6 +105,14 @@ public class Client {
             }
         }
         return instance;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
 

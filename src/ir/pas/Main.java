@@ -1,3 +1,5 @@
+package ir.pas;
+
 import com.dd.plist.PropertyListFormatException;
 import javafx.application.Application;
 import javafx.scene.media.AudioClip;
