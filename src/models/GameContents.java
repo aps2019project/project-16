@@ -10,9 +10,9 @@ import java.util.Comparator;
 
 public class GameContents {
     private static ArrayList<Account> accounts = new ArrayList<>();
-    private static Game currentGame;
+//    private static Game currentGame;
     private static Account currentAccount;
-    private static Account secondAccount = null;
+//    private static Account secondAccount = null;
     private static Shop shop;
 
     static {
@@ -33,25 +33,27 @@ public class GameContents {
         return shop;
     }
 
-    public static Game getCurrentGame() {
-        return currentGame;
-    }
-
-    public static void setCurrentGame(Game currentGame) {
-        GameContents.currentGame = currentGame;
-    }
+//    public static Game getCurrentGame() {
+//        return currentGame;
+//    }
+//
+//    public static void setCurrentGame(Game currentGame) {
+//        GameContents
+//        .currentGame = currentGame;
+//    }
 
     public static Account getCurrentAccount() {
         return currentAccount;
     }
 
-    public static Account getSecondAccount() {
-        return secondAccount;
-    }
-
-    public static void setSecondAccount(Account secondAccount) {
-        GameContents.secondAccount = secondAccount;
-    }
+//    public static Account getSecondAccount() {
+//        return secondAccount;
+//    }
+//
+//    public static void setSecondAccount(Account secondAccount) {
+//        GameContents
+//        .secondAccount = secondAccount;
+//    }
 
     public static ArrayList<Account> getAccounts() {
         return accounts;
@@ -67,10 +69,6 @@ public class GameContents {
                 return account;
         }
         return null;
-    }
-
-    public static void logoutCurrentAccount() {
-        currentAccount = null;
     }
 
     public static void sortAccounts() {
@@ -117,17 +115,6 @@ public class GameContents {
 
         writer.write(json);
         writer.close();
-    }
-
-    public static void saveCurrentAndSecondAccounts() {
-        try {
-            saveAccount(currentAccount);
-            if (secondAccount != null) {
-                saveAccount(secondAccount);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void loadAccounts() throws FileNotFoundException {

@@ -1,7 +1,6 @@
 package view.commands.commonCommands;
 
 import controllers.CollectionController;
-import models.GameContents;
 import view.MenuHandler;
 import view.commands.Command;
 import view.views.CollectionView;

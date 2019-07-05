@@ -1,10 +1,9 @@
 package models;
 
-import java.net.Socket;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.regex.MatchResult;
 
 public class Account {
@@ -17,6 +16,9 @@ public class Account {
     private int wins;
     private int numberOfItems;
     //todo for server
+
+    private Game currentGame;
+    private Account opponentAccount;
 
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
@@ -33,6 +35,22 @@ public class Account {
 
     public int getNumberOfItems() {
         return numberOfItems;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setOpponentAccount(Account opponentAccount) {
+        this.opponentAccount = opponentAccount;
+    }
+
+    public Account getOpponentAccount() {
+        return opponentAccount;
     }
 
     public String getName() {
@@ -125,4 +143,14 @@ public class Account {
         return "UserName : " + this.getName() + " - Wins : " + this.getWins();
     }
 
+    public void saveAccountAndHisOpponent() {
+        try {
+            GameContents.saveAccount(this);
+            if (this.getOpponentAccount() != null) {
+                GameContents.saveAccount(this.getOpponentAccount());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -5,8 +5,10 @@ import view.menuItems.AccountMenu;
 import view.menuItems.MenuItem;
 import view.views.AccountView;
 
-import static view.MenuChangingState.*;
-import static view.Notify.*;
+import static view.MenuChangingState.DOWN_TO_TOP;
+import static view.MenuChangingState.TOP_TO_DOWN;
+import static view.Notify.logError;
+import static view.Notify.logMessage;
 
 public class MenuHandler {
     private static MenuItem currentMenu = null;

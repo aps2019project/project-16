@@ -1,15 +1,15 @@
 package view.views;
 
 import contracts.ShopContract;
-import models.item.Item;
 import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
+import models.item.Item;
 
 import java.util.ArrayList;
 
-import static view.Notify.*;
+import static view.Notify.logMessage;
 
 public class ShopView implements ShopContract.View {
 

@@ -51,7 +51,6 @@ public class AccountController implements AccountContract.Controller {
             throw new InvalidCredentialsException();
         } else {
             GameContents.setCurrentAccount(account);
-            GameContents.setSecondAccount(null);//phase 3: must change
             Notify.logMessage("Dear " + username + "!!! You logged in successfully!");
 //            MenuHandler.goToSubMenu(MAIN_MENU);
         }

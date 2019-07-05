@@ -23,6 +23,8 @@ public class Player {
     private Table table;
     private Hero hero;
 
+    private Game currentGame;
+
     private boolean isOnLeft;
 
     public void setOnLeft(boolean onLeft) {
@@ -38,6 +40,10 @@ public class Player {
             }
         }
         deck.getHero().setPlayer(this);
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
     }
 
     public void setTable(Table table) {
@@ -129,7 +135,7 @@ public class Player {
     public void attack(Unit opponent) throws AttackException {
         selectedUnit.attack(opponent);
         opponent.counterAttack(selectedUnit);
-        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        currentGame.checkIfAnyoneIsDead();
         selectedUnit = null;
     }
 
@@ -140,7 +146,7 @@ public class Player {
         //RECOM : move 2 above method in Unit.ComboAttack (below)
         selectedUnit.comboAttack(opponent, allies);
         opponent.counterAttack(selectedUnit);
-        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        currentGame.checkIfAnyoneIsDead();
         selectedUnit = null;
     }
 
@@ -233,7 +239,7 @@ public class Player {
 
         unit.castSpecialPower(SpecialPowerCastTime.ON_SPAWN, cell);
         unit.castSpecialPower(SpecialPowerCastTime.PASSIVE, cell);
-        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        currentGame.checkIfAnyoneIsDead();
     }
 
     public void castSpellCard(SpellCard spellCard, Cell cell, boolean isCheatCast) throws InvalidTargetException, NotEnoughManaException {
@@ -250,7 +256,7 @@ public class Player {
         graveYard.addCard(spellCard);
 
         this.getHand().removeCard(spellCard);
-        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        currentGame.checkIfAnyoneIsDead();
     }
 
     public void castHeroSpell(Cell cell) throws InvalidTargetException, NotEnoughManaException, SpellNotReadyException
@@ -271,7 +277,7 @@ public class Player {
 
         ClientSender.sendToViewer(new SpecialPowerAct(cell.getRow(), cell.getColumn(), hero.getName()));
 
-        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        currentGame.checkIfAnyoneIsDead();
     }
 
     public void castSelectedCollectible(Cell cell) throws NoSelectedCollectibleException {
@@ -284,7 +290,7 @@ public class Player {
                 new UseCollectibleAct(cell.getRow(), cell.getColumn(), selectedCollectible, isOnLeft));
 
         this.getCollectibles().removeIf(a -> a.equals(selectedCollectible));
-        GameContents.getCurrentGame().checkIfAnyoneIsDead();
+        currentGame.checkIfAnyoneIsDead();
         selectedCollectible = null;
     }
 

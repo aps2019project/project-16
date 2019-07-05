@@ -1,6 +1,7 @@
 package view.menuItems;
 
-import view.commands.commonCommands.*;
+import view.commands.commonCommands.ExitCommand;
+import view.commands.commonCommands.HelpCommand;
 import view.commands.shopCommands.*;
 
 import static view.menuItems.MenuConstants.SHOP_MENU;

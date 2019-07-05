@@ -180,6 +180,10 @@ public class GameGraphicData {
         controller.endTurn();
     }
 
+    public static void sendCheatRequest(String cheatCode) {
+        controller.cheat(cheatCode);
+    }
+
     public static void unSelectAll() {
         switch (selectType) {
             case UNIT:

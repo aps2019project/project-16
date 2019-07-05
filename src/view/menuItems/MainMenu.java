@@ -1,7 +1,11 @@
 package view.menuItems;
 
-import view.commands.commonCommands.*;
-import view.commands.mainMenuCommands.*;
+import view.commands.commonCommands.EnterMenuCommand;
+import view.commands.commonCommands.ExitCommand;
+import view.commands.commonCommands.HelpCommand;
+import view.commands.commonCommands.ShowMenuCommand;
+import view.commands.mainMenuCommands.LogoutCommand;
+import view.commands.mainMenuCommands.SaveCommand;
 
 import static view.menuItems.MenuConstants.MAIN_MENU;
 

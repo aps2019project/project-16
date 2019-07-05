@@ -1,7 +1,10 @@
 package view.menuItems;
 
-import view.commands.accountCommands.*;
-import view.commands.commonCommands.*;
+import view.commands.accountCommands.CreateAccountCommand;
+import view.commands.accountCommands.LoginCommand;
+import view.commands.accountCommands.ShowLeaderboardCommand;
+import view.commands.commonCommands.ExitCommand;
+import view.commands.commonCommands.HelpCommand;
 
 import static view.menuItems.MenuConstants.ACCOUNT_MENU;
 
