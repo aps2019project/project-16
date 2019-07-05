@@ -13,6 +13,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Client {
+    private static Client instance;
     private Socket socket;
     private MyObservable<Boolean> socketState;
 
@@ -22,15 +23,12 @@ public class Client {
     private final YaGson serializer;
     private final JsonWriter jsonWriter;
 
-    public Client(String ip, int port, String clientName) throws IOException {
+    private Client(String ip, int port) throws IOException {
         this.socket = new Socket(ip, port);
         this.serializer = new YaGson();
         this.jsonWriter = new JsonWriter(new OutputStreamWriter(socket.getOutputStream()));
 
         initClient();
-
-        serializer.toJson(clientName, String.class, jsonWriter);
-        jsonWriter.flush();
     }
 
     private void initClient() {
@@ -91,6 +89,17 @@ public class Client {
         } finally {
             socketState.setState(false);
         }
+    }
+
+    public static Client getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Client("127.0.0.1", 8080); // todo change port
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return instance;
     }
 }
 

@@ -1,12 +1,9 @@
 package models.net;
 
 import com.gilecode.yagson.YaGson;
-import com.gilecode.yagson.com.google.gson.Gson;
-import com.gilecode.yagson.com.google.gson.JsonStreamParser;
 import com.gilecode.yagson.com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
@@ -15,8 +12,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class ServerSideClient {
     private final YaGson serializer;
     private final JsonWriter jsonWriter;
-    private final Gson deserializer;
-    private final JsonStreamParser parser;
 
     private Socket socket;
     private String clientName;
@@ -25,19 +20,17 @@ public class ServerSideClient {
 
     private Thread writerThread;
     private BlockingQueue<UpdatePacket> sendQueue = new LinkedBlockingDeque<>();
-    private Thread readerThread;
+    private RequestHandlerThread readerThread;
 
     public ServerSideClient(Socket socket) throws IOException {
         this.socket = socket;
         this.serializer = new YaGson();
         this.jsonWriter = new JsonWriter(new OutputStreamWriter(socket.getOutputStream()));
-        this.deserializer = new Gson();
-        this.parser = new JsonStreamParser(new InputStreamReader(socket.getInputStream()));
 
         initSocket();
     }
 
-    private void initSocket() {
+    private void initSocket() throws IOException {
         this.socketState = new MyObservable<>(true);
 
         this.writerThread = new Thread(() ->
@@ -60,17 +53,7 @@ public class ServerSideClient {
         });
         this.writerThread.start();
 
-        this.readerThread = new Thread(() ->
-        {
-            try {
-                while (parser.hasNext()) {
-                    RequestPacket packet = deserializer.fromJson(parser.next(), RequestPacket.class);
-                    packet.run();
-                }
-            } finally {
-                socketState.setState(false);
-            }
-        });
+        this.readerThread = new RequestHandlerThread(this.socket, this.socketState);
         this.readerThread.start();
     }
 
