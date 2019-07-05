@@ -19,9 +19,6 @@ public class CreateAccountCommand extends Command {
         String username = matcher.group(1);
         String password = CommandHandler.scanCommandByMessage("please set your password:");
         AccountController controller = new AccountController(new AccountView());
-        try {
-            controller.createAccount(username, password);
-        } catch (AccountExistsException ignored) {
-        }
+        controller.createAccount(username, password);
     }
 }

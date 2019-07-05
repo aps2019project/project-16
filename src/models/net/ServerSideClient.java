@@ -14,7 +14,6 @@ public class ServerSideClient {
     private final JsonWriter jsonWriter;
 
     private Socket socket;
-    private String clientName;
 
     private MyObservable<Boolean> socketState;
 
@@ -53,7 +52,7 @@ public class ServerSideClient {
         });
         this.writerThread.start();
 
-        this.readerThread = new RequestHandlerThread(this.socket, this.socketState);
+        this.readerThread = new RequestHandlerThread(this, this.socket, this.socketState);
         this.readerThread.start();
     }
 
@@ -77,10 +76,6 @@ public class ServerSideClient {
         } finally {
             socketState.setState(false);
         }
-    }
-
-    public String getClientName() {
-        return clientName;
     }
 
     public MyObservable<Boolean> getSocketState() {

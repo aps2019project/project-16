@@ -11,6 +11,6 @@ public class RequestResultUpdate extends UpdatePacket {
 
     @Override
     public void update() {
-        // TODO: 7/5/19
+        System.out.println(message);
     }
 }

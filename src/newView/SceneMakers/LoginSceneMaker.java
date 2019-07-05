@@ -18,6 +18,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Account;
+import models.net.Client;
+import models.net.requests.SignUpRequest;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
@@ -86,20 +88,11 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
 
         login.setOnMouseClicked(event -> {
             AccountController controller = new AccountController();
-            try {
-                controller.loginAccount(userNameField.getText(), passwordField.getText());
-                new MainMenuSceneMaker(getPrimaryStage()).set();
-            } catch (InvalidCredentialsException e) {
-//                e.printStackTrace();//todo show error
-            }
+            controller.loginAccount(userNameField.getText(), passwordField.getText());
+            new MainMenuSceneMaker(getPrimaryStage()).set();
         });
         singUp.setOnMouseClicked(event -> {
-            AccountController controller = new AccountController();
-            try {
-                controller.createAccount(userNameField.getText(), passwordField.getText());
-            } catch (AccountExistsException e) {
-//                e.printStackTrace();//todo show error
-            }
+            Client.getInstance().sendPacket(new SignUpRequest(userNameField.getText(), passwordField.getText()));
         });
 
 

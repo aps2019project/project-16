@@ -5,6 +5,8 @@ import exception.AccountExistsException;
 import exception.InvalidCredentialsException;
 import models.Account;
 import models.GameContents;
+import models.net.Server;
+import models.net.updates.RequestResultUpdate;
 import view.MenuHandler;
 import view.Notify;
 
@@ -32,23 +34,23 @@ public class AccountController implements AccountContract.Controller {
     }
 
     @Override
-    public void createAccount(String username, String password) throws AccountExistsException {
+    public void createAccount(String username, String password) {
         Account account = GameContents.findAccount(username);
         if (account != null) {
-            Notify.logError("An account with this username is already exist! Try another username.");
-            throw new AccountExistsException();
+            Server.getInstance().sendPacketByThread(
+                    new RequestResultUpdate("An account with this username is already exist! Try another username."));
         } else {
             GameContents.addAccount(new Account(username, password));
-            Notify.logMessage("Good job! An account with name \"" + username + "\" created.");
+            Server.getInstance().sendPacketByThread(
+                    new RequestResultUpdate("Good job! An account with name \"" + username + "\" created."));
         }
     }
 
     @Override
-    public void loginAccount(String username, String password) throws InvalidCredentialsException {
+    public void loginAccount(String username, String password) {
         Account account = GameContents.findAccount(username);
         if (account == null || !account.getPassword().equals(password)) {
             Notify.logError("Invalid Credentials!");
-            throw new InvalidCredentialsException();
         } else {
             GameContents.setCurrentAccount(account);
             Notify.logMessage("Dear " + username + "!!! You logged in successfully!");

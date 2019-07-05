@@ -6,7 +6,7 @@ import newView.SceneMakers.ServerMenuSceneMaker;
 public class ServerApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new Server();
+        Server.getInstance();
         new ServerMenuSceneMaker(primaryStage);
     }
 

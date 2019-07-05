@@ -12,8 +12,11 @@ public class RequestHandlerThread extends Thread {
     private final JsonStreamParser parser;
     private MyObservable<Boolean> socketState;
     private String accountName;
+    private ServerSideClient serverSideClient;
 
-    public RequestHandlerThread(Socket socket, MyObservable<Boolean> socketState) throws IOException {
+    public RequestHandlerThread(ServerSideClient serverSideClient,Socket socket, MyObservable<Boolean> socketState)
+            throws IOException {
+        this.serverSideClient = serverSideClient;
         parser = new JsonStreamParser(new InputStreamReader(socket.getInputStream()));
         this. socketState = socketState;
     }
@@ -36,5 +39,9 @@ public class RequestHandlerThread extends Thread {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
+    }
+
+    public ServerSideClient getServerSideClient() {
+        return serverSideClient;
     }
 }

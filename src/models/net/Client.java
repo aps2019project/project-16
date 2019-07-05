@@ -61,7 +61,7 @@ public class Client {
                 JsonStreamParser parser = new JsonStreamParser(new InputStreamReader(inputStream));
                 while (parser.hasNext()) {
                     UpdatePacket packet = deserializer.fromJson(parser.next(), UpdatePacket.class);
-                    //todo run packet
+                    packet.update();
                 }
                 socket.close();
             } catch (IOException e) {
@@ -73,8 +73,12 @@ public class Client {
         this.readerThread.start();
     }
 
-    public void sendPacket(RequestPacket packet) throws InterruptedException {
-        sendQueue.put(packet);
+    public void sendPacket(RequestPacket packet) {
+        try {
+            sendQueue.put(packet);
+        } catch (InterruptedException e) {
+            System.exit(0);
+        }
     }
 
     public MyObservable<Boolean> getSocketState() {

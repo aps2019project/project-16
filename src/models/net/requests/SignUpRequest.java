@@ -1,5 +1,6 @@
 package models.net.requests;
 
+import controllers.AccountController;
 import models.net.RequestPacket;
 
 public class SignUpRequest extends RequestPacket {
@@ -14,6 +15,6 @@ public class SignUpRequest extends RequestPacket {
 
     @Override
     public void run() {
-        // TODO mostafa: 7/5/19
+        new AccountController().createAccount(username, password);
     }
 }
