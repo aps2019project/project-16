@@ -76,6 +76,7 @@ public class Client {
 
     public void sendPacket(RequestPacket packet) {
         try {
+            packet.setAuthToken(authToken);
             sendQueue.put(packet);
         } catch (InterruptedException e) {
             System.exit(0);

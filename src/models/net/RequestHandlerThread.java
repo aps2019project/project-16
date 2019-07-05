@@ -2,6 +2,8 @@ package models.net;
 
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.com.google.gson.JsonStreamParser;
+import models.net.requests.LoginRequest;
+import models.net.requests.SignUpRequest;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,17 +16,21 @@ public class RequestHandlerThread extends Thread {
     private String accountName;
     private ServerSideClient serverSideClient;
 
-    public RequestHandlerThread(ServerSideClient serverSideClient,Socket socket, MyObservable<Boolean> socketState)
+    public RequestHandlerThread(ServerSideClient serverSideClient, Socket socket, MyObservable<Boolean> socketState)
             throws IOException {
         this.serverSideClient = serverSideClient;
         parser = new JsonStreamParser(new InputStreamReader(socket.getInputStream()));
-        this. socketState = socketState;
+        this.socketState = socketState;
     }
+
     @Override
     public void run() {
         try {
             while (parser.hasNext()) {
                 RequestPacket packet = deserializer.fromJson(parser.next(), RequestPacket.class);
+                if (!(packet instanceof SignUpRequest) && !(packet instanceof LoginRequest))
+                    if (packet.getAuthToken() == null || !packet.getAuthToken().equals(serverSideClient.getAuthToken()))
+                        continue;
                 System.out.println(packet);
                 packet.run();
             }
