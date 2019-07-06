@@ -15,6 +15,10 @@ public class CustomGameController implements CustomGameContract.Controller {
         view.setController(this);
     }
 
+    public CustomGameController() {
+
+    }
+
     @Override
     public void startGame(String oppDeckName, int mode, int flags) {
         Deck oppDeck = GameContents.getOpponentDeck(oppDeckName);
@@ -31,18 +35,18 @@ public class CustomGameController implements CustomGameContract.Controller {
 
         Game newGame = new Game(currentAccount, AIAccount, 1000, gameMode, flags);
         currentAccount.setCurrentGame(newGame);
-//      RRR-Remove  GameContents
-//      .setCurrentGame(newGame);
-        view.goToInGameMenu();
+
+        // TODO: 7/6/19  send GameStartUpdate
+//        view.goToInGameMenu();
     }
 
     @Override
     public void loadDecks() {
-        ArrayList<GameLevel> gameLevels = GameContents.getGameLevels();
-        ArrayList<Deck> decks = new ArrayList<>();
-        for (GameLevel gameLevel : gameLevels) {
-            decks.add(gameLevel.getDeck());
-        }
-        view.showDecks(decks);
+//        ArrayList<GameLevel> gameLevels = GameContents.getGameLevels();
+//        ArrayList<Deck> decks = new ArrayList<>();
+//        for (GameLevel gameLevel : gameLevels) {
+//            decks.add(gameLevel.getDeck());
+//        }
+//        view.showDecks(decks);
     }
 }

@@ -13,6 +13,10 @@ public class StoryController implements StoryContract.Controller {
         view.setController(this);
     }
 
+    public StoryController() {
+
+    }
+
     @Override
     public void loadLevel(int levelNumber) {
         GameLevel gameLevel = GameContents.getGameLevel(levelNumber);
@@ -31,8 +35,8 @@ public class StoryController implements StoryContract.Controller {
 
         Game newGame = new Game(currentAccount, AIAccount, gameLevel.getPrize(), gameMode, gameLevel.getNumberOfFlags());
         currentAccount.setCurrentGame(newGame);
-//        RRR-Remove GameContents
-//        .setCurrentGame(newGame);
+
+        // TODO: 7/6/19 Game start update
 //        view.goToLevelInGame();
     }
 

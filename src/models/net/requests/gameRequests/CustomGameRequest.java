@@ -1,5 +1,6 @@
 package models.net.requests.gameRequests;
 
+import controllers.CustomGameController;
 import models.net.RequestPacket;
 
 public class CustomGameRequest extends RequestPacket {
@@ -15,6 +16,11 @@ public class CustomGameRequest extends RequestPacket {
 
     @Override
     public void run() {
-        // TODO mostafa
+        CustomGameController controller = new CustomGameController();
+        try {
+            controller.startGame(oppDeckName, mode, flags);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
