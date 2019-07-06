@@ -37,7 +37,7 @@ public class InGameController implements InGameContract.Controller {
 //            player = GameContents
 //            .getCurrentGame().getOpponentPlayer();
 //        }
-//        view.showMinions(player.getAccount().getName(), player.getUnits());
+//        view.showMinions(player.getAccount().getAccountName(), player.getUnits());
     }
 
     @Override
