@@ -1,5 +1,7 @@
 package models.net.requests.battleRequests;
 
+import controllers.InGameController;
+
 public class InsertCardRequest extends BattleRequest {
     private String cardName;
     private int row;
@@ -13,8 +15,11 @@ public class InsertCardRequest extends BattleRequest {
 
     @Override
     public void run() {
-        // TODO mostafa:
-        //  :
-        //  controller.insertCard(cardName, row, column);
+        InGameController controller = new InGameController();
+        try {
+            controller.insertCard(cardName, row, column);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

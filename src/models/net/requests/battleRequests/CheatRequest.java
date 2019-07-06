@@ -1,5 +1,7 @@
 package models.net.requests.battleRequests;
 
+import controllers.InGameController;
+
 public class CheatRequest extends BattleRequest {
     private String cheatCode;
 
@@ -9,8 +11,11 @@ public class CheatRequest extends BattleRequest {
 
     @Override
     public void run() {
-        // TODO mostafa:
-        //  :
-        //  controller.cheat(cheatCode);
+        InGameController controller = new InGameController();
+        try {
+            controller.cheat(cheatCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
