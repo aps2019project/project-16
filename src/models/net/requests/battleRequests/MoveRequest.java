@@ -1,5 +1,7 @@
 package models.net.requests.battleRequests;
 
+import controllers.InGameController;
+
 public class MoveRequest extends BattleRequest {
     private String unitName;
     private int gameID;
@@ -15,9 +17,12 @@ public class MoveRequest extends BattleRequest {
 
     @Override
     public void run() {
-        // TODO mostafa:
-        //  :
-        //  controller.selectCard(unitName, gameID);
-        //  controller.moveToCell(row, column);
+        InGameController controller = new InGameController();
+        try {
+            controller.selectCard(unitName, gameID);
+            controller.moveToCell(row, column);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

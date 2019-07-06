@@ -3,9 +3,9 @@ package controllers;
 import contracts.CustomGameContract;
 import models.*;
 import models.artificialIntelligence.AIAccount;
+import models.net.Server;
+import models.net.updates.gameUpdates.GameStartedUpdate;
 import view.Notify;
-
-import java.util.ArrayList;
 
 public class CustomGameController implements CustomGameContract.Controller {
     private CustomGameContract.View view;
@@ -13,6 +13,10 @@ public class CustomGameController implements CustomGameContract.Controller {
     public CustomGameController(CustomGameContract.View view) {
         this.view = view;
         view.setController(this);
+    }
+
+    public CustomGameController() {
+
     }
 
     @Override
@@ -31,18 +35,17 @@ public class CustomGameController implements CustomGameContract.Controller {
 
         Game newGame = new Game(currentAccount, AIAccount, 1000, gameMode, flags);
         currentAccount.setCurrentGame(newGame);
-//      RRR-Remove  GameContents
-//      .setCurrentGame(newGame);
-        view.goToInGameMenu();
+
+        Server.getInstance().sendPacketByThread(new GameStartedUpdate());
     }
 
     @Override
     public void loadDecks() {
-        ArrayList<GameLevel> gameLevels = GameContents.getGameLevels();
-        ArrayList<Deck> decks = new ArrayList<>();
-        for (GameLevel gameLevel : gameLevels) {
-            decks.add(gameLevel.getDeck());
-        }
-        view.showDecks(decks);
+//        ArrayList<GameLevel> gameLevels = GameContents.getGameLevels();
+//        ArrayList<Deck> decks = new ArrayList<>();
+//        for (GameLevel gameLevel : gameLevels) {
+//            decks.add(gameLevel.getDeck());
+//        }
+//        view.showDecks(decks);
     }
 }

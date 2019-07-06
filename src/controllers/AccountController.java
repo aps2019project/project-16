@@ -1,22 +1,16 @@
 package controllers;
 
 import contracts.AccountContract;
-import exception.AccountExistsException;
-import exception.InvalidCredentialsException;
 import models.Account;
 import models.GameContents;
 import models.net.AuthTokenGenerator;
 import models.net.RequestHandlerThread;
 import models.net.Server;
 import models.net.updates.LoginSuccessUpdate;
-import models.net.updates.RequestResultUpdate;
-import view.MenuHandler;
 import view.Notify;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import static view.menuItems.MenuConstants.MAIN_MENU;
 
 public class AccountController implements AccountContract.Controller {
     private AccountContract.View view;
@@ -55,10 +49,8 @@ public class AccountController implements AccountContract.Controller {
         } else {
             ((RequestHandlerThread) Thread.currentThread()).setAccountName(username);
             String authToken = AuthTokenGenerator.generateNewToken();
-            ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().sendPacket(
-                    new LoginSuccessUpdate(authToken)
-            );
             ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().setAuthToken(authToken);
+            Server.getInstance().sendPacketByThread(new LoginSuccessUpdate(authToken));
             Notify.logMessage("Dear " + username + "!!! You logged in successfully!");
         }
     }

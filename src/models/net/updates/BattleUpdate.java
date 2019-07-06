@@ -1,6 +1,7 @@
 package models.net.updates;
 
 import models.net.UpdatePacket;
+import newView.battleView.GameGraphicData;
 import newView.battleView.gameActs.GameAct;
 
 public class BattleUpdate extends UpdatePacket {
@@ -13,6 +14,6 @@ public class BattleUpdate extends UpdatePacket {
 
     @Override
     public void update() {
-        // TODO must implemented.
+        GameGraphicData.addGameAct(gameAct);
     }
 }

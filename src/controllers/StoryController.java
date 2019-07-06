@@ -3,6 +3,8 @@ package controllers;
 import contracts.StoryContract;
 import models.*;
 import models.artificialIntelligence.AIAccount;
+import models.net.Server;
+import models.net.updates.gameUpdates.GameStartedUpdate;
 import view.Notify;
 
 public class StoryController implements StoryContract.Controller {
@@ -11,6 +13,10 @@ public class StoryController implements StoryContract.Controller {
     public StoryController(StoryContract.View view) {
         this.view = view;
         view.setController(this);
+    }
+
+    public StoryController() {
+
     }
 
     @Override
@@ -31,9 +37,8 @@ public class StoryController implements StoryContract.Controller {
 
         Game newGame = new Game(currentAccount, AIAccount, gameLevel.getPrize(), gameMode, gameLevel.getNumberOfFlags());
         currentAccount.setCurrentGame(newGame);
-//        RRR-Remove GameContents
-//        .setCurrentGame(newGame);
-//        view.goToLevelInGame();
+
+        Server.getInstance().sendPacketByThread(new GameStartedUpdate());
     }
 
     @Override

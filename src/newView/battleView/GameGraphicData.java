@@ -1,14 +1,14 @@
 package newView.battleView;
 
-import controllers.InGameController;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import models.item.Item;
+import models.net.Client;
+import models.net.requests.battleRequests.*;
 import newView.battleView.gameActs.GameAct;
 import newView.GraphicalElements.ZoomablePane;
 import newView.GraphicalElements.battle.*;
 import newView.SceneMakers.LoadingSceneMaker;
-import view.views.InGameView;
 
 import java.util.ArrayList;
 
@@ -24,13 +24,13 @@ public class GameGraphicData {
     private static CardInfo cardInfo;
 
     private static SelectType selectType = null;
+    private static boolean spectator;
 
     private static Tile selectedTile;
     private static HandElement selectedHandElement;
     private static CollectibleElement selectedCollectibleElement;
 
     private static GameGraphicListener listener = new GameGraphicListener();
-    private final static InGameController controller = new InGameController(new InGameView());
 
     static {
         listener.setDaemon(true);
@@ -47,6 +47,14 @@ public class GameGraphicData {
 
     public static void setSelectType(SelectType selectType) {
         GameGraphicData.selectType = selectType;
+    }
+
+    public static boolean isSpectator() {
+        return spectator;
+    }
+
+    public static void setSpectator(boolean spectator) {
+        GameGraphicData.spectator = spectator;
     }
 
     public static void setSelectedTile(SelectType type, Tile tile) {
@@ -149,39 +157,49 @@ public class GameGraphicData {
     }
 
     public static void sendMoveRequest(Tile destinationTile) {
-        controller.selectCard(selectedTile.getUnit().getName(), selectedTile.getUnit().getGameCardID());
-        controller.moveToCell(destinationTile.getRow(), destinationTile.getColumn());
+        Client.getInstance().sendPacket(
+                new MoveRequest(selectedTile.getUnit().getName(), selectedTile.getUnit().getGameCardID()
+                        , destinationTile.getRow(), destinationTile.getColumn())
+        );
         unSelectAll();
     }
 
     public static void sendAttackRequest(Tile opponentTile) {
-        controller.selectCard(selectedTile.getUnit().getName(), selectedTile.getUnit().getGameCardID());
-        controller.attack(opponentTile.getUnit().getName(), opponentTile.getUnit().getGameCardID());
+        Client.getInstance().sendPacket(
+                new AttackRequest(selectedTile.getUnit().getName(), selectedTile.getUnit().getGameCardID()
+                        , opponentTile.getUnit().getName(), opponentTile.getUnit().getGameCardID())
+        );
         unSelectAll();
     }
 
     public static void sendInsertRequest(Tile insertTile) {
-        controller.insertCard(selectedHandElement.getCardName(), insertTile.getRow(), insertTile.getColumn());
+        Client.getInstance().sendPacket(
+                new InsertCardRequest(selectedHandElement.getCardName(), insertTile.getRow(), insertTile.getColumn())
+        );
         unSelectAll();
     }
 
     public static void sendCastSpecialPowerRequest(Tile castTile) {
-        controller.useSpecialPower(castTile.getRow(), castTile.getColumn());
+        Client.getInstance().sendPacket(
+                new SpecialPowerRequest(castTile.getRow(), castTile.getColumn())
+        );
         unSelectAll();
     }
 
     public static void sendCastCollectibleRequest(Tile castTile) {
-        controller.selectCollectable(selectedCollectibleElement.getItem().getCollectibleID());
-        controller.useSelectedCollectable(castTile.getRow(), castTile.getColumn());
+        Client.getInstance().sendPacket(
+                new CastCollectibleRequest(selectedCollectibleElement.getItem().getCollectibleID()
+                        , castTile.getRow(), castTile.getColumn())
+        );
         unSelectAll();
     }
 
     public static void sendChangeTurnRequest() {
-        controller.endTurn();
+        Client.getInstance().sendPacket(new EndTurnRequest());
     }
 
     public static void sendCheatRequest(String cheatCode) {
-        controller.cheat(cheatCode);
+        Client.getInstance().sendPacket(new CheatRequest(cheatCode));
     }
 
     public static void unSelectAll() {
