@@ -1,5 +1,9 @@
 package models.net;
 
+import models.Account;
+import models.Game;
+import models.GameContents;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -64,6 +68,18 @@ public class Server {
         } finally {
             socketState.setState(false);
         }
+    }
+
+    public Game getCurrentGameByThread() {
+        String accountName = ((RequestHandlerThread) Thread.currentThread()).getAccountName();
+        Account account = GameContents.findAccount(accountName);
+        return account.getCurrentGame();
+    }
+
+    public void sendPacketTo(String accountName, UpdatePacket packet) {
+        for (ServerSideClient client : clients)
+            if (client.getAccountName() != null && client.getAccountName().equals(accountName))
+                client.sendPacket(packet);
     }
 
     public String getMatchQueue() {

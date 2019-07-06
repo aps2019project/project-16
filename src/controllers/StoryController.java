@@ -35,9 +35,7 @@ public class StoryController implements StoryContract.Controller {
         Account currentAccount = GameContents.getCurrentAccount();
         Account AIAccount = new AIAccount("AI", "123", oppDeck.getCopy());
 
-        Game newGame = new Game(currentAccount, AIAccount, gameLevel.getPrize(), gameMode, gameLevel.getNumberOfFlags());
-        currentAccount.setCurrentGame(newGame);
-
+        new Game(currentAccount, AIAccount, gameLevel.getPrize(), gameMode, gameLevel.getNumberOfFlags());
         Server.getInstance().sendPacketByThread(new GameStartedUpdate());
     }
 

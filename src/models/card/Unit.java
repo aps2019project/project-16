@@ -60,7 +60,7 @@ public abstract class Unit extends Card implements Buffable {
             if (time == specialPower.getKey()) {
                 specialPower.getValue().cast(getPlayer(), cell);
 
-                ClientSender.sendToViewer(new MinionSpecialPowerAct(time, cell.getRow(), cell.getColumn()));
+                ClientSender.sendToAllViewers(new MinionSpecialPowerAct(time, cell.getRow(), cell.getColumn()));
             }
     }
 
@@ -259,7 +259,7 @@ public abstract class Unit extends Card implements Buffable {
             hp -= amount - getHoly();
 
             if (getCurrentCell() != null) {
-                ClientSender.sendToViewer(new ChangeApHpAct(getCurrentCell().getRow(), getCurrentCell().getColumn()
+                ClientSender.sendToAllViewers(new ChangeApHpAct(getCurrentCell().getRow(), getCurrentCell().getColumn()
                         , true, -(amount - getHoly()), false));
             }
         }
@@ -301,7 +301,7 @@ public abstract class Unit extends Card implements Buffable {
     public void attack(Unit opponent) throws AttackException {
         this.checkCanAttack(opponent);
 
-        ClientSender.sendToViewer(
+        ClientSender.sendToAllViewers(
                 new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
 
         attackedTo.putIfAbsent(opponent, 0);
@@ -323,7 +323,7 @@ public abstract class Unit extends Card implements Buffable {
         if (isDisarmed() || isStunned())
             return;
 
-        ClientSender.sendToViewer(
+        ClientSender.sendToAllViewers(
                 new AttackAct(this.getCurrentCell(), opponent.getCurrentCell(), this, opponent));
 
         opponent.getDamage(ap);
@@ -356,7 +356,7 @@ public abstract class Unit extends Card implements Buffable {
         if (newCell.hasUnit())
             throw new CellIsNotFreeException();
 
-        ClientSender.sendToViewer(new MoveAct(this.getCurrentCell(), newCell, this));
+        ClientSender.sendToAllViewers(new MoveAct(this.getCurrentCell(), newCell, this));
 
         this.currentCell = newCell;
         moved = true;
@@ -399,7 +399,7 @@ public abstract class Unit extends Card implements Buffable {
             flag.setCurrentCell(cell);
             cell.addFlag(flag);
 
-            ClientSender.sendToViewer(new AddFlagAct(cell.getRow(), cell.getColumn()));
+            ClientSender.sendToAllViewers(new AddFlagAct(cell.getRow(), cell.getColumn()));
         }
         unit.removeFlag();
     }
