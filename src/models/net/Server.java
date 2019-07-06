@@ -1,5 +1,6 @@
 package models.net;
 
+import controllers.AccountController;
 import models.Account;
 import models.Game;
 import models.GameContents;
@@ -23,6 +24,7 @@ public class Server {
     public final String matchQueueLock = "Lock";
 
     private Server() {
+        new AccountController().loadAccounts();
         try {
             serverSocket = new ServerSocket(8080);
         } catch (IOException e) {
@@ -80,6 +82,11 @@ public class Server {
         for (ServerSideClient client : clients)
             if (client.getAccountName() != null && client.getAccountName().equals(accountName))
                 client.sendPacket(packet);
+    }
+
+    public void broadcastPacket(UpdatePacket packet) {
+        for (ServerSideClient client : clients)
+            client.sendPacket(packet);
     }
 
     public String getMatchQueue() {

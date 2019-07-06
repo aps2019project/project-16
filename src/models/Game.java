@@ -8,6 +8,8 @@ import exception.ArrayIsEmptyException;
 import exception.GameIsEndException;
 import models.item.Item;
 import models.item.ManaItem;
+import models.net.Server;
+import models.net.updates.BattleUpdate;
 import newView.battleView.ClientSender;
 import newView.battleView.gameActs.*;
 import newView.Type;
@@ -47,10 +49,10 @@ public class Game {
         players[0].setCurrentGame(this);
         players[1].setCurrentGame(this);
 
-        // TODO Mostafa: 7/2/19 it's must be corrected in server-client
-        //  be currentPlayer "true" ersal besheh be opponent player ham "false" ersal beshe
-        //  be spectator ha ham mohem nist koodomesh bashe
-        ClientSender.sendToAllViewers(new SetOnLeftAct(true));
+        BattleUpdate leftSide = new BattleUpdate(new SetOnLeftAct(true));
+        BattleUpdate rightSide = new BattleUpdate(new SetOnLeftAct(false));
+        Server.getInstance().sendPacketTo(firstAccount.getName(), leftSide);
+        Server.getInstance().sendPacketTo(secondAccount.getName(), rightSide);
 
         ClientSender.sendToAllViewers(new SetPlayerInfosAct(firstAccount.getName(), secondAccount.getName()));
 
