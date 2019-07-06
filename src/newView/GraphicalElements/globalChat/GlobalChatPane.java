@@ -18,11 +18,13 @@ import models.net.Client;
 import models.net.requests.ChatMessageRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.ScaleTool;
+import newView.SceneMakers.MainMenuSceneMaker;
 import sun.security.krb5.SCDynamicStoreConfig;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import static ir.pas.ClientApp.getPrimaryStage;
 import static newView.SceneMakers.SceneMaker.HEIGHT;
 
 
@@ -31,6 +33,7 @@ public class GlobalChatPane extends Pane {
     private ScrollPane scroller = new ScrollPane();
     private Pane messagesBackgroundPane = new Pane();
     private TextField entryText = new TextField();
+    private ImageView back;
 
     public GlobalChatPane() {
         try {
@@ -41,17 +44,11 @@ public class GlobalChatPane extends Pane {
             ScaleTool.resizeRegion(scroller, 330, HEIGHT);
 
 
-            entryText.setPromptText("enter your message");
-            entryText.setStyle("-fx-prompt-text-fill: gray; -fx-background-color: rgb(20 , 20 , 20 , 0.5); -fx-text-fill: white");
-            ScaleTool.relocate(entryText, 200, 200);
-            ScaleTool.resizeRegion(entryText, 300, 75);
+            back = new ImageView(new Image(new FileInputStream("src/newView/resources/globalChat/back.png")));
+            ScaleTool.resizeImageView(back, 85, 85);
+//            back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
 
-            entryText.setOnKeyPressed(ke -> {
-                if (ke.getCode().equals(KeyCode.ENTER)) {
-                    Client.getInstance().sendPacket(new ChatMessageRequest(entryText.getText()));
-                    entryText.clear();
-                }
-            });
+            setEntryMessage();
 
             messagesBackgroundPane.setMaxWidth(scroller.getMaxWidth());
             ScaleTool.resizeRegion(messagesBackgroundPane, 330, HEIGHT);
@@ -67,11 +64,29 @@ public class GlobalChatPane extends Pane {
             addMessage();
 
             messagesBackgroundPane.getChildren().add(messages);
+            this.getChildren().add(back);
             this.getChildren().add(scroller);
             this.getChildren().add(entryText);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ImageView getBack() {
+        return back;
+    }
+
+    private void setEntryMessage() {
+        entryText.setPromptText("enter your message");
+        entryText.setStyle("-fx-prompt-text-fill: gray; -fx-background-color: rgb(20 , 20 , 20 , 0.5); -fx-text-fill: white");
+        ScaleTool.relocate(entryText, 200, 200);
+        ScaleTool.resizeRegion(entryText, 300, 75);
+        entryText.setOnKeyPressed(ke -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                Client.getInstance().sendPacket(new ChatMessageRequest(entryText.getText()));
+                entryText.clear();
+            }
+        });
     }
 
     public void addMessage() throws FileNotFoundException {

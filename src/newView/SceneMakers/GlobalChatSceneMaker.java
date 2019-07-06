@@ -7,6 +7,8 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.globalChat.GlobalChatPane;
 
+import static ir.pas.ClientApp.getPrimaryStage;
+
 public class GlobalChatSceneMaker extends SceneMaker {
     private static GlobalChatPane globalChatPane = new GlobalChatPane();
 
@@ -17,7 +19,10 @@ public class GlobalChatSceneMaker extends SceneMaker {
 
     @Override
     public Scene makeScene() throws Exception {
-        return new MyScene(globalChatPane);
+        Pane root = new Pane();
+        root.getChildren().add(globalChatPane);
+        globalChatPane.getBack().setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+        return new MyScene(root);
     }
 
     public static GlobalChatPane getGlobalChatPane() {
