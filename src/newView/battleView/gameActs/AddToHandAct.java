@@ -41,7 +41,7 @@ public class AddToHandAct extends GameAct {
     }
 
     private void makeAnimation() throws Exception {
-        if (isForLeft == GameGraphicData.isOnLeft()) {
+        if (!GameGraphicData.isSpectator() && isForLeft == GameGraphicData.isOnLeft()) {
             HandHBox handHBox = GameGraphicData.getHandBox();
             HandElement handElement = handHBox.getAnEmptyElement();
             if (handElement != null) {

@@ -28,7 +28,7 @@ public class PickUpCollectibleAct extends GameAct {
     private void makeAnimation() {
         Tile tile = GameGraphicData.getTilesPane().getTile(row, column);
         tile.removeCollectible();
-        if (forLeft == GameGraphicData.isOnLeft()) {
+        if (!GameGraphicData.isSpectator() && forLeft == GameGraphicData.isOnLeft()) {
             GameGraphicData.addCollectibles(items);
         }
     }

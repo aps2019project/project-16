@@ -1,5 +1,7 @@
 package models.net.requests.battleRequests;
 
+import controllers.InGameController;
+
 public class AttackRequest extends BattleRequest {
     private String myUnitName;
     private int myGameID;
@@ -15,9 +17,12 @@ public class AttackRequest extends BattleRequest {
 
     @Override
     public void run() {
-        // TODO mostafa:
-        //  :
-        //  controller.selectCard(myUnitName, myGameID);
-        //  controller.attack(oppUnitName, oppGameID);
+        InGameController controller = new InGameController();
+        try {
+            controller.selectCard(myUnitName, myGameID);
+            controller.attack(oppUnitName, oppGameID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

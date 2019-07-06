@@ -1,5 +1,6 @@
 package models.net.requests.gameRequests;
 
+import controllers.StoryController;
 import models.net.RequestPacket;
 
 public class LevelGameRequest extends RequestPacket {
@@ -11,6 +12,11 @@ public class LevelGameRequest extends RequestPacket {
 
     @Override
     public void run() {
-        // TODO mostafa:
+        StoryController controller = new StoryController();
+        try {
+            controller.loadLevel(levelNumber);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -3,6 +3,7 @@ package models;
 import com.gilecode.yagson.YaGson;
 import models.card.Card;
 import models.item.Item;
+import models.net.RequestHandlerThread;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.Comparator;
 public class GameContents {
     private static ArrayList<Account> accounts = new ArrayList<>();
 //    private static Game currentGame;
-    private static Account currentAccount;
 //    private static Account secondAccount = null;
     private static Shop shop;
 
@@ -24,10 +24,6 @@ public class GameContents {
     }
 
     private static ArrayList<GameLevel> gameLevels = Initializer2Movaghat.initGameLevels();
-
-    public static void setCurrentAccount(Account currentAccount) {
-        GameContents.currentAccount = currentAccount;
-    }
 
     public static Shop getShop() {
         return shop;
@@ -43,7 +39,8 @@ public class GameContents {
 //    }
 
     public static Account getCurrentAccount() {
-        return currentAccount;
+        String accountName = ((RequestHandlerThread) Thread.currentThread()).getAccountName();
+        return findAccount(accountName);
     }
 
 //    public static Account getSecondAccount() {

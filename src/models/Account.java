@@ -20,15 +20,6 @@ public class Account {
     private Game currentGame;
     private Account opponentAccount;
 
-    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
-
-    public static String generateNewToken() {
-        byte[] randomBytes = new byte[24];
-        secureRandom.nextBytes(randomBytes);
-        return base64Encoder.encodeToString(randomBytes);
-    }
-
     public void setMoney(int money) {
         this.money = money;
     }
@@ -99,6 +90,7 @@ public class Account {
             Deck defaultDeck = gameLevel.getDeck().getCopy();
             defaultDeck.setName("default1");
             collection.addDeck(defaultDeck);
+            collection.setMainDeck(defaultDeck);
         }
         //TODO END OF
     }

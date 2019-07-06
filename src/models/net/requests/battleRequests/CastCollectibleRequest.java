@@ -1,5 +1,7 @@
 package models.net.requests.battleRequests;
 
+import controllers.InGameController;
+
 public class CastCollectibleRequest extends BattleRequest {
     private int collectibleID;
     private int row;
@@ -13,9 +15,12 @@ public class CastCollectibleRequest extends BattleRequest {
 
     @Override
     public void run() {
-        // TODO mostafa:
-        //  :
-        //  controller.selectCollectable(collectibleID);
-        //  controller.useSelectedCollectable(row, column);
+        InGameController controller = new InGameController();
+        try {
+            controller.selectCollectable(collectibleID);
+            controller.useSelectedCollectable(row, column);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

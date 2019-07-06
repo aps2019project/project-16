@@ -14,7 +14,7 @@ public class ServerSideClient {
     private final JsonWriter jsonWriter;
 
     private Socket socket;
-    private String clientName;
+    private String authToken;
 
     private MyObservable<Boolean> socketState;
 
@@ -53,7 +53,7 @@ public class ServerSideClient {
         });
         this.writerThread.start();
 
-        this.readerThread = new RequestHandlerThread(this.socket, this.socketState);
+        this.readerThread = new RequestHandlerThread(this, this.socket, this.socketState);
         this.readerThread.start();
     }
 
@@ -79,12 +79,16 @@ public class ServerSideClient {
         }
     }
 
-    public String getClientName() {
-        return clientName;
-    }
-
     public MyObservable<Boolean> getSocketState() {
         return socketState;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
 

@@ -8,13 +8,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Server {
+    private static Server instance;
     private ServerSocket serverSocket;
     private final List<ServerSideClient> clients = Collections.synchronizedList(new ArrayList<>());
     private Thread acceptorThread;
 
     private MyObservable<Boolean> socketState;
 
-    public Server() {
+    private Server() {
         try {
             serverSocket = new ServerSocket(8080);
         } catch (IOException e) {
@@ -38,6 +39,10 @@ public class Server {
         acceptorThread.start();
     }
 
+    public void sendPacketByThread(UpdatePacket packet) {
+        if (Thread.currentThread() instanceof RequestHandlerThread)
+            ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().sendPacket(packet);
+    }
 
     private void acceptClient(Socket socket) throws IOException {
         System.out.println("client request received");
@@ -56,5 +61,11 @@ public class Server {
         } finally {
             socketState.setState(false);
         }
+    }
+
+    public static Server getInstance() {
+        if (instance == null)
+            instance = new Server();
+        return instance;
     }
 }

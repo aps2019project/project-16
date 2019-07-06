@@ -1,7 +1,5 @@
 package newView.SceneMakers;
 
-import controllers.CustomGameController;
-import controllers.StoryController;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -11,11 +9,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.net.Client;
+import models.net.requests.gameRequests.CustomGameRequest;
+import models.net.requests.gameRequests.LevelGameRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
-import view.views.CustomGameView;
-import view.views.StoryView;
 
 import java.io.FileInputStream;
 
@@ -86,29 +85,24 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
     private void setActions(ImageView killingHero, ImageView collectFlag, ImageView holdFlag) {
         if (!customGame) {
             killingHero.setOnMouseClicked(event -> {
-                new StoryController(new StoryView()).loadLevel(1);
-                new InGameSceneMaker(getPrimaryStage()).set();
+                Client.getInstance().sendPacket(new LevelGameRequest(1));
                 BattleSceneMaker.battleBgSound.stop();
             });
             holdFlag.setOnMouseClicked(event -> {
-                new StoryController(new StoryView()).loadLevel(2);
-                new InGameSceneMaker(getPrimaryStage()).set();
+                Client.getInstance().sendPacket(new LevelGameRequest(2));
                 BattleSceneMaker.battleBgSound.stop();
             });
             collectFlag.setOnMouseClicked(event -> {
-                new StoryController(new StoryView()).loadLevel(3);
-                new InGameSceneMaker(getPrimaryStage()).set();
+                Client.getInstance().sendPacket(new LevelGameRequest(3));
                 BattleSceneMaker.battleBgSound.stop();
             });
         } else {
             killingHero.setOnMouseClicked(event -> {
-                new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 1, 0);
-                new InGameSceneMaker(getPrimaryStage()).set();
+                Client.getInstance().sendPacket(new CustomGameRequest(enterDeckName.getText(), 1, 0));
                 BattleSceneMaker.battleBgSound.stop();
             });
             holdFlag.setOnMouseClicked(event -> {
-                new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 2, 1);
-                new InGameSceneMaker(getPrimaryStage()).set();
+                Client.getInstance().sendPacket(new CustomGameRequest(enterDeckName.getText(), 2, 1));
                 BattleSceneMaker.battleBgSound.stop();
             });
             collectFlag.setOnMouseClicked(event -> {
@@ -116,8 +110,7 @@ public class GameModeSelectorSceneMaker extends SceneMaker {
                 numberOfFlags.setHeaderText("Enter number of flags");
                 numberOfFlags.setContentText("flags:");
                 int flags = Integer.parseInt(numberOfFlags.showAndWait().get());
-                new CustomGameController(new CustomGameView()).startGame(enterDeckName.getText(), 3, flags);
-                new InGameSceneMaker(getPrimaryStage()).set();
+                Client.getInstance().sendPacket(new CustomGameRequest(enterDeckName.getText(), 3, flags));
                 BattleSceneMaker.battleBgSound.stop();
             });
         }

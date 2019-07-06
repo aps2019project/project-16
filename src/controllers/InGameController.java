@@ -17,6 +17,10 @@ public class InGameController implements InGameContract.Controller {
         view.setController(this);
     }
 
+    public InGameController() {
+
+    }
+
     @Override
     public void loadGameInfo() {
 //        view.showGameInfo(GameContents

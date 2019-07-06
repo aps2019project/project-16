@@ -1,5 +1,7 @@
 package models.net.requests.battleRequests;
 
+import controllers.InGameController;
+
 public class SpecialPowerRequest extends BattleRequest {
     private int row;
     private int column;
@@ -11,8 +13,11 @@ public class SpecialPowerRequest extends BattleRequest {
 
     @Override
     public void run() {
-        // TODO mostafa:
-        //  :
-        //  controller.useSpecialPower(row, column);
+        InGameController controller = new InGameController();
+        try {
+            controller.useSpecialPower(row, column);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

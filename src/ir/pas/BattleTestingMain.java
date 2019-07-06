@@ -1,3 +1,5 @@
+package ir.pas;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import newView.SceneMakers.InGameSceneMaker;

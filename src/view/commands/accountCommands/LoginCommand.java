@@ -19,9 +19,6 @@ public class LoginCommand extends Command {
         String username = matcher.group(1);
         String password = CommandHandler.scanCommandByMessage("Please put your password:");
         AccountController controller = new AccountController(new AccountView());
-        try {
-            controller.loginAccount(username, password);
-        } catch (InvalidCredentialsException ignored) {
-        }
+        controller.loginAccount(username, password);
     }
 }

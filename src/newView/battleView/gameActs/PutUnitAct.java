@@ -46,9 +46,11 @@ public class PutUnitAct extends GameAct {
     private void makeAnimation() throws Exception {
         ImageView idleView = AnimationMaker.getBreathingAnimation(cardName, type.getName());
 
-        if (type != Type.HERO && isForLeft == GameGraphicData.isOnLeft() && !isCheatPut) {
-            HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
-            handElement.setImageView(null, null, null, null);
+        if (!GameGraphicData.isSpectator()) {
+            if (type != Type.HERO && isForLeft == GameGraphicData.isOnLeft() && !isCheatPut) {
+                HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
+                handElement.setImageView(null, null, null, null);
+            }
         }
 
         Tile putTile = GameGraphicData.getTilesPane().getTile(row, column);
