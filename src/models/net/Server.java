@@ -1,5 +1,10 @@
 package models.net;
 
+import controllers.AccountController;
+import models.Account;
+import models.Game;
+import models.GameContents;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,7 +20,11 @@ public class Server {
 
     private MyObservable<Boolean> socketState;
 
+    private String matchQueue;
+    public final String matchQueueLock = "Lock";
+
     private Server() {
+        new AccountController().loadAccounts();
         try {
             serverSocket = new ServerSocket(8080);
         } catch (IOException e) {
@@ -61,6 +70,31 @@ public class Server {
         } finally {
             socketState.setState(false);
         }
+    }
+
+    public Game getCurrentGameByThread() {
+        String accountName = ((RequestHandlerThread) Thread.currentThread()).getAccountName();
+        Account account = GameContents.findAccount(accountName);
+        return account.getCurrentGame();
+    }
+
+    public void sendPacketTo(String accountName, UpdatePacket packet) {
+        for (ServerSideClient client : clients)
+            if (client.getAccountName() != null && client.getAccountName().equals(accountName))
+                client.sendPacket(packet);
+    }
+
+    public void broadcastPacket(UpdatePacket packet) {
+        for (ServerSideClient client : clients)
+            client.sendPacket(packet);
+    }
+
+    public String getMatchQueue() {
+        return matchQueue;
+    }
+
+    public void setMatchQueue(String matchQueue) {
+        this.matchQueue = matchQueue;
     }
 
     public static Server getInstance() {

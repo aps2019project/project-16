@@ -13,7 +13,7 @@ import newView.SceneMakers.LoadingSceneMaker;
 import java.util.ArrayList;
 
 public class GameGraphicData {
-    private static boolean onLeft;
+    private static boolean onLeft = true;
     private static ZoomablePane zoomablePane;
     private static HandHBox handBox;
     private static EndTurnButton turnButton;

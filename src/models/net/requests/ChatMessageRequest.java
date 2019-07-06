@@ -1,17 +1,21 @@
 package models.net.requests;
 
+import models.net.RequestHandlerThread;
 import models.net.RequestPacket;
+import models.net.Server;
+import models.net.updates.ChatUpdate;
 
 public class ChatMessageRequest extends RequestPacket {
     private String message;
 
-    // TODO: 7/5/19 call it
     public ChatMessageRequest(String message) {
         this.message = message;
     }
 
     @Override
     public void run() {
-        // TODO: 7/5/19
+        String accountName = ((RequestHandlerThread) Thread.currentThread()).getAccountName();
+        ChatUpdate update = new ChatUpdate(accountName, message);
+        Server.getInstance().broadcastPacket(update);
     }
 }

@@ -109,14 +109,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         return new MyScene(borderPane);
     }
 
-    private void loginAction() {
-
-    }
-
-    private void signUpAction() {
-        //todo must  be  implemented by mostafa
-    }
-
     @Override
     public void setController(AccountContract.Controller controller) {
         this.controller = controller;

@@ -79,6 +79,10 @@ public class ServerSideClient {
         }
     }
 
+    public String getAccountName() {
+        return readerThread.getAccountName();
+    }
+
     public MyObservable<Boolean> getSocketState() {
         return socketState;
     }
