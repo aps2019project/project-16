@@ -3,9 +3,9 @@ package controllers;
 import contracts.CustomGameContract;
 import models.*;
 import models.artificialIntelligence.AIAccount;
+import models.net.Server;
+import models.net.updates.gameUpdates.GameStartedUpdate;
 import view.Notify;
-
-import java.util.ArrayList;
 
 public class CustomGameController implements CustomGameContract.Controller {
     private CustomGameContract.View view;
@@ -36,8 +36,7 @@ public class CustomGameController implements CustomGameContract.Controller {
         Game newGame = new Game(currentAccount, AIAccount, 1000, gameMode, flags);
         currentAccount.setCurrentGame(newGame);
 
-        // TODO: 7/6/19  send GameStartUpdate
-//        view.goToInGameMenu();
+        Server.getInstance().sendPacketByThread(new GameStartedUpdate());
     }
 
     @Override
