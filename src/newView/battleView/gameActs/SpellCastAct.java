@@ -40,7 +40,7 @@ public class SpellCastAct extends GameAct {
         Tile putTile = GameGraphicData.getTilesPane().getTile(row, column);
         putTile.showSpellCast(spellView);
 
-        if (isForLeft == GameGraphicData.isOnLeft() && !isCheatCast) {
+        if (!GameGraphicData.isSpectator() && isForLeft == GameGraphicData.isOnLeft() && !isCheatCast) {
             HandElement handElement = GameGraphicData.getHandBox().getHandElement(cardName, type.getName());
             Card card = handElement.getCard();
             handElement.setImageView(null, null, null, null);

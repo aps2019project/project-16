@@ -44,7 +44,7 @@ public class DieUnitAct extends GameAct {
 
         SoundPlayer.playByPath("src/newView/resources/sounds/die.wav");
 
-        if (forLeft == GameGraphicData.isOnLeft() && card != null) {
+        if (!GameGraphicData.isSpectator() && forLeft == GameGraphicData.isOnLeft() && card != null) {
             GameGraphicData.getGraveyardPane().addCard(unitName, type, card);
         }
 

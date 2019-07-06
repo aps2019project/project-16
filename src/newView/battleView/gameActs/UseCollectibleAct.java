@@ -37,7 +37,7 @@ public class UseCollectibleAct extends GameAct {
         Tile putTile = GameGraphicData.getTilesPane().getTile(row, column);
         putTile.showSpellCast(itemCastView);
 
-        if (forLeft == GameGraphicData.isOnLeft()) {
+        if (!GameGraphicData.isSpectator() && forLeft == GameGraphicData.isOnLeft()) {
             GameGraphicData.getCollectiblesHBox().deleteCollectible(itemName);
         }
     }
