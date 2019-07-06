@@ -40,7 +40,8 @@ public class Server {
     }
 
     public void sendPacketByThread(UpdatePacket packet) {
-        ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().sendPacket(packet);
+        if (Thread.currentThread() instanceof RequestHandlerThread)
+            ((RequestHandlerThread) Thread.currentThread()).getServerSideClient().sendPacket(packet);
     }
 
     private void acceptClient(Socket socket) throws IOException {

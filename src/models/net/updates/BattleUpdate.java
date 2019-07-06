@@ -13,6 +13,6 @@ public class BattleUpdate extends UpdatePacket {
 
     @Override
     public void update() {
-        // TODO must implemented.
+        // TODO Sadegh.
     }
 }
