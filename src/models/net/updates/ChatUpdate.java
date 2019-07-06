@@ -1,6 +1,7 @@
 package models.net.updates;
 
 import models.net.UpdatePacket;
+import newView.SceneMakers.GlobalChatSceneMaker;
 
 public class ChatUpdate extends UpdatePacket {
     private String playerName;
@@ -14,6 +15,6 @@ public class ChatUpdate extends UpdatePacket {
 
     @Override
     public void update() {
-        // TODO: 7/5/19
+        GlobalChatSceneMaker.getGlobalChatPane().addMassage(playerName ,message);
     }
 }
