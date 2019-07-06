@@ -90,6 +90,7 @@ public class Account {
             Deck defaultDeck = gameLevel.getDeck().getCopy();
             defaultDeck.setName("default1");
             collection.addDeck(defaultDeck);
+            collection.setMainDeck(defaultDeck);
         }
         //TODO END OF
     }
