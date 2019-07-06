@@ -5,19 +5,22 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
+import newView.GraphicalElements.globalChat.GlobalChatPane;
 
 public class GlobalChatSceneMaker extends SceneMaker {
+    private static GlobalChatPane globalChatPane = new GlobalChatPane();
 
     public GlobalChatSceneMaker(Stage primaryStage) {
         super(primaryStage);
     }
 
+
     @Override
     public Scene makeScene() throws Exception {
-        Pane root = new Pane();
+        return new MyScene(globalChatPane);
+    }
 
-        BackgroundMaker.setBackgroundFor(root, 1, "globalChat");
-
-        return new MyScene(root);
+    public static GlobalChatPane getGlobalChatPane() {
+        return globalChatPane;
     }
 }
