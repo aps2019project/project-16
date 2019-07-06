@@ -24,6 +24,7 @@ public class GameGraphicData {
     private static CardInfo cardInfo;
 
     private static SelectType selectType = null;
+    private static boolean spectator;
 
     private static Tile selectedTile;
     private static HandElement selectedHandElement;
@@ -47,6 +48,14 @@ public class GameGraphicData {
 
     public static void setSelectType(SelectType selectType) {
         GameGraphicData.selectType = selectType;
+    }
+
+    public static boolean isSpectator() {
+        return spectator;
+    }
+
+    public static void setSpectator(boolean spectator) {
+        GameGraphicData.spectator = spectator;
     }
 
     public static void setSelectedTile(SelectType type, Tile tile) {

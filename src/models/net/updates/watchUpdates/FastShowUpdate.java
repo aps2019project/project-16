@@ -1,6 +1,10 @@
 package models.net.updates.watchUpdates;
 
+import ir.pas.ClientApp;
+import javafx.application.Platform;
 import models.net.UpdatePacket;
+import newView.SceneMakers.InGameSceneMaker;
+import newView.battleView.GameGraphicData;
 import newView.battleView.gameActs.GameAct;
 
 import java.util.ArrayList;
@@ -15,6 +19,10 @@ public class FastShowUpdate extends UpdatePacket {
 
     @Override
     public void update() {
-        // TODO: 7/5/19
+        Platform.runLater(() -> {
+            GameGraphicData.setSpectator(true);
+            new InGameSceneMaker(ClientApp.getPrimaryStage()).set();
+            GameGraphicData.showActionsInFastRate(gameActs);
+        });
     }
 }
