@@ -153,7 +153,7 @@ public class Player {
     /////////////////////////////////////////////////////////////////////////////////////////////
     public void setMana(int mana) {
         this.mana = mana;
-        ClientSender.sendToViewer(new ManaAct(isOnLeft, getMana()));
+        ClientSender.sendToAllViewers(new ManaAct(isOnLeft, getMana()));
     }
 
     public ArrayList<Card> setHand() {
@@ -196,7 +196,7 @@ public class Player {
     public void cheat(String keyWord) {
         switch (keyWord) {
             case "salavat":
-                ClientSender.sendToViewer(new SalavatAct());
+                ClientSender.sendToAllViewers(new SalavatAct());
                 for (int i = 0; i < 5; i++) {
                     try {
                         putUnit(table.getCell(i, 4), Initializer.getNewMamad(), true);
@@ -205,11 +205,11 @@ public class Player {
                 }
                 break;
             case "ya hussein":
-                ClientSender.sendToViewer(new YaHusseinAct());
+                ClientSender.sendToAllViewers(new YaHusseinAct());
                 setMana(9);
                 break;
             case "ya abalfazl":
-                ClientSender.sendToViewer(new YaAbalfazlAct());
+                ClientSender.sendToAllViewers(new YaAbalfazlAct());
                 try {
                     Cell heroCell = hero.getCurrentCell();
                     castSpellCard(Initializer.getNewHeroSupport()
@@ -232,7 +232,7 @@ public class Player {
         this.hand.removeCard(unit);
         this.units.add(unit);
 
-        ClientSender.sendToViewer(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit, isCheatPut));
+        ClientSender.sendToAllViewers(new PutUnitAct(cell.getRow(), cell.getColumn(), isOnLeft, unit, isCheatPut));
 
         pickUpFlags(cell, unit);
         pickUpCollectibles(cell);
@@ -249,7 +249,7 @@ public class Player {
             throw new NotEnoughManaException();
         this.setMana(this.getMana() - spellCard.getManaCost());
 
-        ClientSender.sendToViewer(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard, isCheatCast));
+        ClientSender.sendToAllViewers(new SpellCastAct(cell.getRow(), cell.getColumn(), isOnLeft, spellCard, isCheatCast));
 
         spellCard.cast(this, cell);
         spellCard.setGameCardID(UniqueIDGenerator.getGameUniqueID(this.getAccount().getName(), spellCard.getName()));
@@ -275,7 +275,7 @@ public class Player {
         this.setMana(this.getMana() - hero.getSpellManaCost());
         hero.castSpell(cell);
 
-        ClientSender.sendToViewer(new SpecialPowerAct(cell.getRow(), cell.getColumn(), hero.getName()));
+        ClientSender.sendToAllViewers(new SpecialPowerAct(cell.getRow(), cell.getColumn(), hero.getName()));
 
         currentGame.checkIfAnyoneIsDead();
     }
@@ -286,7 +286,7 @@ public class Player {
         }
         selectedCollectible.use(this, cell);
 
-        ClientSender.sendToViewer(
+        ClientSender.sendToAllViewers(
                 new UseCollectibleAct(cell.getRow(), cell.getColumn(), selectedCollectible, isOnLeft));
 
         this.getCollectibles().removeIf(a -> a.equals(selectedCollectible));
@@ -320,7 +320,7 @@ public class Player {
                 unit.addFlag(flag);
                 flag.setOwnerUnit(unit);
 
-                ClientSender.sendToViewer(new PickFlagAct(cell.getRow(), cell.getColumn()));
+                ClientSender.sendToAllViewers(new PickFlagAct(cell.getRow(), cell.getColumn()));
             }
             cell.removeFlag();
         }
@@ -329,7 +329,7 @@ public class Player {
     public void pickUpCollectibles(Cell cell) {
         if (cell.getCollectibles().size() > 0) {
 
-            ClientSender.sendToViewer(new PickUpCollectibleAct(
+            ClientSender.sendToAllViewers(new PickUpCollectibleAct(
                     cell.getRow(), cell.getColumn(), isOnLeft, new ArrayList<>(cell.getCollectibles())
             ));
 

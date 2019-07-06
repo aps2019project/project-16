@@ -196,7 +196,7 @@ public class Buff {
 
             Cell cell = unit.getCurrentCell();
             if (cell != null && poison > 0) {
-                ClientSender.sendToViewer(new ChangeApHpAct(cell.getRow(), cell.getColumn()
+                ClientSender.sendToAllViewers(new ChangeApHpAct(cell.getRow(), cell.getColumn()
                         , true, -poison, true));
             }
         }
@@ -277,11 +277,11 @@ public class Buff {
             Cell cell = unit.getCurrentCell();
 
             if (deltaAP != 0) {
-                ClientSender.sendToViewer(new ChangeApHpAct(cell.getRow(), cell.getColumn()
+                ClientSender.sendToAllViewers(new ChangeApHpAct(cell.getRow(), cell.getColumn()
                         , false, deltaAP, false));
             }
             if (deltaHP != 0) {
-                ClientSender.sendToViewer(new ChangeApHpAct(cell.getRow(), cell.getColumn()
+                ClientSender.sendToAllViewers(new ChangeApHpAct(cell.getRow(), cell.getColumn()
                         , true, deltaHP, false));
             }
         }

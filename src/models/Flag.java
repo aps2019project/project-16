@@ -12,7 +12,7 @@ public class Flag {
         this.currentCell = cell;
         this.ownerUnit = null;
         cell.addFlag(this);
-        ClientSender.sendToViewer(new AddFlagAct(cell.getRow(), cell.getColumn()));
+        ClientSender.sendToAllViewers(new AddFlagAct(cell.getRow(), cell.getColumn()));
     }
 
     public Cell getCurrentCell() {

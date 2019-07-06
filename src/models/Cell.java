@@ -38,7 +38,7 @@ public class Cell implements Buffable {
     public void addCollectible(Item collectible) {
         collectibles.add(collectible);
 
-        ClientSender.sendToViewer(new AddCollectibleAct(row, column, collectible.getName()));
+        ClientSender.sendToAllViewers(new AddCollectibleAct(row, column, collectible.getName()));
     }
 
     public int getRow() {
@@ -67,7 +67,7 @@ public class Cell implements Buffable {
 
     @Override
     public void addBuff(Buff buff) {
-        ClientSender.sendToViewer(new AddCellEffectAct(getCellEffectType(buff), row, column));
+        ClientSender.sendToAllViewers(new AddCellEffectAct(getCellEffectType(buff), row, column));
         cellEffect.add(buff.copy());
     }
 
@@ -80,7 +80,7 @@ public class Cell implements Buffable {
     public void doBuffs() {
         for (Buff buff : cellEffect)  {
             if (buff.getRemainingDuration() == 0)
-                ClientSender.sendToViewer(new RemoveCellEffectAct(getCellEffectType(buff), row, column));
+                ClientSender.sendToAllViewers(new RemoveCellEffectAct(getCellEffectType(buff), row, column));
             buff.castOnEndTurn(this);
         }
     }

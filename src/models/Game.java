@@ -30,22 +30,29 @@ public class Game {
     private boolean endFlag = false;
     private int numberOfFlags;
 
+    private ArrayList<Account> spectators = new ArrayList<>();
+
     public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode, int numberOfFlags) {
+        firstAccount.setCurrentGame(this);
+        secondAccount.setCurrentGame(this);
+
         UniqueIDGenerator.renewWrappersList();
         this.reward = reward;
         this.gameMode = gameMode;
         this.currentPlayer = this.players[0] = firstAccount.getNewPlayerFromAccount();
         this.opponentPlayer = this.players[1] = secondAccount.getNewPlayerFromAccount();
 
+        spectators.add(firstAccount);
+        spectators.add(secondAccount);
         players[0].setCurrentGame(this);
         players[1].setCurrentGame(this);
 
         // TODO Mostafa: 7/2/19 it's must be corrected in server-client
         //  be currentPlayer "true" ersal besheh be opponent player ham "false" ersal beshe
         //  be spectator ha ham mohem nist koodomesh bashe
-        ClientSender.sendToViewer(new SetOnLeftAct(true));
+        ClientSender.sendToAllViewers(new SetOnLeftAct(true));
 
-        ClientSender.sendToViewer(new SetPlayerInfosAct(firstAccount.getName(), secondAccount.getName()));
+        ClientSender.sendToAllViewers(new SetPlayerInfosAct(firstAccount.getName(), secondAccount.getName()));
 
         initHands();
         initIsOnLeft();
@@ -65,6 +72,10 @@ public class Game {
         for (int i = 0; i < 2; i++) {
             players[i].setOnLeft(getIsForLeft(i));
         }
+    }
+
+    public ArrayList<Account> getSpectators() {
+        return spectators;
     }
 
     public int getNumberOfFlags() {
@@ -103,7 +114,7 @@ public class Game {
     public void setWinner(Player winner) {
         this.winner = winner;
 
-        ClientSender.sendToViewer(new GameEndAct(winner.getName()));
+        ClientSender.sendToAllViewers(new GameEndAct(winner.getName()));
     }
 
     public GameMode getGameMode() {
@@ -114,7 +125,7 @@ public class Game {
         for (int i = 0; i < 2; i++) {
             ArrayList<Card> addedCards = players[i].setHand();
             for (Card card : addedCards) {
-                ClientSender.sendToViewer(new AddToHandAct(getIsForLeft(i), card));
+                ClientSender.sendToAllViewers(new AddToHandAct(getIsForLeft(i), card));
             }
         }
     }
@@ -139,7 +150,7 @@ public class Game {
 
     public void changeTurn() throws GameIsEndException {
 
-        ClientSender.sendToViewer(new TurnChangeAct());
+        ClientSender.sendToAllViewers(new TurnChangeAct());
 
         endTurn();
         startTurn();
@@ -147,7 +158,7 @@ public class Game {
 
             ((AIPlayer) currentPlayer).doActsInAITurn(this);
 
-            ClientSender.sendToViewer(new TurnChangeAct());
+            ClientSender.sendToAllViewers(new TurnChangeAct());
 
             endTurn();
             startTurn();
@@ -179,7 +190,7 @@ public class Game {
                     Card nextCard = player.getDeck().pop();
                     player.getHand().addCard(nextCard);
 
-                    ClientSender.sendToViewer(new AddToHandAct(player == players[0], nextCard));
+                    ClientSender.sendToAllViewers(new AddToHandAct(player == players[0], nextCard));
                 }
             } catch (ArrayIsEmptyException e) {
 
@@ -306,7 +317,7 @@ public class Game {
                     unit.castSpecialPower(SpecialPowerCastTime.ON_DEATH, currentCell);//todo: send to client
                     unitsToRemove.add(unit);
 
-                    ClientSender.sendToViewer(new DieUnitAct(currentCell.getRow(), currentCell.getColumn()
+                    ClientSender.sendToAllViewers(new DieUnitAct(currentCell.getRow(), currentCell.getColumn()
                             , unit.getName(), unit instanceof Hero ? Type.HERO : Type.MINION
                             , getIsForLeft(player)));
                 }
@@ -371,7 +382,7 @@ public class Game {
             hero.setGameCardID(UniqueIDGenerator.getGameUniqueID(players[i].getAccount().getName(), hero.getName()));
             cell.setUnit(hero);
 
-            ClientSender.sendToViewer(
+            ClientSender.sendToAllViewers(
                     new PutUnitAct(2, 8 * i, getIsForLeft(i), hero, false));
 
             players[i].setHero(hero);
@@ -387,7 +398,7 @@ public class Game {
             if (item != null && !(item instanceof ManaItem)) {
                 item.use(player, table.getCell(0, 0));
 
-                ClientSender.sendToViewer(new UsableItemAct(player.getName(), item.getName()));
+                ClientSender.sendToAllViewers(new UsableItemAct(player.getName(), item.getName()));
             }
         }
     }
