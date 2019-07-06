@@ -15,6 +15,9 @@ public class Server {
 
     private MyObservable<Boolean> socketState;
 
+    private String matchQueue;
+    public final String matchQueueLock = "Lock";
+
     private Server() {
         try {
             serverSocket = new ServerSocket(8080);
@@ -61,6 +64,14 @@ public class Server {
         } finally {
             socketState.setState(false);
         }
+    }
+
+    public String getMatchQueue() {
+        return matchQueue;
+    }
+
+    public void setMatchQueue(String matchQueue) {
+        this.matchQueue = matchQueue;
     }
 
     public static Server getInstance() {
