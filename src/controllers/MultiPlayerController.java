@@ -5,6 +5,8 @@ import models.Account;
 import models.Game;
 import models.GameContents;
 import models.GameMode;
+import models.net.Server;
+import models.net.updates.gameUpdates.GameStartedUpdate;
 import view.Notify;
 
 public class MultiPlayerController implements MultiPlayerContract.Controller {
@@ -13,6 +15,10 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
     public MultiPlayerController(MultiPlayerContract.View view) {
         this.view = view;
         view.setController(this);
+    }
+
+    public MultiPlayerController() {
+
     }
 
     @Override
@@ -56,12 +62,10 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
 
         GameMode gameMode = getGameMode(mode);
 
-        Game newGame = new Game(currentAccount, secondAccount, 1000, gameMode, numberOfFlags);
-        currentAccount.setCurrentGame(newGame);
-        secondAccount.setCurrentGame(newGame);
-//      RRR-Remove  GameContents
-//      .setCurrentGame(newGame);
-        view.goToInGameMenu();
+        new Game(currentAccount, secondAccount, 1000, gameMode, numberOfFlags);
+
+        Server.getInstance().sendPacketTo(currentAccount.getName(), new GameStartedUpdate());
+        Server.getInstance().sendPacketTo(secondAccount.getName(), new GameStartedUpdate());
     }
 
     public static GameMode getGameMode(int mode) {
