@@ -84,6 +84,11 @@ public class Server {
                 client.sendPacket(packet);
     }
 
+    public void broadcastPacket(UpdatePacket packet) {
+        for (ServerSideClient client : clients)
+            client.sendPacket(packet);
+    }
+
     public String getMatchQueue() {
         return matchQueue;
     }
