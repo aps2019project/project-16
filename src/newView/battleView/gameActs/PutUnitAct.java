@@ -5,10 +5,10 @@ import javafx.scene.paint.Color;
 import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.HandElement;
 import newView.GraphicalElements.battle.Tile;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 public class PutUnitAct extends GameAct {
     private String cardName;

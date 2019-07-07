@@ -3,10 +3,10 @@ package newView.battleView.gameActs;
 import javafx.scene.image.ImageView;
 import models.card.Card;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.HandElement;
 import newView.GraphicalElements.battle.Tile;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 public class SpellCastAct extends GameAct {
     private String cardName;

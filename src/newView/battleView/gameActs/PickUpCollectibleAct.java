@@ -1,8 +1,8 @@
 package newView.battleView.gameActs;
 
 import models.item.Item;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
+import newView.battleView.GameGraphicData;
 
 import java.util.ArrayList;
 

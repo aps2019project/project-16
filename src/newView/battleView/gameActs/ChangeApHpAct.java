@@ -6,9 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
 import newView.GraphicalElements.battle.TilesPane;
+import newView.battleView.GameGraphicData;
 
 import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 

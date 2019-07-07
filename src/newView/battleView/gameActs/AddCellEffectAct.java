@@ -2,9 +2,9 @@ package newView.battleView.gameActs;
 
 import javafx.scene.paint.Color;
 import models.CellEffectType;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.CellEffectPane;
 import newView.GraphicalElements.battle.Tile;
+import newView.battleView.GameGraphicData;
 
 public class AddCellEffectAct extends GameAct {
     private CellEffectType effectType;
