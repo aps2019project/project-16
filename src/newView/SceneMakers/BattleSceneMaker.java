@@ -39,8 +39,8 @@ public class BattleSceneMaker extends SceneMaker {
         });
 
 
-        ImageView customGame = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/singlePlayer.png")));
-        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/multiPlayer.png")));
+        ImageView customGame = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/customGame.png")));
+        ImageView storyMode = new ImageView(new Image(new FileInputStream("src/newView/resources/battleEntry/storyMode.png")));
 
         ScaleTool.resizeImageView(storyMode, 100, 200);
         ScaleTool.resizeImageView(customGame, 100, 203);
