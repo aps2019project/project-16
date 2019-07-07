@@ -97,6 +97,15 @@ public class Server {
         this.matchQueue = matchQueue;
     }
 
+    public boolean isOnline(String accountName) {
+        for (ServerSideClient client : clients) {
+            if (accountName.equals(client.getAccountName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Server getInstance() {
         if (instance == null)
             instance = new Server();
