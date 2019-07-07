@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.net.Client;
+import models.net.requests.LogoutRequest;
 import newView.GraphicalElements.*;
 import newView.SoundPlayer;
 
@@ -101,7 +103,10 @@ public class MainMenuSceneMaker extends SceneMaker {
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
         Text logout = new Text("Logout");
-        logout.setOnMouseClicked(event -> new LoginSceneMaker(getPrimaryStage()).set());
+        logout.setOnMouseClicked(event -> {
+            Client.getInstance().sendPacket(new LogoutRequest());
+            new LoginSceneMaker(getPrimaryStage()).set();
+        });
 
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
