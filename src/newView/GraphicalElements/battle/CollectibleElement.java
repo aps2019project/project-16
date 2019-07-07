@@ -8,10 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.item.Item;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
-import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.Type;
+import newView.battleView.GameGraphicData;
+import newView.battleView.SelectType;
 
 import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
