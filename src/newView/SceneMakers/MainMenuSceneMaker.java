@@ -91,8 +91,11 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text scoreBoard = new Text("Score Board");
         scoreBoard.setOnMouseClicked(event -> new ScoreBoardSceneMaker(getPrimaryStage()).set());
 
-        Text liveMatches = new Text("Live matches");
+        Text liveMatches = new Text("Live Matches");
         liveMatches.setOnMouseClicked(event -> new LiveMatchesSceneMaker(getPrimaryStage()).set());
+
+        Text replayMatches = new Text("Replay Matches");
+        replayMatches.setOnMouseClicked(event -> new ReplayMatchesSceneMaker(getPrimaryStage()).set());
 
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
@@ -103,7 +106,8 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
 
-        commandsBox.getChildren().addAll(battle, shop, collection, customCard, globalChat, scoreBoard, save, logout, exit);
+        commandsBox.getChildren().addAll(battle, shop, collection, customCard, globalChat, liveMatches, replayMatches
+                , scoreBoard, save, logout, exit);
         commandsBox.getChildren().forEach(node -> {
             if (node instanceof Text) {
                 setTextStyle((Text) node);
