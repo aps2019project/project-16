@@ -27,7 +27,7 @@ public class ServerMenuSceneMaker extends SceneMaker {
 
         Text shop = new Text("Shop");
         shop.setStyle("-fx-text-fill: black");
-
+        shop.setOnMouseClicked(event -> new ServerShopSceneMaker(getPrimaryStage()).set());
 
         Text scoreBoard = new Text("ScoreBoard");
         shop.setStyle("-fx-text-fill:  black");
