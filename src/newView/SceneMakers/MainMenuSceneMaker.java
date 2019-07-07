@@ -91,6 +91,9 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text scoreBoard = new Text("Score Board");
         scoreBoard.setOnMouseClicked(event -> new ScoreBoardSceneMaker(getPrimaryStage()).set());
 
+        Text liveMatches = new Text("Live matches");
+        liveMatches.setOnMouseClicked(event -> new LiveMatchesSceneMaker(getPrimaryStage()).set());
+
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
 
