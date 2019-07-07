@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class ReplayListUpdate extends UpdatePacket {
     private ArrayList<MatchDetail> matchDetails;
 
-    // TODO mostafa: 7/6/19 call it
     public ReplayListUpdate(ArrayList<MatchDetail> matchDetails) {
         this.matchDetails = matchDetails;
     }

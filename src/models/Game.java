@@ -33,9 +33,15 @@ public class Game {
     private boolean endFlag = false;
     private int numberOfFlags;
 
+    private int matchId;
+    private ArrayList<GameAct> gameActs = new ArrayList<>();
+
     private ArrayList<Account> spectators = new ArrayList<>();
 
     public Game(Account firstAccount, Account secondAccount, int reward, GameMode gameMode, int numberOfFlags) {
+        matchId = UniqueIDGenerator.getCollectionUniqueID();
+        Server.getInstance().addLiveGame(this);
+
         firstAccount.setCurrentGame(this);
         secondAccount.setCurrentGame(this);
 
@@ -80,6 +86,10 @@ public class Game {
 
     public ArrayList<Account> getSpectators() {
         return spectators;
+    }
+
+    public void addSpectator (Account spectator) {
+        spectators.add(spectator);
     }
 
     public int getNumberOfFlags() {
@@ -351,6 +361,26 @@ public class Game {
             }
         }
         return flags;
+    }
+
+    public int getMatchId() {
+        return matchId;
+    }
+
+    public ArrayList<GameAct> getGameActs() {
+        return gameActs;
+    }
+
+    public void addGameAct(GameAct gameAct) {
+        gameActs.add(gameAct);
+    }
+
+    public Account getFirstAccount() {
+        return accounts[0];
+    }
+
+    public Account getSecondAccount() {
+        return accounts[1];
     }
 
     public void incrementTurnFlagKeeped() {

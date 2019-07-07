@@ -1,6 +1,9 @@
 package models.net.requests.watchRequests;
 
 import models.net.RequestPacket;
+import models.net.Server;
+import models.net.UpdatePacket;
+import models.net.updates.watchUpdates.MatchReplayUpdate;
 
 public class ReplayWatchRequest extends RequestPacket {
     private int matchID;
@@ -12,6 +15,7 @@ public class ReplayWatchRequest extends RequestPacket {
 
     @Override
     public void run() {
-        // TODO Mostafa: 7/6/19
+        UpdatePacket packet = new MatchReplayUpdate(Server.getInstance().getGame(matchID).getGameActs());
+        Server.getInstance().sendPacketByThread(packet);
     }
 }

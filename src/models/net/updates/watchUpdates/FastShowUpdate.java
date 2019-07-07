@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class FastShowUpdate extends UpdatePacket {
     private ArrayList<GameAct> gameActs;
 
-    // TODO Mostafa: 7/5/19
     public FastShowUpdate(ArrayList<GameAct> gameActs) {
         this.gameActs = gameActs;
     }
