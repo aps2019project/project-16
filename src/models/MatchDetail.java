@@ -1,30 +1,30 @@
 package models;
 
 public class MatchDetail {
-    private String firstPlayer;
-    private String secondPlayer;
+    private String firstPlayerName;
+    private String secondPlayerName;
     private boolean firstIsWinner;
     private int matchID;
 
-    public MatchDetail(String firstPlayer, String secondPlayer, int matchID) {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
+    public MatchDetail(String firstPlayerName, String secondPlayerName, int matchID) {
+        this.firstPlayerName = firstPlayerName;
+        this.secondPlayerName = secondPlayerName;
         this.matchID = matchID;
     }
 
-    public MatchDetail(String firstPlayer, String secondPlayer, boolean firstIsWinner, int matchID) {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
+    public MatchDetail(String firstPlayerName, String secondPlayerName, boolean firstIsWinner, int matchID) {
+        this.firstPlayerName = firstPlayerName;
+        this.secondPlayerName = secondPlayerName;
         this.firstIsWinner = firstIsWinner;
         this.matchID = matchID;
     }
 
-    public String getFirstPlayer() {
-        return firstPlayer;
+    public String getFirstPlayerName() {
+        return firstPlayerName;
     }
 
-    public String getSecondPlayer() {
-        return secondPlayer;
+    public String getSecondPlayerName() {
+        return secondPlayerName;
     }
 
     public boolean isFirstIsWinner() {
