@@ -14,6 +14,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.MatchDetail;
+import models.net.Client;
+import models.net.requests.gameRequests.RefuseRequest;
+import models.net.requests.watchRequests.LiveWatchRequest;
+import models.net.requests.watchRequests.ReplayWatchRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
@@ -24,18 +28,17 @@ import java.util.ArrayList;
 
 public class ReplayMatchesSceneMaker extends SceneMaker {
 
-    ArrayList<MatchDetail> finishedMatchDetails = new ArrayList<>();
-    ArrayList<MatchDetail> liveMatchDetails = new ArrayList<>();
+    private static ArrayList<MatchDetail> finishedMatchDetails;
+    private static ArrayList<MatchDetail> liveMatchDetails;
 
-    private int archiveCounter;
-    private int onlineCounter;
+    private static int archiveCounter;
+    private static int onlineCounter;
 
-    ScrollPane scroller = new ScrollPane();
-    private ImageView liveButton;
-    private ImageView archiveButton;
-    private ImageView back;
-    private boolean showLive = true;
-    private VBox visiblePane;
+    private static ImageView liveButton;
+    private static ImageView archiveButton;
+    private static ImageView back;
+    private static boolean showLive = true;
+    private static VBox visiblePane;
 
     public ReplayMatchesSceneMaker(Stage primaryStage) {
         super(primaryStage);
@@ -76,8 +79,9 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         visiblePane.setStyle("-fx-background-color: rgb(32 ,32, 32,0.8)");
         ScaleTool.resizeRegion(visiblePane, 420, 600);
 //        visiblePane.getChildren().add(getMatchPane();
-        liveMatchDetails.add(new MatchDetail("klfdsng", "asghar", 43));
-        finishedMatchDetails.add(new MatchDetail("mmd kala", "asd", 43));
+
+//        liveMatchDetails.add(new MatchDetail("klfdsng", "asghar", 43));
+//        finishedMatchDetails.add(new MatchDetail("mmd kala", "asd", 43));
 
         ScaleTool.relocate(visiblePane, 500, 50);
         showMatches();
@@ -92,7 +96,7 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
     }
 
-    private void showMatches() {
+    private static void showMatches() {
         try {
             if (showLive)
                 showLiveMatches();
@@ -103,7 +107,7 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         }
     }
 
-    private void showLiveMatches() throws FileNotFoundException {
+    private static void showLiveMatches() throws FileNotFoundException {
         visiblePane.getChildren().removeIf(e -> true);
         for (int i = 0; i < 5; i++) {
             if (i + onlineCounter < liveMatchDetails.size()) {
@@ -114,7 +118,7 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         }
     }
 
-    private void showArchiveMatches() throws FileNotFoundException {
+    private static void showArchiveMatches() throws FileNotFoundException {
         visiblePane.getChildren().removeIf(e -> true);
         for (int i = 0; i < 5; i++) {
             if (i + archiveCounter < finishedMatchDetails.size()) {
@@ -125,7 +129,7 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         }
     }
 
-    private Pane getMatchPane(MatchDetail matchDetail, boolean isOnline) throws FileNotFoundException {
+    private static Pane getMatchPane(MatchDetail matchDetail, boolean isLive) throws FileNotFoundException {
         Pane pane = new Pane();
         ScaleTool.resizeRegion(pane, 400, 100);
         pane.setStyle("-fx-background-color: rgb(100,100,100 ,0.5)");
@@ -157,13 +161,27 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         secondPLayer.getChildren().add(secondPlayerText);
 
         pane.getChildren().addAll(firstPlayer, secondPLayer, versus);
-        if (isOnline)
+        if (isLive)
             pane.getChildren().add(onlineSign);
         pane.setOnMouseClicked(event -> {
-            ///todo
+            int matchId = matchDetail.getMatchID();
+            if (isLive)
+                Client.getInstance().sendPacket(new LiveWatchRequest(matchId));
+            else
+                Client.getInstance().sendPacket(new ReplayWatchRequest(matchId));
         });
 
         return pane;
+    }
+
+    public static void updateLiveMatchDetailes(ArrayList<MatchDetail> matchDetails) {
+        liveMatchDetails = matchDetails;
+        showMatches();
+    }
+
+    public static void updateArchivedMatchDetailes(ArrayList<MatchDetail> matchDetails) {
+        finishedMatchDetails = matchDetails;
+        showMatches();
     }
 
 

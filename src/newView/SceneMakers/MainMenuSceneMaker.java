@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.net.Client;
+import models.net.requests.watchRequests.GetLiveListRequest;
+import models.net.requests.watchRequests.GetReplayListRequest;
 import newView.GraphicalElements.*;
 import newView.SoundPlayer;
 
@@ -92,7 +95,11 @@ public class MainMenuSceneMaker extends SceneMaker {
         scoreBoard.setOnMouseClicked(event -> new ScoreBoardSceneMaker(getPrimaryStage()).set());
 
         Text replayMatches = new Text("Replay Matches");
-        replayMatches.setOnMouseClicked(event -> new ReplayMatchesSceneMaker(getPrimaryStage()).set());
+        replayMatches.setOnMouseClicked(event -> {
+            Client.getInstance().sendPacket(new GetLiveListRequest());
+            Client.getInstance().sendPacket(new GetReplayListRequest());
+            new ReplayMatchesSceneMaker(getPrimaryStage()).set();
+        });
 
         Text save = new Text("Save");
         save.setOnMouseClicked(event -> new AccountController().saveGameData());
