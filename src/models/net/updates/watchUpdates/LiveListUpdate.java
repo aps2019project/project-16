@@ -1,16 +1,20 @@
 package models.net.updates.watchUpdates;
 
+import models.MatchDetail;
 import models.net.UpdatePacket;
 
 import java.util.ArrayList;
 
 public class LiveListUpdate extends UpdatePacket {
+    private ArrayList<MatchDetail> matchDetails;
+
     // TODO mostafa: 7/6/19
-    //  private ArrayList<Match?>
-    //  + constructor
+    public LiveListUpdate(ArrayList<MatchDetail> matchDetails) {
+        this.matchDetails = matchDetails;
+    }
 
     @Override
     public void update() {
-        // TODO sadegh: 7/6/19
+        // TODO Sepehr: 7/6/19
     }
 }

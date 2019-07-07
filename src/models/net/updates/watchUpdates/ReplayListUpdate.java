@@ -1,14 +1,20 @@
 package models.net.updates.watchUpdates;
 
+import models.MatchDetail;
 import models.net.UpdatePacket;
 
+import java.util.ArrayList;
+
 public class ReplayListUpdate extends UpdatePacket {
-    // TODO mostafa: 7/6/19
-    //  private ArrayList<Match?>
-    //  + constructor
+    private ArrayList<MatchDetail> matchDetails;
+
+    // TODO mostafa: 7/6/19 call it
+    public ReplayListUpdate(ArrayList<MatchDetail> matchDetails) {
+        this.matchDetails = matchDetails;
+    }
 
     @Override
     public void update() {
-        // TODO Sadegh + sepehr: 7/6/19
+        // TODO Sepehr: 7/6/19
     }
 }

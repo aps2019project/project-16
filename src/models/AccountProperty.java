@@ -1,4 +1,4 @@
-package newView.GraphicalElements.scoreBoard;
+package models;
 
 public class AccountProperty {
     private int money;

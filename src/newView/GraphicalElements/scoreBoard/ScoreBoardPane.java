@@ -7,11 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import models.AccountProperty;
 import newView.GraphicalElements.ScaleTool;
 import newView.SceneMakers.MainMenuSceneMaker;
-import sun.security.krb5.SCDynamicStoreConfig;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
