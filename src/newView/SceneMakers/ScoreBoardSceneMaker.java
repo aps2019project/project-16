@@ -1,5 +1,6 @@
 package newView.SceneMakers;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,10 +30,14 @@ public class ScoreBoardSceneMaker extends SceneMaker {
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/scoreBoard/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
-        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+        setBackOnMouseClick(back);
         pane.getChildren().add(scoreBoardPane);
         pane.getChildren().add(back);
         return new MyScene(pane);
+    }
+
+    protected void setBackOnMouseClick(Node back) {
+        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
     }
 
     public static ScoreBoardPane getScoreBoardPane() {
