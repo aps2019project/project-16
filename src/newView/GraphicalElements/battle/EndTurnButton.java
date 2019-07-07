@@ -21,8 +21,8 @@ public class EndTurnButton extends ImageView {
     private static final double BUTTON_WIDTH = 250;
     private static final double BUTTON_HEIGHT = 100;
 
-    public EndTurnButton(boolean enable) throws FileNotFoundException {
-        isEnable = enable;
+    public EndTurnButton() throws FileNotFoundException {
+        isEnable = GameGraphicData.isOnLeft();
         if (isEnable) {
             setImage(normalImage);
         } else {

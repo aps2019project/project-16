@@ -26,7 +26,7 @@ public class InGameSceneMaker extends SceneMaker {
         BackgroundMaker.setBackgroundFor(zoomablePane, 10, "battle");
 
         ImageView mapBGView = ForegroundMaker.getForeground(10, 1400, 900, "battle");
-        ScaleTool.relocate(mapBGView, WIDTH / 2 - 1400 / 2, HEIGHT / 2 - 900 / 2);
+        ScaleTool.relocate(mapBGView, WIDTH / 2 - 1400.0 / 2, HEIGHT / 2 - 900.0 / 2);
 
         SnowPane snowPane = new SnowPane();
 
@@ -50,15 +50,28 @@ public class InGameSceneMaker extends SceneMaker {
 
         TilesPane tilesPane = new TilesPane();
 
-        EndTurnButton endTurnButton = new EndTurnButton(true);
+        EndTurnButton endTurnButton = new EndTurnButton();
 
         GameGraphicData.setDatas(zoomablePane, handHBox, endTurnButton, tilesPane, infoPanes
                 , collectiblesHBox, graveyardPane, cardInfo);
 
+        //add to pane children
         zoomablePane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]
                 , fastForwardPane, collectiblesHBox);
-        zoomablePane.getChildren().addAll(graveyardPane, cheatPane, cardInfo, backButton);
-        zoomablePane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
+
+        if (!GameGraphicData.isSpectator()) {
+            zoomablePane.getChildren().addAll(graveyardPane, cheatPane);
+        }
+
+        zoomablePane.getChildren().addAll(cardInfo, backButton);
+
+        if (!GameGraphicData.isSpectator()) {
+            zoomablePane.getChildren().addAll(handHBox, endTurnButton);
+        }
+
+        zoomablePane.getChildren().addAll(tilesPane);
+        //end of adding to childrens
+
         zoomablePane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(zoomablePane);
     }
