@@ -1,0 +1,5 @@
+
+//todo for mostafa :))
+
+1 - check turn of player that send BattleRequest
+2 -

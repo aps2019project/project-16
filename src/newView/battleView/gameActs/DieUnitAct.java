@@ -7,10 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import models.card.Card;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
 import newView.SoundPlayer;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 

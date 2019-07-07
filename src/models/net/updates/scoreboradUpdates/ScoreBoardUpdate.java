@@ -1,7 +1,7 @@
-package models.net.updates;
+package models.net.updates.scoreboradUpdates;
 
-import models.net.UpdatePacket;
 import models.AccountProperty;
+import models.net.UpdatePacket;
 import newView.SceneMakers.ScoreBoardSceneMaker;
 
 import java.util.ArrayList;

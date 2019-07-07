@@ -5,15 +5,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.TilesPane;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
-import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
 import static newView.GraphicalElements.battle.TilesPane.NUMBER_OF_COLUMNS;
 import static newView.GraphicalElements.battle.TilesPane.NUMBER_OF_ROWS;
+import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 
 public class UsableItemAct extends GameAct {
     private String playerName;

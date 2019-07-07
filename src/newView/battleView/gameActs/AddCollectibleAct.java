@@ -2,9 +2,9 @@ package newView.battleView.gameActs;
 
 import javafx.scene.image.ImageView;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 public class AddCollectibleAct extends GameAct {
     private int row;

@@ -13,5 +13,6 @@ public class LiveWatchRequest extends RequestPacket {
     @Override
     public void run() {
         // TODO Mostafa: 7/6/19
+        //  + add requester to game spectators
     }
 }

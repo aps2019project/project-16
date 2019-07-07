@@ -5,10 +5,10 @@ import models.card.Card;
 import models.card.Hero;
 import models.card.Minion;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.HandElement;
 import newView.GraphicalElements.battle.HandHBox;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 public class AddToHandAct extends GameAct {
     private String cardName;

@@ -6,9 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.TilesPane;
+import newView.battleView.GameGraphicData;
 
 import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
 import static newView.GraphicalElements.battle.TilesPane.NUMBER_OF_COLUMNS;

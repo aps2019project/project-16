@@ -1,7 +1,7 @@
 package newView.battleView.gameActs;
 
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.PlayerInfoPane;
+import newView.battleView.GameGraphicData;
 
 public class SetPlayerInfosAct extends GameAct {
     private String leftName;

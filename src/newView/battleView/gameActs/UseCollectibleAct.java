@@ -3,9 +3,9 @@ package newView.battleView.gameActs;
 import javafx.scene.image.ImageView;
 import models.item.Item;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 public class UseCollectibleAct extends GameAct {
     private String itemName;

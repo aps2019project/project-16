@@ -9,10 +9,10 @@ import models.Cell;
 import models.card.Card;
 import models.card.Hero;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
 import newView.SoundPlayer;
 import newView.Type;
+import newView.battleView.GameGraphicData;
 
 import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 

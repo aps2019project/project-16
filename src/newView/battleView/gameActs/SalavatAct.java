@@ -4,9 +4,9 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.TilesPane;
 import newView.SoundPlayer;
+import newView.battleView.GameGraphicData;
 
 import static newView.battleView.GameGraphicListener.GAME_ACT_TIME;
 

@@ -1,7 +1,7 @@
 package newView.battleView.gameActs;
 
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.battle.Tile;
+import newView.battleView.GameGraphicData;
 
 public class PickFlagAct extends GameAct {
     private int row;
