@@ -1,6 +1,5 @@
 package newView.SceneMakers;
 
-import controllers.AccountController;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -13,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.net.Client;
+import models.net.requests.SaveRequest;
 import models.net.requests.watchRequests.GetLiveListRequest;
 import models.net.requests.watchRequests.GetReplayListRequest;
 import models.net.requests.LogoutRequest;
@@ -103,7 +103,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         });
 
         Text save = new Text("Save");
-        save.setOnMouseClicked(event -> new AccountController().saveGameData());
+        save.setOnMouseClicked(event -> Client.getInstance().sendPacket(new SaveRequest()));
 
         Text logout = new Text("Logout");
         logout.setOnMouseClicked(event -> {
