@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import newView.battleView.GameGraphicData;
-import newView.battleView.GraphicalGameViewer;
 import newView.battleView.gameActs.*;
 import newView.GraphicalElements.*;
 import newView.GraphicalElements.battle.*;
@@ -13,7 +12,6 @@ import newView.GraphicalElements.effects.SnowPane;
 import java.util.Random;
 
 public class InGameSceneMaker extends SceneMaker {
-    private static GraphicalGameViewer gameViewer = new GraphicalGameViewer();
     private static Random random = new Random();
 
     public InGameSceneMaker(Stage primaryStage) {
@@ -26,7 +24,7 @@ public class InGameSceneMaker extends SceneMaker {
         BackgroundMaker.setBackgroundFor(zoomablePane, 10, "battle");
 
         ImageView mapBGView = ForegroundMaker.getForeground(10, 1400, 900, "battle");
-        ScaleTool.relocate(mapBGView, WIDTH / 2 - 1400 / 2, HEIGHT / 2 - 900 / 2);
+        ScaleTool.relocate(mapBGView, WIDTH / 2 - 1400.0 / 2, HEIGHT / 2 - 900.0 / 2);
 
         SnowPane snowPane = new SnowPane();
 
@@ -50,43 +48,31 @@ public class InGameSceneMaker extends SceneMaker {
 
         TilesPane tilesPane = new TilesPane();
 
-        EndTurnButton endTurnButton = new EndTurnButton(true);
+        EndTurnButton endTurnButton = new EndTurnButton();
 
         GameGraphicData.setDatas(zoomablePane, handHBox, endTurnButton, tilesPane, infoPanes
                 , collectiblesHBox, graveyardPane, cardInfo);
 
+        //add to pane children
         zoomablePane.getChildren().addAll(mapBGView, snowPane, infoPanes[0], infoPanes[1]
                 , fastForwardPane, collectiblesHBox);
-        zoomablePane.getChildren().addAll(graveyardPane, cheatPane, cardInfo, backButton);
-        zoomablePane.getChildren().addAll(handHBox, tilesPane, endTurnButton);
+
+        if (!GameGraphicData.isSpectator()) {
+            zoomablePane.getChildren().addAll(graveyardPane, cheatPane);
+        }
+
+        zoomablePane.getChildren().addAll(cardInfo, backButton);
+
+        if (!GameGraphicData.isSpectator()) {
+            zoomablePane.getChildren().addAll(handHBox, endTurnButton);
+        }
+
+        zoomablePane.getChildren().addAll(tilesPane);
+        //end of adding to childrens
+
         zoomablePane.setCursor(SceneMaker.GAME_CURSOR);
         return new MyScene(zoomablePane);
     }
-
-    private void testForActions(EndTurnButton button) {
-        button.setOnMouseClicked(event -> {
-//            makeMoveAct();
-//            makeAttackAct();
-//            makeManaAct();
-//            makeAddToHandAct();
-//            makeAddToHandAct();
-//            makePutUnit();
-//            makeSpellAct();
-//            makeSpecialPAct();
-//            makeCollectibleAct();
-//            makeFlagAct();
-//            makeUsableAct();
-            makeAddCollectibleAct();
-        });
-    }
-
-    private void makeMoveAct() {
-        int x1 = random.nextInt(5), y1 = random.nextInt(9);
-        int x2 = random.nextInt(5), y2 = random.nextInt(9);
-//        GameGraphicData.addGameAct(new MoveAct(x1, y1, x2, y2));
-        System.out.println("move from " + x1 + "," + y1 + " to " + x2 + "," + y2);
-    }
-
 
     private void makeAttackAct() {
         int x1 = 0, y1 = 1, x2 = 1, y2 = 2;

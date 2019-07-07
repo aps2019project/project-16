@@ -1,5 +1,6 @@
 package models;
 
+import models.artificialIntelligence.AIAccount;
 import models.artificialIntelligence.AIPlayer;
 import models.card.Card;
 import models.card.Hero;
@@ -52,7 +53,8 @@ public class Game {
         BattleUpdate leftSide = new BattleUpdate(new SetOnLeftAct(true));
         BattleUpdate rightSide = new BattleUpdate(new SetOnLeftAct(false));
         Server.getInstance().sendPacketTo(firstAccount.getName(), leftSide);
-        Server.getInstance().sendPacketTo(secondAccount.getName(), rightSide);
+        if (!(secondAccount instanceof AIAccount))
+            Server.getInstance().sendPacketTo(secondAccount.getName(), rightSide);
 
         ClientSender.sendToAllViewers(new SetPlayerInfosAct(firstAccount.getName(), secondAccount.getName()));
 

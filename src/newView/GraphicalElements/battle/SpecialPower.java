@@ -4,9 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import newView.GraphicalElements.ScaleTool;
 import newView.battleView.GameGraphicData;
 import newView.battleView.SelectType;
-import newView.GraphicalElements.ScaleTool;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

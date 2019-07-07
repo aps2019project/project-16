@@ -3,9 +3,9 @@ package newView.GraphicalElements.battle;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import newView.battleView.GameGraphicData;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.effects.FadeEffect;
+import newView.battleView.GameGraphicData;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,8 +21,8 @@ public class EndTurnButton extends ImageView {
     private static final double BUTTON_WIDTH = 250;
     private static final double BUTTON_HEIGHT = 100;
 
-    public EndTurnButton(boolean enable) throws FileNotFoundException {
-        isEnable = enable;
+    public EndTurnButton() throws FileNotFoundException {
+        isEnable = GameGraphicData.isOnLeft();
         if (isEnable) {
             setImage(normalImage);
         } else {
@@ -47,7 +47,9 @@ public class EndTurnButton extends ImageView {
             }
         });
         node.setOnMouseClicked(event -> {
-            GameGraphicData.sendChangeTurnRequest();
+            if (isEnable) {
+                GameGraphicData.sendChangeTurnRequest();
+            }
         });
     }
 

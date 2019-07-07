@@ -11,12 +11,12 @@ import javafx.util.Duration;
 import models.card.Hero;
 import models.card.Unit;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
-import newView.battleView.GameGraphicListener;
-import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.SoundPlayer;
 import newView.Type;
+import newView.battleView.GameGraphicData;
+import newView.battleView.GameGraphicListener;
+import newView.battleView.SelectType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

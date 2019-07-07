@@ -1,12 +1,14 @@
 package newView.GraphicalElements.effects;
 
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransitionBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+
 import java.util.Random;
 
 import static newView.SceneMakers.SceneMaker.*;

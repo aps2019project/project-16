@@ -33,8 +33,9 @@ public class CustomGameController implements CustomGameContract.Controller {
         Account currentAccount = GameContents.getCurrentAccount();
         Account AIAccount = new AIAccount("AI", "123", oppDeck.getCopy());
 
-        Server.getInstance().sendPacketByThread(new GameStartedUpdate());
         new Game(currentAccount, AIAccount, 1000, gameMode, flags);
+
+        Server.getInstance().sendPacketByThread(new GameStartedUpdate());
     }
 
     @Override

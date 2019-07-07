@@ -33,8 +33,6 @@ public class MultiPlayerController implements MultiPlayerContract.Controller {
             Notify.logError("OOPS! This account doesn't have valid main deck. Try another one!");
         } else {
             currentAccount.setOpponentAccount(secondAccount);
-//            GameContents
-//            .setSecondAccount(secondAccount);
             Notify.logMessage("You selected \"" + secondUserName + "\" as second account.");
         }
     }

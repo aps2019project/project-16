@@ -1,7 +1,9 @@
 package controllers;
 
 import contracts.ShopContract;
-import models.*;
+import models.Collection;
+import models.GameContents;
+import models.Shop;
 import models.card.Card;
 import models.card.Hero;
 import models.item.Item;

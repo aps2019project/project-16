@@ -7,13 +7,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import models.card.*;
+import models.card.Card;
 import newView.AnimationMaker;
-import newView.battleView.GameGraphicData;
-import newView.battleView.SelectType;
 import newView.GraphicalElements.ScaleTool;
 import newView.SoundPlayer;
 import newView.Type;
+import newView.battleView.GameGraphicData;
+import newView.battleView.SelectType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
