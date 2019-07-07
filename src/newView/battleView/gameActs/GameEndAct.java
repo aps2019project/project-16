@@ -1,5 +1,6 @@
 package newView.battleView.gameActs;
 
+import ir.pas.ClientApp;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
@@ -8,6 +9,7 @@ import javafx.util.Duration;
 import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.TilesPane;
+import newView.SceneMakers.MainMenuSceneMaker;
 import newView.battleView.GameGraphicData;
 
 import static newView.GraphicalElements.battle.Tile.TILE_LENGTH;
@@ -44,5 +46,7 @@ public class GameEndAct extends GameAct {
                 , false, 1
                 , keyValue, keyValue1, keyValue2);
         timeline.play();
+
+        timeline.setOnFinished(event -> new MainMenuSceneMaker(ClientApp.getPrimaryStage()).set());
     }
 }
