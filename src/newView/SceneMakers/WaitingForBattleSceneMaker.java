@@ -9,6 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.net.Client;
+import models.net.requests.gameRequests.MultiPlayerGameRequest;
+import models.net.requests.gameRequests.RefuseRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
@@ -20,7 +22,7 @@ import java.util.Random;
 public class WaitingForBattleSceneMaker extends SceneMaker {
     public WaitingForBattleSceneMaker(Stage primaryStage) {
         super(primaryStage);
-//        Client.getInstance().sendPacket(null); //todo request must be added
+        Client.getInstance().sendPacket(new MultiPlayerGameRequest());
     }
 
     private double x = 0;
@@ -47,7 +49,7 @@ public class WaitingForBattleSceneMaker extends SceneMaker {
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/waitingForBattleMenu/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
         back.setOnMouseClicked(event -> {
-//            Client.getInstance().sendPacket(null); //todo request must be added
+            Client.getInstance().sendPacket(new RefuseRequest()); 
             new MainMenuSceneMaker(getPrimaryStage()).set();
         });
         return back;

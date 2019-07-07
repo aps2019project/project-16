@@ -48,20 +48,20 @@ public class BattleSceneMaker extends SceneMaker {
 
         ScaleTool.resizeImageView(storyMode, 100, 200);
         ScaleTool.resizeImageView(customGame, 100, 203);
-        ScaleTool.resizeImageView(multiPlayer , 100 , 203);
+        ScaleTool.resizeImageView(multiPlayer, 100, 203);
 
 
         ScaleTool.homothety(storyMode, 2.8);
         ScaleTool.homothety(customGame, 2.8);
-        ScaleTool.homothety(multiPlayer , 3.1);
+        ScaleTool.homothety(multiPlayer, 3.1);
 
         ScaleTool.relocate(storyMode, 200, 250);
         ScaleTool.relocate(customGame, 900, 250);
-        ScaleTool.relocate(multiPlayer ,550 , 250 );
+        ScaleTool.relocate(multiPlayer, 550, 250);
 
         storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
         customGame.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
-        multiPlayer.setOnMouseClicked(event -> Client.getInstance().sendPacket(new MultiPlayerGameRequest()));
+        multiPlayer.setOnMouseClicked(event -> new WaitingForBattleSceneMaker(getPrimaryStage()).set());
 
         Text storyModeText = new Text();
         storyModeText.setText("STORY MODE");
@@ -73,15 +73,15 @@ public class BattleSceneMaker extends SceneMaker {
         customGameText.setText("CUSTOM GAME");
         customGameText.setFill(Color.WHITE);
         customGameText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(customGameText,847 , 560);
+        ScaleTool.relocate(customGameText, 847, 560);
 
-        Text multiPlayerText  = new Text();
+        Text multiPlayerText = new Text();
         multiPlayerText.setText("MULTIPLAYER");
         multiPlayerText.setFill(Color.WHITE);
         multiPlayerText.setStyle("-fx-font-size: 30");
-        ScaleTool.relocate(multiPlayerText , 515 , 580);
+        ScaleTool.relocate(multiPlayerText, 515, 580);
 
-        pane.getChildren().addAll(customGame, storyMode, customGameText, storyModeText, back , multiPlayer , multiPlayerText);
+        pane.getChildren().addAll(customGame, storyMode, customGameText, storyModeText, back, multiPlayer, multiPlayerText);
 
         return new MyScene(pane);
     }
