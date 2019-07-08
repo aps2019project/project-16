@@ -3,14 +3,13 @@ package models.net;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.com.google.gson.JsonStreamParser;
 import com.gilecode.yagson.com.google.gson.stream.JsonWriter;
+import ir.pas.ClientApp;
 import newView.SceneMakers.CollectionSceneMaker;
 import newView.SceneMakers.ShopSceneMaker;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -109,7 +108,11 @@ public class Client {
     public static Client getInstance() {
         if (instance == null) {
             try {
-                instance = new Client("127.0.0.1", 8080); // todo change port
+                Properties properties = new Properties();
+                properties.load(new FileReader(ClientApp.class.getClassLoader()
+                        .getResource("config.properties").getPath()));
+                int port = Integer.parseInt(properties.getProperty("server.port"));
+                instance = new Client("127.0.0.1", port);
             } catch (IOException e) {
                 e.printStackTrace();
             }

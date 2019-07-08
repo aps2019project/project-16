@@ -1,16 +1,19 @@
 package models.net;
 
 import controllers.AccountController;
+import ir.pas.ServerApp;
 import models.Account;
 import models.Game;
 import models.GameContents;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 public class Server {
     private static Server instance;
@@ -23,13 +26,17 @@ public class Server {
     private String matchQueue;
     public final String matchQueueLock = "Lock";
 
-    ArrayList<Game> liveGames = new ArrayList<>();
-    ArrayList<Game> gameHistory = new ArrayList<>();
+    private ArrayList<Game> liveGames = new ArrayList<>();
+    private ArrayList<Game> gameHistory = new ArrayList<>();
 
     private Server() {
         new AccountController().loadAccounts();
         try {
-            serverSocket = new ServerSocket(8080);
+            Properties properties = new Properties();
+            properties.load(new FileReader(ServerApp.class.getClassLoader()
+                    .getResource("config.properties").getPath()));
+            int port = Integer.parseInt(properties.getProperty("server.port"));
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
