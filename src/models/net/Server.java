@@ -23,6 +23,9 @@ public class Server {
     private String matchQueue;
     public final String matchQueueLock = "Lock";
 
+    ArrayList<Game> liveGames = new ArrayList<>();
+    ArrayList<Game> gameHistory = new ArrayList<>();
+
     private Server() {
         new AccountController().loadAccounts();
         try {
@@ -110,5 +113,32 @@ public class Server {
         if (instance == null)
             instance = new Server();
         return instance;
+    }
+
+    public void addLiveGame(Game game) {
+        liveGames.add(game);
+    }
+
+    public void liveGameFinish(Game game) {
+        liveGames.remove(game);
+        gameHistory.add(game);
+    }
+
+    public ArrayList<Game> getLiveGames() {
+        return liveGames;
+    }
+
+    public ArrayList<Game> getGameHistory() {
+        return gameHistory;
+    }
+
+    public Game getGame(int matchId) {
+        for (Game game : liveGames)
+            if (game.getMatchId() == matchId)
+                return game;
+        for (Game game : gameHistory)
+            if (game.getMatchId() == matchId)
+                return game;
+        return null;
     }
 }
