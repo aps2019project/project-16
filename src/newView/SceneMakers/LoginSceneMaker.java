@@ -48,7 +48,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         HBox userName = new HBox();
         HBox password = new HBox();
 
-
         TextField userNameField = new TextField();
         PasswordField passwordField = new PasswordField();
 
@@ -73,7 +72,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         box.setSpacing(SCALE * 30);
         passwordLabel.setTextFill(Color.WHITE);
 
-
         userName.getChildren().addAll(userNameLabel, userNameField);
         userName.setSpacing(SCALE * 5);
 
@@ -93,7 +91,6 @@ public class LoginSceneMaker extends SceneMaker implements AccountContract.View 
         singUp.setOnMouseClicked(event -> {
             Client.getInstance().sendPacket(new SignUpRequest(userNameField.getText(), passwordField.getText()));
         });
-
 
         Rectangle rectangle = new Rectangle();
 
