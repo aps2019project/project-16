@@ -62,6 +62,8 @@ public class InGameController implements InGameContract.Controller {
         Account currentAccount = GameContents.getCurrentAccount();
 
         Game game = currentAccount.getCurrentGame();
+        if (game == null)
+            return;
         Player currentPlayer = game.getCurrentPlayer();
         Unit unit = currentPlayer.getUnit(cardName, gameID);
         if (unit == null) {
@@ -80,6 +82,8 @@ public class InGameController implements InGameContract.Controller {
         Account currentAccount = GameContents.getCurrentAccount();
 
         Game game = currentAccount.getCurrentGame();
+        if (game == null)
+            return;
         Player currentPlayer = game.getCurrentPlayer();
         Cell cell = game.getTable().getCell(row, column);
         Unit selectedUnit = currentPlayer.getSelectedUnit();
@@ -116,6 +120,8 @@ public class InGameController implements InGameContract.Controller {
         Account currentAccount = GameContents.getCurrentAccount();
 
         Game game = currentAccount.getCurrentGame();
+        if (game == null)
+            return;
         Player currentPlayer = game.getCurrentPlayer();
         Player opponentPlayer = game.getOpponentPlayer();
         Unit opponentUnit = opponentPlayer.getUnit(oppCardName, gameID);
@@ -200,6 +206,8 @@ public class InGameController implements InGameContract.Controller {
         Account currentAccount = GameContents.getCurrentAccount();
 
         Game game = currentAccount.getCurrentGame();
+        if (game == null)
+            return;
         Cell cellToUseSP = game.getTable().getCell(row, column);
         Player currentPlayer = game.getCurrentPlayer();
         try {
@@ -237,6 +245,8 @@ public class InGameController implements InGameContract.Controller {
             Account currentAccount = GameContents.getCurrentAccount();
 
             Game game = currentAccount.getCurrentGame();
+            if (game == null)
+                return;
             Player currentPlayer = game.getCurrentPlayer();
             Card cardToInsert = currentPlayer.getHand().getCard(cardName);
             Cell cell = game.getTable().getCell(row, column);
