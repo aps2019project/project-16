@@ -1,5 +1,6 @@
 package newView.SceneMakers;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -47,30 +48,36 @@ public class ServerShopSceneMaker extends SceneMaker {
         ScaleTool.relocate(back, 20, 20);
 
         root.getChildren().addAll(back, scrollPane);
-
-
         return new MyScene(root);
     }
 
-    private void show() {
-        ArrayList<Object> cards = new ArrayList();
-        cards.addAll(shop.getCards());
-        cards.addAll(shop.getItems());
 
-        for (Object object : cards) {
-            Text cardText = new Text();
-            if (object instanceof Hero) {
-                cardText.setText(((Card) object).getName() + "     Hero     " + ((Card) object).getCapacity());
-            } else if (object instanceof Minion) {
-                cardText.setText(((Minion) object).getName() + "     MINION      " + ((Minion) object).getCapacity());
-            } else if (object instanceof SpellCard) {
-                cardText.setText(((SpellCard) object).getName() + "      SPELL       " + ((SpellCard) object).getCapacity());
-            } else if (object instanceof Item) {
-                cardText.setText(((Item) object).getName() + "     ITEM    " + ((Item) object).getCapacity());
+    private void show() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<Object> cards = new ArrayList();
+                cards.addAll(shop.getCards());
+                cards.addAll(shop.getItems());
+
+                for (Object object : cards) {
+                    Text cardText = new Text();
+                    if (object instanceof Hero) {
+                        cardText.setText(((Card) object).getName() + "     Hero     " + ((Card) object).getCapacity());
+                    } else if (object instanceof Minion) {
+                        cardText.setText(((Minion) object).getName() + "     MINION      " + ((Minion) object).getCapacity());
+                    } else if (object instanceof SpellCard) {
+                        cardText.setText(((SpellCard) object).getName() + "      SPELL       " + ((SpellCard) object).getCapacity());
+                    } else if (object instanceof Item) {
+                        cardText.setText(((Item) object).getName() + "     ITEM    " + ((Item) object).getCapacity());
+                    }
+                    cardText.setFill(Color.BLACK);
+                    cardText.setStyle("-fx-font-size: 20");
+                    vBox.getChildren().add(cardText);
+                }
             }
-            cardText.setFill(Color.BLACK);
-            cardText.setStyle("-fx-font-size: 20");
-            vBox.getChildren().add(cardText);
-        }
+        });
+
     }
 }
+

@@ -58,11 +58,6 @@ public class GlobalChatPane extends Pane {
             messages.setSpacing(20);
             messages.setPadding(new Insets(0, 10, 0, 10));
 
-            //todo must delete
-            addMessage();
-            addMessage();
-            addMessage();
-
             messagesBackgroundPane.getChildren().add(messages);
             this.getChildren().add(back);
             this.getChildren().add(scroller);
