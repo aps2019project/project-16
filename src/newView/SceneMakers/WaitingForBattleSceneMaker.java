@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -15,13 +16,19 @@ import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
 public class WaitingForBattleSceneMaker extends SceneMaker {
+    private static File audioPath = new File("src/newView/resources/sounds/waitingForBattle/3. 50 Cent In Da Club (2003) (www.htbeats.mihanblog.com).mp3");
+    public static AudioClip waitingForBattleMusic = new AudioClip(audioPath.toURI().toString());
+
+
     public WaitingForBattleSceneMaker(Stage primaryStage) {
         super(primaryStage);
+        waitingForBattleMusic.play();
         Client.getInstance().sendPacket(new MultiPlayerGameRequest());
     }
 
@@ -49,7 +56,8 @@ public class WaitingForBattleSceneMaker extends SceneMaker {
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/waitingForBattleMenu/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
         back.setOnMouseClicked(event -> {
-            Client.getInstance().sendPacket(new RefuseRequest()); 
+            waitingForBattleMusic.stop();
+            Client.getInstance().sendPacket(new RefuseRequest());
             new MainMenuSceneMaker(getPrimaryStage()).set();
         });
         return back;
@@ -60,7 +68,6 @@ public class WaitingForBattleSceneMaker extends SceneMaker {
         ImageView randomHeroImage = new ImageView(new Image(new FileInputStream("src/newView/resources/waitingForBattleMenu/" + imageNumber + ".png")));
         ScaleTool.relocate(randomHeroImage, -2000 + 80, -1500);
         ScaleTool.homothety(randomHeroImage, 0.21);
-
 
         pane.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
             if (event.getX() < x) {

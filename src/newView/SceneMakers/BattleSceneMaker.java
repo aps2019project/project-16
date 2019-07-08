@@ -8,8 +8,6 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.net.Client;
-import models.net.requests.gameRequests.MultiPlayerGameRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
@@ -24,7 +22,6 @@ public class BattleSceneMaker extends SceneMaker {
         super(primaryStage);
         if (!battleBgSound.isPlaying())
             battleBgSound.play();
-
     }
 
     @Override
@@ -61,7 +58,10 @@ public class BattleSceneMaker extends SceneMaker {
 
         storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
         customGame.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
-        multiPlayer.setOnMouseClicked(event -> new WaitingForBattleSceneMaker(getPrimaryStage()).set());
+        multiPlayer.setOnMouseClicked(event -> {
+            new WaitingForBattleSceneMaker(getPrimaryStage()).set();
+            BattleSceneMaker.battleBgSound.stop();
+        });
 
         Text storyModeText = new Text();
         storyModeText.setText("STORY MODE");

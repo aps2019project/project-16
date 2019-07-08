@@ -16,6 +16,7 @@ public class InGameSceneMaker extends SceneMaker {
 
     public InGameSceneMaker(Stage primaryStage) {
         super(primaryStage);
+        WaitingForBattleSceneMaker.waitingForBattleMusic.stop();
     }
 
     @Override
