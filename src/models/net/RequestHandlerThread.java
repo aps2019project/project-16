@@ -2,9 +2,12 @@ package models.net;
 
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.com.google.gson.JsonStreamParser;
+import models.Game;
+import models.GameContents;
 import models.net.requests.LoginRequest;
 import models.net.requests.ScoreBoardRequest;
 import models.net.requests.SignUpRequest;
+import models.net.requests.battleRequests.BattleRequest;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,12 +32,18 @@ public class RequestHandlerThread extends Thread {
         try {
             while (parser.hasNext()) {
                 RequestPacket packet = deserializer.fromJson(parser.next(), RequestPacket.class);
+                System.out.println(packet);
                 if (!(packet instanceof SignUpRequest)
                         && !(packet instanceof LoginRequest)
                         && !(packet instanceof ScoreBoardRequest))
                     if (packet.getAuthToken() == null || !packet.getAuthToken().equals(serverSideClient.getAuthToken()))
                         continue;
-                System.out.println(packet);
+                if (packet instanceof BattleRequest) {
+                    Game game = GameContents.findAccount(accountName).getCurrentGame();
+                    String currentPlayerName = game.getCurrentPlayer().getName();
+                    if (!currentPlayerName.equals(accountName))
+                        continue;
+                }
                 packet.run();
             }
         } finally {
