@@ -23,6 +23,7 @@ import models.card.Hero;
 import models.card.Minion;
 import models.card.SpellCard;
 import models.item.Item;
+import models.net.Client;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
@@ -49,6 +50,7 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
 
     {
         controller.loadCollection();
+        Client.getInstance().setCollectionSceneMaker(this);
     }
 
     public CollectionSceneMaker(Stage primaryStage) {
