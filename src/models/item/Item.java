@@ -16,6 +16,10 @@ public abstract class Item {
     private int collectibleID;
     private int capacity = CAPACITY;
 
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
     public int getCapacity() {
         return capacity;
     }

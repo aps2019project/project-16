@@ -13,6 +13,11 @@ public abstract class Card {
     private String description;
     private int collectionID;
     private int gameCardID;
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
     private int capacity = CAPACITY;
 
     public int getCapacity() {
