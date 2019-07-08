@@ -112,11 +112,13 @@ public class Shop {
     private boolean CustomCardIsRepeated(Card customCard) throws FileNotFoundException {
         File dir = customCardsPath;
         File[] files = dir.listFiles();
-        for (File file : files) {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            Card card = new YaGson().fromJson(reader, Card.class);
-            if (card.getName().equals(customCard.getName()) && getCardType(card).equals(getCardType(customCard))) {
-                return true;
+        if (files != null) {
+            for (File file : files) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                Card card = new YaGson().fromJson(reader, Card.class);
+                if (card.getName().equals(customCard.getName()) && getCardType(card).equals(getCardType(customCard))) {
+                    return true;
+                }
             }
         }
         return false;
