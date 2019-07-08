@@ -8,6 +8,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.net.Client;
+import models.net.requests.gameRequests.MultiPlayerGameRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
@@ -60,6 +62,7 @@ public class BattleSceneMaker extends SceneMaker {
         customGame.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
         multiPlayer.setOnMouseClicked(event -> {
             new WaitingForBattleSceneMaker(getPrimaryStage()).set();
+            Client.getInstance().sendPacket(new MultiPlayerGameRequest());
             BattleSceneMaker.battleBgSound.stop();
         });
 

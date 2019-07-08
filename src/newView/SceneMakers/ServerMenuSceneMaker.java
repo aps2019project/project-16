@@ -7,7 +7,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import newView.GraphicalElements.MyScene;
 import newView.GraphicalElements.ScaleTool;
-import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 
 public class ServerMenuSceneMaker extends SceneMaker {
 

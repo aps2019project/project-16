@@ -1,6 +1,7 @@
 package newView.battleView;
 
 import javafx.application.Platform;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import models.item.Item;
 import models.net.Client;
@@ -22,6 +23,7 @@ public class GameGraphicData {
     private static CollectiblesHBox collectiblesHBox;
     private static GraveyardPane graveyardPane;
     private static CardInfo cardInfo;
+    private static ProgressBar bar = null;
 
     private static SelectType selectType = null;
     private static boolean spectator;
@@ -29,6 +31,8 @@ public class GameGraphicData {
     private static Tile selectedTile;
     private static HandElement selectedHandElement;
     private static CollectibleElement selectedCollectibleElement;
+
+    private static int turnID = 0;
 
     private static GameGraphicListener listener = new GameGraphicListener();
 
@@ -118,6 +122,20 @@ public class GameGraphicData {
         return tilesPane;
     }
 
+    public static void setBar(ProgressBar bar) {
+        removeBar();
+        if (bar != null) {
+            tilesPane.getChildren().add(bar);
+        }
+        GameGraphicData.bar = bar;
+    }
+
+    private static void removeBar() {
+        if (GameGraphicData.bar != null) {
+            tilesPane.getChildren().remove(GameGraphicData.bar);
+        }
+    }
+
     public static PlayerInfoPane[] getInfoPanes() {
         return infoPanes;
     }
@@ -148,6 +166,18 @@ public class GameGraphicData {
 
     public static boolean isOnLeft() {
         return onLeft;
+    }
+
+    public static boolean isMyTurn() {
+        return turnButton.isEnable();
+    }
+
+    public static int getTurnID() {
+        return turnID;
+    }
+
+    public static void incrementTurnID() {
+        turnID++;
     }
 
     public static void addCollectibles(ArrayList<Item> items) {

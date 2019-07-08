@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class ReplayMatchesSceneMaker extends SceneMaker {
 
-    private static ArrayList<MatchDetail> finishedMatchDetails;
+    private static ArrayList<MatchDetail> finishedMatchDetails = new ArrayList<>();
     private static ArrayList<MatchDetail> liveMatchDetails = new ArrayList<>();
 
     private static int archiveCounter;

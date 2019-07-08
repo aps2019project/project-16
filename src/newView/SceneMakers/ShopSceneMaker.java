@@ -2,6 +2,7 @@ package newView.SceneMakers;
 
 import contracts.ShopContract;
 import controllers.ShopController;
+import controllers.ShopNetController;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
@@ -15,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.card.*;
 import models.item.Item;
+import models.net.Client;
 import newView.CardMaker;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
@@ -26,11 +28,11 @@ import java.io.FileInputStream;
 import java.util.*;
 
 public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
-    private ShopContract.Controller controller = new ShopController(this);
+    private ShopContract.Controller controller = new ShopNetController();
 
     private Type visibleType = Type.HERO;
 
-    private List<Object> collection;
+    private List<Object> collection = new ArrayList<>();
     private GridPane visibleCards;
 
     private int collectionCounter;
@@ -56,8 +58,13 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
     private boolean inShop = true;
 
     {
+        Client.getInstance().setShopSceneMaker(this);
+
         controller.loadShop();
-        controller.loadCollection();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ignored) {
+        }
         try {
             for (Card hero : heroes)
                 heroPanes.put(hero.getName(), new CardMaker(hero.getName(), Type.HERO, hero).getUnitCardViewInShop());
@@ -160,6 +167,11 @@ public class ShopSceneMaker extends SceneMaker implements ShopContract.View {
         collection.setOnMouseClicked(event -> {
             inShop = false;
             controller.loadCollection();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             showCardList(visibleCards, this.collection);
         });
 

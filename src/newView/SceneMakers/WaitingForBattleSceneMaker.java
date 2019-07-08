@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.net.Client;
-import models.net.requests.gameRequests.MultiPlayerGameRequest;
 import models.net.requests.gameRequests.RefuseRequest;
 import newView.AnimationMaker;
 import newView.GraphicalElements.BackgroundMaker;
@@ -40,7 +39,6 @@ public class WaitingForBattleSceneMaker extends SceneMaker {
     public WaitingForBattleSceneMaker(Stage primaryStage) {
         super(primaryStage);
         waitingForBattleMusic.play();
-        Client.getInstance().sendPacket(new MultiPlayerGameRequest());
     }
 
     private double x = 0;

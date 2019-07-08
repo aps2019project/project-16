@@ -1,9 +1,13 @@
 package newView.battleView.gameActs;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import models.net.Client;
+import models.net.requests.battleRequests.EndTurnRequest;
 import newView.AnimationMaker;
 import newView.GraphicalElements.ScaleTool;
 import newView.GraphicalElements.battle.TilesPane;
@@ -41,6 +45,46 @@ public class TurnChangeAct extends GameAct {
 
         timeline.setOnFinished(event -> tilesPane.getChildren().remove(text));
 
+        GameGraphicData.incrementTurnID();
         GameGraphicData.getTurnButton().changeState();
+        GameGraphicData.setBar(null);
+
+        setTurnTimeBar();
+    }
+
+    public static void setTurnTimeBar() {
+        if (GameGraphicData.isMyTurn() && !GameGraphicData.isSpectator()) {
+            int myTurnID = GameGraphicData.getTurnID();
+
+            ProgressBar bar = new ProgressBar(0);
+            bar.setPrefSize(TILE_LENGTH * NUMBER_OF_COLUMNS, 15);
+            ScaleTool.relocate(bar, 0, TILE_LENGTH * NUMBER_OF_ROWS + 30);
+
+            double timeToWait = 40;
+
+            Timeline task = new Timeline(
+                    new KeyFrame(
+                            Duration.seconds(timeToWait * 3 / 4),
+                            new KeyValue(bar.progressProperty(), 1)
+                    )
+            );
+
+            Timeline timeLimiter = AnimationMaker.makeTimeline(Duration.seconds(timeToWait / 4)
+                    , false, 1);
+            timeLimiter.play();
+
+            timeLimiter.setOnFinished(event -> {
+                if (myTurnID == GameGraphicData.getTurnID()) {
+                    GameGraphicData.setBar(bar);
+                    task.play();
+
+                    task.setOnFinished(event1 -> {
+                        if (myTurnID == GameGraphicData.getTurnID()) {
+                            Client.getInstance().sendPacket(new EndTurnRequest());
+                        }
+                    });
+                }
+            });
+        }
     }
 }

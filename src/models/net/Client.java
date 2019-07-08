@@ -3,6 +3,8 @@ package models.net;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.com.google.gson.JsonStreamParser;
 import com.gilecode.yagson.com.google.gson.stream.JsonWriter;
+import newView.SceneMakers.CollectionSceneMaker;
+import newView.SceneMakers.ShopSceneMaker;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +19,9 @@ public class Client {
     private Socket socket;
     private MyObservable<Boolean> socketState;
     private String authToken;
+
+    private ShopSceneMaker shopSceneMaker;
+    private CollectionSceneMaker collectionSceneMaker;
 
     private Thread readerThread;
     private Thread writerThread;
@@ -61,8 +66,12 @@ public class Client {
             try (InputStream inputStream = socket.getInputStream()) {
                 JsonStreamParser parser = new JsonStreamParser(new InputStreamReader(inputStream));
                 while (parser.hasNext()) {
-                    UpdatePacket packet = deserializer.fromJson(parser.next(), UpdatePacket.class);
-                    packet.update();
+                    try {
+                        UpdatePacket packet = deserializer.fromJson(parser.next(), UpdatePacket.class);
+                        packet.update();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 socket.close();
             } catch (IOException e) {
@@ -114,6 +123,22 @@ public class Client {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public ShopSceneMaker getShopSceneMaker() {
+        return shopSceneMaker;
+    }
+
+    public void setShopSceneMaker(ShopSceneMaker shopSceneMaker) {
+        this.shopSceneMaker = shopSceneMaker;
+    }
+
+    public CollectionSceneMaker getCollectionSceneMaker() {
+        return collectionSceneMaker;
+    }
+
+    public void setCollectionSceneMaker(CollectionSceneMaker collectionSceneMaker) {
+        this.collectionSceneMaker = collectionSceneMaker;
     }
 }
 
