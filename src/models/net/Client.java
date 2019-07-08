@@ -61,8 +61,12 @@ public class Client {
             try (InputStream inputStream = socket.getInputStream()) {
                 JsonStreamParser parser = new JsonStreamParser(new InputStreamReader(inputStream));
                 while (parser.hasNext()) {
-                    UpdatePacket packet = deserializer.fromJson(parser.next(), UpdatePacket.class);
-                    packet.update();
+                    try {
+                        UpdatePacket packet = deserializer.fromJson(parser.next(), UpdatePacket.class);
+                        packet.update();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 socket.close();
             } catch (IOException e) {

@@ -27,10 +27,6 @@ public class ScoreBoardPane extends Pane {
 
     public ScoreBoardPane() {
         try {
-            this.accountProperties.add(new AccountProperty(100, "mmd", 35, true));
-            this.accountProperties.add(new AccountProperty(200, "asfa", 80, false));
-            updateScoreBoard(accountProperties);
-
             setBackground();
             setBack();
             background.getChildren().add(accounts);
