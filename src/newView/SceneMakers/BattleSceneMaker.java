@@ -24,7 +24,6 @@ public class BattleSceneMaker extends SceneMaker {
         super(primaryStage);
         if (!battleBgSound.isPlaying())
             battleBgSound.play();
-
     }
 
     @Override
@@ -61,7 +60,11 @@ public class BattleSceneMaker extends SceneMaker {
 
         storyMode.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), false).set());
         customGame.setOnMouseClicked(event -> new GameModeSelectorSceneMaker(getPrimaryStage(), true).set());
-        multiPlayer.setOnMouseClicked(event -> new WaitingForBattleSceneMaker(getPrimaryStage()).set());
+        multiPlayer.setOnMouseClicked(event -> {
+            new WaitingForBattleSceneMaker(getPrimaryStage()).set();
+            Client.getInstance().sendPacket(new MultiPlayerGameRequest());
+            BattleSceneMaker.battleBgSound.stop();
+        });
 
         Text storyModeText = new Text();
         storyModeText.setText("STORY MODE");

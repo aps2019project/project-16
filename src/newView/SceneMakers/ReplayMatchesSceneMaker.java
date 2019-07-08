@@ -1,9 +1,7 @@
 package newView.SceneMakers;
 
-import com.sun.deploy.util.SyncAccess;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +13,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.MatchDetail;
 import models.net.Client;
-import models.net.requests.gameRequests.RefuseRequest;
 import models.net.requests.watchRequests.LiveWatchRequest;
 import models.net.requests.watchRequests.ReplayWatchRequest;
 import newView.GraphicalElements.BackgroundMaker;
@@ -28,8 +25,8 @@ import java.util.ArrayList;
 
 public class ReplayMatchesSceneMaker extends SceneMaker {
 
-    private static ArrayList<MatchDetail> finishedMatchDetails;
-    private static ArrayList<MatchDetail> liveMatchDetails;
+    private static ArrayList<MatchDetail> finishedMatchDetails = new ArrayList<>();
+    private static ArrayList<MatchDetail> liveMatchDetails = new ArrayList<>();
 
     private static int archiveCounter;
     private static int onlineCounter;
@@ -183,6 +180,8 @@ public class ReplayMatchesSceneMaker extends SceneMaker {
         finishedMatchDetails = matchDetails;
         showMatches();
     }
+
+
 
 
 }

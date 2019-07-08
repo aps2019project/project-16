@@ -74,4 +74,8 @@ public class EndTurnButton extends ImageView {
             setEnable();
         }
     }
+
+    public boolean isEnable() {
+        return isEnable;
+    }
 }

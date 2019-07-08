@@ -11,19 +11,39 @@ import newView.Type;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.SplittableRandom;
 
 public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
+    private HashMap<String, Integer> capacityToCard = new HashMap<>();
+    private HashMap<String, Integer> capacityToItem = new HashMap<>();
+
     private File customCardsPath = new File("customCards");
+    private File hashMapCardPath = new File("cardCapacity/hashMapCard.txt");
+    private File hashMapItemPath = new File("cardCapacity/hashMapItem.txt");
+
     //file custom card
 
     public Shop() throws FileNotFoundException {
         initCustomCards();
         Initializer.initShopCards(cards);
         Initializer.initShopUsableItems(items);
+        try {
+//            firstInitHashMapCard();
+//            firstinitHashMapItem();
+            loadItemCapacities();
+            loadCardCapacities();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //just for showing capacities when load he shop
+        loadItemCapacities();
+        System.out.println(capacityToItem);
+        loadCardCapacities();
+        System.out.println(capacityToCard);
     }
 
     private void initCustomCards() throws FileNotFoundException {
@@ -35,6 +55,57 @@ public class Shop {
                 Card card = new YaGson().fromJson(reader, Card.class);
                 cards.add(card);
             }
+        }
+    }
+
+    private void initHashMapCard() throws IOException {
+        for (Card card : cards) {
+            capacityToCard.put(card.getName(), card.getCapacity());
+        }
+
+        YaGson yaGson = new YaGson();
+        String json = yaGson.toJson(capacityToCard);
+        // TODO: 7/8/2019 must be checked and test
+
+        FileWriter writer = new FileWriter(hashMapCardPath);
+
+        writer.write(json);
+        writer.close();
+    }
+
+    private void initHashMapItem() throws IOException {
+        // TODO: 7/8/2019 must be checked and test
+
+        for (Item item : items) {
+            capacityToItem.put(item.getName(), item.getCapacity());
+        }
+
+        YaGson yaGson = new YaGson();
+        String json = yaGson.toJson(capacityToItem);
+
+        FileWriter writer = new FileWriter(hashMapItemPath);
+
+        writer.write(json);
+        writer.close();
+    }
+
+
+    private void loadCardCapacities() throws FileNotFoundException {
+        // TODO: 7/8/2019 must be checked and test
+
+        BufferedReader reader = new BufferedReader(new FileReader(hashMapCardPath));
+        capacityToCard = new YaGson().fromJson(reader, capacityToCard.getClass());
+        for (Card card : cards) {
+            card.setCapacity(capacityToCard.get(card.getName()));
+        }
+    }
+
+    private void loadItemCapacities() throws FileNotFoundException {
+        // TODO: 7/8/2019 must be checked and test
+        BufferedReader reader = new BufferedReader(new FileReader(hashMapItemPath));
+        capacityToItem = new YaGson().fromJson(reader, capacityToItem.getClass());
+        for (Item item : items) {
+            item.setCapacity(capacityToItem.get(item.getName()));
         }
     }
 
@@ -84,6 +155,11 @@ public class Shop {
 
     public void addCard(Card card) {
         cards.add(card);
+        try {
+            saveCustomCard(card);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Card getCard(String cardName) {
@@ -124,10 +200,16 @@ public class Shop {
 
         Card card = getCard(cardName);
         card.decrementCapacity();
+        try {
+            initHashMapCard();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Card newCard = card.getCopy(true);
         currentAccount.decreaseMoney(newCard.getBuyPrice());
         collection.addCard(newCard);
+
 
     }
 
@@ -140,6 +222,11 @@ public class Shop {
         collection.removeCard(card);
 
         incrementCardCapacity(card.getName());
+        try {
+            initHashMapCard();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void buyItem(String itemName) {
@@ -148,6 +235,11 @@ public class Shop {
 
         Item item = getItem(itemName);
         item.decrementCapacity();
+        try {
+            initHashMapItem();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Item newItem = item.getCopy(true);
         currentAccount.decreaseMoney(newItem.getBuyPrice());
@@ -163,6 +255,11 @@ public class Shop {
         collection.removeItem(item);
 
         incrementItemCapacity(item.getName());
+        try {
+            initHashMapItem();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getType(String name) {

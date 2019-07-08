@@ -86,8 +86,8 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text collection = new Text("Collection");
         collection.setOnMouseClicked(event -> new CollectionSceneMaker(getPrimaryStage()).set());
 
-        Text customCard = new Text("Custom Card");
-        customCard.setOnMouseClicked(event -> new CustomCardSceneMaker(getPrimaryStage()).set());
+//        Text customCard = new Text("Custom Card");
+//        customCard.setOnMouseClicked(event -> new CustomCardSceneMaker(getPrimaryStage()).set());
 
         Text globalChat = new Text("Global Chat");
         globalChat.setOnMouseClicked(event -> new GlobalChatSceneMaker(getPrimaryStage()).set());
@@ -114,7 +114,7 @@ public class MainMenuSceneMaker extends SceneMaker {
         Text exit = new Text("Exit");
         exit.setOnMouseClicked(event -> System.exit(0));
 
-        commandsBox.getChildren().addAll(battle, shop, collection, customCard, globalChat, replayMatches
+        commandsBox.getChildren().addAll(battle, shop, collection, globalChat, replayMatches
                 , scoreBoard, save, logout, exit);
         commandsBox.getChildren().forEach(node -> {
             if (node instanceof Text) {

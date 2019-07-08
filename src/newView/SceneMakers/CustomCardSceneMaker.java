@@ -270,7 +270,8 @@ public class CustomCardSceneMaker extends SceneMaker {
 
         ImageView back = new ImageView(new Image(new FileInputStream("src/newView/resources/customCard/back.png")));
         ScaleTool.resizeImageView(back, 85, 85);
-        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+//        back.setOnMouseClicked(event -> new MainMenuSceneMaker(getPrimaryStage()).set());
+        back.setOnMouseClicked(event -> new ServerMenuSceneMaker(getPrimaryStage()).set());
 
         gettingBuffProperties(buff);
         ScaleTool.relocate(buff, 700, 300);

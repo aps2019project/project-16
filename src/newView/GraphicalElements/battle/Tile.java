@@ -161,7 +161,7 @@ public class Tile extends Pane {
             KeyValue colorValue = new KeyValue(polygon.fillProperty(), color);
             KeyValue strokeValue = new KeyValue(polygon.strokeWidthProperty(), polygon.getStrokeWidth() * 3);
             Timeline timeline = AnimationMaker.makeTimeline(
-                    Duration.millis(GAME_ACT_TIME * 0.25)
+                    Duration.millis(GAME_ACT_TIME * 0.2)
                     , true, 2
                     , colorValue, strokeValue);
             timeline.play();

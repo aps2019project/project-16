@@ -9,7 +9,8 @@ public class ServerApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Server.getInstance();
-        new ServerMenuSceneMaker(primaryStage);
+        new ServerMenuSceneMaker(primaryStage).set();
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

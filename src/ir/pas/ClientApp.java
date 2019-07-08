@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import models.net.Client;
 import models.net.requests.LoginRequest;
 import newView.SceneMakers.LoginSceneMaker;
+import newView.SceneMakers.ReplayMatchesSceneMaker;
 
 public class ClientApp extends Application {
     private static Stage primaryStage;
@@ -18,6 +19,7 @@ public class ClientApp extends Application {
         ClientApp.primaryStage = primaryStage;
         Client.getInstance();
         new LoginSceneMaker(primaryStage).set();
+//        new ReplayMatchesSceneMaker(primaryStage).set();
         primaryStage.show();
     }
 
