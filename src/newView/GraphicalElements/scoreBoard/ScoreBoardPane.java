@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -64,11 +65,19 @@ public class ScoreBoardPane extends Pane {
         ScaleTool.resizeRegion(accounts, 400, 400);
 //        ScaleTool.relocate(accounts, 300, 300);
         for (AccountProperty accountProperty : accountProperties) {
-            Text account = new Text();
-            account.setText(accountProperty.getAccountName() + "        " + accountProperty.getScore() +
-                    "        " + accountProperty.getMoney() + "      " + accountProperty.getIsOnline());
-            accounts.getChildren().add(account);
-            account.setFill(Color.WHITE);
+            HBox fields = new HBox();
+            Text name = new Text(accountProperty.getAccountName());
+            Text score = new Text(Integer.toString(accountProperty.getScore()));
+            Text money = new Text(Integer.toString(accountProperty.getMoney()));
+            Text isOnline = new Text(accountProperty.getIsOnline());
+            name.setFill(Color.NAVAJOWHITE);
+            score.setFill(Color.WHITE);
+            money.setFill(Color.WHITE);
+            isOnline.setFill(Color.WHITE);
+
+            fields.getChildren().addAll(name, score, money, isOnline);
+            fields.setSpacing(20);
+            accounts.getChildren().add(fields);
         }
     }
 
