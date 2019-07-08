@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.net.Client;
-import models.net.requests.gameRequests.MultiPlayerGameRequest;
 import models.net.requests.gameRequests.RefuseRequest;
 import newView.GraphicalElements.BackgroundMaker;
 import newView.GraphicalElements.MyScene;
@@ -29,7 +28,6 @@ public class WaitingForBattleSceneMaker extends SceneMaker {
     public WaitingForBattleSceneMaker(Stage primaryStage) {
         super(primaryStage);
         waitingForBattleMusic.play();
-        Client.getInstance().sendPacket(new MultiPlayerGameRequest());
     }
 
     private double x = 0;
