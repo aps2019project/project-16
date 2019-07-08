@@ -3,6 +3,8 @@ package newView.SceneMakers;
 import com.gilecode.yagson.YaGson;
 import contracts.CollectionContract;
 import controllers.CollectionController;
+import controllers.CollectionNetController;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -37,20 +39,25 @@ import java.util.Random;
 
 public class CollectionSceneMaker extends SceneMaker implements CollectionContract.View {
 
-    private CollectionContract.Controller controller = new CollectionController(this);
+    private CollectionContract.Controller controller = new CollectionNetController();
     private boolean showingDecks = true;
     private ArrayList<Deck> decks;
     private Deck selectedDeck;
     private int collectionCounter;
     private final Pane rightPane = new Pane();
 
-    private List<Object> collection;
+    private List<Object> collection = new ArrayList<>();
 
     private GridPane visibleCards;
 
     {
-        controller.loadCollection();
         Client.getInstance().setCollectionSceneMaker(this);
+        controller.loadCollection();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public CollectionSceneMaker(Stage primaryStage) {
@@ -209,8 +216,10 @@ public class CollectionSceneMaker extends SceneMaker implements CollectionContra
         rightPartVBox.setStyle("-fx-background-color: rgb(24, 24, 32)");
 //        cardsInTheDeck.getChildren().add(deckPane);
 //        rightPane.getChildren().add(cardsInTheDeck);
-        rightPane.getChildren().removeIf(node -> true);
-        rightPane.getChildren().add(rightPartVBox);
+        Platform.runLater(() -> {
+            rightPane.getChildren().removeIf(node -> true);
+            rightPane.getChildren().add(rightPartVBox);
+        });
     }
 
     private void previousAction(GridPane visibleCards) {

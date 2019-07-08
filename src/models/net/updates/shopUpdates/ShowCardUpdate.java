@@ -1,4 +1,4 @@
-package models.net.updates.ShopUpdates;
+package models.net.updates.shopUpdates;
 
 import models.net.Client;
 import models.net.UpdatePacket;

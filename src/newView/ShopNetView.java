@@ -5,9 +5,9 @@ import models.card.Card;
 import models.card.Hero;
 import models.item.Item;
 import models.net.Server;
-import models.net.updates.ShopUpdates.ShowCardUpdate;
-import models.net.updates.ShopUpdates.ShowCollectionUpdate;
-import models.net.updates.ShopUpdates.ShowShopUpdate;
+import models.net.updates.shopUpdates.ShowCardUpdate;
+import models.net.updates.shopUpdates.ShowCollectionUpdate;
+import models.net.updates.shopUpdates.ShowShopUpdate;
 
 import java.util.ArrayList;
 
