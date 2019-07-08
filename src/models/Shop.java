@@ -132,7 +132,7 @@ public class Shop {
         YaGson yaGson = new YaGson();
         String json = yaGson.toJson(customCard);
 
-        FileWriter writer = new FileWriter("customCards/" + getCardType(customCard).getName() + "_" + customCard.getName() + ".josn");
+        FileWriter writer = new FileWriter("customCards/" + getCardType(customCard).getName() + "_" + customCard.getName() + ".json");
 
         writer.write(json);
         writer.close();
